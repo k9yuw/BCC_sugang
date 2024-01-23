@@ -13,7 +13,7 @@ export default function Home() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(id);
-    router.push("/home");
+    router.push("/searchCourses");
 
     // const formData = new FormData(e.currentTarget);
     // console.log(formData);

@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [language, setLanguage] = useState("kor");
   const [classNum, setClassNum] = useState("");
-  const [mouseEnter, setMouseEnter] = useState(false);
+  const [navMouseEnterOne, setNavMouseEnterOne] = useState(false);
+  const [navMouseEnterTwo, setNavMouseEnterTwo] = useState(false);
+  const [navMouseEnterThree, setNavMouseEnterThree] = useState(false);
+  const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [campus, setCampus] = useState("서울");
   const [collegeSectionType, setCollegeSectionType] = useState("대학");
   const [courseTypeOne, setCourseTypeOne] = useState("");
@@ -21,6 +25,15 @@ export default function Home() {
   const [section, setSection] = useState();
   const [courseName, setCourseName] = useState();
   const [selectBoxes, setSelectBoxes] = useState(``);
+  const router = useRouter();
+  const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
+    e.preventDefault();
+    router.push("/preferredCourses");
+  };
+  const onClickRegisteration = (e: MouseEvent<HTMLSpanElement>) => {
+    e.preventDefault();
+    router.push("/courseRegisteration");
+  };
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value == "전공") {
     }
@@ -117,10 +130,18 @@ export default function Home() {
               }}
             >
               <span
+                onMouseEnter={() => {
+                  setNavMouseEnterOne(true);
+                }}
+                onMouseLeave={() => {
+                  setNavMouseEnterOne(false);
+                }}
+                onClick={onClickRegisteration}
                 style={{
                   fontFamily: "Malgun Gothic",
                   fontSize: 15,
                   cursor: "pointer",
+                  color: navMouseEnterOne ? "#a20131" : "",
                 }}
               >
                 수강신청
@@ -138,10 +159,18 @@ export default function Home() {
               }}
             >
               <span
+                onClick={onClickPreferredCourses}
+                onMouseEnter={() => {
+                  setNavMouseEnterTwo(true);
+                }}
+                onMouseLeave={() => {
+                  setNavMouseEnterTwo(false);
+                }}
                 style={{
                   fontFamily: "Malgun Gothic",
                   fontSize: 15,
                   cursor: "pointer",
+                  color: navMouseEnterTwo ? "#a20131" : "",
                 }}
               >
                 수강희망/관심과목 등록
@@ -163,6 +192,7 @@ export default function Home() {
                   fontFamily: "Malgun Gothic",
                   fontSize: 15,
                   cursor: "pointer",
+                  color: "#a20131",
                 }}
               >
                 과목조회
@@ -175,7 +205,12 @@ export default function Home() {
                       paddingLeft: 15,
                     }}
                   >
-                    <span style={{ fontSize: 13, color: "#666" }}>
+                    <span
+                      style={{
+                        fontSize: 13,
+                        color: "#a20131",
+                      }}
+                    >
                       학부 과목조회
                     </span>
                   </li>
@@ -601,7 +636,7 @@ export default function Home() {
                         }}
                       >
                         <option>서울</option>
-                        <option>세종</option>
+                        {/* <option>세종</option> */}
                       </select>
                       <span
                         style={{
@@ -643,7 +678,7 @@ export default function Home() {
                         }}
                       >
                         <option>대학</option>
-                        <option>대학원</option>
+                        {/* <option>대학원</option> */}
                       </select>
                       <span
                         style={{
@@ -1511,10 +1546,10 @@ export default function Home() {
             </table>
             <div
               onMouseEnter={() => {
-                setMouseEnter(true);
+                setTableMouseEnter(true);
               }}
               onMouseLeave={() => {
-                setMouseEnter(false);
+                setTableMouseEnter(false);
               }}
               style={{
                 fontSize: 12,
@@ -1525,7 +1560,7 @@ export default function Home() {
                 borderBottomColor: "#ccc",
                 borderBottomStyle: "solid",
                 height: 150,
-                backgroundColor: mouseEnter ? "#F2F2F2" : "#fff",
+                backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
               }}
             >
               조회 조건 선택 후 조회 버튼을 클릭하세요.
