@@ -2,18 +2,33 @@
 
 import Image from "next/image";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [language, setLanguage] = useState<"eng" | "kor">("kor");
   const [id, setId] = useState("");
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+
+  const router = useRouter();
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(id);
+    router.push("/home");
+
+    // const formData = new FormData(e.currentTarget);
+    // console.log(formData);
+    // const response = await fetch("/api/login", {
+    //   method: "POST",
+    //   body: formData,
+    // });
+
+    // // Handle response if necessary
+    // const data = await response.json();
   };
 
   return (
-    <div>
-      <div
+    <div style={{ backgroundColor: "#f2f2f2" }}>
+      <div //header
         style={{
           minWidth: 1260,
           width: "100%",
@@ -37,7 +52,7 @@ export default function Home() {
           }}
         ></div>
       </div>
-      <div
+      <div //form
         style={{
           width: "100%",
           boxSizing: "border-box",
@@ -77,7 +92,7 @@ export default function Home() {
                 boxSizing: "border-box",
               }}
             >
-              <form method="post" autoComplete="off" onSubmit={handleSubmit}>
+              <form method="post" autoComplete="off" onSubmit={onSubmit}>
                 <div
                   style={{
                     marginBottom: 30,
@@ -110,9 +125,6 @@ export default function Home() {
                         borderRadius: "50%",
                         backgroundColor:
                           language === "kor" ? "#a20131" : undefined,
-                        // box-shadow: 0 0 0 1px blue;
-                        // border: 4px solid green;
-                        // background-color: red;
                         boxShadow: "black",
                       }}
                     />
@@ -236,14 +248,16 @@ export default function Home() {
                   }}
                 >
                   로그인
-                  <small style={{ fontWeight: "lighter", fontSize: 12 }}>Login</small>
+                  <small style={{ fontWeight: "lighter", fontSize: 12 }}>
+                    Login
+                  </small>
                 </button>
               </form>
             </div>
           </div>
         </div>
       </div>
-      <div
+      <div //information
         style={{
           width: "100%",
           maxWidth: 1260,
@@ -256,30 +270,490 @@ export default function Home() {
         }}
       >
         <div>
-          <h1>
-            수강신청 안내{" "}
-            <small style={{ fontSize: 15, fontWeight: "lighter" }}>
-              Course Registration Schedule
-            </small>
-          </h1>
-          <div style={{ marginTop: 5, marginBottom: 60 }}>
-            <div>
-              <h2>학부 수강신청 일정</h2>
-              <div>
-                <p>
-                  <span>학부 수강신청 안내</span>
-                  <Image
-                    alt="more"
-                    src={
-                      "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
-                    }
-                    width={60}
-                    height={22}
-                  />
-                </p>
+          <div style={{ marginLeft: 30, marginRight: 30 }}>
+            <h1
+              style={{
+                margin: 0,
+                paddingLeft: 2,
+                fontSize: 26,
+                fontWeight: 400,
+                letterSpacing: -2,
+              }}
+            >
+              수강신청 안내
+              <small
+                style={{
+                  fontSize: 15,
+                  fontWeight: 200,
+                  marginLeft: 10,
+                  letterSpacing: "normal",
+                }}
+              >
+                Course Registration Schedule
+              </small>
+            </h1>
+            <div //6tags
+              style={{
+                height: 122,
+                marginBottom: 73,
+                alignItems: "stretch",
+                display: "flex",
+              }}
+            >
+              <div //1
+                style={{
+                  width: 162,
+                  height: 30,
+                  display: "inline-block",
+                  minWidth: 162,
+                }}
+              >
+                <div
+                  style={{
+                    height: 30,
+                    backgroundColor: "#bf0039",
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    marginTop: 15,
+                    marginBottom: 20,
+                    position: "relative",
+                    border: 15,
+                    borderColor: "#bf0039",
+                    borderStyle: "solid",
+                    borderRight: 12,
+                    borderRightColor: "#fff",
+                    borderRightStyle: "solid",
+                    display: "flex",
+                    alignItems: "baseline",
+                  }}
+                >
+                  <h2
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 300,
+                      letterSpacing: -1,
+                      color: "#fff",
+                      lineHeight: -10,
+                      textAlign: "left",
+                      margin: 0,
+                    }}
+                  >
+                    학부 수강신청 일정
+                  </h2>
+                </div>
+                <div
+                  style={{
+                    borderLeft: 1,
+                    borderLeftStyle: "solid",
+                    borderLeftColor: "#bf0039",
+                    paddingLeft: 20,
+                    height: 51,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "#515151",
+                      paddingTop: 3,
+                    }}
+                  >
+                    학부 수강신청 안내
+                  </div>
+                  <div style={{ paddingTop: 7 }}>
+                    <Image
+                      alt="more"
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                      }
+                      width={60}
+                      height={22}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div //2
+                style={{
+                  width: 162,
+                  height: 30,
+                  display: "inline-block",
+                  marginLeft: 45,
+                  minWidth: 162,
+                }}
+              >
+                <h2
+                  style={{
+                    height: 30,
+                    backgroundColor: "#bf0039",
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    marginTop: 15,
+                    marginBottom: 20,
+                    fontSize: 14,
+                    fontWeight: 300,
+                    letterSpacing: -1,
+                    lineHeight: 2,
+                    color: "#fff",
+                    position: "relative",
+                    borderRight: 12,
+                    borderRightStyle: "solid",
+                    borderRightColor: "transparent",
+                  }}
+                >
+                  과목조회
+                </h2>
+                <div
+                  style={{
+                    borderLeft: 1,
+                    borderLeftStyle: "solid",
+                    borderLeftColor: "#bf0039",
+                    paddingLeft: 20,
+                    height: 51,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "#515151",
+                      paddingTop: 3,
+                    }}
+                  >
+                    고려대학교 과목조회
+                  </div>
+                  <div style={{ paddingTop: 7 }}>
+                    <Image
+                      alt="more"
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                      }
+                      width={60}
+                      height={22}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div //3
+                style={{
+                  width: 162,
+                  height: 30,
+                  display: "inline-block",
+                  marginLeft: 45,
+                  minWidth: 162,
+                }}
+              >
+                <h2
+                  style={{
+                    height: 30,
+                    backgroundColor: "#bf0039",
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    marginTop: 15,
+                    marginBottom: 20,
+                    fontSize: 14,
+                    fontWeight: 300,
+                    letterSpacing: -1,
+                    lineHeight: 2,
+                    color: "#fff",
+                    position: "relative",
+                    borderRight: 12,
+                    borderRightStyle: "solid",
+                    borderRightColor: "transparent",
+                  }}
+                >
+                  교육정보
+                </h2>
+                <div
+                  style={{
+                    borderLeft: 1,
+                    borderLeftStyle: "solid",
+                    borderLeftColor: "#bf0039",
+                    paddingLeft: 20,
+                    height: 51,
+                    display: "flex",
+                    width: 165,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "#515151",
+                      display: "inline-block",
+                    }}
+                  >
+                    고려대학교
+                    <br />
+                    교육정보 확인
+                  </div>
+                  <div style={{ paddingTop: 20, display: "inline-block" }}>
+                    <Image
+                      alt="more"
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                      }
+                      width={60}
+                      height={22}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div //4
+                style={{
+                  width: 162,
+                  height: 30,
+                  display: "inline-block",
+                  marginLeft: 45,
+                  minWidth: 162,
+                }}
+              >
+                <h2
+                  style={{
+                    height: 30,
+                    backgroundColor: "#bf0039",
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    marginTop: 15,
+                    marginBottom: 20,
+                    fontSize: 14,
+                    fontWeight: 300,
+                    letterSpacing: -1,
+                    lineHeight: 2,
+                    color: "#fff",
+                    position: "relative",
+                    borderRight: 12,
+                    borderRightStyle: "solid",
+                    borderRightColor: "transparent",
+                  }}
+                >
+                  비밀번호 변경
+                </h2>
+                <div
+                  style={{
+                    borderLeft: 1,
+                    borderLeftStyle: "solid",
+                    borderLeftColor: "#bf0039",
+                    paddingLeft: 20,
+                    height: 51,
+                    display: "flex",
+                    width: 165,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "#515151",
+                      display: "inline-block",
+                    }}
+                  >
+                    포털 미사용자
+                    <br />
+                    비밀번호변경
+                  </div>
+                  <div style={{ paddingTop: 20, display: "inline-block" }}>
+                    <Image
+                      alt="more"
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                      }
+                      width={60}
+                      height={22}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div //5
+                style={{
+                  width: 162,
+                  height: 30,
+                  display: "inline-block",
+                  marginLeft: 45,
+                  minWidth: 162,
+                }}
+              >
+                <h2
+                  style={{
+                    height: 30,
+                    backgroundColor: "#bf0039",
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    marginTop: 15,
+                    marginBottom: 20,
+                    fontSize: 14,
+                    fontWeight: 300,
+                    letterSpacing: -1,
+                    lineHeight: 2,
+                    color: "#fff",
+                    position: "relative",
+                    borderRight: 12,
+                    borderRightStyle: "solid",
+                    borderRightColor: "transparent",
+                  }}
+                >
+                  신입생학번안내
+                </h2>
+                <div
+                  style={{
+                    borderLeft: 1,
+                    borderLeftStyle: "solid",
+                    borderLeftColor: "#bf0039",
+                    paddingLeft: 20,
+                    height: 51,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "#515151",
+                      paddingTop: 3,
+                    }}
+                  >
+                    신입생 학번안내
+                  </div>
+                  <div style={{ paddingTop: 7 }}>
+                    <Image
+                      alt="more"
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                      }
+                      width={60}
+                      height={22}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div //6
+                style={{
+                  width: 162,
+                  height: 30,
+                  display: "inline-block",
+                  marginLeft: 45,
+                  minWidth: 162,
+                }}
+              >
+                <h2
+                  style={{
+                    height: 30,
+                    backgroundColor: "#bf0039",
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    marginTop: 15,
+                    marginBottom: 20,
+                    fontSize: 14,
+                    fontWeight: 300,
+                    letterSpacing: -1,
+                    lineHeight: 2,
+                    color: "#fff",
+                    position: "relative",
+                    borderRight: 12,
+                    borderRightStyle: "solid",
+                    borderRightColor: "transparent",
+                  }}
+                >
+                  대학원생수강신청
+                </h2>
+                <div
+                  style={{
+                    borderLeft: 1,
+                    borderLeftStyle: "solid",
+                    borderLeftColor: "#bf0039",
+                    paddingLeft: 20,
+                    height: 71,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "#515151",
+                    }}
+                  >
+                    대학원생 수강신청
+                    <br />
+                    바로가기
+                  </div>
+                  <div style={{ paddingTop: 7 }}>
+                    <Image
+                      alt="more"
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                      }
+                      width={60}
+                      height={22}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
+            <h1
+              style={{
+                margin: 0,
+                paddingLeft: 2,
+                fontSize: 26,
+                fontWeight: 400,
+                letterSpacing: -2,
+              }}
+            >
+              수강신청 유의사항
+              <small
+                style={{
+                  fontSize: 15,
+                  fontWeight: 200,
+                  marginLeft: 10,
+                  letterSpacing: "normal",
+                }}
+              >
+                Course Registration Notice
+              </small>
+            </h1>
+            <div
+              style={{
+                marginTop: 20,
+                padding: 30,
+                border: 1,
+                borderStyle: "solid",
+                borderColor: "#dedede",
+                backgroundColor: "#fff",
+              }}
+            >
+              <ul>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+              </ul>
+            </div>
           </div>
+        </div>
+      </div>
+      <div //footer
+        style={{
+          width: "100%",
+          height: 120,
+          paddingTop: 30,
+          paddingLeft: 30,
+          paddingRight: 30,
+          backgroundColor: "#262626",
+          boxSizing: "border-box",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: 1200,
+            marginLeft: "auto",
+            marginRight: "auto",
+            fontSize: 12,
+            fontWeight: "lighter",
+            color: "#b9b9b9",
+          }}
+        >
+          02841 서울특별시 성북구 안암로 145 / TEL.02.3290.1114. /
+          webmaster@korea.ac.kr
+          <br />
+          Copyright © 2020 Korea University. All Rights Reserved
         </div>
       </div>
     </div>

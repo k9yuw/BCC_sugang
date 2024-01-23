@@ -14,10 +14,32 @@ input:focus {
   outline: none;
 }
 
-a {
-	@@ -18,15 +21,15 @@ a }
 * {
   box-sizing: border-box;
+}
+
+.courseTypeSelectBox {
+  height: 25;
+  padding-top: 0;
+  padding-right: 5;
+  padding-bottom: 2;
+  padding-left: 5;
+  margin-left: 5;
+  font-size: 12;
+  color: "#666";
+  border-width: "thin";
+  border-top-color: "#ccc";
+  border-right-color: "#ccc";
+  border-bottom-color: "#ccc";
+  border-left-color: "#ccc";
+  border-style: "solid";
+  background-image: url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png");
+  background-repeat: "no-repeat";
+  background-position: 95.5% center;
+  -webkit-appearance: "none";
+  -moz-appearance: "none";
+  appearance: "none";
+  flex: 1;
 }
 /* 
 .header {
