@@ -27,7 +27,9 @@ export default function Home() {
   };
 
   return (
-    <div style={{ backgroundColor: "#f2f2f2" }}>
+    <div
+      style={{ backgroundColor: "#f5f5f5", fontFamily: "Apple SD Gothic Neo" }}
+    >
       <div //header
         style={{
           minWidth: 1260,
@@ -309,37 +311,23 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{
-                    height: 30,
-                    backgroundColor: "#bf0039",
-                    paddingLeft: 20,
-                    paddingRight: 20,
-                    marginTop: 15,
-                    marginBottom: 20,
-                    position: "relative",
-                    border: 15,
-                    borderColor: "#bf0039",
-                    borderStyle: "solid",
-                    borderRight: 12,
-                    borderRightColor: "#fff",
-                    borderRightStyle: "solid",
-                    display: "flex",
-                    alignItems: "baseline",
-                  }}
+                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
                 >
-                  <h2
+                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <p
                     style={{
+                      position: "absolute",
+                      top: 98,
+                      paddingLeft: 20,
                       fontSize: 14,
                       fontWeight: 300,
                       letterSpacing: -1,
+                      lineHeight: 2.2,
                       color: "#fff",
-                      lineHeight: -10,
-                      textAlign: "left",
-                      margin: 0,
                     }}
                   >
                     학부 수강신청 일정
-                  </h2>
+                  </p>
                 </div>
                 <div
                   style={{
@@ -380,27 +368,25 @@ export default function Home() {
                   minWidth: 162,
                 }}
               >
-                <h2
-                  style={{
-                    height: 30,
-                    backgroundColor: "#bf0039",
-                    paddingLeft: 20,
-                    paddingRight: 20,
-                    marginTop: 15,
-                    marginBottom: 20,
-                    fontSize: 14,
-                    fontWeight: 300,
-                    letterSpacing: -1,
-                    lineHeight: 2,
-                    color: "#fff",
-                    position: "relative",
-                    borderRight: 12,
-                    borderRightStyle: "solid",
-                    borderRightColor: "transparent",
-                  }}
+                <div
+                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
                 >
-                  과목조회
-                </h2>
+                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <p
+                    style={{
+                      position: "absolute",
+                      top: 98,
+                      paddingLeft: 20,
+                      fontSize: 14,
+                      fontWeight: 300,
+                      letterSpacing: -1,
+                      lineHeight: 2.2,
+                      color: "#fff",
+                    }}
+                  >
+                    과목조회
+                  </p>
+                </div>
                 <div
                   style={{
                     borderLeft: 1,
@@ -440,27 +426,25 @@ export default function Home() {
                   minWidth: 162,
                 }}
               >
-                <h2
-                  style={{
-                    height: 30,
-                    backgroundColor: "#bf0039",
-                    paddingLeft: 20,
-                    paddingRight: 20,
-                    marginTop: 15,
-                    marginBottom: 20,
-                    fontSize: 14,
-                    fontWeight: 300,
-                    letterSpacing: -1,
-                    lineHeight: 2,
-                    color: "#fff",
-                    position: "relative",
-                    borderRight: 12,
-                    borderRightStyle: "solid",
-                    borderRightColor: "transparent",
-                  }}
+                <div
+                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
                 >
-                  교육정보
-                </h2>
+                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <p
+                    style={{
+                      position: "absolute",
+                      top: 98,
+                      paddingLeft: 20,
+                      fontSize: 14,
+                      fontWeight: 300,
+                      letterSpacing: -1,
+                      lineHeight: 2.2,
+                      color: "#fff",
+                    }}
+                  >
+                    교육정보
+                  </p>
+                </div>
                 <div
                   style={{
                     borderLeft: 1,
@@ -505,27 +489,25 @@ export default function Home() {
                   minWidth: 162,
                 }}
               >
-                <h2
-                  style={{
-                    height: 30,
-                    backgroundColor: "#bf0039",
-                    paddingLeft: 20,
-                    paddingRight: 20,
-                    marginTop: 15,
-                    marginBottom: 20,
-                    fontSize: 14,
-                    fontWeight: 300,
-                    letterSpacing: -1,
-                    lineHeight: 2,
-                    color: "#fff",
-                    position: "relative",
-                    borderRight: 12,
-                    borderRightStyle: "solid",
-                    borderRightColor: "transparent",
-                  }}
+                <div
+                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
                 >
-                  비밀번호 변경
-                </h2>
+                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <p
+                    style={{
+                      position: "absolute",
+                      top: 98,
+                      paddingLeft: 20,
+                      fontSize: 14,
+                      fontWeight: 300,
+                      letterSpacing: -1,
+                      lineHeight: 2.2,
+                      color: "#fff",
+                    }}
+                  >
+                    비밀번호 변경
+                  </p>
+                </div>
                 <div
                   style={{
                     borderLeft: 1,
@@ -570,27 +552,25 @@ export default function Home() {
                   minWidth: 162,
                 }}
               >
-                <h2
-                  style={{
-                    height: 30,
-                    backgroundColor: "#bf0039",
-                    paddingLeft: 20,
-                    paddingRight: 20,
-                    marginTop: 15,
-                    marginBottom: 20,
-                    fontSize: 14,
-                    fontWeight: 300,
-                    letterSpacing: -1,
-                    lineHeight: 2,
-                    color: "#fff",
-                    position: "relative",
-                    borderRight: 12,
-                    borderRightStyle: "solid",
-                    borderRightColor: "transparent",
-                  }}
+                <div
+                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
                 >
-                  신입생학번안내
-                </h2>
+                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <p
+                    style={{
+                      position: "absolute",
+                      top: 98,
+                      paddingLeft: 20,
+                      fontSize: 14,
+                      fontWeight: 300,
+                      letterSpacing: -1,
+                      lineHeight: 2.2,
+                      color: "#fff",
+                    }}
+                  >
+                    신입생 학번안내
+                  </p>
+                </div>
                 <div
                   style={{
                     borderLeft: 1,
@@ -630,27 +610,25 @@ export default function Home() {
                   minWidth: 162,
                 }}
               >
-                <h2
-                  style={{
-                    height: 30,
-                    backgroundColor: "#bf0039",
-                    paddingLeft: 20,
-                    paddingRight: 20,
-                    marginTop: 15,
-                    marginBottom: 20,
-                    fontSize: 14,
-                    fontWeight: 300,
-                    letterSpacing: -1,
-                    lineHeight: 2,
-                    color: "#fff",
-                    position: "relative",
-                    borderRight: 12,
-                    borderRightStyle: "solid",
-                    borderRightColor: "transparent",
-                  }}
+                <div
+                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
                 >
-                  대학원생수강신청
-                </h2>
+                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <p
+                    style={{
+                      position: "absolute",
+                      top: 98,
+                      paddingLeft: 20,
+                      fontSize: 14,
+                      fontWeight: 300,
+                      letterSpacing: -1,
+                      lineHeight: 2.2,
+                      color: "#fff",
+                    }}
+                  >
+                    대학원생 수강신청
+                  </p>
+                </div>
                 <div
                   style={{
                     borderLeft: 1,
@@ -671,7 +649,7 @@ export default function Home() {
                     <br />
                     바로가기
                   </div>
-                  <div style={{ paddingTop: 7 }}>
+                  <div style={{ paddingTop: 3 }}>
                     <Image
                       alt="more"
                       src={
@@ -715,14 +693,289 @@ export default function Home() {
                 backgroundColor: "#fff",
               }}
             >
-              <ul>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
+              <ul
+                style={{
+                  listStyle: "none",
+                  lineHeight: 2.3,
+                  padding: 0,
+                  margin: 0,
+                }}
+              >
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    color: "#528ecc",
+                    fontFamily: "Apple SD Gothic Neo",
+                  }}
+                >
+                  수강신청시스템 중복로그인/매크로 제한 기능 도입 안내
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                  }}
+                >
+                  Microsoft의 Internet Explorer 지원 종료에 따라 Chrome,
+                  Firefox, Edge 브라우저를 이용하시기 바랍니다.
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                    color: "#bf0039",
+                  }}
+                >
+                  장애학생 수강신청 - 2. 1(목) 10:00 - 2. 2(금) 09:00
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                    color: "#bf0039",
+                  }}
+                >
+                  수강희망과목 등록기간 - 2. 2(금) 13:00 - 2. 5(월) 12:00
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                    color: "#bf0039",
+                  }}
+                >
+                  신입생 수강신청 기간 - 2. 23(금) 10:00 - 2. 24(토) 12:00
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                    color: "#bf0039",
+                  }}
+                >
+                  수강신청 기간 - 2. 13(화) 10:00부터 시작, 4학년을 시작으로
+                  학년별로 수강신청을 진행함.
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                    color: "#bf0039",
+                  }}
+                >
+                  수강신청 정정 기간 - 3. 6(수) 18:30부터 시작, 4학년을 시작으로
+                  학년별로 한 시간 간격으로 시작시간을 달리함.
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                    color: "#bf0039",
+                  }}
+                >
+                  수강 및 성적평가 공정성 제고 관련 교육부 권고에 따라, 부모 중
+                  1인 이상이 강의를 담당하는 과목의 경우 자녀의 수강이 제한될 수
+                  있습니다.
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                  }}
+                >
+                  학사관련 주요사항 안내는 교육정보 홈페이지를 참조하세요.
+                  <span style={{ color: "#528ecc", margin: 0, marginLeft: 3 }}>
+                    교육정보 바로가기
+                  </span>
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                  }}
+                >
+                  단과대학별 수강신청 유의사항은 교육정보 홈페이지를 참조하세요.
+                  <span style={{ color: "#528ecc", margin: 0, marginLeft: 3 }}>
+                    교육정보 바로가기
+                  </span>
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: 12,
+                    fontSize: 14,
+                    paddingLeft: 12,
+                  }}
+                >
+                  암호
+                  <ul
+                    style={{
+                      paddingLeft: 0,
+                      fontSize: 13,
+                      listStyle: "inside",
+                      lineHeight: 1.8,
+                    }}
+                  >
+                    <li style={{ fontFamily: "Apple SD Gothic Neo" }}>
+                      포털(KUPID)사용자 : 포털비밀번호
+                    </li>
+                    <li style={{ fontFamily: "Apple SD Gothic Neo" }}>
+                      포털(KUPID)미사용자 : '포털미사용자 비밀번호변경'에서
+                      설정한 비밀번호(설정전: 주민번호뒷자리)
+                    </li>
+                    <li style={{ fontFamily: "Apple SD Gothic Neo" }}>
+                      (포털사용중인 신입생도 개강전에는 포털미사용자에 해당하는
+                      비밀번호 사용)
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: 12,
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                    marginTop: 5,
+                  }}
+                >
+                  암호 분실시
+                  <ul
+                    style={{
+                      paddingLeft: 0,
+                      fontSize: 13,
+                      listStyle: "inside",
+                      lineHeight: 1.8,
+                    }}
+                  >
+                    <li
+                      style={{
+                        fontFamily: "Apple SD Gothic Neo",
+                      }}
+                    >
+                      포털 사용자 :
+                      <span
+                        style={{ color: "#528ecc", margin: 0, marginLeft: 3 }}
+                      >
+                        포털(http://portal.korea.ac.kr)
+                      </span>
+                      로그인 화면의{" "}
+                      <span style={{ fontWeight: "bold" }}>'비밀번호찾기'</span>
+                      에서 비밀번호 재발급
+                    </li>
+                    <li
+                      style={{
+                        fontFamily: "Apple SD Gothic Neo",
+                        fontSize: 13,
+                      }}
+                    >
+                      포털(KUPID)미사용자 :
+                      <span
+                        style={{ color: "#528ecc", margin: 0, marginLeft: 3 }}
+                      >
+                        수강신청(https://sugang.korea.ac.kr)
+                      </span>
+                      <span style={{ fontWeight: "bold" }}>
+                        {" "}
+                        '포털미사용자 비밀번호변경'{" "}
+                      </span>
+                      메뉴에서 비밀번호 재발급
+                    </li>
+                    <li
+                      style={{
+                        fontFamily: "Apple SD Gothic Neo",
+                        fontSize: 13,
+                        color: "#bf0039",
+                      }}
+                    >
+                      포털에서 비밀번호를 변경 또는 재발급 받은 경우는 10분후에
+                      로그인 하기 바랍니다.
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                    color: "#528ecc",
+                    marginTop: 6,
+                  }}
+                >
+                  국내 교류 학생의 학번 확인
+                </li>
+                <li
+                  style={{
+                    backgroundImage:
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionY: "center",
+                    fontSize: 14,
+                    paddingLeft: 12,
+                    fontFamily: "Apple SD Gothic Neo",
+                  }}
+                >
+                  Internet Explorer 10 이상의 버전, 화면 해상도 1920*1080에
+                  최적화 되어 있습니다.
+                </li>
               </ul>
             </div>
           </div>
@@ -746,14 +999,14 @@ export default function Home() {
             marginLeft: "auto",
             marginRight: "auto",
             fontSize: 12,
-            fontWeight: "lighter",
             color: "#b9b9b9",
+            lineHeight: 1.5,
           }}
         >
           02841 서울특별시 성북구 안암로 145 / TEL.02.3290.1114. /
           webmaster@korea.ac.kr
           <br />
-          Copyright © 2020 Korea University. All Rights Reserved
+          Copyright © 2023 BBang Co Co. All Rights Reserved
         </div>
       </div>
     </div>
