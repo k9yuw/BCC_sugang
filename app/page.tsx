@@ -13,7 +13,7 @@ export default function Home() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(id);
-    router.push("/searchCourses");
+    router.push("/courseRegisteration");
 
     // const formData = new FormData(e.currentTarget);
     // console.log(formData);
@@ -127,8 +127,25 @@ export default function Home() {
                         borderRadius: "50%",
                         backgroundColor:
                           language === "kor" ? "#a20131" : undefined,
-                        boxShadow: "black",
+                        boxShadow: "initial",
                       }}
+                      // className="boxshadow"
+                      // style={{
+                      //   width: language === "kor" ? 16 : 16,
+                      //   height: language === "kor" ? 16 : 16,
+                      //   WebkitAppearance: "none",
+                      //   MozAppearance: "none",
+                      //   appearance: "none",
+                      //   borderWidth: language === "kor" ? 1 : 1.1,
+                      //   borderStyle: "solid",
+                      //   borderColor: "#ccc",
+                      //   padding: 2,
+                      //   borderRadius: "50%",
+                      //   backgroundColor:
+                      //     language === "kor" ? "#a20131" : undefined,
+                      //   boxShadow: "initial",
+                      //   // backgroundImage:""
+                      // }}
                     />
                     <label
                       style={{

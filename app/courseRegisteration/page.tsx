@@ -10,6 +10,7 @@ export default function Home() {
   const [navMouseEnterOne, setNavMouseEnterOne] = useState(false);
   const [navMouseEnterTwo, setNavMouseEnterTwo] = useState(false);
   const [navMouseEnterThree, setNavMouseEnterThree] = useState(false);
+  const [navRegister, setNavRegister] = useState([true, false, false, false]);
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [campus, setCampus] = useState("서울");
   const [collegeSectionType, setCollegeSectionType] = useState("대학");
@@ -509,6 +510,888 @@ export default function Home() {
           >
             수강신청 연습 시스템
           </span>
+        </div>
+        <div //네이게이션 바디
+          style={{
+            paddingBottom: 30,
+            borderBottom: 1,
+            borderBottomStyle: "solid",
+            borderBottomColor: "#ccc",
+          }}
+        >
+          <div //네비게이션
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              height: 50,
+              marginTop: 25,
+              marginRight: 18,
+              marginLeft: 18,
+              border: 1,
+              borderStyle: "solid",
+              borderColor: "#ccc",
+              lineHeight: 3,
+              textAlign: "center",
+            }}
+          >
+            <div
+              onClick={() => {
+                setNavRegister([true, false, false, false]);
+              }}
+              style={{
+                width: "25%",
+                borderRight: 1,
+                borderRightStyle: "solid",
+                borderRightColor: "#ccc",
+                color: navRegister[0] ? "#fff" : "#666",
+                backgroundColor: navRegister[0] ? "#bf0039" : "#fff",
+              }}
+            >
+              유의사항
+            </div>
+            <div
+              onClick={() => {
+                setNavRegister([false, true, false, false]);
+              }}
+              style={{
+                width: "25%",
+                borderRight: 1,
+                borderRightStyle: "solid",
+                borderRightColor: "#ccc",
+                color: navRegister[1] ? "#fff" : "#666",
+                backgroundColor: navRegister[1] ? "#bf0039" : "#fff",
+              }}
+            >
+              학수번호 입력하여 신청
+            </div>
+            <div
+              onClick={() => {
+                setNavRegister([false, false, true, false]);
+              }}
+              style={{
+                width: "25%",
+                borderRight: 1,
+                borderRightStyle: "solid",
+                borderRightColor: "#ccc",
+                color: navRegister[2] ? "#fff" : "#666",
+                backgroundColor: navRegister[2] ? "#bf0039" : "#fff",
+              }}
+            >
+              내 관심강의에서 신청
+            </div>
+            <div
+              onClick={() => {
+                setNavRegister([false, false, false, true]);
+              }}
+              style={{
+                width: "25%",
+                color: navRegister[3] ? "#fff" : "#666",
+                backgroundColor: navRegister[3] ? "#bf0039" : "#fff",
+              }}
+            >
+              개설과목 검색하여 신청
+            </div>
+          </div>
+          {navRegister[0] ? (
+            <div //유의사항
+              style={{
+                marginTop: 20,
+                marginLeft: 18,
+                marginRight: 18,
+                border: 1,
+                borderStyle: "solid",
+                borderColor: "#ccc",
+              }}
+            >
+              <ul>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+                <li>게임 설명</li>
+              </ul>
+            </div>
+          ) : null}
+          {navRegister[1] ? (
+            <div //학수번호 입력하여 신청
+              style={{
+                borderTop: 1.5,
+                borderTopStyle: "solid",
+                margin: 18,
+                lineHeight: 2.5,
+                fontSize: 14,
+              }}
+            >
+              <div
+                style={{
+                  borderBottom: 1,
+                  borderBottomStyle: "solid",
+                  borderBottomColor: "#ccc",
+                  height: 40,
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div
+                  style={{
+                    width: 230,
+                    height: "100%",
+                    textAlign: "left",
+                    paddingLeft: 20,
+                    borderRight: 1,
+                    borderRightStyle: "solid",
+                    borderRightColor: "#ccc",
+                    backgroundColor: "#F2EEEB",
+                  }}
+                >
+                  학수번호
+                </div>
+                <div style={{ width: "100%" }}>
+                  <input
+                    style={{
+                      margin: 5,
+                      height: 30,
+                      width: 180,
+                      border: 1,
+                      borderStyle: "solid",
+                      borderColor: "#ccc",
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  borderBottom: 1,
+                  borderBottomStyle: "solid",
+                  borderBottomColor: "#ccc",
+                  height: 40,
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div
+                  style={{
+                    width: 230,
+                    height: "100%",
+                    textAlign: "left",
+                    paddingLeft: 20,
+                    borderRight: 1,
+                    borderRightStyle: "solid",
+                    borderRightColor: "#ccc",
+                    backgroundColor: "#F2EEEB",
+                  }}
+                >
+                  분반
+                </div>
+                <div style={{ width: "100%" }}>
+                  <input
+                    style={{
+                      margin: 5,
+                      height: 30,
+                      width: 180,
+                      border: 1,
+                      borderStyle: "solid",
+                      borderColor: "#ccc",
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <button
+                  style={{
+                    height: 30,
+                    width: 70,
+                    backgroundColor: "#bf0039",
+                    border: 0,
+                    color: "#fff",
+                    marginTop: 12,
+                    marginRight: 3,
+                  }}
+                >
+                  신청
+                </button>
+                <button
+                  style={{
+                    height: 30,
+                    width: 70,
+                    border: 1,
+                    backgroundColor: "#fff",
+                    borderStyle: "solid",
+                    borderColor: "#ccc",
+                    marginTop: 12,
+                    marginLeft: 3,
+                    color: "#666",
+                  }}
+                >
+                  초기화
+                </button>
+              </div>
+            </div>
+          ) : null}
+          {navRegister[2] ? <div>내 관심강의에서 신청</div> : null}
+          {navRegister[3] ? (
+            <div //개설과목 검색하여 신청
+              style={{
+                marginBottom: 15,
+                marginLeft: 18,
+                marginRight: 18,
+                marginTop: 20,
+                padding: 12,
+                paddingBottom: 9,
+                border: 1,
+                borderStyle: "solid",
+                borderColor: "#e6e6e6",
+              }}
+            >
+              <form>
+                <div
+                  style={{
+                    width: "100%",
+                    tableLayout: "fixed",
+                    borderSpacing: 0,
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        paddingRight: 0,
+                        paddingBottom: 3,
+                        paddingLeft: 6,
+                      }}
+                    >
+                      <span
+                        style={{
+                          alignItems: "center",
+                          display: "flex",
+                          alignContent: "left",
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: 54,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          캠퍼스
+                        </span>
+                        <select
+                          style={{
+                            width: 74,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 6,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPositionX: 57,
+                            backgroundPositionY: "center",
+                            WebkitAppearance: "none",
+                            MozAppearance: "none",
+                            appearance: "none",
+                          }}
+                        >
+                          <option>서울</option>
+                          {/* <option>세종</option> */}
+                        </select>
+                        <span
+                          style={{
+                            width: 81,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          대학구분
+                        </span>
+                        <select
+                          style={{
+                            width: 74,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 5,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPositionX: 197,
+                            backgroundPositionY: "center",
+                            WebkitAppearance: "none",
+                            MozAppearance: "none",
+                            appearance: "none",
+                          }}
+                        >
+                          <option>대학</option>
+                          {/* <option>대학원</option> */}
+                        </select>
+                        <span
+                          style={{
+                            width: 81,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          이수구분
+                        </span>
+                        <div
+                          style={{ width: 414, marginLeft: 5, display: "flex" }}
+                        >
+                          <select
+                            value={courseTypeOne}
+                            onChange={onChangeCourseTypeOne}
+                            style={{
+                              height: 25,
+                              paddingTop: 0,
+                              paddingRight: 5,
+                              paddingBottom: 2,
+                              paddingLeft: 5,
+                              fontSize: 12,
+                              color: "#666",
+                              borderWidth: "thin",
+                              borderTopColor: "#ccc",
+                              borderRightColor: "#ccc",
+                              borderBottomColor: "#ccc",
+                              borderLeftColor: "#ccc",
+                              borderStyle: "solid",
+                              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                              backgroundRepeat: "no-repeat",
+                              backgroundPositionX: "95.5%",
+                              backgroundPositionY: "center",
+                              WebkitAppearance: "none",
+                              MozAppearance: "none",
+                              appearance: "none",
+                              flex: 1,
+                            }}
+                          >
+                            <option>전공</option>
+                            <option>학문의기초</option>
+                            <option>교양</option>
+                            <option>교직</option>
+                            <option>군사학</option>
+                            <option>평생교육사</option>
+                          </select>
+                          <select
+                            style={{
+                              height: 25,
+                              paddingTop: 0,
+                              paddingRight: 5,
+                              paddingBottom: 2,
+                              paddingLeft: 5,
+                              marginLeft: 5,
+                              fontSize: 12,
+                              color: "#666",
+                              borderWidth: "thin",
+                              borderTopColor: "#ccc",
+                              borderRightColor: "#ccc",
+                              borderBottomColor: "#ccc",
+                              borderLeftColor: "#ccc",
+                              borderStyle: "solid",
+                              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                              backgroundRepeat: "no-repeat",
+                              backgroundPositionX: "95.5%",
+                              backgroundPositionY: "center",
+                              WebkitAppearance: "none",
+                              MozAppearance: "none",
+                              appearance: "none",
+                              flex: 1,
+                            }}
+                          >
+                            <option>전공</option>
+                          </select>
+                          <select
+                            style={{
+                              height: 25,
+                              paddingTop: 0,
+                              paddingRight: 5,
+                              paddingBottom: 2,
+                              paddingLeft: 5,
+                              marginLeft: 5,
+                              fontSize: 12,
+                              color: "#666",
+                              borderWidth: "thin",
+                              borderTopColor: "#ccc",
+                              borderRightColor: "#ccc",
+                              borderBottomColor: "#ccc",
+                              borderLeftColor: "#ccc",
+                              borderStyle: "solid",
+                              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                              backgroundRepeat: "no-repeat",
+                              backgroundPositionX: "95.5%",
+                              backgroundPositionY: "center",
+                              WebkitAppearance: "none",
+                              MozAppearance: "none",
+                              appearance: "none",
+                              flex: 1,
+                            }}
+                          >
+                            <option>전공</option>
+                          </select>
+                        </div>
+                      </span>
+                      <span
+                        style={{
+                          alignItems: "center",
+                          display: "flex",
+                          alignContent: "left",
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: 54,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          학점
+                        </span>
+                        <input
+                          type="text"
+                          maxLength={3}
+                          style={{
+                            width: 74,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 6,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                          }}
+                        />
+                        <span
+                          style={{
+                            width: 81,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          요일
+                        </span>
+                        <select
+                          style={{
+                            width: 74,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 5,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPositionX: 57,
+                            backgroundPositionY: "center",
+                            WebkitAppearance: "none",
+                            MozAppearance: "none",
+                            appearance: "none",
+                          }}
+                        >
+                          <option>전체--</option>
+                          <option>월</option>
+                          <option>화</option>
+                          <option>수</option>
+                          <option>목</option>
+                          <option>금</option>
+                          <option>토</option>
+                          <option>일</option>
+                        </select>
+                        <span
+                          style={{
+                            width: 81,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          교시
+                        </span>
+                        <select
+                          style={{
+                            width: 57.54,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 5,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPositionX: 41,
+                            backgroundPositionY: "center",
+                            WebkitAppearance: "none",
+                            MozAppearance: "none",
+                            appearance: "none",
+                          }}
+                        >
+                          <option>전체--</option>
+                          <option>-1</option>
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                          <option>11</option>
+                          <option>12</option>
+                          <option>13</option>
+                          <option>14</option>
+                          <option>15</option>
+                        </select>
+                        <span
+                          style={{
+                            width: 23,
+                            height: 31,
+                            textAlign: "center",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            color: "#333",
+                          }}
+                        >
+                          ~
+                        </span>
+                        <select
+                          style={{
+                            width: 57.54,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPositionX: 41,
+                            backgroundPositionY: "center",
+                            WebkitAppearance: "none",
+                            MozAppearance: "none",
+                            appearance: "none",
+                          }}
+                        >
+                          <option>전체--</option>
+                          <option>-1</option>
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                          <option>11</option>
+                          <option>12</option>
+                          <option>13</option>
+                          <option>14</option>
+                          <option>15</option>
+                        </select>
+                        <button
+                          style={{
+                            width: 71,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 5,
+                            fontSize: 12,
+                            backgroundColor: "#f9f9f9",
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                          }}
+                        >
+                          교시확인표
+                        </button>
+                        <span
+                          style={{
+                            width: 80,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          담당교수
+                        </span>
+                        <input
+                          type="text"
+                          maxLength={30}
+                          style={{
+                            width: 114,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 6,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                          }}
+                        />
+                      </span>
+                      <span
+                        style={{
+                          alignItems: "center",
+                          display: "flex",
+                          alignContent: "left",
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: 54,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          학수번호
+                        </span>
+                        <input
+                          type="text"
+                          maxLength={7}
+                          style={{
+                            width: 74,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 6,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                          }}
+                          value={classNum}
+                          onChange={(e) => setClassNum(e.target.value)}
+                        />
+                        <span
+                          style={{
+                            width: 80,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          분반
+                        </span>
+                        <input
+                          type="text"
+                          maxLength={2}
+                          style={{
+                            width: 74,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 6,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                          }}
+                          disabled={classNum === ""}
+                        />
+                        <span
+                          style={{
+                            width: 81,
+                            height: 31,
+                            textAlign: "right",
+                            lineHeight: 2.7,
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#333",
+                          }}
+                        >
+                          교과목명
+                        </span>
+                        <input
+                          type="text"
+                          style={{
+                            width: 414,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 5,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                          }}
+                        />
+                        <button
+                          style={{
+                            width: 55,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 15,
+                            fontSize: 12,
+                            backgroundColor: "#876243",
+                            color: "#fff",
+                            borderWidth: "thin",
+                            borderTopColor: "#76563b",
+                            borderRightColor: "#76563b",
+                            borderBottomColor: "#76563b",
+                            borderLeftColor: "#76563b",
+                            borderStyle: "solid",
+                          }}
+                        >
+                          조회
+                        </button>
+                        <button
+                          style={{
+                            width: 55,
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 3,
+                            fontSize: 12,
+                            backgroundColor: "#f9f9f9",
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                          }}
+                        >
+                          초기화
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

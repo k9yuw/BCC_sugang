@@ -42,6 +42,12 @@ input:focus {
   appearance: "none";
   flex: 1;
 }
+
+.boxshadow {
+  /* box-shadow: 0 0 0 1px blue; */
+  box-shadow: 3px 3px red, -1em 0 0.4em olive;
+}
+
 /* 
 .header {
   width: 100%;
