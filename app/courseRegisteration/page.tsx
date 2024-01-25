@@ -25,7 +25,8 @@ export default function Home() {
   const [courseCode, setCourseCode] = useState();
   const [section, setSection] = useState();
   const [courseName, setCourseName] = useState();
-  const [selectBoxes, setSelectBoxes] = useState(``);
+  const [selectBoxes, setSelectBoxes] = useState("");
+  const [registerdCredit, setRegisteredCredit] = useState(0);
   const router = useRouter();
   const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
@@ -511,12 +512,14 @@ export default function Home() {
             수강신청 연습 시스템
           </span>
         </div>
-        <div //네이게이션 바디
+        <div //상단 바디
           style={{
             paddingBottom: 30,
             borderBottom: 1,
             borderBottomStyle: "solid",
             borderBottomColor: "#ccc",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           <div //네비게이션
@@ -545,6 +548,7 @@ export default function Home() {
                 borderRightColor: "#ccc",
                 color: navRegister[0] ? "#fff" : "#666",
                 backgroundColor: navRegister[0] ? "#bf0039" : "#fff",
+                cursor: "pointer",
               }}
             >
               유의사항
@@ -560,6 +564,7 @@ export default function Home() {
                 borderRightColor: "#ccc",
                 color: navRegister[1] ? "#fff" : "#666",
                 backgroundColor: navRegister[1] ? "#bf0039" : "#fff",
+                cursor: "pointer",
               }}
             >
               학수번호 입력하여 신청
@@ -575,6 +580,7 @@ export default function Home() {
                 borderRightColor: "#ccc",
                 color: navRegister[2] ? "#fff" : "#666",
                 backgroundColor: navRegister[2] ? "#bf0039" : "#fff",
+                cursor: "pointer",
               }}
             >
               내 관심강의에서 신청
@@ -587,6 +593,7 @@ export default function Home() {
                 width: "25%",
                 color: navRegister[3] ? "#fff" : "#666",
                 backgroundColor: navRegister[3] ? "#bf0039" : "#fff",
+                cursor: "pointer",
               }}
             >
               개설과목 검색하여 신청
@@ -718,6 +725,7 @@ export default function Home() {
                     color: "#fff",
                     marginTop: 12,
                     marginRight: 3,
+                    cursor: "pointer",
                   }}
                 >
                   신청
@@ -733,6 +741,7 @@ export default function Home() {
                     marginTop: 12,
                     marginLeft: 3,
                     color: "#666",
+                    cursor: "pointer",
                   }}
                 >
                   초기화
@@ -1394,15 +1403,55 @@ export default function Home() {
           ) : null}
           <div
             style={{
-              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
-              backgroundRepeat: "no-repeat",
-              border: 1,
-              borderStyle: "solid",
-              borderColor: "#ccc",
-              height: 30,
-              width: 50,
+              display: "flex",
+              position: "relative",
+              width: "100%",
+              flexDirection: "column",
             }}
-          ></div>
+          >
+            <div //상단 바디 위로 접는 버튼
+              style={{
+                position: "absolute",
+                justifySelf: "flex-end",
+                top: 23,
+                alignSelf: "center",
+                width: 51,
+                height: 15,
+                border: 1,
+                borderStyle: "solid",
+                borderColor: "#e1e1e1",
+                backgroundColor: "#f9f9f9",
+                backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
+                backgroundRepeat: "no-repeat",
+                backgroundPositionX: 21,
+                backgroundPositionY: -46,
+                cursor: "pointer",
+              }}
+            ></div>
+          </div>
+        </div>
+        <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", paddingLeft: 18 }}>
+            <h3 style={{}}>희망과목 내역</h3>
+            <h6
+              style={{
+                marginLeft: 15,
+                fontSize: 13,
+                marginTop: 22,
+                marginBottom: 0,
+              }}
+            >
+              [ 최소신청학점 :{" "}
+              <span style={{ fontSize: 12, color: "#a20131" }}>1</span> 학점 |
+              최대신청학점 :{" "}
+              <span style={{ fontSize: 12, color: "#a20131" }}>22</span> 학점 |
+              신청학점 :{" "}
+              <span style={{ fontSize: 12, color: "#a20131" }}>
+                {registerdCredit}
+              </span>{" "}
+              학점 ]
+            </h6>
+          </div>
         </div>
       </div>
     </div>
