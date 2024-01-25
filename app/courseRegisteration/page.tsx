@@ -1392,6 +1392,17 @@ export default function Home() {
               </form>
             </div>
           ) : null}
+          <div
+            style={{
+              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
+              backgroundRepeat: "no-repeat",
+              border: 1,
+              borderStyle: "solid",
+              borderColor: "#ccc",
+              height: 30,
+              width: 50,
+            }}
+          ></div>
         </div>
       </div>
     </div>
