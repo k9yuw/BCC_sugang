@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, MouseEvent, useState } from "react";
+import Navysm from "../components/clock/navysm";
 
 export default function Home() {
   const [language, setLanguage] = useState("kor");
@@ -39,6 +40,36 @@ export default function Home() {
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value == "전공") {
     }
+  };
+
+  const NavComp1 = () => (
+    <div //유의사항
+      style={{
+        marginTop: 20,
+        marginLeft: 18,
+        marginRight: 18,
+        border: 1,
+        borderStyle: "solid",
+        borderColor: "#ccc",
+      }}
+    >
+      <ul>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+        <li>게임 설명</li>
+      </ul>
+    </div>
+  );
+  const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
   };
 
   return (
@@ -599,32 +630,7 @@ export default function Home() {
               개설과목 검색하여 신청
             </div>
           </div>
-          {navRegister[0] ? (
-            <div //유의사항
-              style={{
-                marginTop: 20,
-                marginLeft: 18,
-                marginRight: 18,
-                border: 1,
-                borderStyle: "solid",
-                borderColor: "#ccc",
-              }}
-            >
-              <ul>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-                <li>게임 설명</li>
-              </ul>
-            </div>
-          ) : null}
+          {navRegister[0] ? <NavComp1 /> : null}
           {navRegister[1] ? (
             <div //학수번호 입력하여 신청
               style={{
@@ -717,6 +723,7 @@ export default function Home() {
                 }}
               >
                 <button
+                  onClick={onRegisterClick}
                   style={{
                     height: 30,
                     width: 70,
@@ -1430,7 +1437,9 @@ export default function Home() {
             ></div>
           </div>
         </div>
-        <div style={{ display: "flex" }}>
+        <div //하단 바디
+          style={{ height: "100%" }}
+        >
           <div style={{ display: "flex", paddingLeft: 18 }}>
             <h3 style={{}}>희망과목 내역</h3>
             <h6
@@ -1451,6 +1460,22 @@ export default function Home() {
               </span>{" "}
               학점 ]
             </h6>
+          </div>
+          <div>
+            <table>
+              <thead style={{ backgroundColor: "#f2eee8" }}>
+                <tr
+                  style={{
+                    fontSize: 12,
+                    textAlign: "center",
+                    height: 34,
+                  }}
+                >
+                  <th>정렬순서</th>
+                </tr>
+              </thead>
+            </table>
+            <Navysm />
           </div>
         </div>
       </div>

@@ -4,6 +4,13 @@ import Image from "next/image";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
+const lecturMap = {
+  secu: {
+    cydf: ["subject1", "subject2"],
+    smart: ["subject1", "subject2"],
+  },
+};
+
 export default function Home() {
   const [language, setLanguage] = useState("kor");
   const [classNum, setClassNum] = useState("");
@@ -13,6 +20,8 @@ export default function Home() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [campus, setCampus] = useState("서울");
   const [collegeSectionType, setCollegeSectionType] = useState("대학");
+  const [courseSelectTwo, setCourseSelectTwo] = useState(true);
+  const [courseSelectThree, setCourseSelectThree] = useState(true);
   const [courseTypeOne, setCourseTypeOne] = useState("");
   const [courseTypeTwo, setCourseTypeTwo] = useState("");
   const [courseTypeThree, setCourseTypeThree] = useState("");
@@ -25,6 +34,7 @@ export default function Home() {
   const [section, setSection] = useState();
   const [courseName, setCourseName] = useState();
   const [selectBoxes, setSelectBoxes] = useState(``);
+ 
   const router = useRouter();
   const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
@@ -35,7 +45,17 @@ export default function Home() {
     router.push("/courseRegisteration");
   };
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value == "전공") {
+    console.log(e.target.value);
+    if (e.target.value === "전공" || e.target.value === "학문의기초") {
+      setCourseSelectTwo(true);
+      setCourseSelectThree(true);
+    }
+    if (e.target.value === "교양") {
+      setCourseSelectTwo(true);
+      setCourseSelectThree(false);
+    } else {
+      setCourseSelectTwo(false);
+      setCourseSelectThree(false);
     }
   };
 
@@ -729,62 +749,66 @@ export default function Home() {
                         <option>군사학</option>
                         <option>평생교육사</option>
                       </select>
-                      <select
-                        style={{
-                          height: 25,
-                          paddingTop: 0,
-                          paddingRight: 5,
-                          paddingBottom: 2,
-                          paddingLeft: 5,
-                          marginLeft: 5,
-                          fontSize: 12,
-                          color: "#666",
-                          borderWidth: "thin",
-                          borderTopColor: "#ccc",
-                          borderRightColor: "#ccc",
-                          borderBottomColor: "#ccc",
-                          borderLeftColor: "#ccc",
-                          borderStyle: "solid",
-                          backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                          backgroundRepeat: "no-repeat",
-                          backgroundPositionX: "95.5%",
-                          backgroundPositionY: "center",
-                          WebkitAppearance: "none",
-                          MozAppearance: "none",
-                          appearance: "none",
-                          flex: 1,
-                        }}
-                      >
-                        <option>전공</option>
-                      </select>
-                      <select
-                        style={{
-                          height: 25,
-                          paddingTop: 0,
-                          paddingRight: 5,
-                          paddingBottom: 2,
-                          paddingLeft: 5,
-                          marginLeft: 5,
-                          fontSize: 12,
-                          color: "#666",
-                          borderWidth: "thin",
-                          borderTopColor: "#ccc",
-                          borderRightColor: "#ccc",
-                          borderBottomColor: "#ccc",
-                          borderLeftColor: "#ccc",
-                          borderStyle: "solid",
-                          backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                          backgroundRepeat: "no-repeat",
-                          backgroundPositionX: "95.5%",
-                          backgroundPositionY: "center",
-                          WebkitAppearance: "none",
-                          MozAppearance: "none",
-                          appearance: "none",
-                          flex: 1,
-                        }}
-                      >
-                        <option>전공</option>
-                      </select>
+                      {courseSelectTwo ? (
+                        <select
+                          style={{
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 5,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPositionX: "95.5%",
+                            backgroundPositionY: "center",
+                            WebkitAppearance: "none",
+                            MozAppearance: "none",
+                            appearance: "none",
+                            flex: 1,
+                          }}
+                        >
+                          <option>전공</option>
+                        </select>
+                      ) : null}
+                      {courseSelectThree ? (
+                        <select
+                          style={{
+                            height: 25,
+                            paddingTop: 0,
+                            paddingRight: 5,
+                            paddingBottom: 2,
+                            paddingLeft: 5,
+                            marginLeft: 5,
+                            fontSize: 12,
+                            color: "#666",
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPositionX: "95.5%",
+                            backgroundPositionY: "center",
+                            WebkitAppearance: "none",
+                            MozAppearance: "none",
+                            appearance: "none",
+                            flex: 1,
+                          }}
+                        >
+                          <option>전공</option>
+                        </select>
+                      ) : null}
                     </span>
                     <span
                       style={{

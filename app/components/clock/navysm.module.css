@@ -1,0 +1,53 @@
+.timeArea
+{
+		letter-spacing:-6px;
+  	font-size:40pt;
+	  color:#FF6815;
+    font-weight:bold;
+    text-shadow             : rgb(80, 80, 80) -1px -1px 1px;
+    float:left;
+}
+
+.msecArea
+{
+    float:left;
+    letter-spacing:-3px;
+    font-size:27pt;
+    color:#FF6815;
+    font-weight:bold;
+    text-shadow             : rgb(80, 80, 80) -1px -1px 1px;
+	  padding-top	: 2px;
+	  padding-left : 10px;
+}
+
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; 
+  justify-content: space-around; 
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center; 
+  margin-right: 10px; 
+  margin-bottom: 10px; 
+}
+
+/* 화면 크기가 768px 미만일 때 줄바꿈 */
+@media (max-width: 768px) {
+  .container {
+    justify-content: center; 
+  }
+
+  .checkboxContainer {
+    margin-bottom: 10px; 
+  }
+}
+
+.mainTitle {
+  margin-top: 20px; 
+}
+
+
