@@ -4,13 +4,6 @@ import Image from "next/image";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const lecturMap = {
-  secu: {
-    cydf: ["subject1", "subject2"],
-    smart: ["subject1", "subject2"],
-  },
-};
-
 export default function Home() {
   const [language, setLanguage] = useState("kor");
   const [classNum, setClassNum] = useState("");
@@ -34,6 +27,7 @@ export default function Home() {
   const [section, setSection] = useState();
   const [courseName, setCourseName] = useState();
   const [selectBoxes, setSelectBoxes] = useState(``);
+  const id = localStorage.getItem("username");
 
   const router = useRouter();
   const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
@@ -672,6 +666,29 @@ export default function Home() {
           >
             수강신청 연습 시스템
           </span>
+          <div style={{ height: 60, width: 50, marginLeft: "auto" }}>{id}</div>
+          <button
+            style={{
+              width: 80,
+              height: 25,
+              paddingTop: 0,
+              paddingRight: 5,
+              paddingBottom: 2,
+              paddingLeft: 5,
+              marginLeft: 15,
+              fontSize: 12,
+              backgroundColor: "#876243",
+              color: "#fff",
+              borderWidth: "thin",
+              borderTopColor: "#76563b",
+              borderRightColor: "#76563b",
+              borderBottomColor: "#76563b",
+              borderLeftColor: "#76563b",
+              borderStyle: "solid",
+            }}
+          >
+            로그아웃
+          </button>
         </div>
         <div //바디
           style={{
