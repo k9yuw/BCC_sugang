@@ -15,6 +15,8 @@ export default function Home() {
     console.log(id);
     router.push("/courseRegisteration");
 
+    localStorage.setItem("username", id);
+
     // const formData = new FormData(e.currentTarget);
     // console.log(formData);
     // const response = await fetch("/api/login", {
@@ -209,6 +211,7 @@ export default function Home() {
                     type="text"
                     placeholder="닉네임 ( NickName )"
                     value={id}
+                    maxLength={30}
                     onChange={(e) => setId(e.target.value)}
                     style={{
                       backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/login/icon-id.png")`,
