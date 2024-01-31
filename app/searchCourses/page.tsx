@@ -666,18 +666,36 @@ export default function Home() {
           >
             수강신청 연습 시스템
           </span>
-          <div style={{ height: 60, width: 50, marginLeft: "auto" }}>{id}</div>
+          <div
+            style={{
+              height: 60,
+              width: 500,
+              marginLeft: "auto",
+              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPositionX: "right",
+              backgroundPositionY: "center",
+              lineHeight: 3.5,
+              textAlign: "right",
+              paddingRight: 13,
+            }}
+          >
+            {id}
+          </div>
           <button
+            onClick={() => {
+              router.push("/");
+            }}
             style={{
               width: 80,
-              height: 25,
+              height: 35,
               paddingTop: 0,
               paddingRight: 5,
               paddingBottom: 2,
               paddingLeft: 5,
               marginLeft: 15,
-              fontSize: 12,
-              backgroundColor: "#876243",
+              fontSize: 14,
+              backgroundColor: "#8C5637",
               color: "#fff",
               borderWidth: "thin",
               borderTopColor: "#76563b",
@@ -685,6 +703,8 @@ export default function Home() {
               borderBottomColor: "#76563b",
               borderLeftColor: "#76563b",
               borderStyle: "solid",
+              lineHeight: 2,
+              cursor: "pointer",
             }}
           >
             로그아웃

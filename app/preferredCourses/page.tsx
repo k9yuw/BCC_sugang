@@ -26,6 +26,7 @@ export default function Home() {
   const [courseName, setCourseName] = useState();
   const [selectBoxes, setSelectBoxes] = useState(``);
   const router = useRouter();
+  const id = localStorage.getItem("username");
   const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     router.push("/preferredCourses");
@@ -514,6 +515,49 @@ export default function Home() {
           >
             수강신청 연습 시스템
           </span>
+          <div
+            style={{
+              height: 60,
+              width: 500,
+              marginLeft: "auto",
+              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPositionX: "right",
+              backgroundPositionY: "center",
+              lineHeight: 3.5,
+              textAlign: "right",
+              paddingRight: 13,
+            }}
+          >
+            {id}
+          </div>
+          <button
+            onClick={() => {
+              router.push("/");
+            }}
+            style={{
+              width: 80,
+              height: 35,
+              paddingTop: 0,
+              paddingRight: 5,
+              paddingBottom: 2,
+              paddingLeft: 5,
+              marginLeft: 15,
+              fontSize: 14,
+              backgroundColor: "#8C5637",
+              color: "#fff",
+              borderWidth: "thin",
+              borderTopColor: "#76563b",
+              borderRightColor: "#76563b",
+              borderBottomColor: "#76563b",
+              borderLeftColor: "#76563b",
+              borderStyle: "solid",
+              lineHeight: 2,
+              cursor: "pointer",
+            }}
+          >
+            로그아웃
+          </button>
         </div>
       </div>
     </div>
