@@ -11,6 +11,7 @@ import Clock from "./clock";
 const Navysm = ({}) => {
   return (
     <>
+    <div className="shadow">
       <div className="browser-frame chrome">
         <div className="frame-bar">
           <div className="tab-holder">
@@ -21,17 +22,13 @@ const Navysm = ({}) => {
           </div>
         </div>
         <div className="top-bar">
-          <div>
-            <FontAwesomeIcon icon={faArrowLeft} className="left-bt" size="xs" />
-            <FontAwesomeIcon
-              icon={faArrowRight}
-              className="left-bt"
-              size="xs"
-            />
-            <FontAwesomeIcon icon={faRefresh} className="left-bt" size="xs" />
+          <div className="icon-container">
+            <FontAwesomeIcon icon={faArrowLeft} className="left-bt" size="2xs" />
+            <FontAwesomeIcon icon={faArrowRight} className="left-bt" size="2xs"/>
+            <FontAwesomeIcon icon={faRefresh} className="left-bt" size="2xs" />
           </div>
           <div className="address-field fa fa-star-o">
-            <span> https://time.navyism.com/</span>
+            <span class="tab-title">https://time.navyism.com/</span>
           </div>
           <div className="menu-bt">
             <ul>
@@ -42,9 +39,13 @@ const Navysm = ({}) => {
           </div>
         </div>
       </div>
+
       <main>
-        <Clock />
+        <div className="clock-container">
+          <Clock />
+        </div>
       </main>
+    </div>
     </>
   );
 };
