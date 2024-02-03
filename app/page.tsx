@@ -107,46 +107,28 @@ export default function Home() {
                       paddingRight: 22,
                     }}
                   >
-                    <input
-                      type="radio"
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setLanguage("kor");
-                        }
-                      }}
-                      checked={language === "kor"}
-                      style={{
-                        width: language === "kor" ? 16 : 16,
-                        height: language === "kor" ? 16 : 16,
-                        WebkitAppearance: "none",
-                        MozAppearance: "none",
-                        appearance: "none",
-                        borderWidth: language === "kor" ? 4 : 1.1,
-                        borderStyle: "solid",
-                        borderColor: language === "kor" ? "#fff" : "#ccc",
-                        borderRadius: "50%",
-                        backgroundColor:
-                          language === "kor" ? "#a20131" : undefined,
-                        boxShadow: "initial",
-                      }}
-                      // className="boxshadow"
-                      // style={{
-                      //   width: language === "kor" ? 16 : 16,
-                      //   height: language === "kor" ? 16 : 16,
-                      //   WebkitAppearance: "none",
-                      //   MozAppearance: "none",
-                      //   appearance: "none",
-                      //   borderWidth: language === "kor" ? 1 : 1.1,
-                      //   borderStyle: "solid",
-                      //   borderColor: "#ccc",
-                      //   padding: 2,
-                      //   borderRadius: "50%",
-                      //   backgroundColor:
-                      //     language === "kor" ? "#a20131" : undefined,
-                      //   boxShadow: "initial",
-                      //   // backgroundImage:""
-                      // }}
-                    />
+                  <input
+                    type="radio"
+                    onChange={(e) => {
+                    if (e.target.checked) {
+                      setLanguage("kor");
+                    }
+                  }}
+                  checked={language === "kor"}
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                    width: "16px",
+                    height: "16px",
+                    border: language === "kor" ? "3.5px solid #fff" : "1px solid #ccc",
+                    backgroundColor: language === "kor" ? "#a20131" : "transparent",
+                    boxShadow: language === "kor" ? "0 0 0 1px #ccc" : "none",
+                    borderRadius: "50%",
+                    outline: "none",
+                    cursor: "pointer",
+                  }}
+                  />
                     <label
                       style={{
                         position: "relative",
@@ -165,27 +147,27 @@ export default function Home() {
                     }}
                   >
                     <input
-                      type="radio"
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setLanguage("eng");
-                        }
-                      }}
-                      checked={language === "eng"}
-                      style={{
-                        width: language === "eng" ? 16 : 16,
-                        height: language === "eng" ? 16 : 16,
-                        WebkitAppearance: "none",
-                        MozAppearance: "none",
-                        appearance: "none",
-                        borderWidth: language === "eng" ? 4 : 1.1,
-                        borderStyle: "solid",
-                        borderColor: language === "eng" ? "#fff" : "#ccc",
-                        borderRadius: "50%",
-                        backgroundColor:
-                          language === "eng" ? "#a20131" : undefined,
-                      }}
-                    />
+                    type="radio"
+                    onChange={(e) => {
+                    if (e.target.checked) {
+                      setLanguage("eng");
+                    }
+                    }}
+                    checked={language === "eng"}
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "none",
+                      appearance: "none",
+                      width: "16px",
+                      height: "16px",
+                      border: language === "eng" ? "3.5px solid #fff" : "1px solid #ccc",
+                      backgroundColor: language === "eng" ? "#a20131" : "transparent",
+                      boxShadow: language === "eng" ? "0 0 0 1px #ccc" : "none",
+                      borderRadius: "50%",
+                      outline: "none",
+                      cursor: "pointer",
+                    }}
+                  />
                     <label
                       style={{
                         position: "relative",
