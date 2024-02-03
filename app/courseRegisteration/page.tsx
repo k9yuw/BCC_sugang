@@ -29,6 +29,33 @@ export default function Home() {
   const [courseName, setCourseName] = useState();
   const [selectBoxes, setSelectBoxes] = useState("");
   const [registerdCredit, setRegisteredCredit] = useState(0);
+
+  // /*시간표 색상 채우기 부분
+  // const colorKind = ["#D63D2F", "#E06616", "#E0A605", "#789C0C", "#1879D3"];
+
+  // const [innerColor, setInnerColor] = useState(new Array(63).fill('white'));
+  // const [colorCount, setColorCount] = useState(0);
+  // const [box, setBox] = useState([0,0]);
+
+  // function sugangClick(){
+  //   changeBox(0,2);
+  //   setColorCount((prev) => prev+1);
+  //   changeColor();
+  // }
+
+  // function changeBox(box1 : number, box2 : number){
+  //   const tempBox : number[] = [box1, box2];
+  //   setBox(tempBox);
+  // };
+  // function changeColor(){
+	// 	let temp = [...innerColor];
+	// 	temp[box[0]] = colorKind[colorCount];
+	// 	temp[box[1]] = colorKind[colorCount];
+	// 	setInnerColor(temp);
+	// };
+  // */
+	
+
   const router = useRouter();
   const id = localStorage.getItem("username");
 
@@ -1737,7 +1764,8 @@ export default function Home() {
               }}
             >
               <div>
-                <TimeTable/>              
+                <TimeTable innerColor={new Array(63).fill('white')}/>              
+              
               </div>
               <Navysm />
             </div>
