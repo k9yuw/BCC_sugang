@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import Navysm from "../components/clock/navysm";
+import TimeTable from "../components/table/timeTable";
 
 export default function Home() {
   const [language, setLanguage] = useState("kor");
@@ -1735,15 +1736,8 @@ export default function Home() {
                 marginLeft: 10,
               }}
             >
-              <div
-                style={{
-                  height: 300,
-                  backgroundColor: "#edd607",
-                  textAlign: "center",
-                  lineHeight: 10,
-                }}
-              >
-                시간표
+              <div>
+                <TimeTable/>              
               </div>
               <Navysm />
             </div>
