@@ -19,7 +19,7 @@ const Clock: React.FC = () => {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      setDate((prevDate) => prevDate + 10);
+      setDate((prevDate) => prevDate + 8);
 
       const hours = String(new Date(date).getHours()).padStart(2, "0");
       const minutes = String(new Date(date).getMinutes()).padStart(2, "0");
@@ -37,7 +37,7 @@ const Clock: React.FC = () => {
         setBgmplayed(false);
       }
       
-    }, 10);
+    }, 8);
     
     return () => clearInterval(timerId);
   }, [date]); // date가 변경될 때마다 useEffect 실행
@@ -83,6 +83,5 @@ return (
 }
   export default Clock;
   
-
   
 
