@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import Navysm from "../components/clock/navysm";
-import TimeTable from "../components/table/timeTable";
+import TimeTable from "../components/table/sugangTimeTable/timeTable";
 
 export default function Home() {
   const [language, setLanguage] = useState("kor");
@@ -813,10 +813,7 @@ export default function Home() {
           {navRegister[3] ? (
             <div //개설과목 검색하여 신청
               style={{
-                marginBottom: 15,
-                marginLeft: 18,
-                marginRight: 18,
-                marginTop: 20,
+                marginTop: 10,
                 padding: 12,
                 paddingBottom: 9,
                 border: 1,
