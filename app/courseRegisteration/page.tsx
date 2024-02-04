@@ -47,9 +47,7 @@ export default function Home() {
   const NavComp1 = () => (
     <div //유의사항
       style={{
-        marginTop: 20,
-        marginLeft: 18,
-        marginRight: 18,
+        marginTop: 10,
         border: 1,
         borderStyle: "solid",
         borderColor: "#ccc",
@@ -590,7 +588,10 @@ export default function Home() {
         </div>
         <div //상단 바디
           style={{
-            paddingBottom: 30,
+            paddingTop: 25,
+            paddingRight: 30,
+            paddingBottom: 32.7,
+            paddingLeft: 30,
             borderBottom: 1,
             borderBottomStyle: "solid",
             borderBottomColor: "#ccc",
@@ -602,15 +603,13 @@ export default function Home() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              height: 50,
-              marginTop: 25,
-              marginRight: 18,
-              marginLeft: 18,
+              height: 40,
               border: 1,
               borderStyle: "solid",
               borderColor: "#ccc",
-              lineHeight: 3,
+              lineHeight: 2.7,
               textAlign: "center",
+              fontSize: 13,
             }}
           >
             <div
@@ -623,7 +622,7 @@ export default function Home() {
                 borderRightStyle: "solid",
                 borderRightColor: "#ccc",
                 color: navRegister[0] ? "#fff" : "#666",
-                backgroundColor: navRegister[0] ? "#bf0039" : "#fff",
+                backgroundColor: navRegister[0] ? "#a20131" : "#fff",
                 cursor: "pointer",
               }}
             >
@@ -639,7 +638,7 @@ export default function Home() {
                 borderRightStyle: "solid",
                 borderRightColor: "#ccc",
                 color: navRegister[1] ? "#fff" : "#666",
-                backgroundColor: navRegister[1] ? "#bf0039" : "#fff",
+                backgroundColor: navRegister[1] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
               }}
             >
@@ -655,7 +654,7 @@ export default function Home() {
                 borderRightStyle: "solid",
                 borderRightColor: "#ccc",
                 color: navRegister[2] ? "#fff" : "#666",
-                backgroundColor: navRegister[2] ? "#bf0039" : "#fff",
+                backgroundColor: navRegister[2] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
               }}
             >
@@ -668,7 +667,7 @@ export default function Home() {
               style={{
                 width: "25%",
                 color: navRegister[3] ? "#fff" : "#666",
-                backgroundColor: navRegister[3] ? "#bf0039" : "#fff",
+                backgroundColor: navRegister[3] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
               }}
             >
@@ -772,7 +771,7 @@ export default function Home() {
                   style={{
                     height: 30,
                     width: 70,
-                    backgroundColor: "#bf0039",
+                    backgroundColor: "#a20131",
                     border: 0,
                     color: "#fff",
                     marginTop: 12,
@@ -937,7 +936,11 @@ export default function Home() {
                           이수구분
                         </span>
                         <div
-                          style={{ width: 414, marginLeft: 5, display: "flex" }}
+                          style={{
+                            width: 414,
+                            marginLeft: 5,
+                            display: "flex",
+                          }}
                         >
                           <select
                             value={courseTypeOne}
@@ -1453,46 +1456,56 @@ export default function Home() {
               </form>
             </div>
           ) : null}
-          <div
+        </div>
+        <div //상하단 분리선
+          style={{
+            display: "flex",
+            position: "relative",
+            width: "100%",
+            minWidth: 1030,
+            overflow: "visible",
+            flexDirection: "column",
+          }}
+        >
+          <div //상단 바디 위로 접는 버튼
             style={{
-              display: "flex",
-              position: "relative",
-              width: "100%",
-              flexDirection: "column",
+              position: "absolute",
+              justifySelf: "flex-end",
+              top: -7.5,
+              alignSelf: "center",
+              width: 51,
+              height: 15,
+              border: 1,
+              borderStyle: "solid",
+              borderColor: "#e1e1e1",
+              backgroundColor: "#f9f9f9",
+              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPositionX: 21,
+              backgroundPositionY: -46,
+              cursor: "pointer",
             }}
-          >
-            <div //상단 바디 위로 접는 버튼
-              style={{
-                position: "absolute",
-                justifySelf: "flex-end",
-                top: 23,
-                alignSelf: "center",
-                width: 51,
-                height: 15,
-                border: 1,
-                borderStyle: "solid",
-                borderColor: "#e1e1e1",
-                backgroundColor: "#f9f9f9",
-                backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
-                backgroundRepeat: "no-repeat",
-                backgroundPositionX: 21,
-                backgroundPositionY: -46,
-                cursor: "pointer",
-              }}
-            ></div>
-          </div>
+          ></div>
         </div>
         <div //하단 바디
-          style={{}}
+          style={{
+            paddingTop: 20,
+            paddingRight: 30,
+            paddingBottom: 25,
+            paddingLeft: 30,
+          }}
         >
-          <div style={{ display: "flex", paddingLeft: 18, height: 37 }}>
-            <h3 style={{}}>수강신청 내역</h3>
+          <div style={{ display: "flex", height: 30, paddingBottom: 5 }}>
+            <h3 style={{ fontSize: 18, marginBottom: 0, marginTop: 0 }}>
+              수강신청 내역
+            </h3>
             <h6
               style={{
-                marginLeft: 15,
                 fontSize: 13,
-                marginTop: 22,
                 marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 15,
+                lineHeight: 1.8,
               }}
             >
               [ 최소신청학점 :{" "}
@@ -1505,14 +1518,12 @@ export default function Home() {
               </span>{" "}
               학점 ]
             </h6>
-            <div
-              style={{ marginLeft: "auto", marginRight: 18, paddingTop: 18 }}
-            >
+            <div style={{ marginLeft: "auto" }}>
               <button
                 style={{
-                  width: 75,
+                  width: 70,
                   height: 25,
-                  fontSize: 13,
+                  fontSize: 12,
                   backgroundColor: "#f9f9f9",
                   color: "#666",
                   borderWidth: "thin",
@@ -1527,9 +1538,12 @@ export default function Home() {
               </button>
               <button
                 style={{
-                  width: 100,
+                  width: 96,
                   height: 25,
-                  fontSize: 13,
+                  fontSize: 12,
+                  textAlign: "left",
+                  paddingLeft: 10,
+                  marginLeft: 5,
                   backgroundColor: "#f9f9f9",
                   color: "#666",
                   borderWidth: "thin",
@@ -1538,6 +1552,10 @@ export default function Home() {
                   borderBottomColor: "#ccc",
                   borderLeftColor: "#ccc",
                   borderStyle: "solid",
+                  backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/icon-print.png")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPositionY: 2,
+                  backgroundPositionX: 70,
                 }}
               >
                 시간표 인쇄
@@ -1547,11 +1565,9 @@ export default function Home() {
           <div style={{ height: "100%", display: "flex" }}>
             <div //수강신청 내역 테이블
               style={{
-                marginTop: 10,
                 borderTop: 1,
                 borderTopStyle: "solid",
                 width: 800,
-                marginLeft: 18,
               }}
             >
               <table
@@ -1730,8 +1746,6 @@ export default function Home() {
             <div //시간표, 네이비즘
               style={{
                 width: 421,
-                marginRight: 18,
-                marginTop: 10,
                 marginLeft: 10,
               }}
             >

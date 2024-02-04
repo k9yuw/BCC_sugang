@@ -3,31 +3,34 @@
 import Image from "next/image";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { major } from "../data/major";
 
 export default function Home() {
   const [language, setLanguage] = useState("kor");
-  const [classNum, setClassNum] = useState("");
-  const [navMouseEnterOne, setNavMouseEnterOne] = useState(false);
-  const [navMouseEnterTwo, setNavMouseEnterTwo] = useState(false);
-  const [navMouseEnterThree, setNavMouseEnterThree] = useState(false);
+  const [navMouseEnterOne, setNavMouseEnterOne] = useState(false); //좌측 navBar: 수강신청
+  const [navMouseEnterTwo, setNavMouseEnterTwo] = useState(false); //좌측 navBar: 수강희망/관심과목등록
+  const [navMouseEnterThree, setNavMouseEnterThree] = useState(false); //좌측 navBar: 과목조회
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
-  const [campus, setCampus] = useState("서울");
-  const [collegeSectionType, setCollegeSectionType] = useState("대학");
+  const [campus, setCampus] = useState("서울"); //캠퍼스
+  const [collegeSectionType, setCollegeSectionType] = useState("대학"); //대학구분
   const [courseSelect, setCourseSelect] = useState([true, true]);
-  const [courseTypeOne, setCourseTypeOne] = useState("");
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const [courseTypeTwo, setCourseTypeTwo] = useState("");
-  const [courseTypeThree, setCourseTypeThree] = useState("");
-  const [credit, setCredit] = useState();
-  const [day, setDay] = useState("");
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
-  const [professor, setProfessor] = useState("");
-  const [courseCode, setCourseCode] = useState();
-  const [section, setSection] = useState();
-  const [courseName, setCourseName] = useState();
-  const [selectBoxes, setSelectBoxes] = useState(``);
+  const [selectedIdxOne, setSelectedIdxOne] = useState(0);
+  const [selectedIdxTwo, setSelectedIdxTwo] = useState(0);
+  const [selectedIdxThree, setSelectedIdxThree] = useState(0);
+  const [courseTypeOne, setCourseTypeOne] = useState("전공"); //이수구분
+  const [courseTypeTwo, setCourseTypeTwo] = useState("간호대학");
+  const [courseTypeThree, setCourseTypeThree] = useState<string>("간호학과");
+  const [credit, setCredit] = useState(""); //학점
+  const [day, setDay] = useState(""); //요일
+  const [startTime, setStartTime] = useState(""); //교시
+  const [endTime, setEndTime] = useState("");
+  const [professor, setProfessor] = useState(""); //교수
+  const [courseCode, setCourseCode] = useState(""); //학수번호
+  const [section, setSection] = useState(""); //분반
+  const [courseName, setCourseName] = useState(""); //교과목명
   const id = localStorage.getItem("username");
+  let searchedData = undefined;
+  const [searched, setSearched] = useState(false);
 
   const router = useRouter();
   const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
@@ -40,7 +43,7 @@ export default function Home() {
   };
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
     setCourseTypeOne(e.target.value);
-    setSelectedIdx(e.target.selectedIndex);
+    setSelectedIdxOne(e.target.selectedIndex);
 
     if (e.target.selectedIndex < 2) {
       setCourseSelect([true, true]);
@@ -48,6 +51,14 @@ export default function Home() {
       setCourseSelect([true, false]);
     } else {
       setCourseSelect([false, false]);
+    }
+  };
+  const onClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSearched(true);
+    if (selectedIdxOne === 0) {
+      searchedData = major[selectedIdxTwo][selectedIdxThree];
+      console.log(searchedData);
     }
   };
 
@@ -816,6 +827,7 @@ export default function Home() {
                         캠퍼스
                       </span>
                       <select
+                        value={campus}
                         style={{
                           width: 74,
                           height: 25,
@@ -858,6 +870,7 @@ export default function Home() {
                         대학구분
                       </span>
                       <select
+                        value={collegeSectionType}
                         style={{
                           width: 214,
                           height: 25,
@@ -925,6 +938,10 @@ export default function Home() {
                           MozAppearance: "none",
                           appearance: "none",
                           flex: 1,
+                          display: "block",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "clip",
                         }}
                       >
                         <option>전공</option>
@@ -939,6 +956,7 @@ export default function Home() {
                           value={courseTypeTwo}
                           onChange={(e) => {
                             setCourseTypeTwo(e.target.value);
+                            setSelectedIdxTwo(e.target.selectedIndex);
                           }}
                           style={{
                             height: 25,
@@ -963,10 +981,14 @@ export default function Home() {
                             MozAppearance: "none",
                             appearance: "none",
                             flex: 1,
+                            display: "block",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "clip",
                           }}
                         >
-                          {selectedIdx < 2
-                            ? Object.keys(courseSelectData[selectedIdx]).map(
+                          {selectedIdxOne < 2
+                            ? Object.keys(courseSelectData[selectedIdxOne]).map(
                                 (prop) => <option key={prop}>{prop}</option>
                               )
                             : courseSelectData[2].map((prop: string) => (
@@ -979,6 +1001,7 @@ export default function Home() {
                           value={courseTypeThree}
                           onChange={(e) => {
                             setCourseTypeThree(e.target.value);
+                            setSelectedIdxThree(e.target.selectedIndex);
                           }}
                           style={{
                             height: 25,
@@ -1003,14 +1026,18 @@ export default function Home() {
                             MozAppearance: "none",
                             appearance: "none",
                             flex: 1,
+                            display: "block",
+                            // overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "clip",
                           }}
                         >
-                          {selectedIdx < 2
-                            ? courseSelectData[selectedIdx][courseTypeTwo]?.map(
-                                (prop: string) => (
-                                  <option key={prop}>{prop}</option>
-                                )
-                              )
+                          {selectedIdxOne < 2
+                            ? courseSelectData[selectedIdxOne][
+                                courseTypeTwo
+                              ]?.map((prop: string) => (
+                                <option key={prop}>{prop}</option>
+                              ))
                             : null}
                         </select>
                       ) : null}
@@ -1037,7 +1064,17 @@ export default function Home() {
                       </span>
                       <input
                         type="text"
+                        onInput={(e: any) =>
+                          (e.target.value = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          ))
+                        }
                         maxLength={3}
+                        value={credit}
+                        onChange={(e) => {
+                          setCredit(e.target.value);
+                        }}
                         style={{
                           width: 74,
                           height: 25,
@@ -1070,6 +1107,10 @@ export default function Home() {
                         요일
                       </span>
                       <select
+                        value={day}
+                        onChange={(e) => {
+                          setDay(e.target.value);
+                        }}
                         style={{
                           width: 74,
                           height: 25,
@@ -1118,6 +1159,10 @@ export default function Home() {
                         교시
                       </span>
                       <select
+                        value={startTime}
+                        onChange={(e) => {
+                          setStartTime(e.target.value);
+                        }}
                         style={{
                           width: 57.54,
                           height: 25,
@@ -1175,6 +1220,10 @@ export default function Home() {
                         ~
                       </span>
                       <select
+                        value={endTime}
+                        onChange={(e) => {
+                          setEndTime(e.target.value);
+                        }}
                         style={{
                           width: 57.54,
                           height: 25,
@@ -1219,6 +1268,7 @@ export default function Home() {
                         <option>15</option>
                       </select>
                       <button
+                        onClick={(e) => e.preventDefault()}
                         style={{
                           width: 71,
                           height: 25,
@@ -1255,6 +1305,8 @@ export default function Home() {
                       </span>
                       <input
                         type="text"
+                        value={professor}
+                        onChange={(e) => setProfessor(e.target.value)}
                         maxLength={30}
                         style={{
                           width: 114,
@@ -1298,6 +1350,16 @@ export default function Home() {
                       <input
                         type="text"
                         maxLength={7}
+                        onInput={(e: any) => {
+                          e.target.value = e.target.value.replace(
+                            /[^a-zA-Z0-9]/g,
+                            ""
+                          );
+                          const x = e.target.value;
+                          e.target.value = x.toUpperCase();
+                        }}
+                        value={courseCode}
+                        onChange={(e) => setCourseCode(e.target.value)}
                         style={{
                           width: 74,
                           height: 25,
@@ -1315,8 +1377,6 @@ export default function Home() {
                           borderLeftColor: "#ccc",
                           borderStyle: "solid",
                         }}
-                        value={classNum}
-                        onChange={(e) => setClassNum(e.target.value)}
                       />
                       <span
                         style={{
@@ -1334,6 +1394,16 @@ export default function Home() {
                       <input
                         type="text"
                         maxLength={2}
+                        onInput={(e: any) => {
+                          e.target.value = e.target.value.replace(
+                            /[^a-zA-Z0-9]/g,
+                            ""
+                          );
+                          const x = e.target.value;
+                          e.target.value = x.toUpperCase();
+                        }}
+                        value={section}
+                        onChange={(e) => setSection(e.target.value)}
                         style={{
                           width: 74,
                           height: 25,
@@ -1351,7 +1421,7 @@ export default function Home() {
                           borderLeftColor: "#ccc",
                           borderStyle: "solid",
                         }}
-                        disabled={classNum === ""}
+                        disabled={courseCode === ""}
                       />
                       <span
                         style={{
@@ -1368,6 +1438,8 @@ export default function Home() {
                       </span>
                       <input
                         type="text"
+                        value={courseName}
+                        onChange={(e) => setCourseName(e.target.value)}
                         style={{
                           width: 414,
                           height: 25,
@@ -1387,6 +1459,7 @@ export default function Home() {
                         }}
                       />
                       <button
+                        onClick={onClickSearch}
                         style={{
                           width: 55,
                           height: 25,
@@ -1404,11 +1477,26 @@ export default function Home() {
                           borderBottomColor: "#76563b",
                           borderLeftColor: "#76563b",
                           borderStyle: "solid",
+                          cursor: "pointer",
                         }}
                       >
                         조회
                       </button>
                       <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setCourseTypeOne("전공");
+                          setCourseTypeTwo("간호대학");
+                          setCourseTypeThree("간호학과");
+                          setCredit("");
+                          setDay("전체--");
+                          setStartTime("전체--");
+                          setEndTime("전체--");
+                          setProfessor("");
+                          setCourseCode("");
+                          setSection("");
+                          setCourseName("");
+                        }}
                         style={{
                           width: 55,
                           height: 25,
@@ -1426,6 +1514,7 @@ export default function Home() {
                           borderBottomColor: "#ccc",
                           borderLeftColor: "#ccc",
                           borderStyle: "solid",
+                          cursor: "pointer",
                         }}
                       >
                         초기화
@@ -1557,7 +1646,7 @@ export default function Home() {
                       borderBottomStyle: "solid",
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
-                      width: 55.375,
+                      width: 54,
                       fontWeight: 600,
                     }}
                   >
@@ -1572,7 +1661,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 71.375,
+                      width: 67,
                     }}
                   >
                     학수번호
@@ -1586,7 +1675,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 38.375,
+                      width: 41,
                     }}
                   >
                     분반
@@ -1600,7 +1689,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 71.375,
+                      width: 67,
                     }}
                   >
                     이수구분
@@ -1614,7 +1703,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 87.375,
+                      width: 81,
                     }}
                   >
                     개설학과
@@ -1628,7 +1717,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 168.375,
+                      width: 147,
                     }}
                   >
                     교과목명
@@ -1642,7 +1731,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 87.375,
+                      width: 81,
                     }}
                   >
                     담당교수
@@ -1656,7 +1745,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 38.375,
+                      width: 41,
                     }}
                   >
                     학점 <br /> (시간)
@@ -1670,7 +1759,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 135.375,
+                      width: 121,
                     }}
                   >
                     강의시간/강의실
@@ -1684,7 +1773,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 38.375,
+                      width: 41,
                     }}
                   >
                     상대
@@ -1700,7 +1789,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 38.375,
+                      width: 41,
                     }}
                   >
                     인원
@@ -1716,7 +1805,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 38.375,
+                      width: 41,
                     }}
                   >
                     교환
@@ -1732,7 +1821,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 55.375,
+                      width: 54,
                     }}
                   >
                     출석확인
@@ -1748,7 +1837,7 @@ export default function Home() {
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
                       fontWeight: 600,
-                      width: 55.375,
+                      width: 54,
                     }}
                   >
                     무감독
@@ -1760,7 +1849,7 @@ export default function Home() {
                       borderBottomStyle: "solid",
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
-                      width: 38,
+                      width: 40,
                     }}
                   >
                     유연
@@ -1769,31 +1858,60 @@ export default function Home() {
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr></tr>
-              </tbody>
+              {searchedData ? (
+                <tbody style={{ fontSize: 12 }}>
+                  {searchedData.map((prop) => (
+                    <tr
+                      style={{
+                        fontSize: 12,
+                        textAlign: "center",
+                        height: 34,
+                      }}
+                      key={prop}
+                    >
+                      <td>{prop.campus}</td>
+                      <td>{prop.cour_cd}</td>
+                      <td>{prop.cour_cls}</td>
+                      <td>{prop.isu_nm}</td>
+                      <td>{prop.department}</td>
+                      <td>{prop.cour_nm}</td>
+                      <td>{prop.prof_nm}</td>
+                      <td>{prop.time}</td>
+                      <td>{prop.time_room}</td>
+                      <td>{prop.absolute_yn}</td>
+                      <td>{prop.lmt_yn}</td>
+                      <td>{prop.exch_cor_yn}</td>
+                      <td>{prop.attend_free_yn}</td>
+                      <td>{prop.no_supervisor_yn}</td>
+                      <td>{prop.flexible_school_yn}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              ) : null}
             </table>
-            <div
-              onMouseEnter={() => {
-                setTableMouseEnter(true);
-              }}
-              onMouseLeave={() => {
-                setTableMouseEnter(false);
-              }}
-              style={{
-                fontSize: 12,
-                color: "#666",
-                textAlign: "center",
-                lineHeight: 12,
-                borderBottom: 1,
-                borderBottomColor: "#ccc",
-                borderBottomStyle: "solid",
-                height: 150,
-                backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
-              }}
-            >
-              조회 조건 선택 후 조회 버튼을 클릭하세요.
-            </div>
+            {searched ? null : (
+              <div
+                onMouseEnter={() => {
+                  setTableMouseEnter(true);
+                }}
+                onMouseLeave={() => {
+                  setTableMouseEnter(false);
+                }}
+                style={{
+                  fontSize: 12,
+                  color: "#666",
+                  textAlign: "center",
+                  lineHeight: 12,
+                  borderBottom: 1,
+                  borderBottomColor: "#ccc",
+                  borderBottomStyle: "solid",
+                  height: 150,
+                  backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
+                }}
+              >
+                조회 조건 선택 후 조회 버튼을 클릭하세요.
+              </div>
+            )}
           </div>
         </div>
       </div>
