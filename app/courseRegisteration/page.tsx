@@ -1761,7 +1761,7 @@ export default function Home() {
           <div
             style={{ height: "100%", display: "flex", justifyContent: "right" }}
           >
-            <div style={{ position: "fixed" }}>
+            <div style={{ position: "fixed", bottom :"20px", right: "20px" }}>
               <Navysm />
             </div>
           </div>
