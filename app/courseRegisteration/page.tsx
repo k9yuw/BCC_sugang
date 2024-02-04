@@ -1759,7 +1759,7 @@ export default function Home() {
               <div>
                 <TimeTable innerColor={new Array(63).fill("white")} />
               </div>
-              {/* <Navysm /> */}
+              <Navysm />
             </div>
           </div>
         </div>
