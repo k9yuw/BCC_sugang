@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
-// import bgm from './bgm.mp3';
-import * as bgm from "./bgm.mp3";
+import bgm from './bgm.mp3';
 
 const Clock: React.FC = () => {
   const [date, setDate] = useState<number>(new Date(2024, 1, 13, 9, 59, 50).getTime());
