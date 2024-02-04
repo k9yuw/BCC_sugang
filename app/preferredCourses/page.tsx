@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import Navysm from "../components/clock/navysm";
+import PreferredTimeTable from "../components/table/preferredTimeTable/preferredTimeTable";
 
 export default function Home() {
   const [language, setLanguage] = useState("kor");
@@ -1454,7 +1455,7 @@ export default function Home() {
               </form>
             </div>
           ) : null}
-          {navRegister[2] ? <div>시간표</div> : null}
+          {navRegister[2] ? <PreferredTimeTable/> : null} {/* 수강희망 시간표 */}
         </div>
         <div //상하단 분리선
           style={{
