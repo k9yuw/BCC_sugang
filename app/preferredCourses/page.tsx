@@ -10,75 +10,8 @@ import Header from "../components/Header";
 import BodyTop from "../components/BodyTop";
 
 export default function Home() {
-  const [language, setLanguage] = useState("kor");
-  const [classNum, setClassNum] = useState("");
-  const [navMouseEnterOne, setNavMouseEnterOne] = useState(false);
-  const [navMouseEnterTwo, setNavMouseEnterTwo] = useState(false);
-  const [navMouseEnterThree, setNavMouseEnterThree] = useState(false);
-  const [navRegister, setNavRegister] = useState([true, false, false, false]);
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
-  const [campus, setCampus] = useState("서울");
-  const [collegeSectionType, setCollegeSectionType] = useState("대학");
-  const [courseTypeOne, setCourseTypeOne] = useState("");
-  const [courseTypeTwo, setCourseTypeTwo] = useState("");
-  const [courseTypeThree, setCourseTypeThree] = useState("");
-  const [credit, setCredit] = useState();
-  const [day, setDay] = useState("");
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
-  const [professor, setProfessor] = useState("");
-  const [courseCode, setCourseCode] = useState();
-  const [section, setSection] = useState();
-  const [courseName, setCourseName] = useState();
-  const [selectBoxes, setSelectBoxes] = useState("");
   const [registerdCredit, setRegisteredCredit] = useState(0);
-  const router = useRouter();
-  const id = localStorage.getItem("username");
-
-  const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
-    e.preventDefault();
-    router.push("/preferredCourses");
-  };
-  const onClickRegisteration = (e: MouseEvent<HTMLSpanElement>) => {
-    e.preventDefault();
-    router.push("/courseRegisteration");
-  };
-  const onClickSearchCourses = (e: MouseEvent<HTMLSpanElement>) => {
-    e.preventDefault();
-    router.push("/searchCourses");
-  };
-  const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value == "전공") {
-    }
-  };
-
-  const NavComp1 = () => (
-    <div //유의사항
-      style={{
-        marginTop: 10,
-        border: 1,
-        borderStyle: "solid",
-        borderColor: "#ccc",
-      }}
-    >
-      <ul>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-      </ul>
-    </div>
-  );
-  const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-  };
 
   return (
     <div style={{ display: "flex" }}>

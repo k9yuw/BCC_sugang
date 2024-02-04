@@ -196,7 +196,9 @@ export default function NavBar() {
                 }}
               >
                 과목조회
-                <ul style={{ paddingTop: 5, paddingLeft: 0 }}>
+                <ul
+                  style={{ paddingTop: 5, paddingLeft: 0, cursor: "default" }}
+                >
                   <li
                     style={{
                       listStyle: "none",
@@ -215,6 +217,7 @@ export default function NavBar() {
                       }}
                       style={{
                         fontSize: 13,
+                        cursor: "pointer",
                         color:
                           pathname === "/searchCourses" || navMouseEnterOne
                             ? "#a20131"
