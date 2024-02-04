@@ -15,6 +15,8 @@ export default function Home() {
     console.log(id);
     router.push("/courseRegisteration");
 
+    localStorage.setItem("username", id);
+
     // const formData = new FormData(e.currentTarget);
     // console.log(formData);
     // const response = await fetch("/api/login", {
@@ -107,28 +109,33 @@ export default function Home() {
                       paddingRight: 22,
                     }}
                   >
-                  <input
-                    type="radio"
-                    onChange={(e) => {
-                    if (e.target.checked) {
-                      setLanguage("kor");
-                    }
-                  }}
-                  checked={language === "kor"}
-                  style={{
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                    width: "16px",
-                    height: "16px",
-                    border: language === "kor" ? "3.5px solid #fff" : "1px solid #ccc",
-                    backgroundColor: language === "kor" ? "#a20131" : "transparent",
-                    boxShadow: language === "kor" ? "0 0 0 1px #ccc" : "none",
-                    borderRadius: "50%",
-                    outline: "none",
-                    cursor: "pointer",
-                  }}
-                  />
+                    <input
+                      type="radio"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setLanguage("kor");
+                        }
+                      }}
+                      checked={language === "kor"}
+                      style={{
+                        WebkitAppearance: "none",
+                        MozAppearance: "none",
+                        appearance: "none",
+                        width: "16px",
+                        height: "16px",
+                        border:
+                          language === "kor"
+                            ? "3.5px solid #fff"
+                            : "1px solid #ccc",
+                        backgroundColor:
+                          language === "kor" ? "#a20131" : "transparent",
+                        boxShadow:
+                          language === "kor" ? "0 0 0 1px #ccc" : "none",
+                        borderRadius: "50%",
+                        outline: "none",
+                        cursor: "pointer",
+                      }}
+                    />
                     <label
                       style={{
                         position: "relative",
@@ -147,27 +154,32 @@ export default function Home() {
                     }}
                   >
                     <input
-                    type="radio"
-                    onChange={(e) => {
-                    if (e.target.checked) {
-                      setLanguage("eng");
-                    }
-                    }}
-                    checked={language === "eng"}
-                    style={{
-                      WebkitAppearance: "none",
-                      MozAppearance: "none",
-                      appearance: "none",
-                      width: "16px",
-                      height: "16px",
-                      border: language === "eng" ? "3.5px solid #fff" : "1px solid #ccc",
-                      backgroundColor: language === "eng" ? "#a20131" : "transparent",
-                      boxShadow: language === "eng" ? "0 0 0 1px #ccc" : "none",
-                      borderRadius: "50%",
-                      outline: "none",
-                      cursor: "pointer",
-                    }}
-                  />
+                      type="radio"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setLanguage("eng");
+                        }
+                      }}
+                      checked={language === "eng"}
+                      style={{
+                        WebkitAppearance: "none",
+                        MozAppearance: "none",
+                        appearance: "none",
+                        width: "16px",
+                        height: "16px",
+                        border:
+                          language === "eng"
+                            ? "3.5px solid #fff"
+                            : "1px solid #ccc",
+                        backgroundColor:
+                          language === "eng" ? "#a20131" : "transparent",
+                        boxShadow:
+                          language === "eng" ? "0 0 0 1px #ccc" : "none",
+                        borderRadius: "50%",
+                        outline: "none",
+                        cursor: "pointer",
+                      }}
+                    />
                     <label
                       style={{
                         position: "relative",
@@ -191,6 +203,7 @@ export default function Home() {
                     type="text"
                     placeholder="닉네임 ( NickName )"
                     value={id}
+                    maxLength={30}
                     onChange={(e) => setId(e.target.value)}
                     style={{
                       backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/login/icon-id.png")`,
@@ -731,7 +744,7 @@ export default function Home() {
                 <li
                   style={{
                     backgroundImage:
-                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                      'url("https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
                     backgroundRepeat: "no-repeat",
                     backgroundPositionY: "center",
                     fontSize: 14,
@@ -871,8 +884,9 @@ export default function Home() {
                       포털(KUPID)사용자 : 포털비밀번호
                     </li>
                     <li style={{ fontFamily: "Apple SD Gothic Neo" }}>
-                      포털(KUPID)미사용자 : '포털미사용자 비밀번호변경'에서
-                      설정한 비밀번호(설정전: 주민번호뒷자리)
+                      포털(KUPID)미사용자 : &apos;포털미사용자
+                      비밀번호변경&apos;에서 설정한 비밀번호(설정전:
+                      주민번호뒷자리)
                     </li>
                     <li style={{ fontFamily: "Apple SD Gothic Neo" }}>
                       (포털사용중인 신입생도 개강전에는 포털미사용자에 해당하는
@@ -913,7 +927,9 @@ export default function Home() {
                         포털(http://portal.korea.ac.kr)
                       </span>
                       로그인 화면의{" "}
-                      <span style={{ fontWeight: "bold" }}>'비밀번호찾기'</span>
+                      <span style={{ fontWeight: "bold" }}>
+                        &apos;비밀번호찾기&apos;
+                      </span>
                       에서 비밀번호 재발급
                     </li>
                     <li
@@ -930,7 +946,7 @@ export default function Home() {
                       </span>
                       <span style={{ fontWeight: "bold" }}>
                         {" "}
-                        '포털미사용자 비밀번호변경'{" "}
+                        &apos;포털미사용자 비밀번호변경&apos;{" "}
                       </span>
                       메뉴에서 비밀번호 재발급
                     </li>

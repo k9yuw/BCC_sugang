@@ -29,6 +29,8 @@ export default function Home() {
   const [selectBoxes, setSelectBoxes] = useState("");
   const [registerdCredit, setRegisteredCredit] = useState(0);
   const router = useRouter();
+  const id = localStorage.getItem("username");
+
   const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     router.push("/preferredCourses");
@@ -45,9 +47,7 @@ export default function Home() {
   const NavComp1 = () => (
     <div //유의사항
       style={{
-        marginTop: 20,
-        marginLeft: 18,
-        marginRight: 18,
+        marginTop: 10,
         border: 1,
         borderStyle: "solid",
         borderColor: "#ccc",
@@ -542,10 +542,56 @@ export default function Home() {
           >
             수강신청 연습 시스템
           </span>
+          <div
+            style={{
+              height: 60,
+              width: 500,
+              marginLeft: "auto",
+              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPositionX: "right",
+              backgroundPositionY: "center",
+              lineHeight: 3.5,
+              textAlign: "right",
+              paddingRight: 13,
+            }}
+          >
+            {id}
+          </div>
+          <button
+            onClick={() => {
+              router.push("/");
+            }}
+            style={{
+              width: 80,
+              height: 35,
+              paddingTop: 0,
+              paddingRight: 5,
+              paddingBottom: 2,
+              paddingLeft: 5,
+              marginLeft: 15,
+              fontSize: 14,
+              backgroundColor: "#8C5637",
+              color: "#fff",
+              borderWidth: "thin",
+              borderTopColor: "#76563b",
+              borderRightColor: "#76563b",
+              borderBottomColor: "#76563b",
+              borderLeftColor: "#76563b",
+              borderStyle: "solid",
+              lineHeight: 2,
+              cursor: "pointer",
+            }}
+          >
+            로그아웃
+          </button>
         </div>
         <div //상단 바디
           style={{
-            paddingBottom: 30,
+            paddingTop: 25,
+            paddingRight: 30,
+            paddingBottom: 32.7,
+            paddingLeft: 30,
             borderBottom: 1,
             borderBottomStyle: "solid",
             borderBottomColor: "#ccc",
@@ -557,15 +603,13 @@ export default function Home() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              height: 50,
-              marginTop: 25,
-              marginRight: 18,
-              marginLeft: 18,
+              height: 40,
               border: 1,
               borderStyle: "solid",
               borderColor: "#ccc",
-              lineHeight: 3,
+              lineHeight: 2.7,
               textAlign: "center",
+              fontSize: 13,
             }}
           >
             <div
@@ -578,7 +622,7 @@ export default function Home() {
                 borderRightStyle: "solid",
                 borderRightColor: "#ccc",
                 color: navRegister[0] ? "#fff" : "#666",
-                backgroundColor: navRegister[0] ? "#bf0039" : "#fff",
+                backgroundColor: navRegister[0] ? "#a20131" : "#fff",
                 cursor: "pointer",
               }}
             >
@@ -594,7 +638,7 @@ export default function Home() {
                 borderRightStyle: "solid",
                 borderRightColor: "#ccc",
                 color: navRegister[1] ? "#fff" : "#666",
-                backgroundColor: navRegister[1] ? "#bf0039" : "#fff",
+                backgroundColor: navRegister[1] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
               }}
             >
@@ -610,7 +654,7 @@ export default function Home() {
                 borderRightStyle: "solid",
                 borderRightColor: "#ccc",
                 color: navRegister[2] ? "#fff" : "#666",
-                backgroundColor: navRegister[2] ? "#bf0039" : "#fff",
+                backgroundColor: navRegister[2] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
               }}
             >
@@ -623,7 +667,7 @@ export default function Home() {
               style={{
                 width: "25%",
                 color: navRegister[3] ? "#fff" : "#666",
-                backgroundColor: navRegister[3] ? "#bf0039" : "#fff",
+                backgroundColor: navRegister[3] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
               }}
             >
@@ -727,7 +771,7 @@ export default function Home() {
                   style={{
                     height: 30,
                     width: 70,
-                    backgroundColor: "#bf0039",
+                    backgroundColor: "#a20131",
                     border: 0,
                     color: "#fff",
                     marginTop: 12,
@@ -892,7 +936,11 @@ export default function Home() {
                           이수구분
                         </span>
                         <div
-                          style={{ width: 414, marginLeft: 5, display: "flex" }}
+                          style={{
+                            width: 414,
+                            marginLeft: 5,
+                            display: "flex",
+                          }}
                         >
                           <select
                             value={courseTypeOne}
@@ -1408,46 +1456,56 @@ export default function Home() {
               </form>
             </div>
           ) : null}
-          <div
+        </div>
+        <div //상하단 분리선
+          style={{
+            display: "flex",
+            position: "relative",
+            width: "100%",
+            minWidth: 1030,
+            overflow: "visible",
+            flexDirection: "column",
+          }}
+        >
+          <div //상단 바디 위로 접는 버튼
             style={{
-              display: "flex",
-              position: "relative",
-              width: "100%",
-              flexDirection: "column",
+              position: "absolute",
+              justifySelf: "flex-end",
+              top: -7.5,
+              alignSelf: "center",
+              width: 51,
+              height: 15,
+              border: 1,
+              borderStyle: "solid",
+              borderColor: "#e1e1e1",
+              backgroundColor: "#f9f9f9",
+              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPositionX: 21,
+              backgroundPositionY: -46,
+              cursor: "pointer",
             }}
-          >
-            <div //상단 바디 위로 접는 버튼
-              style={{
-                position: "absolute",
-                justifySelf: "flex-end",
-                top: 23,
-                alignSelf: "center",
-                width: 51,
-                height: 15,
-                border: 1,
-                borderStyle: "solid",
-                borderColor: "#e1e1e1",
-                backgroundColor: "#f9f9f9",
-                backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
-                backgroundRepeat: "no-repeat",
-                backgroundPositionX: 21,
-                backgroundPositionY: -46,
-                cursor: "pointer",
-              }}
-            ></div>
-          </div>
+          ></div>
         </div>
         <div //하단 바디
-          style={{ height: "100%" }}
+          style={{
+            paddingTop: 20,
+            paddingRight: 30,
+            paddingBottom: 25,
+            paddingLeft: 30,
+          }}
         >
-          <div style={{ display: "flex", paddingLeft: 18 }}>
-            <h3 style={{}}>희망과목 내역</h3>
+          <div style={{ display: "flex", height: 30, paddingBottom: 5 }}>
+            <h3 style={{ fontSize: 18, marginBottom: 0, marginTop: 0 }}>
+              수강신청 내역
+            </h3>
             <h6
               style={{
-                marginLeft: 15,
                 fontSize: 13,
-                marginTop: 22,
                 marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 15,
+                lineHeight: 1.8,
               }}
             >
               [ 최소신청학점 :{" "}
@@ -1460,22 +1518,249 @@ export default function Home() {
               </span>{" "}
               학점 ]
             </h6>
+            <div style={{ marginLeft: "auto" }}>
+              <button
+                style={{
+                  width: 70,
+                  height: 25,
+                  fontSize: 12,
+                  backgroundColor: "#f9f9f9",
+                  color: "#666",
+                  borderWidth: "thin",
+                  borderTopColor: "#ccc",
+                  borderRightColor: "#ccc",
+                  borderBottomColor: "#ccc",
+                  borderLeftColor: "#ccc",
+                  borderStyle: "solid",
+                }}
+              >
+                교시확인표
+              </button>
+              <button
+                style={{
+                  width: 96,
+                  height: 25,
+                  fontSize: 12,
+                  textAlign: "left",
+                  paddingLeft: 10,
+                  marginLeft: 5,
+                  backgroundColor: "#f9f9f9",
+                  color: "#666",
+                  borderWidth: "thin",
+                  borderTopColor: "#ccc",
+                  borderRightColor: "#ccc",
+                  borderBottomColor: "#ccc",
+                  borderLeftColor: "#ccc",
+                  borderStyle: "solid",
+                  backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/icon-print.png")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPositionY: 2,
+                  backgroundPositionX: 70,
+                }}
+              >
+                시간표 인쇄
+              </button>
+            </div>
           </div>
-          <div>
-            <table>
-              <thead style={{ backgroundColor: "#f2eee8" }}>
-                <tr
-                  style={{
-                    fontSize: 12,
-                    textAlign: "center",
-                    height: 34,
-                  }}
-                >
-                  <th>정렬순서</th>
-                </tr>
-              </thead>
-            </table>
-            <Navysm />
+          <div style={{ height: "100%", display: "flex" }}>
+            <div //수강신청 내역 테이블
+              style={{
+                borderTop: 1,
+                borderTopStyle: "solid",
+                width: 800,
+              }}
+            >
+              <table
+                style={{
+                  borderCollapse: "collapse",
+                  width: "100%",
+                  boxSizing: "content-box",
+                  tableLayout: "fixed",
+                  overflow: "scroll",
+                }}
+              >
+                <thead style={{ backgroundColor: "#f2eee8" }}>
+                  <tr
+                    style={{
+                      fontSize: 12,
+                      textAlign: "center",
+                      height: 34,
+                    }}
+                  >
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        width: 71.375,
+                        fontWeight: 600,
+                      }}
+                    >
+                      학수번호
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 55.375,
+                      }}
+                    >
+                      분반
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 71.375,
+                      }}
+                    >
+                      이수구분
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 168.375,
+                      }}
+                    >
+                      교과목명
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 87.375,
+                      }}
+                    >
+                      담당교수
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 87.375,
+                      }}
+                    >
+                      학점
+                      <br />
+                      (시간)
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 71.375,
+                      }}
+                    >
+                      재수강
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 55.375,
+                      }}
+                    >
+                      상태
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 71.375,
+                      }}
+                    >
+                      삭제
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr></tr>
+                </tbody>
+              </table>
+              <div
+                onMouseEnter={() => {
+                  setTableMouseEnter(true);
+                }}
+                onMouseLeave={() => {
+                  setTableMouseEnter(false);
+                }}
+                style={{
+                  fontSize: 12,
+                  color: "#666",
+                  textAlign: "center",
+                  lineHeight: 12,
+                  borderBottom: 1,
+                  borderBottomColor: "#ccc",
+                  borderBottomStyle: "solid",
+                  height: 150,
+                  backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
+                }}
+              >
+                수강신청 데이터가 없습니다.
+              </div>
+            </div>
+            <div //시간표, 네이비즘
+              style={{
+                width: 421,
+                marginLeft: 10,
+              }}
+            >
+              <div
+                style={{
+                  height: 300,
+                  backgroundColor: "#edd607",
+                  textAlign: "center",
+                  lineHeight: 10,
+                }}
+              >
+                시간표
+              </div>
+              <Navysm />
+            </div>
           </div>
         </div>
       </div>
