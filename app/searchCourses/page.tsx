@@ -1967,6 +1967,9 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          textAlign: "left",
+                          paddingLeft: 6,
+                          paddingRight: 6,
                         }}
                       >
                         {prop.cour_nm}
@@ -1997,6 +2000,9 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          textAlign: "left",
+                          paddingLeft: 6,
+                          paddingRight: 6,
                         }}
                       >
                         {prop.time_room}
@@ -2009,7 +2015,16 @@ export default function Home() {
                           fontWeight: 400,
                         }}
                       >
-                        {prop.absolute_yn === "Y" ? "V" : null}
+                        {prop.absolute_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
                       </th>
                       <th
                         style={{
@@ -2019,7 +2034,16 @@ export default function Home() {
                           fontWeight: 400,
                         }}
                       >
-                        {prop.lmt_yn === "Y" ? "V" : null}
+                        {prop.lmt_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
                       </th>
                       <th
                         style={{
@@ -2029,7 +2053,16 @@ export default function Home() {
                           fontWeight: 400,
                         }}
                       >
-                        {prop.exch_cor_yn === "Y" ? null : "V"}
+                        {prop.exch_cor_yn === "Y" ? null : (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        )}
                       </th>
                       <th
                         style={{
@@ -2039,7 +2072,16 @@ export default function Home() {
                           fontWeight: 400,
                         }}
                       >
-                        {prop.attend_free_yn === "Y" ? "V" : null}
+                        {prop.attend_free_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
                       </th>
                       <th
                         style={{
@@ -2049,10 +2091,28 @@ export default function Home() {
                           fontWeight: 400,
                         }}
                       >
-                        {prop.no_supervisor_yn === "Y" ? "V" : null}
+                        {prop.no_supervisor_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
                       </th>
                       <th style={{ fontWeight: 400 }}>
-                        {prop.flexible_school_yn === "Y" ? "V" : null}
+                        {prop.flexible_school_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
                       </th>
                     </tr>
                   ))}
