@@ -1568,7 +1568,6 @@ export default function Home() {
               style={{
                 borderTop: 1,
                 borderTopStyle: "solid",
-                width: 800,
               }}
             >
               <table
@@ -1746,13 +1745,12 @@ export default function Home() {
             </div>
             <div //시간표, 네이비즘
               style={{
-                width: 421,
                 marginLeft: 10,
               }}
             >
               <div>
-                <TimeTable innerColor={new Array(63).fill('white')}/>
-              </div>}
+                <TimeTable innerColor={new Array(63).fill("white")} />
+              </div>
               {/* <Navysm /> */}
             </div>
           </div>
