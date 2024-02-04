@@ -1751,7 +1751,7 @@ export default function Home() {
                 수강신청 데이터가 없습니다.
               </div>
             </div>
-            <div //시간표, 네이비즘
+            <div //시간표
               style={{
                 marginLeft: 10,
               }}
@@ -1759,6 +1759,12 @@ export default function Home() {
               <div>
                 <TimeTable innerColor={new Array(63).fill("white")} />
               </div>
+            </div>
+          </div>
+          <div
+            style={{ height: "100%", display: "flex", justifyContent: "right" }}
+          >
+            <div style={{ position: "fixed" }}>
               <Navysm />
             </div>
           </div>
