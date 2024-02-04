@@ -727,7 +727,7 @@ export default function Home() {
               backgroundPositionY: "center",
               lineHeight: 3.5,
               textAlign: "right",
-              paddingRight: 13,
+              paddingRight: 15,
             }}
           >
             {id}
@@ -737,15 +737,15 @@ export default function Home() {
               router.push("/");
             }}
             style={{
-              width: 80,
-              height: 35,
+              width: 70.7,
+              height: 30,
               paddingTop: 0,
               paddingRight: 5,
               paddingBottom: 2,
               paddingLeft: 5,
-              marginLeft: 15,
-              fontSize: 14,
-              backgroundColor: "#8C5637",
+              marginLeft: 20,
+              fontSize: 12,
+              backgroundColor: "#876243",
               color: "#fff",
               borderWidth: "thin",
               borderTopColor: "#76563b",
@@ -1905,24 +1905,27 @@ export default function Home() {
                         fontSize: 12,
                         textAlign: "center",
                         height: 34,
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
                       }}
                       key={prop.params}
                     >
-                      <td>{prop.campus}</td>
-                      <td>{prop.cour_cd}</td>
-                      <td>{prop.cour_cls}</td>
-                      <td>{prop.isu_nm}</td>
-                      <td>{prop.department}</td>
-                      <td>{prop.cour_nm}</td>
-                      <td>{prop.prof_nm}</td>
-                      <td>{prop.time}</td>
-                      <td>{prop.time_room}</td>
-                      <td>{prop.absolute_yn}</td>
-                      <td>{prop.lmt_yn}</td>
-                      <td>{prop.exch_cor_yn}</td>
-                      <td>{prop.attend_free_yn}</td>
-                      <td>{prop.no_supervisor_yn}</td>
-                      <td>{prop.flexible_school_yn}</td>
+                      <th>{prop.campus}</th>
+                      <th>{prop.cour_cd}</th>
+                      <th>{prop.cour_cls}</th>
+                      <th>{prop.isu_nm}</th>
+                      <th>{prop.department}</th>
+                      <th>{prop.cour_nm}</th>
+                      <th>{prop.prof_nm}</th>
+                      <th>{prop.time}</th>
+                      <th>{prop.time_room}</th>
+                      <th>{prop.absolute_yn}</th>
+                      <th>{prop.lmt_yn}</th>
+                      <th>{prop.exch_cor_yn}</th>
+                      <th>{prop.attend_free_yn}</th>
+                      <th>{prop.no_supervisor_yn}</th>
+                      <th>{prop.flexible_school_yn}</th>
                     </tr>
                   ))}
                 </tbody>
