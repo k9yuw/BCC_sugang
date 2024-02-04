@@ -1885,6 +1885,9 @@ export default function Home() {
                   </th>
                   <th
                     style={{
+                      borderRightStyle: "solid",
+                      borderRightWidth: 1,
+                      borderRightColor: "#ccc",
                       borderBottomStyle: "solid",
                       borderBottomWidth: 1,
                       borderBottomColor: "#ccc",
@@ -1894,6 +1897,18 @@ export default function Home() {
                     유연
                     <br />
                     학기
+                  </th>
+                  <th
+                    style={{
+                      borderBottomStyle: "solid",
+                      borderBottomWidth: 1,
+                      borderBottomColor: "#ccc",
+                      width: 40,
+                    }}
+                  >
+                    마감
+                    <br />
+                    현황
                   </th>
                 </tr>
               </thead>
@@ -1908,6 +1923,11 @@ export default function Home() {
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        color: "#333",
                       }}
                       key={prop.params}
                     >
@@ -1917,6 +1937,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.campus}
@@ -1927,6 +1951,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.cour_cd}
@@ -1937,6 +1965,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.cour_cls}
@@ -1947,6 +1979,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.isu_nm}
@@ -1957,6 +1993,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.department}
@@ -1968,11 +2008,15 @@ export default function Home() {
                           borderRightColor: "#ddd",
                           fontWeight: 400,
                           textAlign: "left",
-                          paddingLeft: 6,
+                          paddingTop: 4,
                           paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.cour_nm}
+                        <br />
+                        {prop.apply_dept}
                       </th>
                       <th
                         style={{
@@ -1980,6 +2024,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.prof_nm}
@@ -1990,6 +2038,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.time}
@@ -2001,8 +2053,10 @@ export default function Home() {
                           borderRightColor: "#ddd",
                           fontWeight: 400,
                           textAlign: "left",
-                          paddingLeft: 6,
+                          paddingTop: 4,
                           paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.time_room}
@@ -2013,6 +2067,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.absolute_yn === "Y" ? (
@@ -2032,6 +2090,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.lmt_yn === "Y" ? (
@@ -2051,6 +2113,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.exch_cor_yn === "Y" ? null : (
@@ -2070,6 +2136,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.attend_free_yn === "Y" ? (
@@ -2089,6 +2159,10 @@ export default function Home() {
                           borderRightWidth: 1,
                           borderRightColor: "#ddd",
                           fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
                         }}
                       >
                         {prop.no_supervisor_yn === "Y" ? (
@@ -2102,7 +2176,18 @@ export default function Home() {
                           />
                         ) : null}
                       </th>
-                      <th style={{ fontWeight: 400 }}>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                        }}
+                      >
                         {prop.flexible_school_yn === "Y" ? (
                           <Image
                             src={
@@ -2113,6 +2198,24 @@ export default function Home() {
                             height={9}
                           />
                         ) : null}
+                      </th>
+                      <th
+                        style={{
+                          fontWeight: 400,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                        }}
+                      >
+                        <Image
+                          src={
+                            "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                          }
+                          alt="note"
+                          width={16}
+                          height={21}
+                        />
                       </th>
                     </tr>
                   ))}
