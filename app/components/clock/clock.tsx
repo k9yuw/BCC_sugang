@@ -2,37 +2,35 @@
 
 import { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
-// import bgm from './bgm.mp3';
-import * as bgm from "./bgm.mp3";
+import bgm from './bgm.mp3';
 
 const Clock: React.FC = () => {
-  const [date, setDate] = useState<number>(
-    new Date(2024, 1, 13, 9, 59, 50).getTime()
-  );
+  const [date, setDate] = useState<number>(new Date(2024, 1, 13, 9, 59, 50).getTime());
   const [timeFormat, setTimeFormat] = useState<string>("");
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
+  const [clockStarted, setClockStarted] = useState<boolean>(false);
 
   const clockRef = useRef(null);
-  const msCheckboxRef = useRef(null);
-  const bgmCheckboxRef = useRef(null);
+  const msCheckboxRef = useRef<HTMLInputElement>(null);
+  const bgmCheckboxRef = useRef<HTMLInputElement>(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      setDate((prevDate) => prevDate + 8);
-
+      
       const hours = String(new Date(date).getHours()).padStart(2, "0");
       const minutes = String(new Date(date).getMinutes()).padStart(2, "0");
       const seconds = String(new Date(date).getSeconds()).padStart(2, "0");
-      const milliSeconds = String(new Date(date).getMilliseconds()).padStart(
-        3,
-        "0"
-      );
+      const milliSeconds = String(new Date(date).getMilliseconds()).padStart(3,"0");
 
       setTimeFormat(`${hours}시 ${minutes}분 ${seconds}초 `);
       setMsFormat(`${milliSeconds}`);
+
+      if (clockStarted) {
+        setDate((prevDate) => prevDate + 8);
+      }
 
       if (hours === "09" && minutes === "59" && seconds >= "53") {
         setIsRed(true);
@@ -45,7 +43,7 @@ const Clock: React.FC = () => {
     }, 8);
     
     return () => clearInterval(timerId);
-  }, [date]); // date가 변경될 때마다 useEffect 실행
+  }, [date, clockStarted]); // date가 변경될 때마다 useEffect 실행
 
   useEffect(() => {
     if (bgmPlayed) {
@@ -80,14 +78,14 @@ const Clock: React.FC = () => {
             음악 듣기
           </label>
         </div>
+        <div>
+          <button onClick={() => setClockStarted(true)}>게임 시작</button>
+      </div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
     </div>
 
-    <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
-  </div>
 );
 
 }
-  export default Clock;
-
+export default Clock;
