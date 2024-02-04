@@ -679,9 +679,9 @@ export default function Home() {
           {navRegister[1] ? (
             <div //학수번호 입력하여 신청
               style={{
-                borderTop: 1.5,
+                borderTop: 1,
                 borderTopStyle: "solid",
-                margin: 18,
+                marginTop: 10,
                 lineHeight: 2.5,
                 fontSize: 14,
               }}
@@ -691,21 +691,24 @@ export default function Home() {
                   borderBottom: 1,
                   borderBottomStyle: "solid",
                   borderBottomColor: "#ccc",
-                  height: 40,
+                  height: 36,
                   display: "flex",
                   justifyContent: "space-between",
                 }}
               >
                 <div
                   style={{
-                    width: 230,
+                    width: 150,
+                    minWidth: 150,
                     height: "100%",
                     textAlign: "left",
-                    paddingLeft: 20,
+                    paddingLeft: 10,
                     borderRight: 1,
                     borderRightStyle: "solid",
                     borderRightColor: "#ccc",
                     backgroundColor: "#F2EEEB",
+                    fontSize: 12,
+                    lineHeight: 3,
                   }}
                 >
                   학수번호
@@ -714,8 +717,8 @@ export default function Home() {
                   <input
                     style={{
                       margin: 5,
-                      height: 30,
-                      width: 180,
+                      height: 25,
+                      width: 150,
                       border: 1,
                       borderStyle: "solid",
                       borderColor: "#ccc",
@@ -728,21 +731,24 @@ export default function Home() {
                   borderBottom: 1,
                   borderBottomStyle: "solid",
                   borderBottomColor: "#ccc",
-                  height: 40,
+                  height: 36,
                   display: "flex",
                   justifyContent: "space-between",
                 }}
               >
                 <div
                   style={{
-                    width: 230,
+                    width: 150,
+                    minWidth: 150,
                     height: "100%",
                     textAlign: "left",
-                    paddingLeft: 20,
+                    paddingLeft: 10,
                     borderRight: 1,
                     borderRightStyle: "solid",
                     borderRightColor: "#ccc",
                     backgroundColor: "#F2EEEB",
+                    fontSize: 12,
+                    lineHeight: 3,
                   }}
                 >
                   분반
@@ -751,8 +757,8 @@ export default function Home() {
                   <input
                     style={{
                       margin: 5,
-                      height: 30,
-                      width: 180,
+                      height: 25,
+                      width: 150,
                       border: 1,
                       borderStyle: "solid",
                       borderColor: "#ccc",
@@ -772,6 +778,7 @@ export default function Home() {
                   style={{
                     height: 30,
                     width: 70,
+                    fontSize: 12,
                     backgroundColor: "#a20131",
                     border: 0,
                     color: "#fff",
@@ -786,8 +793,9 @@ export default function Home() {
                   style={{
                     height: 30,
                     width: 70,
+                    fontSize: 12,
                     border: 1,
-                    backgroundColor: "#fff",
+                    backgroundColor: "#f9f9f9",
                     borderStyle: "solid",
                     borderColor: "#ccc",
                     marginTop: 12,
