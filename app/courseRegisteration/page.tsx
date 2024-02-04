@@ -1759,7 +1759,7 @@ export default function Home() {
               >
                 시간표
               </div>
-              <Navysm />
+              {/* <Navysm /> */}
             </div>
           </div>
         </div>

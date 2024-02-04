@@ -1907,30 +1907,183 @@ export default function Home() {
                         height: 34,
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
-                        borderBottomColor: "#ccc",
+                        borderBottomColor: "#ddd",
                       }}
                       key={prop.params}
                     >
-                      <th>{prop.campus}</th>
-                      <th>{prop.cour_cd}</th>
-                      <th>{prop.cour_cls}</th>
-                      <th>{prop.isu_nm}</th>
-                      <th>{prop.department}</th>
-                      <th>{prop.cour_nm}</th>
-                      <th>{prop.prof_nm}</th>
-                      <th>{prop.time}</th>
-                      <th>{prop.time_room}</th>
-                      <th>{prop.absolute_yn}</th>
-                      <th>{prop.lmt_yn}</th>
-                      <th>{prop.exch_cor_yn}</th>
-                      <th>{prop.attend_free_yn}</th>
-                      <th>{prop.no_supervisor_yn}</th>
-                      <th>{prop.flexible_school_yn}</th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.campus}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.cour_cd}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.cour_cls}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.isu_nm}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.department}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.cour_nm}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.prof_nm}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.time}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.time_room}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.absolute_yn === "Y" ? "V" : null}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.lmt_yn === "Y" ? "V" : null}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.exch_cor_yn === "Y" ? null : "V"}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.attend_free_yn === "Y" ? "V" : null}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.no_supervisor_yn === "Y" ? "V" : null}
+                      </th>
+                      <th style={{ fontWeight: 400 }}>
+                        {prop.flexible_school_yn === "Y" ? "V" : null}
+                      </th>
                     </tr>
                   ))}
                 </tbody>
               ) : null}
             </table>
+            {searchedData?.length === 0 ? (
+              <div
+                onMouseEnter={() => {
+                  setTableMouseEnter(true);
+                }}
+                onMouseLeave={() => {
+                  setTableMouseEnter(false);
+                }}
+                style={{
+                  fontSize: 12,
+                  color: "#666",
+                  textAlign: "center",
+                  paddingTop: 57,
+                  borderBottom: 1,
+                  borderBottomColor: "#ccc",
+                  borderBottomStyle: "solid",
+                  height: 150,
+                  backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
+                }}
+              >
+                검색결과가 존재하지 않습니다.
+                <br />
+                조회 조건 선택 후 조회 버튼을 클릭하세요.
+              </div>
+            ) : null}
             {searched ? null : (
               <div
                 onMouseEnter={() => {
