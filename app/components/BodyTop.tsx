@@ -5,13 +5,7 @@ import PreferredTimeTable from "./table/preferredTimeTable/preferredTimeTable";
 
 export default function BodyTop() {
   const pathname = usePathname();
-  const [navRegister, setNavRegister] = useState([
-    true,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [navBar, setNavRegister] = useState([true, false, false, false, false]);
   const [campus, setCampus] = useState("서울"); //캠퍼스
   const [collegeSectionType, setCollegeSectionType] = useState("대학"); //대학구분
   const [courseSelect, setCourseSelect] = useState([true, true]);
@@ -402,149 +396,100 @@ export default function BodyTop() {
     </div>
   );
   const RegisterBySearch = () => (
-    <div //개설과목 검색하여 신청
-      style={{
-        marginTop: 10,
-        padding: 12,
-        paddingBottom: 9,
-        border: 1,
-        borderStyle: "solid",
-        borderColor: "#e6e6e6",
-      }}
-    >
-      <form>
-        <div
-          style={{
-            width: "100%",
-            tableLayout: "fixed",
-            borderSpacing: 0,
-          }}
-        >
-          <div>
-            <div
-              style={{
-                paddingRight: 0,
-                paddingBottom: 3,
-                paddingLeft: 6,
-              }}
-            >
-              <span
+    <div>
+      <div //개설과목 검색하여 신청
+        style={{
+          marginTop: 10,
+          padding: 12,
+          paddingBottom: 9,
+          border: 1,
+          borderStyle: "solid",
+          borderColor: "#e6e6e6",
+        }}
+      >
+        <form>
+          <div
+            style={{
+              width: "100%",
+              tableLayout: "fixed",
+              borderSpacing: 0,
+            }}
+          >
+            <div>
+              <div
                 style={{
-                  alignItems: "center",
-                  display: "flex",
-                  alignContent: "left",
+                  paddingRight: 0,
+                  paddingBottom: 3,
+                  paddingLeft: 6,
                 }}
               >
                 <span
                   style={{
-                    width: 54,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
-                  }}
-                >
-                  캠퍼스
-                </span>
-                <select
-                  value={campus}
-                  style={{
-                    width: 74,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 6,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                    backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPositionX: 57,
-                    backgroundPositionY: "center",
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                >
-                  <option>서울</option>
-                  {/* <option>세종</option> */}
-                </select>
-                <span
-                  style={{
-                    width: 81,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
-                  }}
-                >
-                  대학구분
-                </span>
-                <select
-                  value={collegeSectionType}
-                  style={{
-                    width: 74,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 5,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                    backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPositionX: 197,
-                    backgroundPositionY: "center",
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                >
-                  <option>대학</option>
-                  {/* <option>대학원</option> */}
-                </select>
-                <span
-                  style={{
-                    width: 76,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
-                  }}
-                >
-                  이수구분
-                </span>
-                <div
-                  style={{
-                    width: 419,
-                    marginLeft: 5,
+                    alignItems: "center",
                     display: "flex",
+                    alignContent: "left",
                   }}
                 >
-                  <select
-                    value={courseTypeOne}
-                    onChange={onChangeCourseTypeOne}
+                  <span
                     style={{
+                      width: 54,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    캠퍼스
+                  </span>
+                  <select
+                    value={campus}
+                    style={{
+                      width: 74,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 6,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                      backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPositionX: 57,
+                      backgroundPositionY: "center",
+                      WebkitAppearance: "none",
+                      MozAppearance: "none",
+                      appearance: "none",
+                    }}
+                  >
+                    <option>서울</option>
+                    {/* <option>세종</option> */}
+                  </select>
+                  <span
+                    style={{
+                      width: 81,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    대학구분
+                  </span>
+                  <select
+                    value={collegeSectionType}
+                    style={{
+                      width: 74,
                       height: 25,
                       paddingTop: 0,
                       paddingRight: 5,
@@ -561,32 +506,39 @@ export default function BodyTop() {
                       borderStyle: "solid",
                       backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
                       backgroundRepeat: "no-repeat",
-                      backgroundPositionX: "95.5%",
+                      backgroundPositionX: 197,
                       backgroundPositionY: "center",
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
-                      flex: 1,
-                      display: "block",
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                      textOverflow: "clip",
                     }}
                   >
-                    <option>전공</option>
-                    <option>학문의기초</option>
-                    <option>교양</option>
-                    <option>교직</option>
-                    <option>군사학</option>
-                    <option>평생교육사</option>
+                    <option>대학</option>
+                    {/* <option>대학원</option> */}
                   </select>
-                  {courseSelect[0] ? (
+                  <span
+                    style={{
+                      width: 76,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    이수구분
+                  </span>
+                  <div
+                    style={{
+                      width: 419,
+                      marginLeft: 5,
+                      display: "flex",
+                    }}
+                  >
                     <select
-                      value={courseTypeTwo}
-                      onChange={(e) => {
-                        setCourseTypeTwo(e.target.value);
-                        setSelectedIdxTwo(e.target.selectedIndex);
-                      }}
+                      value={courseTypeOne}
+                      onChange={onChangeCourseTypeOne}
                       style={{
                         height: 25,
                         paddingTop: 0,
@@ -616,539 +568,640 @@ export default function BodyTop() {
                         textOverflow: "clip",
                       }}
                     >
-                      {selectedIdxOne < 2
-                        ? Object.keys(courseSelectData[selectedIdxOne]).map(
-                            (prop) => <option key={prop}>{prop}</option>
-                          )
-                        : courseSelectData[2].map((prop: string) => (
-                            <option key={prop}>{prop}</option>
-                          ))}
+                      <option>전공</option>
+                      <option>학문의기초</option>
+                      <option>교양</option>
+                      <option>교직</option>
+                      <option>군사학</option>
+                      <option>평생교육사</option>
                     </select>
-                  ) : null}
-                  {courseSelect[1] ? (
-                    <select
-                      value={courseTypeThree}
-                      onChange={(e) => {
-                        setCourseTypeThree(e.target.value);
-                        setSelectedIdxThree(e.target.selectedIndex);
-                      }}
-                      style={{
-                        height: 25,
-                        paddingTop: 0,
-                        paddingRight: 5,
-                        paddingBottom: 2,
-                        paddingLeft: 5,
-                        marginLeft: 5,
-                        fontSize: 12,
-                        color: "#666",
-                        borderWidth: "thin",
-                        borderTopColor: "#ccc",
-                        borderRightColor: "#ccc",
-                        borderBottomColor: "#ccc",
-                        borderLeftColor: "#ccc",
-                        borderStyle: "solid",
-                        backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundPositionX: "95.5%",
-                        backgroundPositionY: "center",
-                        WebkitAppearance: "none",
-                        MozAppearance: "none",
-                        appearance: "none",
-                        flex: 1,
-                        display: "block",
-                        // overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "clip",
-                      }}
-                    >
-                      {selectedIdxOne < 2
-                        ? courseSelectData[selectedIdxOne][courseTypeTwo]?.map(
-                            (prop: string) => <option key={prop}>{prop}</option>
-                          )
-                        : null}
-                    </select>
-                  ) : null}
-                </div>
-              </span>
-              <span
-                style={{
-                  alignItems: "center",
-                  display: "flex",
-                  alignContent: "left",
-                }}
-              >
+                    {courseSelect[0] ? (
+                      <select
+                        value={courseTypeTwo}
+                        onChange={(e) => {
+                          setCourseTypeTwo(e.target.value);
+                          setSelectedIdxTwo(e.target.selectedIndex);
+                        }}
+                        style={{
+                          height: 25,
+                          paddingTop: 0,
+                          paddingRight: 5,
+                          paddingBottom: 2,
+                          paddingLeft: 5,
+                          marginLeft: 5,
+                          fontSize: 12,
+                          color: "#666",
+                          borderWidth: "thin",
+                          borderTopColor: "#ccc",
+                          borderRightColor: "#ccc",
+                          borderBottomColor: "#ccc",
+                          borderLeftColor: "#ccc",
+                          borderStyle: "solid",
+                          backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundPositionX: "95.5%",
+                          backgroundPositionY: "center",
+                          WebkitAppearance: "none",
+                          MozAppearance: "none",
+                          appearance: "none",
+                          flex: 1,
+                          display: "block",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "clip",
+                        }}
+                      >
+                        {selectedIdxOne < 2
+                          ? Object.keys(courseSelectData[selectedIdxOne]).map(
+                              (prop) => <option key={prop}>{prop}</option>
+                            )
+                          : courseSelectData[2].map((prop: string) => (
+                              <option key={prop}>{prop}</option>
+                            ))}
+                      </select>
+                    ) : null}
+                    {courseSelect[1] ? (
+                      <select
+                        value={courseTypeThree}
+                        onChange={(e) => {
+                          setCourseTypeThree(e.target.value);
+                          setSelectedIdxThree(e.target.selectedIndex);
+                        }}
+                        style={{
+                          height: 25,
+                          paddingTop: 0,
+                          paddingRight: 5,
+                          paddingBottom: 2,
+                          paddingLeft: 5,
+                          marginLeft: 5,
+                          fontSize: 12,
+                          color: "#666",
+                          borderWidth: "thin",
+                          borderTopColor: "#ccc",
+                          borderRightColor: "#ccc",
+                          borderBottomColor: "#ccc",
+                          borderLeftColor: "#ccc",
+                          borderStyle: "solid",
+                          backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundPositionX: "95.5%",
+                          backgroundPositionY: "center",
+                          WebkitAppearance: "none",
+                          MozAppearance: "none",
+                          appearance: "none",
+                          flex: 1,
+                          display: "block",
+                          // overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "clip",
+                        }}
+                      >
+                        {selectedIdxOne < 2
+                          ? courseSelectData[selectedIdxOne][
+                              courseTypeTwo
+                            ]?.map((prop: string) => (
+                              <option key={prop}>{prop}</option>
+                            ))
+                          : null}
+                      </select>
+                    ) : null}
+                  </div>
+                </span>
                 <span
                   style={{
-                    width: 54,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
+                    alignItems: "center",
+                    display: "flex",
+                    alignContent: "left",
                   }}
                 >
-                  학점
+                  <span
+                    style={{
+                      width: 54,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    학점
+                  </span>
+                  <input
+                    type="text"
+                    onInput={(e: any) =>
+                      (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
+                    }
+                    maxLength={3}
+                    value={credit}
+                    onChange={(e: any) => {
+                      setCredit(e.target.value);
+                    }}
+                    style={{
+                      width: 74,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 6,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                    }}
+                  />
+                  <span
+                    style={{
+                      width: 81,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    요일
+                  </span>
+                  <select
+                    value={day}
+                    onChange={(e) => {
+                      setDay(e.target.value);
+                    }}
+                    style={{
+                      width: 74,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 5,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                      backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPositionX: 57,
+                      backgroundPositionY: "center",
+                      WebkitAppearance: "none",
+                      MozAppearance: "none",
+                      appearance: "none",
+                    }}
+                  >
+                    <option>전체--</option>
+                    <option>월</option>
+                    <option>화</option>
+                    <option>수</option>
+                    <option>목</option>
+                    <option>금</option>
+                    <option>토</option>
+                    <option>일</option>
+                  </select>
+                  <span
+                    style={{
+                      width: 81,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    교시
+                  </span>
+                  <select
+                    value={startTime}
+                    onChange={(e: any) => {
+                      setStartTime(e.target.value);
+                    }}
+                    style={{
+                      width: 57.54,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 5,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                      backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPositionX: 41,
+                      backgroundPositionY: "center",
+                      WebkitAppearance: "none",
+                      MozAppearance: "none",
+                      appearance: "none",
+                    }}
+                  >
+                    <option>전체--</option>
+                    <option>-1</option>
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                  </select>
+                  <span
+                    style={{
+                      width: 23,
+                      height: 31,
+                      textAlign: "center",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      color: "#333",
+                    }}
+                  >
+                    ~
+                  </span>
+                  <select
+                    value={endTime}
+                    onChange={(e: any) => {
+                      setEndTime(e.target.value);
+                    }}
+                    style={{
+                      width: 57.54,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                      backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPositionX: 41,
+                      backgroundPositionY: "center",
+                      WebkitAppearance: "none",
+                      MozAppearance: "none",
+                      appearance: "none",
+                    }}
+                  >
+                    <option>전체--</option>
+                    <option>-1</option>
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                  </select>
+                  <button
+                    onClick={(e) => e.preventDefault()}
+                    style={{
+                      width: 71,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 5,
+                      fontSize: 12,
+                      backgroundColor: "#f9f9f9",
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                    }}
+                  >
+                    교시확인표
+                  </button>
+                  <span
+                    style={{
+                      width: 80,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    담당교수
+                  </span>
+                  <input
+                    type="text"
+                    value={professor}
+                    onChange={(e) => setProfessor(e.target.value)}
+                    maxLength={30}
+                    style={{
+                      width: 114,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 6,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                    }}
+                  />
                 </span>
-                <input
-                  type="text"
-                  onInput={(e: any) =>
-                    (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
-                  }
-                  maxLength={3}
-                  value={credit}
-                  onChange={(e: any) => {
-                    setCredit(e.target.value);
-                  }}
-                  style={{
-                    width: 74,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 6,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                  }}
-                />
                 <span
                   style={{
-                    width: 81,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
+                    alignItems: "center",
+                    display: "flex",
+                    alignContent: "left",
                   }}
                 >
-                  요일
+                  <span
+                    style={{
+                      width: 54,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    학수번호
+                  </span>
+                  <input
+                    type="text"
+                    maxLength={7}
+                    onInput={(e: any) => {
+                      e.target.value = e.target.value.replace(
+                        /[^a-zA-Z0-9]/g,
+                        ""
+                      );
+                      const x = e.target.value;
+                      e.target.value = x.toUpperCase();
+                    }}
+                    value={courseCode}
+                    onChange={(e) => setCourseCode(e.target.value)}
+                    style={{
+                      width: 74,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 6,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                    }}
+                  />
+                  <span
+                    style={{
+                      width: 80,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    분반
+                  </span>
+                  <input
+                    type="text"
+                    maxLength={2}
+                    onInput={(e: any) => {
+                      e.target.value = e.target.value.replace(
+                        /[^a-zA-Z0-9]/g,
+                        ""
+                      );
+                      const x = e.target.value;
+                      e.target.value = x.toUpperCase();
+                    }}
+                    value={section}
+                    onChange={(e) => setSection(e.target.value)}
+                    style={{
+                      width: 74,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 6,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                    }}
+                    disabled={courseCode === ""}
+                  />
+                  <span
+                    style={{
+                      width: 81,
+                      height: 31,
+                      textAlign: "right",
+                      lineHeight: 2.7,
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    교과목명
+                  </span>
+                  <input
+                    type="text"
+                    value={courseName}
+                    onChange={(e) => setCourseName(e.target.value)}
+                    style={{
+                      width: 414,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 5,
+                      fontSize: 12,
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                    }}
+                  />
+                  <button
+                    onClick={onClickSearch}
+                    style={{
+                      width: 55,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 15,
+                      fontSize: 12,
+                      backgroundColor: "#876243",
+                      color: "#fff",
+                      borderWidth: "thin",
+                      borderTopColor: "#76563b",
+                      borderRightColor: "#76563b",
+                      borderBottomColor: "#76563b",
+                      borderLeftColor: "#76563b",
+                      borderStyle: "solid",
+                      cursor: "pointer",
+                    }}
+                  >
+                    조회
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCourseTypeOne("전공");
+                      setCourseTypeTwo("간호대학");
+                      setCourseTypeThree("간호학과");
+                      setCredit("");
+                      setDay("전체--");
+                      setStartTime("전체--");
+                      setEndTime("전체--");
+                      setProfessor("");
+                      setCourseCode("");
+                      setSection("");
+                      setCourseName("");
+                    }}
+                    style={{
+                      width: 55,
+                      height: 25,
+                      paddingTop: 0,
+                      paddingRight: 5,
+                      paddingBottom: 2,
+                      paddingLeft: 5,
+                      marginLeft: 3,
+                      fontSize: 12,
+                      backgroundColor: "#f9f9f9",
+                      color: "#666",
+                      borderWidth: "thin",
+                      borderTopColor: "#ccc",
+                      borderRightColor: "#ccc",
+                      borderBottomColor: "#ccc",
+                      borderLeftColor: "#ccc",
+                      borderStyle: "solid",
+                      cursor: "pointer",
+                    }}
+                  >
+                    초기화
+                  </button>
                 </span>
-                <select
-                  value={day}
-                  onChange={(e) => {
-                    setDay(e.target.value);
-                  }}
-                  style={{
-                    width: 74,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 5,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                    backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPositionX: 57,
-                    backgroundPositionY: "center",
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                >
-                  <option>전체--</option>
-                  <option>월</option>
-                  <option>화</option>
-                  <option>수</option>
-                  <option>목</option>
-                  <option>금</option>
-                  <option>토</option>
-                  <option>일</option>
-                </select>
-                <span
-                  style={{
-                    width: 81,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
-                  }}
-                >
-                  교시
-                </span>
-                <select
-                  value={startTime}
-                  onChange={(e: any) => {
-                    setStartTime(e.target.value);
-                  }}
-                  style={{
-                    width: 57.54,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 5,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                    backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPositionX: 41,
-                    backgroundPositionY: "center",
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                >
-                  <option>전체--</option>
-                  <option>-1</option>
-                  <option>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                  <option>13</option>
-                  <option>14</option>
-                  <option>15</option>
-                </select>
-                <span
-                  style={{
-                    width: 23,
-                    height: 31,
-                    textAlign: "center",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    color: "#333",
-                  }}
-                >
-                  ~
-                </span>
-                <select
-                  value={endTime}
-                  onChange={(e: any) => {
-                    setEndTime(e.target.value);
-                  }}
-                  style={{
-                    width: 57.54,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                    backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPositionX: 41,
-                    backgroundPositionY: "center",
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                >
-                  <option>전체--</option>
-                  <option>-1</option>
-                  <option>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                  <option>13</option>
-                  <option>14</option>
-                  <option>15</option>
-                </select>
-                <button
-                  onClick={(e) => e.preventDefault()}
-                  style={{
-                    width: 71,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 5,
-                    fontSize: 12,
-                    backgroundColor: "#f9f9f9",
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                  }}
-                >
-                  교시확인표
-                </button>
-                <span
-                  style={{
-                    width: 80,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
-                  }}
-                >
-                  담당교수
-                </span>
-                <input
-                  type="text"
-                  value={professor}
-                  onChange={(e) => setProfessor(e.target.value)}
-                  maxLength={30}
-                  style={{
-                    width: 114,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 6,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                  }}
-                />
-              </span>
-              <span
-                style={{
-                  alignItems: "center",
-                  display: "flex",
-                  alignContent: "left",
-                }}
-              >
-                <span
-                  style={{
-                    width: 54,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
-                  }}
-                >
-                  학수번호
-                </span>
-                <input
-                  type="text"
-                  maxLength={7}
-                  onInput={(e: any) => {
-                    e.target.value = e.target.value.replace(
-                      /[^a-zA-Z0-9]/g,
-                      ""
-                    );
-                    const x = e.target.value;
-                    e.target.value = x.toUpperCase();
-                  }}
-                  value={courseCode}
-                  onChange={(e) => setCourseCode(e.target.value)}
-                  style={{
-                    width: 74,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 6,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                  }}
-                />
-                <span
-                  style={{
-                    width: 80,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
-                  }}
-                >
-                  분반
-                </span>
-                <input
-                  type="text"
-                  maxLength={2}
-                  onInput={(e: any) => {
-                    e.target.value = e.target.value.replace(
-                      /[^a-zA-Z0-9]/g,
-                      ""
-                    );
-                    const x = e.target.value;
-                    e.target.value = x.toUpperCase();
-                  }}
-                  value={section}
-                  onChange={(e) => setSection(e.target.value)}
-                  style={{
-                    width: 74,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 6,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                  }}
-                  disabled={courseCode === ""}
-                />
-                <span
-                  style={{
-                    width: 81,
-                    height: 31,
-                    textAlign: "right",
-                    lineHeight: 2.7,
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "#333",
-                  }}
-                >
-                  교과목명
-                </span>
-                <input
-                  type="text"
-                  value={courseName}
-                  onChange={(e) => setCourseName(e.target.value)}
-                  style={{
-                    width: 414,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 5,
-                    fontSize: 12,
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                  }}
-                />
-                <button
-                  onClick={onClickSearch}
-                  style={{
-                    width: 55,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 15,
-                    fontSize: 12,
-                    backgroundColor: "#876243",
-                    color: "#fff",
-                    borderWidth: "thin",
-                    borderTopColor: "#76563b",
-                    borderRightColor: "#76563b",
-                    borderBottomColor: "#76563b",
-                    borderLeftColor: "#76563b",
-                    borderStyle: "solid",
-                    cursor: "pointer",
-                  }}
-                >
-                  조회
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCourseTypeOne("전공");
-                    setCourseTypeTwo("간호대학");
-                    setCourseTypeThree("간호학과");
-                    setCredit("");
-                    setDay("전체--");
-                    setStartTime("전체--");
-                    setEndTime("전체--");
-                    setProfessor("");
-                    setCourseCode("");
-                    setSection("");
-                    setCourseName("");
-                  }}
-                  style={{
-                    width: 55,
-                    height: 25,
-                    paddingTop: 0,
-                    paddingRight: 5,
-                    paddingBottom: 2,
-                    paddingLeft: 5,
-                    marginLeft: 3,
-                    fontSize: 12,
-                    backgroundColor: "#f9f9f9",
-                    color: "#666",
-                    borderWidth: "thin",
-                    borderTopColor: "#ccc",
-                    borderRightColor: "#ccc",
-                    borderBottomColor: "#ccc",
-                    borderLeftColor: "#ccc",
-                    borderStyle: "solid",
-                    cursor: "pointer",
-                  }}
-                >
-                  초기화
-                </button>
-              </span>
+              </div>
             </div>
           </div>
+        </form>
+      </div>
+      <div //안내사항 블럭
+        style={{
+          position: "relative",
+          marginTop: 15,
+          paddingTop: 5,
+          paddingRight: 25,
+          paddingBottom: 5,
+          paddingLeft: 25,
+          border: 1,
+          borderStyle: "solid",
+          borderColor: "#dedede",
+          boxSizing: "border-box",
+        }}
+      >
+        <div style={{ display: "block" }}>
+          <ul
+            style={{
+              margin: 0,
+              marker: "#f23d18",
+              paddingLeft: 13,
+              lineHeight: 1.5,
+              fontWeight: 400,
+            }}
+          >
+            <li
+              style={{
+                position: "relative",
+                paddingTop: 3,
+                paddingRight: 0,
+                paddingBottom: 3,
+                fontSize: 13,
+              }}
+            >
+              <span style={{ color: "#f23d18" }}>
+                학수번호, 교과목명, 대학원{" "}
+              </span>
+              검색시
+              <span style={{ color: "#0085ca" }}>이수구분 조건은 무시</span>
+              됩니다.
+            </li>
+            <li
+              style={{
+                position: "relative",
+                paddingTop: 3,
+                paddingRight: 0,
+                paddingBottom: 3,
+                fontSize: 13,
+                fontFamily: "sans-serif",
+              }}
+            >
+              학수번호 클릭시 강의계획안 조회가 가능합니다.
+            </li>
+          </ul>
         </div>
-      </form>
+      </div>
     </div>
   );
   const RegisterByPreferredCourses = () => <div>내 관심과목에서 신청</div>;
@@ -1168,7 +1221,7 @@ export default function BodyTop() {
           flexDirection: "column",
         }}
       >
-        <div //네비게이션
+        <div //NavBar
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -1181,7 +1234,7 @@ export default function BodyTop() {
             fontSize: 13,
           }}
         >
-          <div
+          <div //Nav 유의사항
             onClick={() => {
               setNavRegister([true, false, false, false, false]);
             }}
@@ -1190,14 +1243,14 @@ export default function BodyTop() {
               borderRight: 1,
               borderRightStyle: "solid",
               borderRightColor: "#ccc",
-              color: navRegister[0] ? "#fff" : "#666",
-              backgroundColor: navRegister[0] ? "#a20131" : "#fff",
+              color: navBar[0] ? "#fff" : "#666",
+              backgroundColor: navBar[0] ? "#a20131" : "#fff",
               cursor: "pointer",
             }}
           >
             유의사항
           </div>
-          <div
+          <div //Nav 학수번호 입력하여 신청
             onClick={() => {
               setNavRegister([false, true, false, false, false]);
             }}
@@ -1206,14 +1259,14 @@ export default function BodyTop() {
               borderRight: 1,
               borderRightStyle: "solid",
               borderRightColor: "#ccc",
-              color: navRegister[1] ? "#fff" : "#666",
-              backgroundColor: navRegister[1] ? "#a20131" : "#f9f9f9",
+              color: navBar[1] ? "#fff" : "#666",
+              backgroundColor: navBar[1] ? "#a20131" : "#f9f9f9",
               cursor: "pointer",
             }}
           >
             학수번호 입력하여 신청
           </div>
-          {pathname === "/courseRegisteration" ? (
+          {pathname === "/courseRegisteration" ? ( //Nav 내 관심강의에서 신청
             <div
               onClick={() => {
                 setNavRegister([false, false, true, false, false]);
@@ -1223,15 +1276,15 @@ export default function BodyTop() {
                 borderRight: 1,
                 borderRightStyle: "solid",
                 borderRightColor: "#ccc",
-                color: navRegister[2] ? "#fff" : "#666",
-                backgroundColor: navRegister[2] ? "#a20131" : "#f9f9f9",
+                color: navBar[2] ? "#fff" : "#666",
+                backgroundColor: navBar[2] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
               }}
             >
               내 관심강의에서 신청
             </div>
           ) : null}
-          <div
+          <div //Nav 개설과목 검색하여 신청
             onClick={() => {
               setNavRegister([false, false, false, true, false]);
             }}
@@ -1242,22 +1295,22 @@ export default function BodyTop() {
                 pathname === "/courseRegisteration" ? "none" : "solid",
               borderRightColor:
                 pathname === "/courseRegisteration" ? "" : "#ccc",
-              color: navRegister[3] ? "#fff" : "#666",
-              backgroundColor: navRegister[3] ? "#a20131" : "#f9f9f9",
+              color: navBar[3] ? "#fff" : "#666",
+              backgroundColor: navBar[3] ? "#a20131" : "#f9f9f9",
               cursor: "pointer",
             }}
           >
             개설과목 검색하여 신청
           </div>
-          {pathname === "/preferredCourses" ? (
+          {pathname === "/preferredCourses" ? ( //Nav 시간표
             <div
               onClick={() => {
                 setNavRegister([false, false, false, false, true]);
               }}
               style={{
                 width: "25%",
-                color: navRegister[4] ? "#fff" : "#666",
-                backgroundColor: navRegister[4] ? "#a20131" : "#f9f9f9",
+                color: navBar[4] ? "#fff" : "#666",
+                backgroundColor: navBar[4] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
               }}
             >
@@ -1265,11 +1318,11 @@ export default function BodyTop() {
             </div>
           ) : null}
         </div>
-        {navRegister[0] ? <Notices /> : null}
-        {navRegister[1] ? <RegisterByCourseNumber /> : null}
-        {navRegister[2] ? <RegisterByPreferredCourses /> : null}
-        {navRegister[3] ? <RegisterBySearch /> : null}
-        {navRegister[4] ? <PreferredTimeTable /> : null}
+        {navBar[0] ? <Notices /> : null}
+        {navBar[1] ? <RegisterByCourseNumber /> : null}
+        {navBar[2] ? <RegisterByPreferredCourses /> : null}
+        {navBar[3] ? <RegisterBySearch /> : null}
+        {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
       <div //상하단 분리선
         style={{
