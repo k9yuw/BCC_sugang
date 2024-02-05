@@ -1,17 +1,19 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
 import bgm from './bgm.mp3';
+import useClock from '../../hooks/useClock';
 
 
 const Clock: React.FC = () => {
-  const [date, setDate] = useState<number>(new Date(2024, 1, 13, 9, 59, 50).getTime());
   const [timeFormat, setTimeFormat] = useState<string>("");
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
   const [clockStarted, setClockStarted] = useState<boolean>(false);
+  const { date: clockDate, tick } = useClock(clockStarted);
+
 
   const clockRef = useRef(null);
   const msCheckboxRef = useRef<HTMLInputElement>(null);
@@ -21,17 +23,15 @@ const Clock: React.FC = () => {
   useEffect(() => {
     const timerId = setInterval(() => {
       
-      const hours = String(new Date(date).getHours()).padStart(2, "0");
-      const minutes = String(new Date(date).getMinutes()).padStart(2, "0");
-      const seconds = String(new Date(date).getSeconds()).padStart(2, "0");
-      const milliSeconds = String(new Date(date).getMilliseconds()).padStart(3,"0");
+      const hours = String(new Date(clockDate).getHours()).padStart(2, "0");
+      const minutes = String(new Date(clockDate).getMinutes()).padStart(2, "0");
+      const seconds = String(new Date(clockDate).getSeconds()).padStart(2, "0");
+      const milliSeconds = String(new Date(clockDate).getMilliseconds()).padStart(3,"0");
 
       setTimeFormat(`${hours}시 ${minutes}분 ${seconds}초 `);
       setMsFormat(`${milliSeconds}`);
 
-      if (clockStarted) {
-        setDate((prevDate) => prevDate + 8);
-      }
+      tick();
 
       if (hours === "09" && minutes === "59" && seconds >= "53") {
         setIsRed(true);
@@ -44,7 +44,7 @@ const Clock: React.FC = () => {
     }, 8);
     
     return () => clearInterval(timerId);
-  }, [date, clockStarted]); 
+  }, [clockDate, clockStarted]); 
 
   useEffect(() => {
     if (bgmPlayed) {
