@@ -41,7 +41,7 @@ export default function NavBar() {
           userSelect: "none",
         }}
       >
-        <div
+        <div //한영 버튼
           style={{
             paddingTop: 20,
             paddingRight: 20,
@@ -158,7 +158,7 @@ export default function NavBar() {
                   fontSize: 15,
                   cursor: "pointer",
                   color:
-                    pathname === "/preferredCourses" || navMouseEnterOne
+                    pathname === "/preferredCourses" || navMouseEnterTwo
                       ? "#a20131"
                       : "",
                 }}
@@ -190,7 +190,7 @@ export default function NavBar() {
                   fontSize: 15,
                   cursor: "pointer",
                   color:
-                    pathname === "/searchCourses" || navMouseEnterOne
+                    pathname === "/searchCourses" || navMouseEnterThree
                       ? "#a20131"
                       : "",
                 }}
@@ -219,7 +219,7 @@ export default function NavBar() {
                         fontSize: 13,
                         cursor: "pointer",
                         color:
-                          pathname === "/searchCourses" || navMouseEnterOne
+                          pathname === "/searchCourses" || navMouseEnterThree
                             ? "#a20131"
                             : "",
                       }}

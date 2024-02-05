@@ -4,6 +4,11 @@ import Image from "next/image";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { major } from "../data/major";
+import { academicFoundations } from "../data/academicFoundations";
+import { generalStudies } from "../data/generalStudies";
+import { teacherEducation } from "../data/teacherEducatoin";
+import { militaryStudies } from "../data/militaryStudies";
+import { lifelongEducation } from "../data/lifelongEducation";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 
@@ -99,13 +104,23 @@ export default function Home() {
     e.preventDefault();
     setSearched(true);
     if (selectedIdxOne === 0) {
-      let data = major[selectedIdxTwo][selectedIdxThree].filter(
-        (prop) => prop.credit === credit
-      );
-      data = data.filter((prop) => prop.time_room.includes(day));
+      // let data = major[selectedIdxTwo][selectedIdxThree].filter(
+      //   (prop) => prop.credit === credit
+      // );
+      // data = data.filter((prop) => prop.time_room.includes(day));
 
-      data = data.filter((prop) => prop.time_room.match("/(*)/"));
+      // data = data.filter((prop) => prop.time_room.match("/(*)/"));
       setSearchedData(major[selectedIdxTwo][selectedIdxThree]);
+    } else if (selectedIdxOne === 1) {
+      setSearchedData(academicFoundations[selectedIdxTwo][selectedIdxThree]);
+    } else if (selectedIdxOne === 2) {
+      setSearchedData(generalStudies[selectedIdxTwo]);
+    } else if (selectedIdxOne === 3) {
+      setSearchedData(teacherEducation);
+    } else if (selectedIdxOne === 4) {
+      setSearchedData(militaryStudies);
+    } else if (selectedIdxOne === 5) {
+      setSearchedData(lifelongEducation);
     }
   };
 
@@ -252,10 +267,16 @@ export default function Home() {
       "교양선택(외국어)",
       "군사학",
       "글쓰기",
-      "디지털혁신과인간 문학과예술 사회의이해 선택교양",
-      "선택교양 (기초과학)",
-      "세계의문화 역사의탐구 윤리와사상",
-      "전공관련교양 정량적사고 학문세계의탐구 I",
+      "디지털혁신과인간",
+      "문학과예술",
+      "사회의이해",
+      "선택교양",
+      "선택교양(기초과학)",
+      "세계의문화",
+      "역사의탐구",
+      "윤리와사상",
+      "정량적사고",
+      "학문세계의탐구 I",
       "학문세계의탐구 II",
     ],
   };
@@ -1171,7 +1192,6 @@ export default function Home() {
                 width: "100%",
                 boxSizing: "content-box",
                 tableLayout: "fixed",
-                overflow: "scroll",
               }}
             >
               <thead style={{ backgroundColor: "#f2eee8" }}>
@@ -1652,336 +1672,372 @@ export default function Home() {
                 )}
               </thead>
             </table>
-            {searchedData?.length !== 0 ? ( //과목조회 결과 테이블
+            <div
+              style={{
+                maxHeight: 489,
+                overflow: "auto",
+                borderBottom: 1,
+                borderBottomStyle: "solid",
+                borderBottomColor: "#ccc",
+              }}
+            >
               <table
                 style={{
                   borderCollapse: "collapse",
                   width: "100%",
                   boxSizing: "content-box",
                   tableLayout: "fixed",
-                  borderBottom: 1.5,
-                  borderBottomStyle: "solid",
-                  borderBottomColor: "#ccc",
                 }}
               >
-                <div
-                  style={{
-                    width: "100%",
-                    minWidth: 970,
-                    height: 486,
-                    overflow: "auto",
-                  }}
-                >
-                  <tbody
-                    style={{
-                      fontSize: 12,
-                    }}
-                  >
-                    {searchedData.map((prop: courseData, index) => (
-                      <tr
+                <thead style={{}}>
+                  {searchedData.map((prop: courseData, index) => (
+                    <tr
+                      style={{
+                        fontSize: 12,
+                        textAlign: "center",
+                        height: 34,
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        color: "#333",
+                        backgroundColor: index % 2 == 0 ? "#fff" : "#f9f9f9",
+                      }}
+                      key={prop.params}
+                    >
+                      <th
                         style={{
-                          fontSize: 12,
-                          textAlign: "center",
-                          height: 34,
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
                           borderBottomStyle: "solid",
                           borderBottomWidth: 1,
                           borderBottomColor: "#ddd",
+                          width: 52.1,
                           paddingTop: 4,
                           paddingRight: 6,
                           paddingBottom: 4,
                           paddingLeft: 6,
-                          color: "#333",
-                          backgroundColor: index % 2 == 0 ? "#fff" : "#f9f9f9",
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
                         }}
-                        key={prop.params}
                       >
+                        {prop.campus}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 65.13,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.cour_cd}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 39.08,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.cour_cls}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 65.13,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.isu_nm}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 77.16,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.department}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 141.29,
+                          textAlign: "left",
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.cour_nm}
+                        <br />
+                        {prop.apply_dept}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 77.16,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.prof_nm}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 39.08,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.time}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 115.23,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          textAlign: "left",
+                          fontFamily: "Segoe UI",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {prop.time_room}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 39.08,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                        }}
+                      >
+                        {prop.absolute_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          fontWeight: 600,
+                          width: 39.08,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                        }}
+                      >
+                        {prop.lmt_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          fontWeight: 600,
+                          width: 39.08,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                        }}
+                      >
+                        {prop.exch_cor_yn === "Y" ? null : (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        )}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          fontWeight: 600,
+                          width: 52.1,
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                        }}
+                      >
+                        {prop.attend_free_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          fontWeight: 600,
+                          width: 52.1,
+                        }}
+                      >
+                        {prop.no_supervisor_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
+                      </th>
+                      <th
+                        style={{
+                          borderRightStyle: "solid",
+                          borderRightWidth: 1,
+                          borderRightColor: "#ddd",
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          width: 39.08,
+                        }}
+                      >
+                        {prop.flexible_school_yn === "Y" ? (
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                            }
+                            alt="check"
+                            width={13}
+                            height={9}
+                          />
+                        ) : null}
+                      </th>
+                      {searched ? (
                         <th
                           style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 52.1,
-                          }}
-                        >
-                          {prop.campus}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            minWidth: 65.13,
-                          }}
-                        >
-                          {prop.cour_cd}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 39.08,
-                          }}
-                        >
-                          {prop.cour_cls}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 65.13,
-                          }}
-                        >
-                          {prop.isu_nm}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 77.16,
-                          }}
-                        >
-                          {prop.department}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            textAlign: "left",
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 141.29,
-                          }}
-                        >
-                          {prop.cour_nm}
-                          <br />
-                          {prop.apply_dept}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 77.16,
-                          }}
-                        >
-                          {prop.prof_nm}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 39.08,
-                          }}
-                        >
-                          {prop.time}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            textAlign: "left",
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 115.23,
-                          }}
-                        >
-                          {prop.time_room}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 39.08,
-                          }}
-                        >
-                          {prop.absolute_yn === "Y" ? (
-                            <Image
-                              src={
-                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                              }
-                              alt="check"
-                              width={13}
-                              height={9}
-                            />
-                          ) : null}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 39.08,
-                          }}
-                        >
-                          {prop.lmt_yn === "Y" ? (
-                            <Image
-                              src={
-                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                              }
-                              alt="check"
-                              width={13}
-                              height={9}
-                            />
-                          ) : null}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 39.08,
-                          }}
-                        >
-                          {prop.exch_cor_yn === "Y" ? null : (
-                            <Image
-                              src={
-                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                              }
-                              alt="check"
-                              width={13}
-                              height={9}
-                            />
-                          )}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 52.1,
-                          }}
-                        >
-                          {prop.attend_free_yn === "Y" ? (
-                            <Image
-                              src={
-                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                              }
-                              alt="check"
-                              width={13}
-                              height={9}
-                            />
-                          ) : null}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 52.1,
-                          }}
-                        >
-                          {prop.no_supervisor_yn === "Y" ? (
-                            <Image
-                              src={
-                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                              }
-                              alt="check"
-                              width={13}
-                              height={9}
-                            />
-                          ) : null}
-                        </th>
-                        <th
-                          style={{
-                            borderRightStyle: "solid",
-                            borderRightWidth: 1,
-                            borderRightColor: "#ddd",
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 39.08,
-                          }}
-                        >
-                          {prop.flexible_school_yn === "Y" ? (
-                            <Image
-                              src={
-                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                              }
-                              alt="check"
-                              width={13}
-                              height={9}
-                            />
-                          ) : null}
-                        </th>
-                        <th
-                          style={{
-                            fontWeight: 400,
-                            paddingTop: 4,
-                            paddingRight: 6,
-                            paddingBottom: 4,
-                            paddingLeft: 6,
-                            minWidth: 38.13,
+                            borderBottomStyle: "solid",
+                            borderBottomWidth: 1,
+                            borderBottomColor: "#ddd",
+                            width: 38.13,
                           }}
                         >
                           <Image
@@ -1993,12 +2049,13 @@ export default function Home() {
                             height={21}
                           />
                         </th>
-                      </tr>
-                    ))}
-                  </tbody>
-                </div>
+                      ) : null}
+                    </tr>
+                  ))}
+                </thead>
               </table>
-            ) : null}
+            </div>
+
             {searched && searchedData?.length === 0 ? ( //검색 결과 없음
               <div
                 onMouseEnter={() => {
