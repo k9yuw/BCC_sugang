@@ -27,10 +27,10 @@ export default function Home() {
   const [courseTypeOne, setCourseTypeOne] = useState("전공"); //이수구분
   const [courseTypeTwo, setCourseTypeTwo] = useState("간호대학");
   const [courseTypeThree, setCourseTypeThree] = useState<string>("간호학과");
-  const [credit, setCredit] = useState(); //학점
+  const [credit, setCredit] = useState<string>(); //학점
   const [day, setDay] = useState(""); //요일
-  const [startTime, setStartTime] = useState(); //교시
-  const [endTime, setEndTime] = useState();
+  const [startTime, setStartTime] = useState<string>(); //교시
+  const [endTime, setEndTime] = useState<string>();
   const [professor, setProfessor] = useState(""); //교수
   const [courseCode, setCourseCode] = useState(""); //학수번호
   const [section, setSection] = useState(""); //분반

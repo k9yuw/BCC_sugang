@@ -8,6 +8,7 @@ import Image from "next/image";
 import courseData from "../constant/courseDataInterface";
 import RegisterByPreferredCourses from "./NavComponents/RegisterByPreferredCourses";
 import RegisterByCourseNumber from "./NavComponents/RegisterByCourseNumber";
+import Notices from "./NavComponents/Notices";
 
 export default function BodyTop() {
   const pathname = usePathname();
@@ -53,32 +54,6 @@ export default function BodyTop() {
       setSearchedData(major[selectedIdxTwo][selectedIdxThree]);
     }
   };
-
-  //NavBar Components
-  const Notices = () => (
-    <div //유의사항
-      style={{
-        marginTop: 10,
-        border: 1,
-        borderStyle: "solid",
-        borderColor: "#ccc",
-      }}
-    >
-      <ul>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-        <li>게임 설명</li>
-      </ul>
-    </div>
-  );
 
   return (
     <div>
