@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
 import bgm from './bgm.mp3';
+
 
 const Clock: React.FC = () => {
   const [date, setDate] = useState<number>(new Date(2024, 1, 13, 9, 59, 50).getTime());
@@ -43,16 +44,21 @@ const Clock: React.FC = () => {
     }, 8);
     
     return () => clearInterval(timerId);
-  }, [date, clockStarted]); // date가 변경될 때마다 useEffect 실행
+  }, [date, clockStarted]); 
 
   useEffect(() => {
     if (bgmPlayed) {
-      bgmRef.current?.play();
+      if (bgmRef.current) {
+        bgmRef.current.play();
+      }
     } else {
-      bgmRef.current?.pause();
-      bgmRef.current.currentTime = 0; // 시작 지점으로 되돌림
+      if (bgmRef.current) {
+        bgmRef.current.pause();
+        bgmRef.current.currentTime = 0; // 시작 지점으로 되돌림
+      }
     }
   }, [bgmPlayed]);
+  
 
   const backgroundClass = isRed ? styles.redBackground : "";
 
