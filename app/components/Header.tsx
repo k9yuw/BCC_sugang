@@ -1,9 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Header() {
-  const id = localStorage.getItem("username");
   const router = useRouter();
+  const [id, setId] = useState("");
+  useEffect(() => {
+    setId(localStorage.getItem("username") ?? "");
+  }, []);
 
   return (
     <div //헤더

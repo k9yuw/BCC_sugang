@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navysm from "../components/clock/navysm";
 import TimeTable from "../components/table/sugangTimeTable/timeTable";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import BodyTop from "../components/BodyTop";
+import { maxHeaderSize } from "http";
 
 export default function Home() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [registerdCredit, setRegisteredCredit] = useState(0);
+  const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
+
+  useEffect(() => {
+    setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
+  }, []);
 
   return (
     <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
@@ -41,8 +47,33 @@ export default function Home() {
               [ 최소신청학점 :{" "}
               <span style={{ fontSize: 12, color: "#a20131" }}>1</span> 학점 |
               최대신청학점 :{" "}
-              <span style={{ fontSize: 12, color: "#a20131" }}>22</span> 학점 |
-              신청학점 :{" "}
+              <span style={{ fontSize: 12, color: "#a20131" }}>
+                {" "}
+                <select
+                  value={maxCreditLimit ?? "19"}
+                  onChange={(e) => {
+                    localStorage.setItem("maxCreditLimit", e.target.value);
+                    setMaxCreditLimit(e.target.value);
+                  }}
+                  style={{
+                    outline: "none",
+                    border: "none",
+                    fontSize: 13,
+                    color: "#a20131",
+                    fontWeight: "bold",
+                    width: 18,
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  <option value={"19"}>19</option>
+                  <option value={"22"}>22</option>
+                  <option value={"25"}>25</option>
+                </select>
+              </span>{" "}
+              학점 | 신청학점 :{" "}
               <span style={{ fontSize: 12, color: "#a20131" }}>
                 {registerdCredit}
               </span>{" "}

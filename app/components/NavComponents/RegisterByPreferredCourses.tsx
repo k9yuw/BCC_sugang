@@ -1,16 +1,18 @@
 import courseData from "@/app/constant/courseDataInterface";
 import Image from "next/image";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 
 export default function RegisterByPreferredCourses() {
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
 
+  const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <div //검색 결과 테이블
-      style={{ marginTop: 10, borderTop: 0.7, borderTopStyle: "solid" }}
-    >
+    <div style={{ marginTop: 10, borderTop: 0.7, borderTopStyle: "solid" }}>
       <table
         style={{
           borderCollapse: "collapse",
@@ -20,481 +22,149 @@ export default function RegisterByPreferredCourses() {
         }}
       >
         <thead style={{ backgroundColor: "#f2eee8" }}>
-          {!searched ? (
-            <tr //마감현황 포함 X
+          <tr
+            style={{
+              fontSize: 12,
+              textAlign: "center",
+              height: 34,
+            }}
+          >
+            <th
               style={{
-                fontSize: 12,
-                textAlign: "center",
-                height: 34,
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                fontWeight: 600,
+                width: 65.13,
               }}
             >
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  width: 54,
-                  fontWeight: 600,
-                }}
-              >
-                캠퍼스
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 67,
-                }}
-              >
-                학수번호
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 41,
-                }}
-              >
-                분반
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 67,
-                }}
-              >
-                이수구분
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 81,
-                }}
-              >
-                개설학과
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 147,
-                }}
-              >
-                교과목명
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 81,
-                }}
-              >
-                담당교수
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 41,
-                }}
-              >
-                학점 <br /> (시간)
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 121,
-                }}
-              >
-                강의시간/강의실
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 41,
-                }}
-              >
-                상대
-                <br />
-                평가
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 41,
-                }}
-              >
-                인원
-                <br />
-                제한
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 41,
-                }}
-              >
-                교환
-                <br />
-                학생
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 54,
-                }}
-              >
-                출석확인
-                <br />
-                자율화
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 54,
-                }}
-              >
-                무감독
-                <br />
-                시험
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  width: 40,
-                }}
-              >
-                유연
-                <br />
-                학기
-              </th>
-            </tr>
-          ) : (
-            <tr //마감현황 포함
+              수강신청
+            </th>
+            <th
               style={{
-                fontSize: 12,
-                textAlign: "center",
-                height: 34,
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                fontWeight: 600,
+                width: 65.13,
               }}
             >
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 52.1,
-                }}
-              >
-                캠퍼스
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 65.13,
-                }}
-              >
-                학수번호
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 39.08,
-                }}
-              >
-                분반
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 65.13,
-                }}
-              >
-                이수구분
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 77.16,
-                }}
-              >
-                개설학과
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 141.29,
-                }}
-              >
-                교과목명
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 77.16,
-                }}
-              >
-                담당교수
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 39.08,
-                }}
-              >
-                학점 <br /> (시간)
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 115.23,
-                }}
-              >
-                강의시간/강의실
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 39.08,
-                }}
-              >
-                상대
-                <br />
-                평가
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 39.08,
-                }}
-              >
-                인원
-                <br />
-                제한
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 39.08,
-                }}
-              >
-                교환
-                <br />
-                학생
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 52.1,
-                }}
-              >
-                출석확인
-                <br />
-                자율화
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  fontWeight: 600,
-                  width: 52.1,
-                }}
-              >
-                무감독
-                <br />
-                시험
-              </th>
-              <th
-                style={{
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderRightColor: "#ccc",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "#ccc",
-                  width: 39.08,
-                }}
-              >
-                유연
-                <br />
-                학기
-              </th>
-              {searched ? (
-                <th
-                  style={{
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ccc",
-                    width: 38.13,
-                  }}
-                >
-                  마감
-                  <br />
-                  현황
-                </th>
-              ) : null}
-            </tr>
-          )}
+              학수번호
+            </th>
+            <th
+              style={{
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                fontWeight: 600,
+                width: 39.08,
+              }}
+            >
+              분반
+            </th>
+            <th
+              style={{
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                fontWeight: 600,
+                width: 77.16,
+              }}
+            >
+              이수구분
+            </th>
+            <th
+              style={{
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                fontWeight: 600,
+                width: 141.29,
+              }}
+            >
+              교과목명(강의계획서)
+            </th>
+            <th
+              style={{
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                fontWeight: 600,
+                width: 77.16,
+              }}
+            >
+              담당교수
+            </th>
+            <th
+              style={{
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                fontWeight: 600,
+                width: 77.16,
+              }}
+            >
+              학점 <br /> (시간)
+            </th>
+            <th
+              style={{
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                fontWeight: 600,
+                width: 115.23,
+              }}
+            >
+              강의시간/강의실
+            </th>
+            <th
+              style={{
+                borderRightStyle: "solid",
+                borderRightWidth: 1,
+                borderRightColor: "#ccc",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                width: 65.13,
+              }}
+            >
+              재수강
+            </th>
+            <th
+              style={{
+                borderBottomStyle: "solid",
+                borderBottomWidth: 1,
+                borderBottomColor: "#ccc",
+                width: 65.13,
+              }}
+            >
+              마감현황
+            </th>
+          </tr>
         </thead>
       </table>
       <div
@@ -537,7 +207,7 @@ export default function RegisterByPreferredCourses() {
                     borderBottomStyle: "solid",
                     borderBottomWidth: 1,
                     borderBottomColor: "#ddd",
-                    width: 52.1,
+                    width: 65.13,
                     paddingTop: 4,
                     paddingRight: 6,
                     paddingBottom: 4,
@@ -546,7 +216,21 @@ export default function RegisterByPreferredCourses() {
                     fontWeight: 400,
                   }}
                 >
-                  {prop.campus}
+                  <button
+                    onClick={onRegisterClick}
+                    style={{
+                      height: 23,
+                      width: 45,
+                      fontSize: 12,
+                      backgroundColor: "#a20131",
+                      border: 0,
+                      color: "#fff",
+                      cursor: "pointer",
+                      paddingTop: "0px",
+                    }}
+                  >
+                    신청
+                  </button>
                 </th>
                 <th
                   style={{
@@ -604,25 +288,6 @@ export default function RegisterByPreferredCourses() {
                   }}
                 >
                   {prop.isu_nm}
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ddd",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ddd",
-                    width: 77.16,
-                    paddingTop: 4,
-                    paddingRight: 6,
-                    paddingBottom: 4,
-                    paddingLeft: 6,
-                    fontFamily: "Segoe UI",
-                    fontWeight: 400,
-                  }}
-                >
-                  {prop.department}
                 </th>
                 <th
                   style={{
@@ -712,113 +377,6 @@ export default function RegisterByPreferredCourses() {
                     borderBottomStyle: "solid",
                     borderBottomWidth: 1,
                     borderBottomColor: "#ddd",
-                    width: 39.08,
-                    paddingTop: 4,
-                    paddingRight: 6,
-                    paddingBottom: 4,
-                    paddingLeft: 6,
-                  }}
-                >
-                  {prop.absolute_yn === "Y" ? (
-                    <Image
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                      }
-                      alt="check"
-                      width={13}
-                      height={9}
-                    />
-                  ) : null}
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ddd",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ddd",
-                    fontWeight: 600,
-                    width: 39.08,
-                    paddingTop: 4,
-                    paddingRight: 6,
-                    paddingBottom: 4,
-                    paddingLeft: 6,
-                  }}
-                >
-                  {prop.lmt_yn === "Y" ? (
-                    <Image
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                      }
-                      alt="check"
-                      width={13}
-                      height={9}
-                    />
-                  ) : null}
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ddd",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ddd",
-                    fontWeight: 600,
-                    width: 39.08,
-                    paddingTop: 4,
-                    paddingRight: 6,
-                    paddingBottom: 4,
-                    paddingLeft: 6,
-                  }}
-                >
-                  {prop.exch_cor_yn === "Y" ? null : (
-                    <Image
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                      }
-                      alt="check"
-                      width={13}
-                      height={9}
-                    />
-                  )}
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ddd",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ddd",
-                    fontWeight: 600,
-                    width: 52.1,
-                    paddingTop: 4,
-                    paddingRight: 6,
-                    paddingBottom: 4,
-                    paddingLeft: 6,
-                  }}
-                >
-                  {prop.attend_free_yn === "Y" ? (
-                    <Image
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                      }
-                      alt="check"
-                      width={13}
-                      height={9}
-                    />
-                  ) : null}
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ddd",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ddd",
                     fontWeight: 600,
                     width: 52.1,
                   }}
@@ -836,45 +394,21 @@ export default function RegisterByPreferredCourses() {
                 </th>
                 <th
                   style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ddd",
                     borderBottomStyle: "solid",
                     borderBottomWidth: 1,
                     borderBottomColor: "#ddd",
-                    width: 39.08,
+                    width: 38.13,
                   }}
                 >
-                  {prop.flexible_school_yn === "Y" ? (
-                    <Image
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                      }
-                      alt="check"
-                      width={13}
-                      height={9}
-                    />
-                  ) : null}
+                  <Image
+                    src={
+                      "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                    }
+                    alt="note"
+                    width={16}
+                    height={21}
+                  />
                 </th>
-                {searched ? (
-                  <th
-                    style={{
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ddd",
-                      width: 38.13,
-                    }}
-                  >
-                    <Image
-                      src={
-                        "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
-                      }
-                      alt="note"
-                      width={16}
-                      height={21}
-                    />
-                  </th>
-                ) : null}
               </tr>
             ))}
           </thead>

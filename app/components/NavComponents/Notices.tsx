@@ -19,7 +19,6 @@ export default function Notices() {
         <li>게임 설명</li>
         <li>게임 설명</li>
         <li>게임 설명</li>
-        <li>게임 설명</li>
       </ul>
     </div>
   );

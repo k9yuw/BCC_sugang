@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { major } from "../../data/major";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "../table/preferredTimeTable/preferredTimeTable";
@@ -33,9 +33,41 @@ export default function RegisterBySearch() {
   const [courseName, setCourseName] = useState(""); //교과목명
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
+  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
+  const [preferredCredit, setPreferredCredit] = useState<number>(0);
 
-  const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
+  useEffect(() => {
+    const preferredCoursesCached = localStorage.getItem("preferredCourses");
+
+    const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
+    setPreferredCourses(data);
+    const preferredCreditArray = data.map((prop) => prop.credit);
+    setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
+  }, []);
+
+  const onRegisterClick = (
+    e: MouseEvent<HTMLButtonElement>,
+    prop: courseData
+  ) => {
     e.preventDefault();
+    if (pathname === "/courseRegisteration") {
+    } else if (pathname === "/preferredCourses") {
+      let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+      if (maxCreditLimit === null) maxCreditLimit = "19";
+      console.log(preferredCourses);
+      console.log(maxCreditLimit);
+      console.log(preferredCredit);
+      if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
+        setPreferredCourses((prev) => [...prev, prop]);
+        setPreferredCredit((prep) => prep + prop.credit);
+        localStorage.setItem(
+          "preferredCourses",
+          JSON.stringify(preferredCourses)
+        );
+      } else {
+        alert("신청가능한 학점을 초과했습니다");
+      }
+    }
   };
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
     setCourseTypeOne(e.target.value);
@@ -122,7 +154,7 @@ export default function RegisterBySearch() {
                     캠퍼스
                   </span>
                   <select
-                    value={campus}
+                    defaultValue={campus}
                     style={{
                       width: 74,
                       height: 25,
@@ -165,7 +197,7 @@ export default function RegisterBySearch() {
                     대학구분
                   </span>
                   <select
-                    value={collegeSectionType}
+                    defaultValue={collegeSectionType}
                     style={{
                       width: 74,
                       height: 25,
@@ -1173,7 +1205,7 @@ export default function RegisterBySearch() {
                     }}
                   >
                     <button
-                      onClick={onRegisterClick}
+                      onClick={(e) => onRegisterClick(e, prop)}
                       style={{
                         height: 23,
                         width: 45,

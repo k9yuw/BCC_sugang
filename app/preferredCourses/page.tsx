@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import Navysm from "../components/clock/navysm";
 import PreferredTimeTable from "../components/table/preferredTimeTable/preferredTimeTable";
 import NavBar from "../components/NavBar";
@@ -11,7 +11,12 @@ import BodyTop from "../components/BodyTop";
 
 export default function Home() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
-  const [registerdCredit, setRegisteredCredit] = useState(0);
+  const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
+  const [preferredCredit, setPreferredCredit] = useState("0");
+
+  useEffect(() => {
+    setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
+  }, []);
 
   return (
     <div style={{ display: "flex" }}>
@@ -43,10 +48,34 @@ export default function Home() {
               [ 최소신청학점 :{" "}
               <span style={{ fontSize: 12, color: "#a20131" }}>1</span> 학점 |
               최대신청학점 :{" "}
-              <span style={{ fontSize: 12, color: "#a20131" }}>22</span> 학점 |
-              신청학점 :{" "}
+              <span style={{ fontSize: 15, color: "#a20131" }}>
+                <select
+                  value={maxCreditLimit ?? "19"}
+                  onChange={(e) => {
+                    localStorage.setItem("maxCreditLimit", e.target.value);
+                    setMaxCreditLimit(e.target.value);
+                  }}
+                  style={{
+                    outline: "none",
+                    border: "none",
+                    fontSize: 13,
+                    color: "#a20131",
+                    fontWeight: "bold",
+                    width: 18,
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  <option value={"19"}>19</option>
+                  <option value={"22"}>22</option>
+                  <option value={"25"}>25</option>
+                </select>
+              </span>{" "}
+              학점 | 신청학점 :{" "}
               <span style={{ fontSize: 12, color: "#a20131" }}>
-                {registerdCredit}
+                {preferredCredit}
               </span>{" "}
               학점 ]
             </h6>
@@ -64,7 +93,8 @@ export default function Home() {
                   borderRightColor: "#ccc",
                   borderBottomColor: "#ccc",
                   borderLeftColor: "#ccc",
-                  borderStyle: "solid", padding: "0px",
+                  borderStyle: "solid",
+                  padding: "0px",
                 }}
               >
                 교시확인표
