@@ -12,7 +12,7 @@ export default function Home() {
   const [registerdCredit, setRegisteredCredit] = useState(0);
 
   return (
-    <div style={{ display: "flex", fontFamily: "Segeo UI",}}>
+    <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
       <NavBar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Header />
@@ -61,7 +61,8 @@ export default function Home() {
                   borderRightColor: "#ccc",
                   borderBottomColor: "#ccc",
                   borderLeftColor: "#ccc",
-                  borderStyle: "solid", padding: "0px",
+                  borderStyle: "solid",
+                  padding: "0px",
                 }}
               >
                 교시확인표
