@@ -259,10 +259,12 @@ export default function Home() {
                     fontSize: 17,
                     color: "#fff",
                     textAlign: "center",
+                    fontFamily: "Segeo UI",
+                    fontWeight: "600",
                   }}
                 >
                   로그인
-                  <small style={{ fontWeight: "lighter", fontSize: 12 }}>
+                  <small style={{ fontWeight: "lighter", fontSize: 12, color: "#ffffff80"}}>
                     Login
                   </small>
                 </button>
@@ -283,32 +285,35 @@ export default function Home() {
           position: "relative",
         }}
       >
-        <div>
-          <div style={{ marginLeft: 30, marginRight: 30 }}>
+        <div style={{fontFamily: "'Segoe UI', sans-serif", lineHeight: "1.4", wordSpacing:"-1px"}}>
+          <div style={{ marginLeft: 30, marginRight: 30, marginBottom: "0px"}}>
             <h1
               style={{
-                margin: 0,
+                margin: "0px",
                 paddingLeft: 2,
                 fontSize: 26,
-                fontWeight: 400,
+                fontWeight: "400",
                 letterSpacing: -2,
+
               }}
             >
               수강신청 안내
               <small
                 style={{
-                  fontSize: 15,
-                  fontWeight: 200,
+                  fontSize: "16px",
+                  fontWeight: "400",
                   marginLeft: 10,
-                  letterSpacing: "normal",
-                }}
-              >
+                  letterSpacing: "0px",
+                  wordSpacing:"0px",
+                  color: "#666",
+                }}>
                 Course Registration Schedule
               </small>
             </h1>
             <div //6tags
               style={{
-                height: 122,
+                width: "1200px",
+                height: 120,
                 marginBottom: 73,
                 alignItems: "stretch",
                 display: "flex",
@@ -323,16 +328,16 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17, }}
                 >
-                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
                     style={{
                       position: "absolute",
-                      top: 98,
+                      top: 96,
                       paddingLeft: 20,
                       fontSize: 14,
-                      fontWeight: 300,
+                      fontWeight: 400,
                       letterSpacing: -1,
                       lineHeight: 2.2,
                       color: "#fff",
@@ -347,19 +352,25 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: 51,
+                    height: "49.2px",
+                    display: "flex",
+                    width: "162.5px",
+                    lineHeight: 1.5,
                   }}
                 >
+                  <div>
                   <div
                     style={{
                       fontSize: 15,
-                      color: "#515151",
-                      paddingTop: 3,
+                      color: "#333333",
+                      paddingTop: "1.5px",
+                      fontWeight: "400px",
+                      wordSpacing:"0px"
                     }}
                   >
                     학부 수강신청 안내
                   </div>
-                  <div style={{ paddingTop: 7 }}>
+                  <div style={{ paddingTop: 5,}}>
                     <Image
                       alt="more"
                       src={
@@ -369,6 +380,7 @@ export default function Home() {
                       height={22}
                     />
                   </div>
+                </div>
                 </div>
               </div>
               <div //2
@@ -381,16 +393,16 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17,}}
                 >
-                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
                     style={{
                       position: "absolute",
-                      top: 98,
+                      top: 96,
                       paddingLeft: 20,
                       fontSize: 14,
-                      fontWeight: 300,
+                      fontWeight: 400,
                       letterSpacing: -1,
                       lineHeight: 2.2,
                       color: "#fff",
@@ -405,19 +417,25 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: 51,
+                    height: "49.2px",
+                    display: "flex",
+                    width: "162.5px",
+                    lineHeight: 1.5,
                   }}
                 >
+                  <div>
                   <div
                     style={{
                       fontSize: 15,
-                      color: "#515151",
-                      paddingTop: 3,
+                      color: "#333333",
+                      paddingTop: "1.5px",
+                      fontWeight: "400px",
+                      wordSpacing:"0px"
                     }}
                   >
                     고려대학교 과목조회
                   </div>
-                  <div style={{ paddingTop: 7 }}>
+                  <div style={{ paddingTop: 5 }}>
                     <Image
                       alt="more"
                       src={
@@ -426,6 +444,7 @@ export default function Home() {
                       width={60}
                       height={22}
                     />
+                  </div>
                   </div>
                 </div>
               </div>
@@ -439,16 +458,16 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 15 }}
                 >
-                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
                     style={{
                       position: "absolute",
-                      top: 98,
+                      top: 96,
                       paddingLeft: 20,
                       fontSize: 14,
-                      fontWeight: 300,
+                      fontWeight: 400,
                       letterSpacing: -1,
                       lineHeight: 2.2,
                       color: "#fff",
@@ -463,24 +482,27 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: 51,
+                    height: "72px",
                     display: "flex",
-                    width: 165,
+                    width: "162.5px",
                     lineHeight: 1.5,
                   }}
                 >
+                  <div>
                   <div
                     style={{
                       fontSize: 15,
-                      color: "#515151",
-                      display: "inline-block",
+                      color: "#333333",
+                      paddingTop: "0px",
+                      fontWeight: "400px",
+                      wordSpacing:"0px"
                     }}
                   >
                     고려대학교
                     <br />
                     교육정보 확인
                   </div>
-                  <div style={{ paddingTop: 20, display: "inline-block" }}>
+                  <div style={{ paddingTop: 5, display: "inline-block" }}>
                     <Image
                       alt="more"
                       src={
@@ -489,6 +511,7 @@ export default function Home() {
                       width={60}
                       height={22}
                     />
+                  </div>
                   </div>
                 </div>
               </div>
@@ -502,16 +525,16 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17 }}
                 >
-                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
                     style={{
                       position: "absolute",
-                      top: 98,
+                      top: 96,
                       paddingLeft: 20,
                       fontSize: 14,
-                      fontWeight: 300,
+                      fontWeight: 400,
                       letterSpacing: -1,
                       lineHeight: 2.2,
                       color: "#fff",
@@ -526,24 +549,27 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: 51,
+                    height: "72px",
                     display: "flex",
-                    width: 165,
+                    width: "162.5px",
                     lineHeight: 1.5,
                   }}
                 >
+                  <div>
                   <div
                     style={{
                       fontSize: 15,
-                      color: "#515151",
-                      display: "inline-block",
+                      color: "#333333",
+                      paddingTop: "0px",
+                      fontWeight: "400px",
+                      wordSpacing:"0px"
                     }}
                   >
                     포털 미사용자
                     <br />
                     비밀번호변경
                   </div>
-                  <div style={{ paddingTop: 20, display: "inline-block" }}>
+                  <div style={{ paddingTop: 5, display: "inline-block" }}>
                     <Image
                       alt="more"
                       src={
@@ -552,6 +578,7 @@ export default function Home() {
                       width={60}
                       height={22}
                     />
+                  </div>
                   </div>
                 </div>
               </div>
@@ -565,16 +592,16 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17 }}
                 >
-                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
                     style={{
                       position: "absolute",
-                      top: 98,
+                      top: 96,
                       paddingLeft: 20,
                       fontSize: 14,
-                      fontWeight: 300,
+                      fontWeight: 400,
                       letterSpacing: -1,
                       lineHeight: 2.2,
                       color: "#fff",
@@ -589,19 +616,25 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: 51,
+                    height: "49.2px",
+                    display: "flex",
+                    width: "162.5px",
+                    lineHeight: 1.5,
                   }}
                 >
+                  <div>
                   <div
                     style={{
                       fontSize: 15,
-                      color: "#515151",
-                      paddingTop: 3,
+                      color: "#333333",
+                      paddingTop: "1.5px",
+                      fontWeight: "400px",
+                      wordSpacing:"0px"
                     }}
                   >
                     신입생 학번안내
                   </div>
-                  <div style={{ paddingTop: 7 }}>
+                  <div style={{ paddingTop: 5 }}>
                     <Image
                       alt="more"
                       src={
@@ -610,6 +643,7 @@ export default function Home() {
                       width={60}
                       height={22}
                     />
+                  </div>
                   </div>
                 </div>
               </div>
@@ -623,16 +657,16 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 15, marginBottom: 17 }}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17 }}
                 >
-                  <Image alt="tag" src="/tag.svg" width={162} height={30} />
+                  <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
                     style={{
                       position: "absolute",
-                      top: 98,
+                      top: 96,
                       paddingLeft: 20,
                       fontSize: 14,
-                      fontWeight: 300,
+                      fontWeight: 400,
                       letterSpacing: -1,
                       lineHeight: 2.2,
                       color: "#fff",
@@ -642,19 +676,25 @@ export default function Home() {
                   </p>
                 </div>
                 <div
-                  style={{
-                    borderLeft: 1,
-                    borderLeftStyle: "solid",
-                    borderLeftColor: "#bf0039",
-                    paddingLeft: 20,
-                    height: 71,
-                    lineHeight: 1.5,
-                  }}
+                 style={{
+                  borderLeft: 1,
+                  borderLeftStyle: "solid",
+                  borderLeftColor: "#bf0039",
+                  paddingLeft: 20,
+                  height: "68.8px",
+                  display: "flex",
+                  width: "162.5px",
+                  lineHeight: 1.5,
+                }}
                 >
+                  <div>
                   <div
                     style={{
                       fontSize: 15,
-                      color: "#515151",
+                      color: "#333333",
+                      paddingTop: "0px",
+                      fontWeight: "400px",
+                      wordSpacing:"0px"
                     }}
                   >
                     대학원생 수강신청
@@ -671,25 +711,32 @@ export default function Home() {
                       height={22}
                     />
                   </div>
+                  </div>
                 </div>
               </div>
             </div>
             <h1
               style={{
-                margin: 0,
+                fontFamily: "segeo UI",
+                margin: "0px 0px 5px 0px",
                 paddingLeft: 2,
                 fontSize: 26,
                 fontWeight: 400,
                 letterSpacing: -2,
+                wordSpacing: "-3px",
+                width: "1200px",
+                color: "#0D0D0D",
               }}
             >
               수강신청 유의사항
               <small
                 style={{
-                  fontSize: 15,
-                  fontWeight: 200,
+                  fontSize: 16,
                   marginLeft: 10,
                   letterSpacing: "normal",
+                  fontWeight: "350",
+                  wordSpacing: "-1px",
+                  color : "#666666",
                 }}
               >
                 Course Registration Notice
@@ -697,20 +744,28 @@ export default function Home() {
             </h1>
             <div
               style={{
-                marginTop: 20,
-                padding: 30,
+                marginTop: "15px",
+                paddingTop: "25px",
+                paddingLeft: "30px",
                 border: 1,
                 borderStyle: "solid",
                 borderColor: "#dedede",
                 backgroundColor: "#fff",
+                width: "1200px",
+                height: "648px",
               }}
             >
               <ul
                 style={{
+                  fontFamily: "segeo UI",
                   listStyle: "none",
                   lineHeight: 2.3,
-                  padding: 0,
+                  padding: "0px",
                   margin: 0,
+                  fontSize: 14,
+                  letterSpacing: "0px",
+                  wordSpacing: "-1.5px",
+                  
                 }}
               >
                 <li
@@ -719,10 +774,8 @@ export default function Home() {
                       'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
                     backgroundRepeat: "no-repeat",
                     backgroundPositionY: "center",
-                    fontSize: 14,
-                    paddingLeft: 12,
+                    paddingLeft: "12px",
                     color: "#528ecc",
-                    fontFamily: "Apple SD Gothic Neo",
                   }}
                 >
                   수강신청시스템 중복로그인/매크로 제한 기능 도입 안내
@@ -733,9 +786,7 @@ export default function Home() {
                       'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
                     backgroundRepeat: "no-repeat",
                     backgroundPositionY: "center",
-                    fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                   }}
                 >
                   Microsoft의 Internet Explorer 지원 종료에 따라 Chrome,
@@ -744,12 +795,10 @@ export default function Home() {
                 <li
                   style={{
                     backgroundImage:
-                      'url("https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                    'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
                     backgroundRepeat: "no-repeat",
                     backgroundPositionY: "center",
-                    fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     color: "#bf0039",
                   }}
                 >
@@ -763,7 +812,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     color: "#bf0039",
                   }}
                 >
@@ -777,7 +825,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     color: "#bf0039",
                   }}
                 >
@@ -791,7 +838,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     color: "#bf0039",
                   }}
                 >
@@ -806,7 +852,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     color: "#bf0039",
                   }}
                 >
@@ -821,7 +866,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     color: "#bf0039",
                   }}
                 >
@@ -837,7 +881,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                   }}
                 >
                   학사관련 주요사항 안내는 교육정보 홈페이지를 참조하세요.
@@ -853,7 +896,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                   }}
                 >
                   단과대학별 수강신청 유의사항은 교육정보 홈페이지를 참조하세요.
@@ -871,7 +913,7 @@ export default function Home() {
                     paddingLeft: 12,
                   }}
                 >
-                  암호
+                  <strong>암호</strong>
                   <ul
                     style={{
                       paddingLeft: 0,
@@ -902,11 +944,10 @@ export default function Home() {
                     backgroundPositionY: 12,
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     marginTop: 5,
                   }}
                 >
-                  암호 분실시
+                  <strong>암호 분실시</strong>
                   <ul
                     style={{
                       paddingLeft: 0,
@@ -917,7 +958,6 @@ export default function Home() {
                   >
                     <li
                       style={{
-                        fontFamily: "Apple SD Gothic Neo",
                       }}
                     >
                       포털 사용자 :
@@ -934,7 +974,6 @@ export default function Home() {
                     </li>
                     <li
                       style={{
-                        fontFamily: "Apple SD Gothic Neo",
                         fontSize: 13,
                       }}
                     >
@@ -952,7 +991,6 @@ export default function Home() {
                     </li>
                     <li
                       style={{
-                        fontFamily: "Apple SD Gothic Neo",
                         fontSize: 13,
                         color: "#bf0039",
                       }}
@@ -970,7 +1008,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     color: "#528ecc",
                     marginTop: 6,
                   }}
@@ -985,7 +1022,6 @@ export default function Home() {
                     backgroundPositionY: "center",
                     fontSize: 14,
                     paddingLeft: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                   }}
                 >
                   Internet Explorer 10 이상의 버전, 화면 해상도 1920*1080에

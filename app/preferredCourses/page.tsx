@@ -53,7 +53,8 @@ export default function Home() {
             <div style={{ marginLeft: "auto" }}>
               <button
                 style={{
-                  width: 70,
+                  fontFamily: "Segeo UI",
+                  width: "79.1px",
                   height: 25,
                   fontSize: 12,
                   backgroundColor: "#f9f9f9",
@@ -63,14 +64,15 @@ export default function Home() {
                   borderRightColor: "#ccc",
                   borderBottomColor: "#ccc",
                   borderLeftColor: "#ccc",
-                  borderStyle: "solid",
+                  borderStyle: "solid", padding: "0px",
                 }}
               >
                 교시확인표
               </button>
               <button
                 style={{
-                  width: 96,
+                  fontFamily: "Segeo UI",
+                  width: 100,
                   height: 25,
                   fontSize: 12,
                   textAlign: "left",
@@ -86,8 +88,8 @@ export default function Home() {
                   borderStyle: "solid",
                   backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/icon-print.png")`,
                   backgroundRepeat: "no-repeat",
-                  backgroundPositionY: 2,
-                  backgroundPositionX: 70,
+                  backgroundPositionY: 4,
+                  backgroundPositionX: 78,
                 }}
               >
                 시간표 인쇄

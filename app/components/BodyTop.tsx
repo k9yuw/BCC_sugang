@@ -368,9 +368,9 @@ export default function BodyTop() {
             backgroundColor: "#a20131",
             border: 0,
             color: "#fff",
-            marginTop: 12,
+            marginTop: "14.5px",
             marginRight: 3,
-            cursor: "pointer",
+            cursor: "pointer", paddingTop: "0px",
           }}
         >
           신청
@@ -384,10 +384,10 @@ export default function BodyTop() {
             backgroundColor: "#f9f9f9",
             borderStyle: "solid",
             borderColor: "#ccc",
-            marginTop: 12,
-            marginLeft: 3,
+            marginTop: "14.5px",
+            marginLeft: 1,
             color: "#666",
-            cursor: "pointer",
+            cursor: "pointer",  paddingTop: "0px",
           }}
         >
           초기화
@@ -895,9 +895,9 @@ export default function BodyTop() {
                       width: 71,
                       height: 25,
                       paddingTop: 0,
-                      paddingRight: 5,
+                      paddingRight: 0,
                       paddingBottom: 2,
-                      paddingLeft: 5,
+                      paddingLeft: 0,
                       marginLeft: 5,
                       fontSize: 12,
                       backgroundColor: "#f9f9f9",
