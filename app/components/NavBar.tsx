@@ -221,7 +221,7 @@ export default function NavBar() {
                         color:
                           pathname === "/searchCourses" || navMouseEnterThree
                             ? "#a20131"
-                            : "",
+                            : "#666",
                       }}
                     >
                       학부 과목조회

@@ -477,134 +477,184 @@ export default function Home() {
                       >
                         이수구분
                       </span>
-                      <select
-                        value={courseTypeOne}
-                        onChange={onChangeCourseTypeOne}
+                      <div
                         style={{
-                          height: 25,
-                          paddingTop: 0,
-                          paddingRight: 5,
-                          paddingBottom: 2,
-                          paddingLeft: 5,
+                          flex: 1,
+                          display: "flex",
+                          flexDirection: "row",
                           marginLeft: 5,
-                          fontSize: 12,
-                          color: "#666",
                           borderWidth: "thin",
                           borderTopColor: "#ccc",
                           borderRightColor: "#ccc",
                           borderBottomColor: "#ccc",
                           borderLeftColor: "#ccc",
                           borderStyle: "solid",
-                          backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                          backgroundRepeat: "no-repeat",
-                          backgroundPositionX: "95.5%",
-                          backgroundPositionY: "center",
-                          WebkitAppearance: "none",
-                          MozAppearance: "none",
-                          appearance: "none",
-                          flex: 1,
-                          display: "block",
-                          overflow: "hidden",
-                          whiteSpace: "nowrap",
-                          textOverflow: "clip",
+                          paddingRight: 7,
+                          alignItems: "center",
                         }}
                       >
-                        <option>전공</option>
-                        <option>학문의기초</option>
-                        <option>교양</option>
-                        <option>교직</option>
-                        <option>군사학</option>
-                        <option>평생교육사</option>
-                      </select>
-                      {courseSelect[0] ? (
                         <select
-                          value={courseTypeTwo}
-                          onChange={(e) => {
-                            setCourseTypeTwo(e.target.value);
-                            setSelectedIdxTwo(e.target.selectedIndex);
-                          }}
+                          value={courseTypeOne}
+                          onChange={onChangeCourseTypeOne}
                           style={{
                             height: 25,
                             paddingTop: 0,
                             paddingRight: 5,
                             paddingBottom: 2,
                             paddingLeft: 5,
-                            marginLeft: 5,
                             fontSize: 12,
                             color: "#666",
-                            borderWidth: "thin",
-                            borderTopColor: "#ccc",
-                            borderRightColor: "#ccc",
-                            borderBottomColor: "#ccc",
-                            borderLeftColor: "#ccc",
-                            borderStyle: "solid",
-                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundPositionX: "95.5%",
-                            backgroundPositionY: "center",
+                            borderColor: "transparent",
                             WebkitAppearance: "none",
                             MozAppearance: "none",
                             appearance: "none",
-                            flex: 1,
                             display: "block",
                             overflow: "hidden",
                             whiteSpace: "nowrap",
                             textOverflow: "clip",
+                            flex: 1,
+                            outline: "none",
                           }}
                         >
-                          {selectedIdxOne < 2
-                            ? Object.keys(courseSelectData[selectedIdxOne]).map(
-                                (prop) => <option key={prop}>{prop}</option>
-                              )
-                            : courseSelectData[2].map((prop: string) => (
-                                <option key={prop}>{prop}</option>
-                              ))}
+                          <option>전공</option>
+                          <option>학문의기초</option>
+                          <option>교양</option>
+                          <option>교직</option>
+                          <option>군사학</option>
+                          <option>평생교육사</option>
                         </select>
-                      ) : null}
-                      {courseSelect[1] ? (
-                        <select
-                          value={courseTypeThree}
-                          onChange={(e) => {
-                            setCourseTypeThree(e.target.value);
-                            setSelectedIdxThree(e.target.selectedIndex);
-                          }}
+                        <Image
+                          src={
+                            "https://sugang.korea.ac.kr/resources/img/contents/bg-select.png"
+                          }
+                          alt="select"
+                          width={7}
+                          height={4}
+                        />
+                      </div>
+                      {courseSelect[0] ? (
+                        <div
                           style={{
-                            height: 25,
-                            paddingTop: 0,
-                            paddingRight: 5,
-                            paddingBottom: 2,
-                            paddingLeft: 5,
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "row",
                             marginLeft: 5,
-                            fontSize: 12,
-                            color: "#666",
                             borderWidth: "thin",
                             borderTopColor: "#ccc",
                             borderRightColor: "#ccc",
                             borderBottomColor: "#ccc",
                             borderLeftColor: "#ccc",
                             borderStyle: "solid",
-                            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundPositionX: "95.5%",
-                            backgroundPositionY: "center",
-                            WebkitAppearance: "none",
-                            MozAppearance: "none",
-                            appearance: "none",
-                            flex: 1,
-                            display: "block",
-                            // overflow: "hidden",
-                            whiteSpace: "nowrap",
-                            textOverflow: "clip",
+                            paddingRight: 7,
+                            alignItems: "center",
                           }}
                         >
-                          {selectedIdxOne < 2
-                            ? courseSelectData[selectedIdxOne][
-                                courseTypeTwo
-                              ]?.map((prop: string) => (
-                                <option key={prop}>{prop}</option>
-                              ))
-                            : null}
-                        </select>
+                          <select
+                            value={courseTypeTwo}
+                            onChange={(e) => {
+                              setCourseTypeTwo(e.target.value);
+                              setSelectedIdxTwo(e.target.selectedIndex);
+                            }}
+                            style={{
+                              height: 25,
+                              paddingTop: 0,
+                              paddingRight: 5,
+                              paddingBottom: 2,
+                              paddingLeft: 5,
+                              fontSize: 12,
+                              color: "#666",
+                              borderColor: "transparent",
+                              WebkitAppearance: "none",
+                              MozAppearance: "none",
+                              appearance: "none",
+                              display: "block",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "clip",
+                              flex: 1,
+                              outline: "none",
+                            }}
+                          >
+                            {selectedIdxOne < 2
+                              ? Object.keys(
+                                  courseSelectData[selectedIdxOne]
+                                ).map((prop) => (
+                                  <option key={prop}>{prop}</option>
+                                ))
+                              : courseSelectData[2].map((prop: string) => (
+                                  <option key={prop}>{prop}</option>
+                                ))}
+                          </select>
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/bg-select.png"
+                            }
+                            alt="select"
+                            width={7}
+                            height={4}
+                          />
+                        </div>
+                      ) : null}
+                      {courseSelect[1] ? (
+                        <div
+                          style={{
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "row",
+                            marginLeft: 5,
+                            borderWidth: "thin",
+                            borderTopColor: "#ccc",
+                            borderRightColor: "#ccc",
+                            borderBottomColor: "#ccc",
+                            borderLeftColor: "#ccc",
+                            borderStyle: "solid",
+                            paddingRight: 7,
+                            alignItems: "center",
+                          }}
+                        >
+                          <select
+                            value={courseTypeThree}
+                            onChange={(e) => {
+                              setCourseTypeThree(e.target.value);
+                              setSelectedIdxThree(e.target.selectedIndex);
+                            }}
+                            style={{
+                              height: 25,
+                              paddingTop: 0,
+                              paddingRight: 5,
+                              paddingBottom: 2,
+                              paddingLeft: 5,
+                              fontSize: 12,
+                              color: "#666",
+                              borderColor: "transparent",
+                              WebkitAppearance: "none",
+                              MozAppearance: "none",
+                              appearance: "none",
+                              display: "block",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "clip",
+                              flex: 1,
+                              outline: "none",
+                            }}
+                          >
+                            {selectedIdxOne < 2
+                              ? courseSelectData[selectedIdxOne][
+                                  courseTypeTwo
+                                ]?.map((prop: string) => (
+                                  <option key={prop}>{prop}</option>
+                                ))
+                              : null}
+                          </select>
+                          <Image
+                            src={
+                              "https://sugang.korea.ac.kr/resources/img/contents/bg-select.png"
+                            }
+                            alt="select"
+                            width={7}
+                            height={4}
+                          />
+                        </div>
                       ) : null}
                     </div>
                     <span
