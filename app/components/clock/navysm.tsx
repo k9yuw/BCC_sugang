@@ -53,7 +53,7 @@ const Navysm = ({}) => {
         </div>
 
         <main>
-          <div className="clock-container">
+          <div className="clock-container" style={{backgroundColor: "white",}}>
             <Clock />
           </div>
         </main>

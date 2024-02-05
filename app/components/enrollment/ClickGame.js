@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 // import SuccessOrFail from "./SuccessOrFail";
 import ResultPopUp from "./ResultPopUp";
 import WaitingPopUp from "./WatingPopUp";
-import { tempTime } from './clock/clock';
+import useClock from '../../hooks/useClock';
 
 //신청 버튼
 function ClickGame(){
@@ -22,6 +22,8 @@ function ClickGame(){
     setStartText("다시 시작");
   };
   //신청 클릭 시 시작 시간과의 차(밀리초) 계산
+  const { date } = useClock(); 
+  const tempTime = date;
   const onClick = () => {
     setClickTime(tempTime.getTime());
   };
