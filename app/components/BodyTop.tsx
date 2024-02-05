@@ -1,5 +1,5 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
-//import { major } from "../data/major";
+import { major } from "../data/major";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "./table/preferredTimeTable/preferredTimeTable";
 
