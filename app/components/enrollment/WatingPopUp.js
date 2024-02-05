@@ -19,11 +19,11 @@ function WaitingPopUp({timeTaken, rand}) {
 			backgroundColor: "rgba(0,0,0,0.1)",
 		},
 		content:{
-			backgroundColor: "rgba(0,0,0,0.05)",
-			width:"550px",
+			backgroundColor: "#EBF0EF",
+			width:"500px",
 			height: "230px",
 			margin: "auto",
-			borderRadius: "8px",
+			borderRadius: "7px",
 			borderColor: "rgba(0,0,0,0.1)",
 			boxShadow: "0, 2px 4px rgba(0,0,0,0.2)",
 			padding: "8px",
@@ -68,11 +68,13 @@ function WaitingPopUp({timeTaken, rand}) {
 			backgroundColor:"white", 
 			borderRadius: "5px",
 			margin: 0,
-			width:"550px",
-			height: "230px",
+			width:"100%",
+			height: "100%",
 			display: "flex",
 			flexDirection: "column",
 			alignItems: "stretch",
+			letterSpacing: "1px",
+			wordSpacing: "1px",
 		}}>
 			<h3 style={{color: "rgb(23,62,110)",margin: 0, paddingTop: 30, paddingLeft:30}}>
 				서비스 접속대기 중입니다.
@@ -103,18 +105,18 @@ function WaitingPopUp({timeTaken, rand}) {
 				margin: "auto",
 				marginTop: "10px",
 				width: "90%",
-				height: "110px",
+				height: "95px",
 				borderRadius: "2px",
-				fontSize: "14px",
+				fontSize: "13px",
 			}}>
 				<div style={{
 					margin: "10px",
 				}}>
-					고객님 앞에 
-					<strong>{peopleInfront}</strong>명, 뒤에 
-					<strong>{peopleBack}</strong>명의 대기자가 있습니다.<br/>
+					고객님 
+					앞에 <strong>{peopleInfront}</strong>명, 
+					뒤에 <strong>{peopleBack}</strong>명의 대기자가 있습니다.<br/>
 					현재 접속 사용자가 많아 대기 중이며, 잠시만 기다리시면<br/>
-					서비스로 자동 접속됩니다.
+					서비스로 자동 접속 됩니다.
 				</div>
 				<div style={{
 					color: "rgb(37,80,161)",
