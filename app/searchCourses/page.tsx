@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { major } from "../data/major";
+import NavBar from "../components/NavBar";
+import Header from "../components/Header";
 
 export default function Home() {
   const [language, setLanguage] = useState("kor");
@@ -20,16 +22,16 @@ export default function Home() {
   const [courseTypeOne, setCourseTypeOne] = useState("전공"); //이수구분
   const [courseTypeTwo, setCourseTypeTwo] = useState("간호대학");
   const [courseTypeThree, setCourseTypeThree] = useState<string>("간호학과");
-  const [credit, setCredit] = useState(""); //학점
+  const [credit, setCredit] = useState(); //학점
   const [day, setDay] = useState(""); //요일
-  const [startTime, setStartTime] = useState(""); //교시
-  const [endTime, setEndTime] = useState("");
+  const [startTime, setStartTime] = useState(); //교시
+  const [endTime, setEndTime] = useState();
   const [professor, setProfessor] = useState(""); //교수
   const [courseCode, setCourseCode] = useState(""); //학수번호
   const [section, setSection] = useState(""); //분반
   const [courseName, setCourseName] = useState(""); //교과목명
   const id = localStorage.getItem("username");
-  const [searchedData, setSearchedData] = useState<courseData[]>();
+  const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
 
   interface courseData {
@@ -72,6 +74,7 @@ export default function Home() {
   }
 
   const router = useRouter();
+  const pathname = usePathname();
   const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     router.push("/preferredCourses");
@@ -96,8 +99,13 @@ export default function Home() {
     e.preventDefault();
     setSearched(true);
     if (selectedIdxOne === 0) {
+      let data = major[selectedIdxTwo][selectedIdxThree].filter(
+        (prop) => prop.credit === credit
+      );
+      data = data.filter((prop) => prop.time_room.includes(day));
+
+      data = data.filter((prop) => prop.time_room.match("/(*)/"));
       setSearchedData(major[selectedIdxTwo][selectedIdxThree]);
-      console.log(searchedData);
     }
   };
 
@@ -253,513 +261,10 @@ export default function Home() {
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "stretch" }}>
-      <div //좌측 네비게이션 바
-        style={{
-          display: "inline-flex",
-          flexDirection: "column",
-          width: 250,
-          minWidth: 250,
-          minHeight: "100vh",
-          borderRight: 1,
-          borderRightColor: "#ccc",
-          borderRightStyle: "solid",
-          backgroundColor: "#e0e0e0",
-          WebkitUserSelect: "none",
-          MozUserSelect: "none",
-          userSelect: "none",
-        }}
-      >
-        <div
-          style={{
-            paddingTop: 20,
-            paddingRight: 20,
-            paddingBottom: 5,
-            paddingLeft: 20,
-            backgroundColor: "#e0e0e0",
-          }}
-        >
-          <span
-            style={{
-              float: "left",
-              width: "50%",
-              height: 40,
-              backgroundColor: language === "kor" ? "#a20131" : "#b3b3b3",
-              fontSize: 13,
-              fontWeight: "lighter",
-              color: "#fff",
-              lineHeight: 3,
-              textAlign: "center",
-              cursor: language === "kor" ? "default" : "pointer",
-            }}
-            onClick={() => setLanguage("kor")}
-          >
-            KOREAN
-          </span>
-          <span
-            style={{
-              float: "left",
-              width: "50%",
-              height: 40,
-              backgroundColor: language === "eng" ? "#a20131" : "#b3b3b3",
-              fontSize: 13,
-              fontWeight: "lighter",
-              color: "#fff",
-              lineHeight: 3,
-              textAlign: "center",
-              cursor: language === "eng" ? "default" : "pointer",
-            }}
-            onClick={() => setLanguage("eng")}
-          >
-            ENGLISH
-          </span>
-        </div>
-        <div
-          style={{
-            flexGrow: 1,
-            flexShrink: 1,
-            flexBasis: "auto",
-            paddingRight: 20,
-            paddingLeft: 20,
-            paddingBottom: 20,
-          }}
-        >
-          <ul
-            style={{
-              paddingLeft: 0,
-              marginTop: 0,
-              marginBottom: 0,
-            }}
-          >
-            <li
-              style={{
-                position: "relative",
-                paddingTop: 15,
-                paddingBottom: 15,
-                borderBottom: 1,
-                borderBottomStyle: "solid",
-                borderBottomColor: "#ccc",
-                listStyle: "none",
-              }}
-            >
-              <span
-                onMouseEnter={() => {
-                  setNavMouseEnterOne(true);
-                }}
-                onMouseLeave={() => {
-                  setNavMouseEnterOne(false);
-                }}
-                onClick={onClickRegisteration}
-                style={{
-                  fontFamily: "Malgun Gothic",
-                  fontSize: 15,
-                  cursor: "pointer",
-                  color: navMouseEnterOne ? "#a20131" : "",
-                }}
-              >
-                수강신청
-              </span>
-            </li>
-            <li
-              style={{
-                position: "relative",
-                paddingTop: 15,
-                paddingBottom: 15,
-                borderBottom: 1,
-                borderBottomStyle: "solid",
-                borderBottomColor: "#ccc",
-                listStyle: "none",
-              }}
-            >
-              <span
-                onClick={onClickPreferredCourses}
-                onMouseEnter={() => {
-                  setNavMouseEnterTwo(true);
-                }}
-                onMouseLeave={() => {
-                  setNavMouseEnterTwo(false);
-                }}
-                style={{
-                  fontFamily: "Malgun Gothic",
-                  fontSize: 15,
-                  cursor: "pointer",
-                  color: navMouseEnterTwo ? "#a20131" : "",
-                }}
-              >
-                수강희망/관심과목 등록
-              </span>
-            </li>
-            <li
-              style={{
-                position: "relative",
-                paddingTop: 15,
-                paddingBottom: 15,
-                borderBottom: 1,
-                borderBottomStyle: "solid",
-                borderBottomColor: "#ccc",
-                listStyle: "none",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "Malgun Gothic",
-                  fontSize: 15,
-                  cursor: "pointer",
-                  color: "#a20131",
-                }}
-              >
-                과목조회
-                <ul style={{ paddingTop: 5, paddingLeft: 0 }}>
-                  <li
-                    style={{
-                      listStyle: "none",
-                      paddingTop: 2,
-                      paddingBottom: 2,
-                      paddingLeft: 15,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 13,
-                        color: "#a20131",
-                      }}
-                    >
-                      학부 과목조회
-                    </span>
-                  </li>
-                  <li
-                    style={{
-                      listStyle: "none",
-                      paddingTop: 2,
-                      paddingBottom: 2,
-                      paddingLeft: 15,
-                    }}
-                  >
-                    <span style={{ fontSize: 13, color: "#666" }}>
-                      학부 유사과목
-                    </span>
-                  </li>
-                </ul>
-              </span>
-            </li>
-            <li
-              style={{
-                position: "relative",
-                paddingTop: 15,
-                paddingBottom: 15,
-                borderBottom: 1,
-                borderBottomStyle: "solid",
-                borderBottomColor: "#ccc",
-                listStyle: "none",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "Malgun Gothic",
-                  fontSize: 15,
-                }}
-              >
-                <p
-                  style={{
-                    cursor: "pointer",
-                    marginTop: 0,
-                    marginBottom: 0,
-                    width: "fit-content",
-                  }}
-                >
-                  안내사항
-                </p>
-                <ul style={{ paddingTop: 5, paddingLeft: 0 }}>
-                  <li
-                    style={{
-                      listStyle: "none",
-                      paddingTop: 2,
-                      paddingBottom: 2,
-                      paddingLeft: 15,
-                    }}
-                  >
-                    <span
-                      style={{ fontSize: 13, cursor: "pointer", color: "#666" }}
-                    >
-                      수강신청 안내
-                    </span>
-                  </li>
-                  <li
-                    style={{
-                      listStyle: "none",
-                      paddingTop: 2,
-                      paddingBottom: 2,
-                      paddingLeft: 15,
-                    }}
-                  >
-                    <span
-                      style={{ fontSize: 13, cursor: "pointer", color: "#666" }}
-                    >
-                      강의실 안내
-                    </span>
-                  </li>
-                  <li
-                    style={{
-                      listStyle: "none",
-                      paddingTop: 2,
-                      paddingBottom: 2,
-                      paddingLeft: 15,
-                    }}
-                  >
-                    <span
-                      style={{ fontSize: 13, cursor: "pointer", color: "#666" }}
-                    >
-                      계절수업료납부 안내
-                    </span>
-                  </li>
-                  <li
-                    style={{
-                      listStyle: "none",
-                      paddingTop: 2,
-                      paddingBottom: 2,
-                      paddingLeft: 15,
-                    }}
-                  >
-                    <span
-                      style={{ fontSize: 13, cursor: "pointer", color: "#666" }}
-                    >
-                      신입생 학번 안내
-                    </span>
-                  </li>
-                </ul>
-              </span>
-            </li>
-            <li
-              style={{
-                position: "relative",
-                paddingTop: 15,
-                paddingBottom: 15,
-                borderBottom: 1,
-                borderBottomStyle: "solid",
-                borderBottomColor: "#ccc",
-                listStyle: "none",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "Malgun Gothic",
-                  fontSize: 15,
-                  cursor: "pointer",
-                }}
-              >
-                포털미사용자 비밀번호 변경
-              </span>
-            </li>
-          </ul>
-        </div>
-        <div style={{ height: 210, padding: 20, backgroundColor: "#262626" }}>
-          <div>
-            <button
-              style={{
-                width: "100%",
-                height: 40,
-                marginBottom: 10,
-                paddingTop: 0,
-                paddingBottom: 0,
-                paddingLeft: 15,
-                paddingRight: 15,
-                backgroundColor: "#666",
-                border: 0,
-                color: "#fff",
-                textAlign: "left",
-                fontSize: 12,
-                fontWeight: "lighter",
-                fontFamily: "Apple SD Gothic Neo",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <span>사용자매뉴얼 (PC)</span>
-              <Image
-                src={
-                  "https://sugang.korea.ac.kr/resources/img/layout/icon-download.png"
-                }
-                alt="download"
-                width={16}
-                height={16}
-              />
-            </button>
-            <button
-              style={{
-                width: "100%",
-                height: 40,
-                marginBottom: 10,
-                paddingTop: 0,
-                paddingBottom: 0,
-                paddingLeft: 15,
-                paddingRight: 15,
-                backgroundColor: "#666",
-                border: 0,
-                color: "#fff",
-                textAlign: "left",
-                fontSize: 12,
-                fontWeight: "lighter",
-                fontFamily: "Apple SD Gothic Neo",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <span>사용자매뉴얼 (모바일앱)</span>
-              <Image
-                src={
-                  "https://sugang.korea.ac.kr/resources/img/layout/icon-download.png"
-                }
-                alt="download"
-                width={16}
-                height={16}
-              />
-            </button>
-            <button
-              style={{
-                width: "100%",
-                height: 40,
-                marginBottom: 10,
-                paddingTop: 0,
-                paddingBottom: 0,
-                paddingLeft: 15,
-                paddingRight: 15,
-                backgroundColor: "#a20131",
-                border: 0,
-                color: "#fff",
-                textAlign: "left",
-                fontSize: 12,
-                fontWeight: "lighter",
-                fontFamily: "Apple SD Gothic Neo",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <span style={{}}>관련사이트</span>
-              <p style={{ fontSize: 23, fontWeight: 450 }}>+ </p>
-            </button>
-            <div
-              style={{
-                fontSize: 10,
-                color: "#999",
-                textAlign: "center",
-                lineHeight: 1.5,
-              }}
-            >
-              Copyright © 2023 BBang Co Co.
-              <br />
-              All Rights Reserved.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          flexGrow: 1,
-          flexShrink: 0,
-          flexBasis: 0,
-          maxWidth: "100%",
-          minWidth: 1030,
-          minHeight: "100vh",
-        }}
-      >
-        <div //좌측 네비게이션 바 접는 버튼
-          style={{
-            top: 34,
-            position: "absolute",
-            zIndex: 2,
-            width: 15,
-            height: 51,
-            border: 1,
-            borderStyle: "solid",
-            borderColor: "#e1e1e1",
-            borderLeft: 0,
-            backgroundColor: "#f9f9f9",
-            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
-            backgroundRepeat: "no-repeat",
-            backgroundPositionX: 3,
-            backgroundPositionY: 21,
-            cursor: "pointer",
-          }}
-        ></div>
-        <div //헤더
-          style={{
-            height: 60,
-            paddingLeft: 30,
-            paddingRight: 30,
-            borderBottom: 1,
-            borderBottomStyle: "solid",
-            borderBottomColor: "#ccc",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            src={"https://sugang.korea.ac.kr/resources/img/layout/logo.png"}
-            alt="고려대학교"
-            width={120}
-            height={37}
-          />
-          <span
-            style={{
-              marginLeft: 12,
-              paddingLeft: 10,
-              borderLeft: 1,
-              borderLeftStyle: "solid",
-              borderLeftColor: "#ccc",
-              fontSize: 20,
-              fontWeight: 450,
-              letterSpacing: -1,
-            }}
-          >
-            수강신청 연습 시스템
-          </span>
-          <div
-            style={{
-              height: 60,
-              width: 500,
-              marginLeft: "auto",
-              backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/contents/bg-select.png")`,
-              backgroundRepeat: "no-repeat",
-              backgroundPositionX: "right",
-              backgroundPositionY: "center",
-              lineHeight: 3.5,
-              textAlign: "right",
-              paddingRight: 15,
-            }}
-          >
-            {id}
-          </div>
-          <button
-            onClick={() => {
-              router.push("/");
-            }}
-            style={{
-              width: 70.7,
-              height: 30,
-              paddingTop: 0,
-              paddingRight: 5,
-              paddingBottom: 2,
-              paddingLeft: 5,
-              marginLeft: 20,
-              fontSize: 12,
-              backgroundColor: "#876243",
-              color: "#fff",
-              borderWidth: "thin",
-              borderTopColor: "#76563b",
-              borderRightColor: "#76563b",
-              borderBottomColor: "#76563b",
-              borderLeftColor: "#76563b",
-              borderStyle: "solid",
-              lineHeight: 2,
-              cursor: "pointer",
-            }}
-          >
-            로그아웃
-          </button>
-        </div>
+    <div style={{ display: "flex" }}>
+      <NavBar />
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <Header />
         <div //바디
           style={{
             paddingTop: 25,
@@ -1670,456 +1175,831 @@ export default function Home() {
               }}
             >
               <thead style={{ backgroundColor: "#f2eee8" }}>
-                <tr
-                  style={{
-                    fontSize: 12,
-                    textAlign: "center",
-                    height: 34,
-                  }}
-                >
-                  <th
+                {!searched ? (
+                  <tr //마감현황 포함 X
                     style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      width: 54,
-                      fontWeight: 600,
+                      fontSize: 12,
+                      textAlign: "center",
+                      height: 34,
                     }}
                   >
-                    캠퍼스
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 67,
-                    }}
-                  >
-                    학수번호
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 41,
-                    }}
-                  >
-                    분반
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 67,
-                    }}
-                  >
-                    이수구분
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 81,
-                    }}
-                  >
-                    개설학과
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 147,
-                    }}
-                  >
-                    교과목명
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 81,
-                    }}
-                  >
-                    담당교수
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 41,
-                    }}
-                  >
-                    학점 <br /> (시간)
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 121,
-                    }}
-                  >
-                    강의시간/강의실
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 41,
-                    }}
-                  >
-                    상대
-                    <br />
-                    평가
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 41,
-                    }}
-                  >
-                    인원
-                    <br />
-                    제한
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 41,
-                    }}
-                  >
-                    교환
-                    <br />
-                    학생
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 54,
-                    }}
-                  >
-                    출석확인
-                    <br />
-                    자율화
-                  </th>
-                  <th
-                    style={{
-                      borderRightStyle: "solid",
-                      borderRightWidth: 1,
-                      borderRightColor: "#ccc",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      fontWeight: 600,
-                      width: 54,
-                    }}
-                  >
-                    무감독
-                    <br />
-                    시험
-                  </th>
-                  <th
-                    style={{
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#ccc",
-                      width: 40,
-                    }}
-                  >
-                    유연
-                    <br />
-                    학기
-                  </th>
-                </tr>
-              </thead>
-              {searchedData ? (
-                <tbody style={{ fontSize: 12 }}>
-                  {searchedData.map((prop: courseData) => (
-                    <tr
+                    <th
                       style={{
-                        fontSize: 12,
-                        textAlign: "center",
-                        height: 34,
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
+                        borderBottomColor: "#ccc",
+                        width: 54,
+                        fontWeight: 600,
                       }}
-                      key={prop.params}
                     >
+                      캠퍼스
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 67,
+                      }}
+                    >
+                      학수번호
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 41,
+                      }}
+                    >
+                      분반
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 67,
+                      }}
+                    >
+                      이수구분
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 81,
+                      }}
+                    >
+                      개설학과
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 147,
+                      }}
+                    >
+                      교과목명
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 81,
+                      }}
+                    >
+                      담당교수
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 41,
+                      }}
+                    >
+                      학점 <br /> (시간)
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 121,
+                      }}
+                    >
+                      강의시간/강의실
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 41,
+                      }}
+                    >
+                      상대
+                      <br />
+                      평가
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 41,
+                      }}
+                    >
+                      인원
+                      <br />
+                      제한
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 41,
+                      }}
+                    >
+                      교환
+                      <br />
+                      학생
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 54,
+                      }}
+                    >
+                      출석확인
+                      <br />
+                      자율화
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 54,
+                      }}
+                    >
+                      무감독
+                      <br />
+                      시험
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        width: 40,
+                      }}
+                    >
+                      유연
+                      <br />
+                      학기
+                    </th>
+                  </tr>
+                ) : (
+                  <tr //마감현황 포함
+                    style={{
+                      fontSize: 12,
+                      textAlign: "center",
+                      height: 34,
+                    }}
+                  >
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 52.1,
+                      }}
+                    >
+                      캠퍼스
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 65.13,
+                      }}
+                    >
+                      학수번호
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 39.08,
+                      }}
+                    >
+                      분반
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 65.13,
+                      }}
+                    >
+                      이수구분
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 77.16,
+                      }}
+                    >
+                      개설학과
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 141.29,
+                      }}
+                    >
+                      교과목명
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 77.16,
+                      }}
+                    >
+                      담당교수
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 39.08,
+                      }}
+                    >
+                      학점 <br /> (시간)
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 115.23,
+                      }}
+                    >
+                      강의시간/강의실
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 39.08,
+                      }}
+                    >
+                      상대
+                      <br />
+                      평가
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 39.08,
+                      }}
+                    >
+                      인원
+                      <br />
+                      제한
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 39.08,
+                      }}
+                    >
+                      교환
+                      <br />
+                      학생
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 52.1,
+                      }}
+                    >
+                      출석확인
+                      <br />
+                      자율화
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        fontWeight: 600,
+                        width: 52.1,
+                      }}
+                    >
+                      무감독
+                      <br />
+                      시험
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ccc",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ccc",
+                        width: 39.08,
+                      }}
+                    >
+                      유연
+                      <br />
+                      학기
+                    </th>
+                    {searched ? (
                       <th
                         style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ccc",
+                          width: 38.13,
                         }}
                       >
-                        {prop.campus}
+                        마감
+                        <br />
+                        현황
                       </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.cour_cd}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.cour_cls}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.isu_nm}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.department}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                          textAlign: "left",
-                          paddingLeft: 6,
-                          paddingRight: 6,
-                        }}
-                      >
-                        {prop.cour_nm}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.prof_nm}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.time}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                          textAlign: "left",
-                          paddingLeft: 6,
-                          paddingRight: 6,
-                        }}
-                      >
-                        {prop.time_room}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.absolute_yn === "Y" ? (
-                          <Image
-                            src={
-                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                            }
-                            alt="check"
-                            width={13}
-                            height={9}
-                          />
-                        ) : null}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.lmt_yn === "Y" ? (
-                          <Image
-                            src={
-                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                            }
-                            alt="check"
-                            width={13}
-                            height={9}
-                          />
-                        ) : null}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.exch_cor_yn === "Y" ? null : (
-                          <Image
-                            src={
-                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                            }
-                            alt="check"
-                            width={13}
-                            height={9}
-                          />
-                        )}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.attend_free_yn === "Y" ? (
-                          <Image
-                            src={
-                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                            }
-                            alt="check"
-                            width={13}
-                            height={9}
-                          />
-                        ) : null}
-                      </th>
-                      <th
-                        style={{
-                          borderRightStyle: "solid",
-                          borderRightWidth: 1,
-                          borderRightColor: "#ddd",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {prop.no_supervisor_yn === "Y" ? (
-                          <Image
-                            src={
-                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                            }
-                            alt="check"
-                            width={13}
-                            height={9}
-                          />
-                        ) : null}
-                      </th>
-                      <th style={{ fontWeight: 400 }}>
-                        {prop.flexible_school_yn === "Y" ? (
-                          <Image
-                            src={
-                              "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                            }
-                            alt="check"
-                            width={13}
-                            height={9}
-                          />
-                        ) : null}
-                      </th>
-                    </tr>
-                  ))}
-                </tbody>
-              ) : null}
+                    ) : null}
+                  </tr>
+                )}
+              </thead>
             </table>
-            {searchedData?.length === 0 ? (
+            {searchedData?.length !== 0 ? ( //과목조회 결과 테이블
+              <table
+                style={{
+                  borderCollapse: "collapse",
+                  width: "100%",
+                  boxSizing: "content-box",
+                  tableLayout: "fixed",
+                  borderBottom: 1.5,
+                  borderBottomStyle: "solid",
+                  borderBottomColor: "#ccc",
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    minWidth: 970,
+                    height: 486,
+                    overflow: "auto",
+                  }}
+                >
+                  <tbody
+                    style={{
+                      fontSize: 12,
+                    }}
+                  >
+                    {searchedData.map((prop: courseData, index) => (
+                      <tr
+                        style={{
+                          fontSize: 12,
+                          textAlign: "center",
+                          height: 34,
+                          borderBottomStyle: "solid",
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#ddd",
+                          paddingTop: 4,
+                          paddingRight: 6,
+                          paddingBottom: 4,
+                          paddingLeft: 6,
+                          color: "#333",
+                          backgroundColor: index % 2 == 0 ? "#fff" : "#f9f9f9",
+                        }}
+                        key={prop.params}
+                      >
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 52.1,
+                          }}
+                        >
+                          {prop.campus}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            minWidth: 65.13,
+                          }}
+                        >
+                          {prop.cour_cd}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 39.08,
+                          }}
+                        >
+                          {prop.cour_cls}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 65.13,
+                          }}
+                        >
+                          {prop.isu_nm}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 77.16,
+                          }}
+                        >
+                          {prop.department}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            textAlign: "left",
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 141.29,
+                          }}
+                        >
+                          {prop.cour_nm}
+                          <br />
+                          {prop.apply_dept}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 77.16,
+                          }}
+                        >
+                          {prop.prof_nm}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 39.08,
+                          }}
+                        >
+                          {prop.time}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            textAlign: "left",
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 115.23,
+                          }}
+                        >
+                          {prop.time_room}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 39.08,
+                          }}
+                        >
+                          {prop.absolute_yn === "Y" ? (
+                            <Image
+                              src={
+                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                              }
+                              alt="check"
+                              width={13}
+                              height={9}
+                            />
+                          ) : null}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 39.08,
+                          }}
+                        >
+                          {prop.lmt_yn === "Y" ? (
+                            <Image
+                              src={
+                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                              }
+                              alt="check"
+                              width={13}
+                              height={9}
+                            />
+                          ) : null}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 39.08,
+                          }}
+                        >
+                          {prop.exch_cor_yn === "Y" ? null : (
+                            <Image
+                              src={
+                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                              }
+                              alt="check"
+                              width={13}
+                              height={9}
+                            />
+                          )}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 52.1,
+                          }}
+                        >
+                          {prop.attend_free_yn === "Y" ? (
+                            <Image
+                              src={
+                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                              }
+                              alt="check"
+                              width={13}
+                              height={9}
+                            />
+                          ) : null}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 52.1,
+                          }}
+                        >
+                          {prop.no_supervisor_yn === "Y" ? (
+                            <Image
+                              src={
+                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                              }
+                              alt="check"
+                              width={13}
+                              height={9}
+                            />
+                          ) : null}
+                        </th>
+                        <th
+                          style={{
+                            borderRightStyle: "solid",
+                            borderRightWidth: 1,
+                            borderRightColor: "#ddd",
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 39.08,
+                          }}
+                        >
+                          {prop.flexible_school_yn === "Y" ? (
+                            <Image
+                              src={
+                                "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                              }
+                              alt="check"
+                              width={13}
+                              height={9}
+                            />
+                          ) : null}
+                        </th>
+                        <th
+                          style={{
+                            fontWeight: 400,
+                            paddingTop: 4,
+                            paddingRight: 6,
+                            paddingBottom: 4,
+                            paddingLeft: 6,
+                            minWidth: 38.13,
+                          }}
+                        >
+                          <Image
+                            src={
+                              "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                            }
+                            alt="note"
+                            width={16}
+                            height={21}
+                          />
+                        </th>
+                      </tr>
+                    ))}
+                  </tbody>
+                </div>
+              </table>
+            ) : null}
+            {searched && searchedData?.length === 0 ? ( //검색 결과 없음
               <div
                 onMouseEnter={() => {
                   setTableMouseEnter(true);
@@ -2144,7 +2024,7 @@ export default function Home() {
                 조회 조건 선택 후 조회 버튼을 클릭하세요.
               </div>
             ) : null}
-            {searched ? null : (
+            {searched ? null : ( //검색 전: '~조회 버튼 클릭하세요'
               <div
                 onMouseEnter={() => {
                   setTableMouseEnter(true);
