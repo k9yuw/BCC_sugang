@@ -1,5 +1,4 @@
 import {useState, useEffect} from "react";
-// import SuccessOrFail from "./SuccessOrFail";
 import ResultPopUp from "./ResultPopUp";
 import WaitingPopUp from "./WatingPopUp";
 
@@ -35,15 +34,46 @@ function ClickGame(){
 	return (
 		<div>
       <div>
+        <button 
+          style={{height: 30,
+            width: 70,
+            fontSize: 12,
+            backgroundColor: "#a20131",
+            border: 0,
+            color: "#fff",
+            marginTop: "14.5px",
+            marginRight: 3,
+            cursor: "pointer",
+            paddingTop: "0px",
+          }} 
+          onClick={onClick}>
+            신청
+        </button>
+        <button
+          style={{
+            height: 30,
+            width: 70,
+            fontSize: 12,
+            border: 1,
+            backgroundColor: "#f9f9f9",
+            borderStyle: "solid",
+            borderColor: "#ccc",
+            marginTop: "14.5px",
+            marginLeft: 1,
+            color: "#666",
+            cursor: "pointer",  paddingTop: "0px",
+          }}
+        >
+          초기화
+        </button>
+        <div>
         <button onClick={startSugang}>{startText}</button>
       </div>
-      <div>
-        <button onClick={onClick}>신청</button>
-        {(clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
-        {(clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}
+        {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
+        {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}
       </div>
       <div>
-        <h3>클릭 시간: {timeTaken/1000} 초</h3>
+        <h3>클릭 시간: {(startTime != 0 && clickTime !=0 && timeTaken) >0 ? timeTaken/1000 : 0} 초</h3>
       </div>
     </div>
 	);

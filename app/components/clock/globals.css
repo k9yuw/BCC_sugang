@@ -1,10 +1,13 @@
+
+
+
 .globalBackground {
   background-color: black;
 }
 
 .browser-frame {
   display: block;
-  max-width: 700px;
+  max-width: 400px;
   font-family: sans-serif;
 }
 
@@ -18,7 +21,7 @@
 }
 .browser-frame.chrome .frame-bar {
   position: relative;
-  height: 30px;
+  height: 31px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   background-color: #e2e2e2;
@@ -45,6 +48,7 @@
   margin: 0;
   box-shadow: 0 0 2px #f8f8f8 inset;
   max-width: 180px;
+
 
   -webkit-transform: perspective(100px) rotateX(30deg);
   -moz-transform: perspective(100px) rotateX(30deg);
@@ -100,7 +104,7 @@
 }
 .browser-frame.chrome .top-bar {
   position: relative;
-  height: 27px;
+  height: 35px;
   padding: 4px 0px;
   background: -webkit-linear-gradient(top, #f8f8f8, #e3e3e3);
   background: -o-linear-gradient(top, #f8f8f8, #e3e3e3);
@@ -112,12 +116,12 @@
 .browser-frame.chrome .top-bar .address-field {
   position: absolute;
   height: 25px;
-  background-color: #fff; /*주소창 색*/
+  background-color: #fff; 
   border-radius: 7px;
   border: solid 1px #aaa;
   border-top: solid 1px #aaa;
   float: left;
-  padding: 0px 5px;
+  padding: 0px 10px 2px;
   left: 95px;
   right: 30px;
   overflow: hidden;
@@ -140,13 +144,21 @@
 }
 .browser-frame.chrome .top-bar .left-bt {
   float: left;
-  width: 25px;
-  height: 25px;
-  margin-left: 5px;
+  width: 18px;
+  height: 18px;
+  margin-left: 3px;
   font-size: 10px;
   text-align: center;
-  line-height: 25px;
+  padding: 5px 5px 0px 0px;
 }
+
+.browser-frame.chrome .top-bar .icon-container {
+  
+  padding: 0px 10px 2px;
+
+  }
+
+
 .browser-frame.chrome .top-bar .menu-bt {
   position: absolute;
   height: 25px;
@@ -185,6 +197,23 @@ body {
 }
 
 .left-bt {
-  font-size: 1px; /* 원하는 크기로 설정 */
+  font-size: 1px; 
   color: gray;
+}
+
+
+.shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+  border-radius: 7px;
+  width: 400px;
+  max-width: 400px; 
+}
+
+.clock-container {
+  max-width: 400px; 
+}
+
+main {
+  width: 400px;
+  max-width: 400px;
 }
