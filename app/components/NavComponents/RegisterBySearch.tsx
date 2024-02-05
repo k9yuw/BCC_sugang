@@ -38,11 +38,11 @@ export default function RegisterBySearch() {
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
-
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
+    console.log("useEffect");
   }, []);
 
   const onRegisterClick = (
@@ -54,9 +54,6 @@ export default function RegisterBySearch() {
     } else if (pathname === "/preferredCourses") {
       let maxCreditLimit = localStorage.getItem("maxCreditLimit");
       if (maxCreditLimit === null) maxCreditLimit = "19";
-      console.log(preferredCourses);
-      console.log(maxCreditLimit);
-      console.log(preferredCredit);
       if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
         setPreferredCourses((prev) => [...prev, prop]);
         setPreferredCredit((prep) => prep + prop.credit);
@@ -64,6 +61,7 @@ export default function RegisterBySearch() {
           "preferredCourses",
           JSON.stringify(preferredCourses)
         );
+        alert("관심과목 등록 되었습니다.");
       } else {
         alert("신청가능한 학점을 초과했습니다");
       }
