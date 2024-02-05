@@ -1,5 +1,6 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { major } from "../data/major";
+import ClickGame from "./enrollment/ClickGame.js";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "./table/preferredTimeTable/preferredTimeTable";
 
@@ -365,7 +366,8 @@ export default function BodyTop() {
           justifyContent: "center",
         }}
       >
-        <button
+{/*         
+        <button>
           onClick={onRegisterClick}
           style={{
             height: 30,
@@ -379,9 +381,10 @@ export default function BodyTop() {
             cursor: "pointer", paddingTop: "0px",
           }}
         >
-          신청
-        </button>
-        <button
+        신청
+        </button> */}
+        <ClickGame/>
+        {/* <button
           style={{
             height: 30,
             width: 70,
@@ -397,7 +400,7 @@ export default function BodyTop() {
           }}
         >
           초기화
-        </button>
+        </button> */}
       </div>
     </div>
   );

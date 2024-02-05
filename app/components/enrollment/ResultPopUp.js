@@ -12,7 +12,7 @@ function ResultPopUp({resultType}) {
 		},
 		content:{
 			backgroundColor: "rgb(228,228,228)",
-			width:"550px",	
+			width:"500px",	
 			height: "230px",
 			margin: "auto",
 			borderRadius: "8px",
@@ -43,8 +43,8 @@ function ResultPopUp({resultType}) {
 			backgroundColor:"rgb(228,228,228)", 
 			borderRadius: "8px",
 			margin: "0",
-			width:"550px",
-			height: "230px",
+			width:"100%",
+			height: "100%",
 			display: "flex",
 			flexDirection: "column",
 			alignItems: "stretch",
@@ -52,17 +52,17 @@ function ResultPopUp({resultType}) {
 			<h3 style={{margin: "10px", textAlign:"left"}}>
 				<strong>알림</strong>
 			</h3>
-			<hr style={{marginTop: "15px", width: "95%", height: "2px", backgroundColor: "rgba(0,0,0,0.05)", border: "0",}}/>
+			<hr style={{marginTop: "10px", width: "95%", height: "2px", backgroundColor: "rgba(0,0,0,0.05)", border: "0",}}/>
 			<div style={{
 				margin: "20px 10px",
-				paddingTop: "5px",
+				paddingTop: "0px",
 				textAlign: "left",
 				fontSize: "14",
 			}}>
 				{textValueKR}<br/>
 				{textValueEN}
 			</div>
-			<hr style={{marginTop: "25px", marginBottom: "10px", width: "95%", height: "2px", backgroundColor: "rgba(0,0,0,0.05)", border: "0",}}/>
+			<hr style={{marginTop: "10px", width: "95%", height: "2px", backgroundColor: "rgba(0,0,0,0.05)", border: "0",}}/>
 			<div style={{
 				margin: "auto"
 			}}>
