@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { major } from "../data/major";
 import { academicFoundations } from "../data/academicFoundations";
@@ -35,7 +35,6 @@ export default function Home() {
   const [courseCode, setCourseCode] = useState(""); //학수번호
   const [section, setSection] = useState(""); //분반
   const [courseName, setCourseName] = useState(""); //교과목명
-  const id = localStorage.getItem("username");
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
 
