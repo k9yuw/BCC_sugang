@@ -3,17 +3,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
 import bgm from './bgm.mp3';
-import useClock from '../../hooks/useClock';
+import useSugang from '../../hooks/useSugang';
 
-
-const Clock: React.FC = () => {
+const Clock = ({}) => {
+  
   const [timeFormat, setTimeFormat] = useState<string>("");
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
-  const [clockStarted, setClockStarted] = useState<boolean>(false);
-  const { date: clockDate, tick } = useClock(clockStarted);
-
+  const { startGame, clockStarted, startText, date: clockTime } = useSugang();
+ 
 
   const clockRef = useRef(null);
   const msCheckboxRef = useRef<HTMLInputElement>(null);
@@ -23,17 +22,16 @@ const Clock: React.FC = () => {
   useEffect(() => {
     const timerId = setInterval(() => {
       
-      const hours = String(new Date(clockDate).getHours()).padStart(2, "0");
-      const minutes = String(new Date(clockDate).getMinutes()).padStart(2, "0");
-      const seconds = String(new Date(clockDate).getSeconds()).padStart(2, "0");
-      const milliSeconds = String(new Date(clockDate).getMilliseconds()).padStart(3,"0");
+      const hours = String(new Date(clockTime).getHours()).padStart(2, "0");
+      const minutes = String(new Date(clockTime).getMinutes()).padStart(2, "0");
+      const seconds = String(new Date(clockTime).getSeconds()).padStart(2, "0");
+      const milliSeconds = String(new Date(clockTime).getMilliseconds()).padStart(3,"0");
 
       setTimeFormat(`${hours}시 ${minutes}분 ${seconds}초 `);
       setMsFormat(`${milliSeconds}`);
-
-      tick();
-
-      if (hours === "09" && minutes === "59" && seconds >= "53") {
+  
+      
+      if (hours === "09" && minutes === "59" && seconds >= "54") {
         setIsRed(true);
         setBgmplayed(true);
       } else if (hours === "10" && minutes === "00" && seconds === "03") {
@@ -44,7 +42,8 @@ const Clock: React.FC = () => {
     }, 8);
     
     return () => clearInterval(timerId);
-  }, [clockDate, clockStarted]); 
+  }, [clockTime, clockStarted]); 
+
 
   useEffect(() => {
     if (bgmPlayed) {
@@ -85,7 +84,7 @@ const Clock: React.FC = () => {
           </label>
         </div>
         <div>
-          <button onClick={() => setClockStarted(true)}>게임 시작</button>
+        <button onClick={startGame}>{startText}</button>
       </div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
