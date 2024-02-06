@@ -7,7 +7,7 @@ import RegisterBySearch from "./NavComponents/RegisterBySearch";
 import Image from "next/image";
 import courseData from "../constant/courseDataInterface";
 import RegisterByPreferredCourses from "./NavComponents/RegisterByPreferredCourses";
-import RegisterByCourseNumber from "./NavComponents/RegisterByCourseNumber";
+import RegisterByCourseCode from "./NavComponents/RegisterByCourseCode";
 import Notices from "./NavComponents/Notices";
 
 export default function Body() {
@@ -170,7 +170,7 @@ export default function Body() {
           ) : null}
         </div>
         {navBar[0] ? <Notices /> : null}
-        {navBar[1] ? <RegisterByCourseNumber /> : null}
+        {navBar[1] ? <RegisterByCourseCode /> : null}
         {navBar[2] ? <RegisterByPreferredCourses /> : null}
         {navBar[3] ? <RegisterBySearch /> : null}
         {navBar[4] ? <PreferredTimeTable /> : null}

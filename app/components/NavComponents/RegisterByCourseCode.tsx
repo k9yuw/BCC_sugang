@@ -3,8 +3,9 @@ import { MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import courseData from "@/app/constant/courseDataInterface";
+import { all } from "@/app/data/all";
 
-export default function RegisterByCourseNumber() {
+export default function RegisterByCourseCode() {
   const pathname = usePathname();
   const [courseCode, setCourseCode] = useState<string>("");
   const [section, setSection] = useState<string>("");
@@ -21,9 +22,57 @@ export default function RegisterByCourseNumber() {
 
   const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (courseCode.length !== 7) {
+      alert("학수번호를 올바르게 입력해주세요.");
+      return;
+    }
+    if (section.length !== 2) {
+      alert("분반을 올바르게 입력해주세요.");
+      return;
+    }
     const params = courseCode + "@" + section;
-    // if ()
+    // const courseCodeStart = courseCode.substring(0, 4);
+    // const data = all[courseCodeStart];
+    const data = all.filter((prop) => prop.cour_cd === courseCode);
+    if (!data) {
+      alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
+      return;
+    }
+    const searchedData = data.find((prop) => prop.params === params);
+    if (!searchedData) {
+      alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
+      return;
+    }
+    const courseId = searchedData.rowid + searchedData.params;
+    const courseIdArray = preferredCourses.map(
+      (prop) => prop.rowid + prop.params
+    );
+    if (courseIdArray.includes(courseId)) {
+      //중복 신청 filtering
+      alert("같은 과목을 중복 신청할 수 없습니다.");
+    } else {
+      if (pathname === "/courseRegisteration") {
+        //수강신청
+      } else if (pathname === "/preferredCourses") {
+        //관심과목 등록
+        let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+        if (maxCreditLimit === null) {
+          maxCreditLimit = "19";
+          localStorage.setItem("maxCreditLimit", "19");
+        }
+        if (preferredCredit + searchedData.credit < parseInt(maxCreditLimit)) {
+          const data = [...preferredCourses, searchedData];
+          setPreferredCourses(data);
+          setPreferredCredit((prep) => prep + searchedData.credit);
+          localStorage.setItem("preferredCourses", JSON.stringify(data));
+          alert("관심과목 등록 되었습니다.");
+        } else {
+          alert("신청가능한 학점을 초과했습니다");
+        }
+      }
+    }
   };
+
   return (
     <div>
       <div //학수번호 입력하여 신청
@@ -85,6 +134,8 @@ export default function RegisterByCourseNumber() {
                 border: 1,
                 borderStyle: "solid",
                 borderColor: "#ccc",
+                paddingLeft: 5,
+                fontSize: 12,
               }}
             />
           </div>
@@ -136,6 +187,8 @@ export default function RegisterByCourseNumber() {
                 border: 1,
                 borderStyle: "solid",
                 borderColor: "#ccc",
+                paddingLeft: 5,
+                fontSize: 12,
               }}
             />
           </div>
@@ -165,6 +218,10 @@ export default function RegisterByCourseNumber() {
             신청
           </button>
           <button
+            onClick={() => {
+              setCourseCode("");
+              setSection("");
+            }}
             style={{
               height: 30,
               width: 70,

@@ -158,6 +158,7 @@ export default function BodyBottomPreferred({
               borderLeftColor: "#ccc",
               borderStyle: "solid",
               padding: "0px",
+              cursor: "pointer",
             }}
           >
             교시확인표
@@ -391,7 +392,7 @@ export default function BodyBottomPreferred({
                       color: "#333",
                       backgroundColor: index % 2 == 0 ? "#fff" : "#f9f9f9",
                     }}
-                    key={prop.params}
+                    key={prop.params + index}
                   >
                     <th
                       style={{
@@ -587,6 +588,7 @@ export default function BodyBottomPreferred({
                         textAlign: "left",
                         fontFamily: "Segoe UI",
                         fontWeight: 400,
+                        whiteSpace: "pre",
                       }}
                     >
                       {prop.time_room}
