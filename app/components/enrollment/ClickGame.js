@@ -3,33 +3,12 @@ import ResultPopUp from "./ResultPopUp";
 import WaitingPopUp from "./WatingPopUp";
 
 //신청 버튼
-function ClickGame(){
-  // const [clickTime, setClickTime] = useState(0);
-  // const onClick = (event) => {
-  //   // setClickTime(event.target.
-  //   console.log(event);
-  // };
-  const [startTime, setStartTime] = useState(0);
-  const [clickTime, setClickTime] = useState(0);
-  const [startText, setStartText] = useState("타이머 시작");
-  //시작 클릭 시 타이머(시간측정) 시작
-  const startSugang = () => {
-    const time = new Date();
-    setStartTime(time.getTime());
-    setClickTime(0);
-    setStartText("다시 시작");
-  };
-  //신청 클릭 시 시작 시간과의 차(밀리초) 계산
-  const onClick = () => {
-    const tempTime = new Date();
-    setClickTime(tempTime.getTime());
+const ClickGame = ({ startTime, clickTime, register }) => {
 
-  };
   const timeTaken = clickTime - startTime
   console.log(`시작 ${startTime}`);
-  console.log(`클릭 ${clickTime}`);
-  console.log(timeTaken);
-  //useEffect(() =>{
+  console.log(`클릭 ${clickTime}`); 
+  console.log(timeTaken); 
 
 	return (
 		<div>
@@ -46,7 +25,7 @@ function ClickGame(){
             cursor: "pointer",
             paddingTop: "0px",
           }} 
-          onClick={onClick}>
+          onClick={register}>
             신청
         </button>
         <button
@@ -79,8 +58,6 @@ function ClickGame(){
     </div>
 	);
 }
-
-
 
 
 export default ClickGame;

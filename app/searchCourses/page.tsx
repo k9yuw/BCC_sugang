@@ -11,6 +11,8 @@ import { militaryStudies } from "../data/militaryStudies";
 import { lifelongEducation } from "../data/lifelongEducation";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
+import courseData from "../constant/courseDataInterface";
+import { courseSelectData } from "../constant/CourseSelectData";
 
 export default function Home() {
   const [language, setLanguage] = useState("kor");
@@ -37,45 +39,6 @@ export default function Home() {
   const [courseName, setCourseName] = useState(""); //교과목명
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
-
-  interface courseData {
-    lmt_yn: string;
-    nemo_yn: string;
-    eng100: string;
-    year: string;
-    tutorial_yn: string;
-    mooc_yn: string;
-    isu_nm: string;
-    courgrad_cd: string;
-    cour_cd: string;
-    rowid: number;
-    enable: string;
-    cour_div: string;
-    term: string;
-    credit: number;
-    department: string;
-    flexible_school_yn: string;
-    attend_free_yn: string;
-    flexible_term: number;
-    flipped_class_yn: string;
-    absolute_yn: string;
-    time_room: string;
-    campus: string;
-    flexible_to_dt: string;
-    flexible_fr_dt: string;
-    prof_nm: string;
-    waiting_yn: string;
-    params: string;
-    cour_nm: string;
-    dept_cd: string;
-    cour_cls: string;
-    drop_lmt_yn: string;
-    time: string;
-    apply_dept: string;
-    exch_cor_yn: string;
-    no_supervisor_yn: string;
-    col_cd: string;
-  }
 
   const router = useRouter();
   const pathname = usePathname();
@@ -121,163 +84,6 @@ export default function Home() {
     } else if (selectedIdxOne === 5) {
       setSearchedData(lifelongEducation);
     }
-  };
-
-  type objType = {
-    [index: number]: any;
-    0: object;
-    1: object;
-  };
-
-  const courseSelectData: objType = {
-    0: {
-      간호대학: ["간호학과"],
-      경영대학: ["경영학과"],
-      공과대학: [
-        "공과대학",
-        "기계공학부",
-        "산업경영공학부",
-        "신소재공학부",
-        "전기전자공학부",
-        "건축사회환경공학부",
-        "건축학과",
-        "기술창업융합전공",
-        "반도체공학과",
-        "에너지신산업융합전공",
-        "에코스마트시티융합전공",
-        "융합에너지공학과",
-        "차세대통신학과",
-        "화공생명공학과",
-      ],
-      국제대학: ["국제학부", "글로벌한국융합학부", "GKS 융합전공"],
-      디자인조형학부: ["디자인조형학부"],
-      문과대학: [
-        "문과대학",
-        "EML융합전공",
-        "GLEAC융합전공",
-        "LB&C융합전공",
-        "국어국문학과",
-        "노어노문학과",
-        "독어독문학과",
-        "불어불문학과",
-        "사학과",
-        "사회학과",
-        "서어서문학과",
-        "언어학과",
-        "영어영문학과",
-        "의료인문학융합전공",
-        "인문사회디지털융합전공",
-        "인문학과문화산업융합전공",
-        "인문학과정의융합전공",
-        "일어일문학과",
-        "중어중문학과",
-        "철학과",
-        "통일과국제평화융합전공",
-        "한국사학과",
-        "한문학과",
-      ],
-      미디어학부: ["미디어학부"],
-      보건과학대학: [
-        "바이오시스템의과학부",
-        "바이오의공학부",
-        "보건정책관리학부",
-        "보건환경융합과학부",
-      ],
-      사범대학: [
-        "가정교육과",
-        "교육학과",
-        "국어교육과",
-        "다문화한국어교육융합전공",
-        "수학교육과",
-        "역사교육과",
-        "영어교육과",
-        "지리교육과",
-        "체육교육과",
-        "패션디자인및머천다이징융합전공",
-      ],
-      생명과학대학: [
-        "생명공학부",
-        "생명과학대학",
-        "생명과학부",
-        "환경생태공학부",
-        "생태조경융합전공",
-        "식품공학과",
-        "식품자원경제학과",
-      ],
-      스마트모빌리티학부: ["스마트모빌리티학부"],
-      스마트보안학부: [
-        "개인정보보호융합전공",
-        "사이버국방학과",
-        "스마트보안학부",
-      ],
-      심리학부: ["심리학부"],
-      의과대학: ["의예과", "의학과"],
-      이과대학: ["이과대학", "물리학과", "수학과", "지구환경과학과", "화학과"],
-      정경대학: [
-        "정경대학",
-        "경제학과",
-        "금융공학융합전공",
-        "정치외교학과",
-        "통계학과",
-        "행정학과",
-      ],
-      정보대학: [
-        "뇌인지과학융합전공",
-        "데이터과학과",
-        "소프트웨어벤처융합전공",
-        "정보보호 융합전공",
-        "컴퓨터학과",
-      ],
-      "KU-KIST융학대학원(관)": ["메디컬융합공학융합전공"],
-      "법학전문대학원(관)": ["법학전문대학원"],
-      "현장실습지원센터(관)": ["현장실습지원센터"],
-    },
-    1: {
-      간호대학: ["간호학과"],
-      경영대학: ["경영학과"],
-      공과대학: ["공과대학"],
-      디자인조형학부: ["디자인조형학부"],
-      문과대학: [
-        "문과대학",
-        "노어노문학과",
-        "독어독문학과",
-        "불어불문학과",
-        "서어서문학과",
-        "영어영문학과",
-        "일어일문학과",
-        "중어중문학과",
-      ],
-      보건과학대학: ["보건정책관리학부"],
-      생명과학대학: ["식품자원경제학과"],
-      스마트보안학부: ["스마트보안학부"],
-      이과대학: ["수학과"],
-      정경대학: ["통계학과", "행정학과"],
-      정보대학: ["컴퓨터학과"],
-    },
-    2: [
-      "1학년세미나",
-      "ACADEMIC ENGLISH",
-      "DS/AI",
-      "GLOBAL ENGLISH",
-      "과학과기술",
-      "교양 선택",
-      "교양 필수",
-      "교양선택(기초과학)",
-      "교양선택(외국어)",
-      "군사학",
-      "글쓰기",
-      "디지털혁신과인간",
-      "문학과예술",
-      "사회의이해",
-      "선택교양",
-      "선택교양(기초과학)",
-      "세계의문화",
-      "역사의탐구",
-      "윤리와사상",
-      "정량적사고",
-      "학문세계의탐구 I",
-      "학문세계의탐구 II",
-    ],
   };
 
   return (
@@ -328,7 +134,7 @@ export default function Home() {
                     >
                       <input
                         type="text"
-                        value="2024"
+                        defaultValue="2024"
                         disabled
                         maxLength={4}
                         style={{
@@ -375,7 +181,7 @@ export default function Home() {
                           appearance: "none",
                         }}
                       >
-                        <option>1학기</option>
+                        <option defaultValue={"1학기"}>1학기</option>
                       </select>
                       <span
                         style={{
@@ -391,7 +197,7 @@ export default function Home() {
                         캠퍼스
                       </span>
                       <select
-                        value={campus}
+                        defaultValue={campus}
                         style={{
                           width: 74,
                           height: 25,
@@ -434,7 +240,7 @@ export default function Home() {
                         대학구분
                       </span>
                       <select
-                        value={collegeSectionType}
+                        defaultValue={collegeSectionType}
                         style={{
                           width: 214,
                           height: 25,
@@ -1738,7 +1544,7 @@ export default function Home() {
                   tableLayout: "fixed",
                 }}
               >
-                <thead style={{}}>
+                <thead>
                   {searchedData.map((prop: courseData, index) => (
                     <tr
                       style={{

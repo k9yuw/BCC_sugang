@@ -6,7 +6,6 @@ export default function RegisterByPreferredCourses() {
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
-
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
 
@@ -24,7 +23,16 @@ export default function RegisterByPreferredCourses() {
   };
 
   return (
-    <div style={{ marginTop: 10, borderTop: 0.7, borderTopStyle: "solid" }}>
+    <div
+      style={{
+        marginTop: 10,
+        borderTop: 0.7,
+        borderTopStyle: "solid",
+        marginRight: 30,
+        marginLeft: 30,
+        marginBottom: 32.7,
+      }}
+    >
       <table
         style={{
           borderCollapse: "collapse",
@@ -414,7 +422,7 @@ export default function RegisterByPreferredCourses() {
                 >
                   <Image
                     src={
-                      "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                      "https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
                     }
                     alt="note"
                     width={16}
@@ -448,7 +456,7 @@ export default function RegisterByPreferredCourses() {
             backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
           }}
         >
-          내 관심강의가 존재하지 않습니다.
+          관심과목 데이터가 없습니다.
         </div>
       ) : null}
     </div>

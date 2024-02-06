@@ -11,6 +11,8 @@ import { teacherEducation } from "@/app/data/teacherEducatoin";
 import { militaryStudies } from "@/app/data/militaryStudies";
 import { lifelongEducation } from "@/app/data/lifelongEducation";
 import TimePeriod from "../popups/timePeriod";
+import BodyBottom from "../BodyBottomPreferred";
+import BodyBottomPreferred from "../BodyBottomPreferred";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -37,6 +39,7 @@ export default function RegisterBySearch() {
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
+  // const [registeredCourses, setRe]
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -44,32 +47,51 @@ export default function RegisterBySearch() {
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
+    if (!preferredCoursesCached) {
+      localStorage.setItem("preferredCourses", "[]");
+    }
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-    console.log("useEffect");
   }, []);
+
+  useEffect(() => {
+    console.log(preferredCourses);
+    console.log(preferredCredit);
+  }, [preferredCourses, preferredCredit]);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
     prop: courseData
   ) => {
     e.preventDefault();
-    if (pathname === "/courseRegisteration") {
-    } else if (pathname === "/preferredCourses") {
-      let maxCreditLimit = localStorage.getItem("maxCreditLimit");
-      if (maxCreditLimit === null) maxCreditLimit = "19";
-      if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
-        setPreferredCourses((prev) => [...prev, prop]);
-        setPreferredCredit((prep) => prep + prop.credit);
-        localStorage.setItem(
-          "preferredCourses",
-          JSON.stringify(preferredCourses)
-        );
-        alert("관심과목 등록 되었습니다.");
-      } else {
-        alert("신청가능한 학점을 초과했습니다");
+    const courseId = prop.rowid + prop.params;
+    const courseIdArray = preferredCourses.map(
+      (prop) => prop.rowid + prop.params
+    );
+    if (courseIdArray.includes(courseId)) {
+      //중복 신청 filtering
+      alert("같은 과목을 중복 신청할 수 없습니다.");
+    } else {
+      if (pathname === "/courseRegisteration") {
+        //수강신청
+      } else if (pathname === "/preferredCourses") {
+        //관심과목 등록
+        let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+        if (maxCreditLimit === null) {
+          maxCreditLimit = "19";
+          localStorage.setItem("maxCreditLimit", "19");
+        }
+        if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
+          const data = [...preferredCourses, prop];
+          setPreferredCourses(data);
+          setPreferredCredit((prep) => prep + prop.credit);
+          localStorage.setItem("preferredCourses", JSON.stringify(data));
+          alert("관심과목 등록 되었습니다.");
+        } else {
+          alert("신청가능한 학점을 초과했습니다");
+        }
       }
     }
   };
@@ -113,6 +135,8 @@ export default function RegisterBySearch() {
     <div>
       <div //개설과목 검색하여 신청
         style={{
+          marginRight: 30,
+          marginLeft: 30,
           marginTop: 10,
           padding: 12,
           paddingBottom: 9,
@@ -919,6 +943,8 @@ export default function RegisterBySearch() {
       </div>
       <div //안내사항 블럭
         style={{
+          marginRight: 30,
+          marginLeft: 30,
           position: "relative",
           marginTop: 15,
           paddingTop: 5,
@@ -973,7 +999,14 @@ export default function RegisterBySearch() {
         </div>
       </div>
       <div //검색 결과 테이블
-        style={{ marginTop: 10, borderTop: 0.7, borderTopStyle: "solid" }}
+        style={{
+          marginTop: 10,
+          marginBottom: 32.7,
+          borderTop: 0.7,
+          borderTopStyle: "solid",
+          marginRight: 30,
+          marginLeft: 30,
+        }}
       >
         <table
           style={{
@@ -1449,25 +1482,24 @@ export default function RegisterBySearch() {
                       />
                     )}
                   </th>
-                  {searched ? (
-                    <th
-                      style={{
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 38.13,
-                      }}
-                    >
-                      <Image
-                        src={
-                          "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
-                        }
-                        alt="note"
-                        width={16}
-                        height={21}
-                      />
-                    </th>
-                  ) : null}
+
+                  <th
+                    style={{
+                      borderBottomStyle: "solid",
+                      borderBottomWidth: 1,
+                      borderBottomColor: "#ddd",
+                      width: 38.13,
+                    }}
+                  >
+                    <Image
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                      }
+                      alt="note"
+                      width={16}
+                      height={21}
+                    />
+                  </th>
                 </tr>
               ))}
             </thead>
@@ -1523,6 +1555,9 @@ export default function RegisterBySearch() {
           </div>
         )}
       </div>
+      {pathname === "/preferredCourses" ? (
+        <BodyBottomPreferred preferredCourses={preferredCourses} />
+      ) : null}
     </div>
   );
 }
