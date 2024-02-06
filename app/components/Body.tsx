@@ -10,7 +10,7 @@ import RegisterByPreferredCourses from "./NavComponents/RegisterByPreferredCours
 import RegisterByCourseNumber from "./NavComponents/RegisterByCourseNumber";
 import Notices from "./NavComponents/Notices";
 
-export default function BodyTop() {
+export default function Body() {
   const pathname = usePathname();
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -60,12 +60,12 @@ export default function BodyTop() {
       <div //상단 바디
         style={{
           paddingTop: 25,
-          paddingRight: 30,
-          paddingBottom: 32.7,
-          paddingLeft: 30,
-          borderBottom: 1,
-          borderBottomStyle: "solid",
-          borderBottomColor: "#ccc",
+          // paddingRight: 30,
+          // paddingLeft: 30,
+          // paddingBottom: 32.7,
+          // borderBottom: 1,
+          // borderBottomStyle: "solid",
+          // borderBottomColor: "#ccc",
           display: "flex",
           flexDirection: "column",
         }}
@@ -81,6 +81,8 @@ export default function BodyTop() {
             lineHeight: 2.7,
             textAlign: "center",
             fontSize: 13,
+            marginRight: 30,
+            marginLeft: 30,
           }}
         >
           <div //Nav 유의사항
@@ -172,36 +174,6 @@ export default function BodyTop() {
         {navBar[2] ? <RegisterByPreferredCourses /> : null}
         {navBar[3] ? <RegisterBySearch /> : null}
         {navBar[4] ? <PreferredTimeTable /> : null}
-      </div>
-      <div //상하단 분리선
-        style={{
-          display: "flex",
-          position: "relative",
-          width: "100%",
-          minWidth: 1030,
-          overflow: "visible",
-          flexDirection: "column",
-        }}
-      >
-        <div //상단 바디 위로 접는 버튼
-          style={{
-            position: "absolute",
-            justifySelf: "flex-end",
-            top: -7.5,
-            alignSelf: "center",
-            width: 51,
-            height: 15,
-            border: 1,
-            borderStyle: "solid",
-            borderColor: "#e1e1e1",
-            backgroundColor: "#f9f9f9",
-            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
-            backgroundRepeat: "no-repeat",
-            backgroundPositionX: 21,
-            backgroundPositionY: -46,
-            cursor: "pointer",
-          }}
-        ></div>
       </div>
     </div>
   );

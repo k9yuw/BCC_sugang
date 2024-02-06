@@ -10,6 +10,8 @@ import { generalStudies } from "@/app/data/generalStudies";
 import { teacherEducation } from "@/app/data/teacherEducatoin";
 import { militaryStudies } from "@/app/data/militaryStudies";
 import { lifelongEducation } from "@/app/data/lifelongEducation";
+import BodyBottom from "../BodyBottomPreferred";
+import BodyBottomPreferred from "../BodyBottomPreferred";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -35,6 +37,7 @@ export default function RegisterBySearch() {
   const [searched, setSearched] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  // const [registeredCourses, setRe]
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -49,25 +52,36 @@ export default function RegisterBySearch() {
     prop: courseData
   ) => {
     e.preventDefault();
-    if (pathname === "/courseRegisteration") {
-    } else if (pathname === "/preferredCourses") {
-      let maxCreditLimit = localStorage.getItem("maxCreditLimit");
-      if (maxCreditLimit === null) {
-        maxCreditLimit = "19";
-        localStorage.setItem("maxCreditLimit", "19");
-      }
-      if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
-        setPreferredCourses((prev) => [...prev, prop]);
-        setPreferredCredit((prep) => prep + prop.credit);
-        localStorage.setItem(
-          "preferredCourses",
-          JSON.stringify(preferredCourses)
-        );
-        console.log(preferredCourses);
-        console.log(preferredCredit);
-        alert("관심과목 등록 되었습니다.");
-      } else {
-        alert("신청가능한 학점을 초과했습니다");
+    const courseId = prop.rowid + prop.params;
+    const courseIdArray = preferredCourses.map(
+      (prop) => prop.rowid + prop.params
+    );
+    if (courseIdArray.includes(courseId)) {
+      //중복 신청 filtering
+      alert("같은 과목을 중복 신청할 수 없습니다.");
+    } else {
+      if (pathname === "/courseRegisteration") {
+        //수강신청
+      } else if (pathname === "/preferredCourses") {
+        //관심과목 등록
+        let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+        if (maxCreditLimit === null) {
+          maxCreditLimit = "19";
+          localStorage.setItem("maxCreditLimit", "19");
+        }
+        if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
+          setPreferredCourses((prev) => [...prev, prop]);
+          setPreferredCredit((prep) => prep + prop.credit);
+          localStorage.setItem(
+            "preferredCourses",
+            JSON.stringify(preferredCourses)
+          );
+          console.log(preferredCourses);
+          console.log(preferredCredit);
+          alert("관심과목 등록 되었습니다.");
+        } else {
+          alert("신청가능한 학점을 초과했습니다");
+        }
       }
     }
   };
@@ -111,6 +125,8 @@ export default function RegisterBySearch() {
     <div>
       <div //개설과목 검색하여 신청
         style={{
+          marginRight: 30,
+          marginLeft: 30,
           marginTop: 10,
           padding: 12,
           paddingBottom: 9,
@@ -910,6 +926,8 @@ export default function RegisterBySearch() {
       </div>
       <div //안내사항 블럭
         style={{
+          marginRight: 30,
+          marginLeft: 30,
           position: "relative",
           marginTop: 15,
           paddingTop: 5,
@@ -964,7 +982,14 @@ export default function RegisterBySearch() {
         </div>
       </div>
       <div //검색 결과 테이블
-        style={{ marginTop: 10, borderTop: 0.7, borderTopStyle: "solid" }}
+        style={{
+          marginTop: 10,
+          marginBottom: 32.7,
+          borderTop: 0.7,
+          borderTopStyle: "solid",
+          marginRight: 30,
+          marginLeft: 30,
+        }}
       >
         <table
           style={{
@@ -1513,6 +1538,7 @@ export default function RegisterBySearch() {
           </div>
         )}
       </div>
+      {pathname === "/preferredCourses" ? <BodyBottomPreferred preferredCourses={preferredCourses}/> : null}
     </div>
   );
 }

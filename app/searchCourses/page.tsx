@@ -1544,7 +1544,7 @@ export default function Home() {
                   tableLayout: "fixed",
                 }}
               >
-                <thead style={{}}>
+                <thead>
                   {searchedData.map((prop: courseData, index) => (
                     <tr
                       style={{

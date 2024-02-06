@@ -6,7 +6,6 @@ export default function RegisterByPreferredCourses() {
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
-
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
 
@@ -24,7 +23,16 @@ export default function RegisterByPreferredCourses() {
   };
 
   return (
-    <div style={{ marginTop: 10, borderTop: 0.7, borderTopStyle: "solid" }}>
+    <div
+      style={{
+        marginTop: 10,
+        borderTop: 0.7,
+        borderTopStyle: "solid",
+        marginRight: 30,
+        marginLeft: 30,
+        marginBottom: 32.7,
+      }}
+    >
       <table
         style={{
           borderCollapse: "collapse",
