@@ -12,6 +12,7 @@ import { militaryStudies } from "@/app/data/militaryStudies";
 import { lifelongEducation } from "@/app/data/lifelongEducation";
 import BodyBottom from "../BodyBottomPreferred";
 import BodyBottomPreferred from "../BodyBottomPreferred";
+import { all } from "@/app/data/all";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -25,10 +26,10 @@ export default function RegisterBySearch() {
   const [courseTypeOne, setCourseTypeOne] = useState("전공"); //이수구분
   const [courseTypeTwo, setCourseTypeTwo] = useState("간호대학");
   const [courseTypeThree, setCourseTypeThree] = useState<string>("간호학과");
-  const [credit, setCredit] = useState<string>(); //학점
-  const [day, setDay] = useState(""); //요일
-  const [startTime, setStartTime] = useState<string>(); //교시
-  const [endTime, setEndTime] = useState<string>();
+  const [credit, setCredit] = useState<string>(""); //학점
+  const [day, setDay] = useState("전체--"); //요일
+  const [startTime, setStartTime] = useState<string>("전체--"); //교시
+  const [endTime, setEndTime] = useState<string>("전체--");
   const [professor, setProfessor] = useState(""); //교수
   const [courseCode, setCourseCode] = useState(""); //학수번호
   const [section, setSection] = useState(""); //분반
@@ -104,24 +105,58 @@ export default function RegisterBySearch() {
   const onClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearched(true);
-    if (selectedIdxOne === 0) {
-      // let data = major[selectedIdxTwo][selectedIdxThree].filter(
-      //   (prop) => prop.credit === credit
-      // );
-      // data = data.filter((prop) => prop.time_room.includes(day));
-
-      // data = data.filter((prop) => prop.time_room.match("/(*)/"));
-      setSearchedData(major[selectedIdxTwo][selectedIdxThree]);
-    } else if (selectedIdxOne === 1) {
-      setSearchedData(academicFoundations[selectedIdxTwo][selectedIdxThree]);
-    } else if (selectedIdxOne === 2) {
-      setSearchedData(generalStudies[selectedIdxTwo]);
-    } else if (selectedIdxOne === 3) {
-      setSearchedData(teacherEducation);
-    } else if (selectedIdxOne === 4) {
-      setSearchedData(militaryStudies);
-    } else if (selectedIdxOne === 5) {
-      setSearchedData(lifelongEducation);
+    let data: courseData[] = [];
+    if (courseCode !== "") {
+      //학수번호 (+분반)
+      if (courseName !== "") {
+        alert("학수번호 입력시 교과목명을 입력 할 수 없습니다.");
+        return;
+      }
+      data = all.filter((prop) => prop.cour_cd === courseCode);
+      if (section !== "") {
+        data = data.filter((prop) => prop.cour_cls === section);
+      }
+    } else if (courseName !== "") {
+      //교과목명
+      data = all.filter((prop) => prop.cour_nm === courseName);
+    } else {
+      //이수구분
+      if (selectedIdxOne === 0) {
+        data = major[selectedIdxTwo][selectedIdxThree];
+      } else if (selectedIdxOne === 1) {
+        data = academicFoundations[selectedIdxTwo][selectedIdxThree];
+      } else if (selectedIdxOne === 2) {
+        data = generalStudies[selectedIdxTwo];
+      } else if (selectedIdxOne === 3) {
+        data = teacherEducation;
+      } else if (selectedIdxOne === 4) {
+        data = militaryStudies;
+      } else if (selectedIdxOne === 5) {
+        data = lifelongEducation;
+      }
+      if (credit !== "") {
+        //학점
+        data = data.filter((prop) => prop.credit === parseInt(credit));
+      }
+      if (day !== "전체--") {
+        //요일
+        data = data.filter((prop) => prop.time_room.includes(day));
+      }
+      if (professor !== "") {
+        //교수
+        data = data.filter((prop) => prop.prof_nm === professor);
+      }
+      if (startTime !== "전체--") {
+        //시작교시
+      }
+      if (endTime !== "전체--") {
+        //종료교시
+      }
+      const re = /\((.*?)\)/;
+      const days = data.map((prop) => prop.time_room.match(re));
+      // data = data.filter((prop) => prop.time_room.match(re));
+      console.log(days);
+      setSearchedData(data);
     }
   };
 
@@ -200,6 +235,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>서울</option>
@@ -243,6 +279,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>대학</option>
@@ -536,6 +573,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>전체--</option>
@@ -588,6 +626,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>전체--</option>
@@ -648,6 +687,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>전체--</option>
@@ -689,6 +729,7 @@ export default function RegisterBySearch() {
                       borderLeftColor: "#ccc",
                       borderStyle: "solid",
                       fontFamily: "Segeo UI",
+                      cursor: "pointer",
                     }}
                   >
                     교시확인표

@@ -179,6 +179,7 @@ export default function Home() {
                           WebkitAppearance: "none",
                           MozAppearance: "none",
                           appearance: "none",
+                          outline: "none",
                         }}
                       >
                         <option defaultValue={"1학기"}>1학기</option>
@@ -221,6 +222,7 @@ export default function Home() {
                           WebkitAppearance: "none",
                           MozAppearance: "none",
                           appearance: "none",
+                          outline: "none",
                         }}
                       >
                         <option>서울</option>
@@ -264,6 +266,7 @@ export default function Home() {
                           WebkitAppearance: "none",
                           MozAppearance: "none",
                           appearance: "none",
+                          outline: "none",
                         }}
                       >
                         <option>대학</option>
@@ -313,7 +316,7 @@ export default function Home() {
                             WebkitAppearance: "none",
                             MozAppearance: "none",
                             appearance: "none",
-                            display: "block",
+                            // display: "block",
                             overflow: "hidden",
                             whiteSpace: "nowrap",
                             textOverflow: "clip",
@@ -554,6 +557,7 @@ export default function Home() {
                           WebkitAppearance: "none",
                           MozAppearance: "none",
                           appearance: "none",
+                          outline: "none",
                         }}
                       >
                         <option>전체--</option>
@@ -606,6 +610,7 @@ export default function Home() {
                           WebkitAppearance: "none",
                           MozAppearance: "none",
                           appearance: "none",
+                          outline: "none",
                         }}
                       >
                         <option>전체--</option>
@@ -666,6 +671,7 @@ export default function Home() {
                           WebkitAppearance: "none",
                           MozAppearance: "none",
                           appearance: "none",
+                          outline: "none",
                         }}
                       >
                         <option>전체--</option>
@@ -706,6 +712,7 @@ export default function Home() {
                           borderBottomColor: "#ccc",
                           borderLeftColor: "#ccc",
                           borderStyle: "solid",
+                          cursor: "pointer",
                         }}
                       >
                         교시확인표

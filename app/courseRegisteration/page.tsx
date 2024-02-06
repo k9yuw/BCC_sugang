@@ -94,6 +94,7 @@ export default function Home() {
                   borderLeftColor: "#ccc",
                   borderStyle: "solid",
                   padding: "0px",
+                  cursor:"pointer"
                 }}
               >
                 교시확인표
