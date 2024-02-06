@@ -468,7 +468,7 @@ export default function NavBar() {
           style={{
             top: 34,
             position: "absolute",
-            zIndex: 2,
+            zIndex: "auto",
             width: 15,
             height: 51,
             border: 1,
