@@ -66,15 +66,16 @@ function ClickGame(){
         >
           초기화
         </button>
-        <div>
+        {/* 타이머시작 버튼 일단 주석처리 */}
+        {/* <div>
         <button onClick={startSugang}>{startText}</button>
       </div>
         {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
-        {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}
+        {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null} */}
       </div>
-      <div>
+      {/* <div>
         <h3>클릭 시간: {(startTime != 0 && clickTime !=0 && timeTaken) >0 ? timeTaken/1000 : 0} 초</h3>
-      </div>
+      </div> */}
     </div>
 	);
 }

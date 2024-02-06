@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState, useCallback } from "react";
 import { major } from "../../data/major";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "../table/preferredTimeTable/preferredTimeTable";
@@ -10,6 +10,7 @@ import { generalStudies } from "@/app/data/generalStudies";
 import { teacherEducation } from "@/app/data/teacherEducatoin";
 import { militaryStudies } from "@/app/data/militaryStudies";
 import { lifelongEducation } from "@/app/data/lifelongEducation";
+import TimePeriod from "../popups/timePeriod";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -35,6 +36,11 @@ export default function RegisterBySearch() {
   const [searched, setSearched] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -645,30 +651,37 @@ export default function RegisterBySearch() {
                     <option>14</option>
                     <option>15</option>
                   </select>
-                  <button
-                    onClick={(e) => e.preventDefault()}
-                    style={{
-                      width: 71,
-                      height: 25,
-                      paddingTop: 0,
-                      paddingRight: 0,
-                      paddingBottom: 2,
-                      paddingLeft: 0,
-                      marginLeft: 5,
-                      fontSize: 12,
-                      backgroundColor: "#f9f9f9",
-                      color: "#666",
-                      borderWidth: "thin",
-                      borderTopColor: "#ccc",
-                      borderRightColor: "#ccc",
-                      borderBottomColor: "#ccc",
-                      borderLeftColor: "#ccc",
-                      borderStyle: "solid",
-                      fontFamily: "Segeo UI",
-                    }}
-                  >
-                    교시확인표
-                  </button>
+                  
+                  <span>
+                  {isOpenModal && 
+                  (<TimePeriod onClickToggleModal={onClickToggleModal}>
+                    이곳에 children이 들어갑니다.</TimePeriod>)}
+                    <button type="button" onClick={
+                      onClickToggleModal}
+                      style={{
+                        width: 71,
+                        height: 25,
+                        paddingTop: 0,
+                        paddingRight: 0,
+                        paddingBottom: 2,
+                        paddingLeft: 0,
+                        marginLeft: 5,
+                        fontSize: 12,
+                        backgroundColor: "#f9f9f9",
+                        color: "#666",
+                        borderWidth: "thin",
+                        borderTopColor: "#ccc",
+                        borderRightColor: "#ccc",
+                        borderBottomColor: "#ccc",
+                        borderLeftColor: "#ccc",
+                        borderStyle: "solid",
+                        fontFamily: "Segeo UI",
+                      }}
+                    >
+                      교시확인표
+                    </button>
+                  </span>
+
                   <span
                     style={{
                       width: 80,

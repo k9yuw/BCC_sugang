@@ -1,4 +1,5 @@
 import { MouseEvent } from "react";
+import ClickGame from "../enrollment/ClickGame";
 
 export default function RegisterByCourseNumber() {
   const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
