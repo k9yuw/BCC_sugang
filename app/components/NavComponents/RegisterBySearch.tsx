@@ -42,7 +42,6 @@ export default function RegisterBySearch() {
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-    console.log("useEffect");
   }, []);
 
   const onRegisterClick = (
@@ -53,7 +52,10 @@ export default function RegisterBySearch() {
     if (pathname === "/courseRegisteration") {
     } else if (pathname === "/preferredCourses") {
       let maxCreditLimit = localStorage.getItem("maxCreditLimit");
-      if (maxCreditLimit === null) maxCreditLimit = "19";
+      if (maxCreditLimit === null) {
+        maxCreditLimit = "19";
+        localStorage.setItem("maxCreditLimit", "19");
+      }
       if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
         setPreferredCourses((prev) => [...prev, prop]);
         setPreferredCredit((prep) => prep + prop.credit);
@@ -61,6 +63,8 @@ export default function RegisterBySearch() {
           "preferredCourses",
           JSON.stringify(preferredCourses)
         );
+        console.log(preferredCourses);
+        console.log(preferredCredit);
         alert("관심과목 등록 되었습니다.");
       } else {
         alert("신청가능한 학점을 초과했습니다");
