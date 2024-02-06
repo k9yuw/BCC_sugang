@@ -1440,25 +1440,24 @@ export default function RegisterBySearch() {
                       />
                     )}
                   </th>
-                  {searched ? (
-                    <th
-                      style={{
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 38.13,
-                      }}
-                    >
-                      <Image
-                        src={
-                          "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
-                        }
-                        alt="note"
-                        width={16}
-                        height={21}
-                      />
-                    </th>
-                  ) : null}
+
+                  <th
+                    style={{
+                      borderBottomStyle: "solid",
+                      borderBottomWidth: 1,
+                      borderBottomColor: "#ddd",
+                      width: 38.13,
+                    }}
+                  >
+                    <Image
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                      }
+                      alt="note"
+                      width={16}
+                      height={21}
+                    />
+                  </th>
                 </tr>
               ))}
             </thead>

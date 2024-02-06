@@ -414,7 +414,7 @@ export default function RegisterByPreferredCourses() {
                 >
                   <Image
                     src={
-                      "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                      "https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
                     }
                     alt="note"
                     width={16}
