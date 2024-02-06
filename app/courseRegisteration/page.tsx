@@ -5,7 +5,7 @@ import Navysm from "../components/clock/navysm";
 import TimeTable from "../components/table/sugangTimeTable/timeTable";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
-import BodyTop from "../components/BodyTop";
+import Body from "../components/Body";
 import { maxHeaderSize } from "http";
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
       <NavBar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Header />
-        <BodyTop />
+        <Body />
         <div //하단 바디
           style={{
             paddingTop: 20,
@@ -94,6 +94,7 @@ export default function Home() {
                   borderLeftColor: "#ccc",
                   borderStyle: "solid",
                   padding: "0px",
+                  cursor:"pointer"
                 }}
               >
                 교시확인표

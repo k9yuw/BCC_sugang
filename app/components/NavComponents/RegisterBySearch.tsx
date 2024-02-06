@@ -1,4 +1,10 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import { major } from "../../data/major";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "../table/preferredTimeTable/preferredTimeTable";
@@ -10,6 +16,10 @@ import { generalStudies } from "@/app/data/generalStudies";
 import { teacherEducation } from "@/app/data/teacherEducatoin";
 import { militaryStudies } from "@/app/data/militaryStudies";
 import { lifelongEducation } from "@/app/data/lifelongEducation";
+import TimePeriod from "../popups/timePeriod";
+import BodyBottom from "../BodyBottomPreferred";
+import BodyBottomPreferred from "../BodyBottomPreferred";
+import { all } from "@/app/data/all";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -23,10 +33,10 @@ export default function RegisterBySearch() {
   const [courseTypeOne, setCourseTypeOne] = useState("전공"); //이수구분
   const [courseTypeTwo, setCourseTypeTwo] = useState("간호대학");
   const [courseTypeThree, setCourseTypeThree] = useState<string>("간호학과");
-  const [credit, setCredit] = useState<string>(); //학점
-  const [day, setDay] = useState(""); //요일
-  const [startTime, setStartTime] = useState<string>(); //교시
-  const [endTime, setEndTime] = useState<string>();
+  const [credit, setCredit] = useState<string>(""); //학점
+  const [day, setDay] = useState("전체--"); //요일
+  const [startTime, setStartTime] = useState<string>("전체--"); //교시
+  const [endTime, setEndTime] = useState<string>("전체--");
   const [professor, setProfessor] = useState(""); //교수
   const [courseCode, setCourseCode] = useState(""); //학수번호
   const [section, setSection] = useState(""); //분반
@@ -35,37 +45,60 @@ export default function RegisterBySearch() {
   const [searched, setSearched] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+  // const [registeredCourses, setRe]
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
-
+    if (!preferredCoursesCached) {
+      localStorage.setItem("preferredCourses", "[]");
+    }
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
   }, []);
 
+  useEffect(() => {
+    console.log(preferredCourses);
+    console.log(preferredCredit);
+  }, [preferredCourses, preferredCredit]);
+
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
     prop: courseData
   ) => {
     e.preventDefault();
-    if (pathname === "/courseRegisteration") {
-    } else if (pathname === "/preferredCourses") {
-      let maxCreditLimit = localStorage.getItem("maxCreditLimit");
-      if (maxCreditLimit === null) maxCreditLimit = "19";
-      console.log(preferredCourses);
-      console.log(maxCreditLimit);
-      console.log(preferredCredit);
-      if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
-        setPreferredCourses((prev) => [...prev, prop]);
-        setPreferredCredit((prep) => prep + prop.credit);
-        localStorage.setItem(
-          "preferredCourses",
-          JSON.stringify(preferredCourses)
-        );
-      } else {
-        alert("신청가능한 학점을 초과했습니다");
+    const courseId = prop.rowid + prop.params;
+    const courseIdArray = preferredCourses.map(
+      (prop) => prop.rowid + prop.params
+    );
+    if (courseIdArray.includes(courseId)) {
+      //중복 신청 filtering
+      alert("같은 과목을 중복 신청할 수 없습니다.");
+    } else {
+      if (pathname === "/courseRegisteration") {
+        //수강신청
+      } else if (pathname === "/preferredCourses") {
+        //관심과목 등록
+        let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+        if (maxCreditLimit === null) {
+          maxCreditLimit = "19";
+          localStorage.setItem("maxCreditLimit", "19");
+        }
+        if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
+          const data = [...preferredCourses, prop];
+          setPreferredCourses(data);
+          setPreferredCredit((prep) => prep + prop.credit);
+          localStorage.setItem("preferredCourses", JSON.stringify(data));
+          alert("관심과목 등록 되었습니다.");
+        } else {
+          alert("신청가능한 학점을 초과했습니다");
+        }
       }
     }
   };
@@ -84,24 +117,58 @@ export default function RegisterBySearch() {
   const onClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearched(true);
-    if (selectedIdxOne === 0) {
-      // let data = major[selectedIdxTwo][selectedIdxThree].filter(
-      //   (prop) => prop.credit === credit
-      // );
-      // data = data.filter((prop) => prop.time_room.includes(day));
-
-      // data = data.filter((prop) => prop.time_room.match("/(*)/"));
-      setSearchedData(major[selectedIdxTwo][selectedIdxThree]);
-    } else if (selectedIdxOne === 1) {
-      setSearchedData(academicFoundations[selectedIdxTwo][selectedIdxThree]);
-    } else if (selectedIdxOne === 2) {
-      setSearchedData(generalStudies[selectedIdxTwo]);
-    } else if (selectedIdxOne === 3) {
-      setSearchedData(teacherEducation);
-    } else if (selectedIdxOne === 4) {
-      setSearchedData(militaryStudies);
-    } else if (selectedIdxOne === 5) {
-      setSearchedData(lifelongEducation);
+    let data: courseData[] = [];
+    if (courseCode !== "") {
+      //학수번호 (+분반)
+      if (courseName !== "") {
+        alert("학수번호 입력시 교과목명을 입력 할 수 없습니다.");
+        return;
+      }
+      data = all.filter((prop) => prop.cour_cd === courseCode);
+      if (section !== "") {
+        data = data.filter((prop) => prop.cour_cls === section);
+      }
+    } else if (courseName !== "") {
+      //교과목명
+      data = all.filter((prop) => prop.cour_nm === courseName);
+    } else {
+      //이수구분
+      if (selectedIdxOne === 0) {
+        data = major[selectedIdxTwo][selectedIdxThree];
+      } else if (selectedIdxOne === 1) {
+        data = academicFoundations[selectedIdxTwo][selectedIdxThree];
+      } else if (selectedIdxOne === 2) {
+        data = generalStudies[selectedIdxTwo];
+      } else if (selectedIdxOne === 3) {
+        data = teacherEducation;
+      } else if (selectedIdxOne === 4) {
+        data = militaryStudies;
+      } else if (selectedIdxOne === 5) {
+        data = lifelongEducation;
+      }
+      if (credit !== "") {
+        //학점
+        data = data.filter((prop) => prop.credit === parseInt(credit));
+      }
+      if (day !== "전체--") {
+        //요일
+        data = data.filter((prop) => prop.time_room.includes(day));
+      }
+      if (professor !== "") {
+        //교수
+        data = data.filter((prop) => prop.prof_nm === professor);
+      }
+      if (startTime !== "전체--") {
+        //시작교시
+      }
+      if (endTime !== "전체--") {
+        //종료교시
+      }
+      const re = /\((.*?)\)/;
+      const days = data.map((prop) => prop.time_room.match(re));
+      // data = data.filter((prop) => prop.time_room.match(re));
+      console.log(days);
+      setSearchedData(data);
     }
   };
 
@@ -109,6 +176,8 @@ export default function RegisterBySearch() {
     <div>
       <div //개설과목 검색하여 신청
         style={{
+          marginRight: 30,
+          marginLeft: 30,
           marginTop: 10,
           padding: 12,
           paddingBottom: 9,
@@ -178,6 +247,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>서울</option>
@@ -221,6 +291,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>대학</option>
@@ -514,6 +585,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>전체--</option>
@@ -566,6 +638,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>전체--</option>
@@ -626,6 +699,7 @@ export default function RegisterBySearch() {
                       WebkitAppearance: "none",
                       MozAppearance: "none",
                       appearance: "none",
+                      outline: "none",
                     }}
                   >
                     <option>전체--</option>
@@ -647,29 +721,39 @@ export default function RegisterBySearch() {
                     <option>14</option>
                     <option>15</option>
                   </select>
-                  <button
-                    onClick={(e) => e.preventDefault()}
-                    style={{
-                      width: 71,
-                      height: 25,
-                      paddingTop: 0,
-                      paddingRight: 5,
-                      paddingBottom: 2,
-                      paddingLeft: 5,
-                      marginLeft: 5,
-                      fontSize: 12,
-                      backgroundColor: "#f9f9f9",
-                      color: "#666",
-                      borderWidth: "thin",
-                      borderTopColor: "#ccc",
-                      borderRightColor: "#ccc",
-                      borderBottomColor: "#ccc",
-                      borderLeftColor: "#ccc",
-                      borderStyle: "solid",
-                    }}
-                  >
-                    교시확인표
-                  </button>
+                  <span>
+                    {isOpenModal && (
+                      <TimePeriod onClickToggleModal={onClickToggleModal}>
+                        이곳에 children이 들어갑니다.
+                      </TimePeriod>
+                    )}
+                    <button
+                      type="button"
+                      onClick={onClickToggleModal}
+                      style={{
+                        width: 71,
+                        height: 25,
+                        paddingTop: 0,
+                        paddingRight: 0,
+                        paddingBottom: 2,
+                        paddingLeft: 0,
+                        marginLeft: 5,
+                        fontSize: 12,
+                        backgroundColor: "#f9f9f9",
+                        color: "#666",
+                        borderWidth: "thin",
+                        borderTopColor: "#ccc",
+                        borderRightColor: "#ccc",
+                        borderBottomColor: "#ccc",
+                        borderLeftColor: "#ccc",
+                        borderStyle: "solid",
+                        fontFamily: "Segeo UI",
+                        cursor: "pointer",
+                      }}
+                    >
+                      교시확인표
+                    </button>
+                  </span>
                   <span
                     style={{
                       width: 80,
@@ -907,6 +991,8 @@ export default function RegisterBySearch() {
       </div>
       <div //안내사항 블럭
         style={{
+          marginRight: 30,
+          marginLeft: 30,
           position: "relative",
           marginTop: 15,
           paddingTop: 5,
@@ -961,7 +1047,14 @@ export default function RegisterBySearch() {
         </div>
       </div>
       <div //검색 결과 테이블
-        style={{ marginTop: 10, borderTop: 0.7, borderTopStyle: "solid" }}
+        style={{
+          marginTop: 10,
+          marginBottom: 32.7,
+          borderTop: 0.7,
+          borderTopStyle: "solid",
+          marginRight: 30,
+          marginLeft: 30,
+        }}
       >
         <table
           style={{
@@ -1437,25 +1530,24 @@ export default function RegisterBySearch() {
                       />
                     )}
                   </th>
-                  {searched ? (
-                    <th
-                      style={{
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 38.13,
-                      }}
-                    >
-                      <Image
-                        src={
-                          "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
-                        }
-                        alt="note"
-                        width={16}
-                        height={21}
-                      />
-                    </th>
-                  ) : null}
+
+                  <th
+                    style={{
+                      borderBottomStyle: "solid",
+                      borderBottomWidth: 1,
+                      borderBottomColor: "#ddd",
+                      width: 38.13,
+                    }}
+                  >
+                    <Image
+                      src={
+                        "https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                      }
+                      alt="note"
+                      width={16}
+                      height={21}
+                    />
+                  </th>
                 </tr>
               ))}
             </thead>
@@ -1511,6 +1603,9 @@ export default function RegisterBySearch() {
           </div>
         )}
       </div>
+      {pathname === "/preferredCourses" ? (
+        <BodyBottomPreferred preferredCourses={preferredCourses} />
+      ) : null}
     </div>
   );
 }
