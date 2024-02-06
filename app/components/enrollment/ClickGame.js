@@ -28,7 +28,7 @@ const ClickGame = ({ startTime, clickTime, register }) => {
           onClick={register}>
             신청
         </button>
-        <button
+        {/* <button
           style={{
             height: 30,
             width: 70,
@@ -44,7 +44,7 @@ const ClickGame = ({ startTime, clickTime, register }) => {
           }}
         >
           초기화
-        </button>
+        </button> */}
         {/* 타이머시작 버튼 일단 주석처리 */}
         {/* <div>
         <button onClick={startSugang}>{startText}</button>
