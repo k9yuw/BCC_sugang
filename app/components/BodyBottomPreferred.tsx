@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 import Image from "next/image";
 import courseData from "../constant/courseDataInterface";
 
@@ -12,12 +12,46 @@ export default function BodyBottomPreferred({
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const [coursesToPaint, setCoursesToPaint] =
+    useState<courseData[]>(preferredCourses);
 
   useEffect(() => {
     setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
     const preferredCreditArray = preferredCourses.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
+    setCoursesToPaint(preferredCourses);
+    console.log(preferredCourses);
   }, [preferredCourses]);
+
+  useEffect(() => {
+    console.log(coursesToPaint);
+  }, [coursesToPaint]);
+
+  const deleteCourse = (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+    prop: courseData
+  ) => {
+    const courseToDelete = preferredCourses.find(
+      (item) => item.params === prop.params
+    );
+    if (!courseToDelete) {
+      console.log("Failed to delete the course");
+      return;
+    }
+    const idx = preferredCourses.indexOf(courseToDelete);
+    if (idx > -1) {
+      preferredCourses.splice(idx, 1);
+      localStorage.setItem(
+        "preferredCourses",
+        JSON.stringify(preferredCourses)
+      );
+      alert("삭제되었습니다.");
+      const data = localStorage.getItem("preferredCourses");
+      if (data !== "[]") {
+        setCoursesToPaint(JSON.parse(data ?? "[]"));
+      }
+    }
+  };
 
   return (
     <div //하단 바디
@@ -345,7 +379,7 @@ export default function BodyBottomPreferred({
               }}
             >
               <thead>
-                {preferredCourses.map((prop: courseData, index) => (
+                {coursesToPaint.map((prop: courseData, index) => (
                   <tr
                     style={{
                       fontSize: 12,
@@ -396,6 +430,9 @@ export default function BodyBottomPreferred({
                       }}
                     >
                       <button
+                        onClick={(e) => {
+                          deleteCourse(e, prop);
+                        }}
                         style={{
                           width: 40,
                           height: 22,

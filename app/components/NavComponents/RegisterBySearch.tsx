@@ -41,11 +41,19 @@ export default function RegisterBySearch() {
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
+    if (!preferredCoursesCached) {
+      localStorage.setItem("preferredCourses", "[]");
+    }
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
   }, []);
+
+  useEffect(() => {
+    console.log(preferredCourses);
+    console.log(preferredCredit);
+  }, [preferredCourses, preferredCredit]);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
@@ -70,14 +78,10 @@ export default function RegisterBySearch() {
           localStorage.setItem("maxCreditLimit", "19");
         }
         if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
-          setPreferredCourses((prev) => [...prev, prop]);
+          const data = [...preferredCourses, prop];
+          setPreferredCourses(data);
           setPreferredCredit((prep) => prep + prop.credit);
-          localStorage.setItem(
-            "preferredCourses",
-            JSON.stringify(preferredCourses)
-          );
-          console.log(preferredCourses);
-          console.log(preferredCredit);
+          localStorage.setItem("preferredCourses", JSON.stringify(data));
           alert("관심과목 등록 되었습니다.");
         } else {
           alert("신청가능한 학점을 초과했습니다");
@@ -1538,7 +1542,9 @@ export default function RegisterBySearch() {
           </div>
         )}
       </div>
-      {pathname === "/preferredCourses" ? <BodyBottomPreferred preferredCourses={preferredCourses}/> : null}
+      {pathname === "/preferredCourses" ? (
+        <BodyBottomPreferred preferredCourses={preferredCourses} />
+      ) : null}
     </div>
   );
 }

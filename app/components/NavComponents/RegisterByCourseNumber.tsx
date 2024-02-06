@@ -6,6 +6,8 @@ import courseData from "@/app/constant/courseDataInterface";
 
 export default function RegisterByCourseNumber() {
   const pathname = usePathname();
+  const [courseCode, setCourseCode] = useState<string>("");
+  const [section, setSection] = useState<string>("");
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
 
@@ -19,6 +21,8 @@ export default function RegisterByCourseNumber() {
 
   const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const params = courseCode + "@" + section;
+    // if ()
   };
   return (
     <div>
@@ -63,6 +67,17 @@ export default function RegisterByCourseNumber() {
           </div>
           <div style={{ width: "100%" }}>
             <input
+              type="text"
+              maxLength={7}
+              onInput={(e: any) => {
+                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+                const x = e.target.value;
+                e.target.value = x.toUpperCase();
+              }}
+              value={courseCode}
+              onChange={(e) => {
+                setCourseCode(e.target.value);
+              }}
               style={{
                 margin: 5,
                 height: 25,
@@ -103,6 +118,17 @@ export default function RegisterByCourseNumber() {
           </div>
           <div style={{ width: "100%" }}>
             <input
+              type="text"
+              maxLength={2}
+              onInput={(e: any) => {
+                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+                const x = e.target.value;
+                e.target.value = x.toUpperCase();
+              }}
+              value={section}
+              onChange={(e) => {
+                setSection(e.target.value);
+              }}
               style={{
                 margin: 5,
                 height: 25,
