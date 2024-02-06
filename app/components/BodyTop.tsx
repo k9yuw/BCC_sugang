@@ -9,7 +9,6 @@ import courseData from "../constant/courseDataInterface";
 import RegisterByPreferredCourses from "./NavComponents/RegisterByPreferredCourses";
 import RegisterByCourseNumber from "./NavComponents/RegisterByCourseNumber";
 import Notices from "./NavComponents/Notices";
-import DivideLine from "./Bottom/DivideLine";
 
 export default function BodyTop() {
   const pathname = usePathname();
@@ -94,7 +93,7 @@ export default function BodyTop() {
               borderRightStyle: "solid",
               borderRightColor: "#ccc",
               color: navBar[0] ? "#fff" : "#666",
-              backgroundColor: navBar[0] ? "#a20131" : "#f9f9f9",
+              backgroundColor: navBar[0] ? "#a20131" : "#fff",
               cursor: "pointer",
             }}
           >
@@ -174,7 +173,36 @@ export default function BodyTop() {
         {navBar[3] ? <RegisterBySearch /> : null}
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
-      <DivideLine />
+      <div //상하단 분리선
+        style={{
+          display: "flex",
+          position: "relative",
+          width: "100%",
+          minWidth: 1030,
+          overflow: "visible",
+          flexDirection: "column",
+        }}
+      >
+        <div //상단 바디 위로 접는 버튼
+          style={{
+            position: "absolute",
+            justifySelf: "flex-end",
+            top: -7.5,
+            alignSelf: "center",
+            width: 51,
+            height: 15,
+            border: 1,
+            borderStyle: "solid",
+            borderColor: "#e1e1e1",
+            backgroundColor: "#f9f9f9",
+            backgroundImage: `url("https://sugang.korea.ac.kr/resources/img/layout/bg-controller.png")`,
+            backgroundRepeat: "no-repeat",
+            backgroundPositionX: 21,
+            backgroundPositionY: -46,
+            cursor: "pointer",
+          }}
+        ></div>
+      </div>
     </div>
   );
 }
