@@ -7,7 +7,6 @@ import {
 } from "react";
 import { major } from "../../data/major";
 import { usePathname } from "next/navigation";
-import PreferredTimeTable from "../table/preferredTimeTable/preferredTimeTable";
 import Image from "next/image";
 import { courseSelectData } from "../../constant/CourseSelectData";
 import courseData from "@/app/constant/courseDataInterface";
@@ -17,7 +16,6 @@ import { teacherEducation } from "@/app/data/teacherEducatoin";
 import { militaryStudies } from "@/app/data/militaryStudies";
 import { lifelongEducation } from "@/app/data/lifelongEducation";
 import TimePeriod from "../popups/timePeriod";
-import BodyBottom from "../BodyBottomPreferred";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import { all } from "@/app/data/all";
 
@@ -46,7 +44,6 @@ export default function RegisterBySearch() {
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  // const [registeredCourses, setRe]
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
