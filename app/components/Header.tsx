@@ -43,7 +43,7 @@ export default function Header() {
           letterSpacing: -1,
         }}
       >
-        수강신청 연습 시스템
+        모의 수강신청 시스템
       </span>
       <div
         style={{
