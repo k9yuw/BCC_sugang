@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { ChangeEvent, MouseEvent, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { major } from "../data/major";
 import { academicFoundations } from "../data/academicFoundations";
 import { generalStudies } from "../data/generalStudies";
@@ -13,12 +13,9 @@ import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import courseData from "../constant/courseDataInterface";
 import { courseSelectData } from "../constant/CourseSelectData";
+import TimePeriod from "../components/popups/timePeriod";
 
 export default function Home() {
-  const [language, setLanguage] = useState("kor");
-  const [navMouseEnterOne, setNavMouseEnterOne] = useState(false); //좌측 navBar: 수강신청
-  const [navMouseEnterTwo, setNavMouseEnterTwo] = useState(false); //좌측 navBar: 수강희망/관심과목등록
-  const [navMouseEnterThree, setNavMouseEnterThree] = useState(false); //좌측 navBar: 과목조회
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [campus, setCampus] = useState("서울"); //캠퍼스
   const [collegeSectionType, setCollegeSectionType] = useState("대학"); //대학구분
@@ -39,9 +36,14 @@ export default function Home() {
   const [courseName, setCourseName] = useState(""); //교과목명
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   const router = useRouter();
-  const pathname = usePathname();
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
+
   const onClickPreferredCourses = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     router.push("/preferredCourses");
@@ -693,8 +695,16 @@ export default function Home() {
                         <option>14</option>
                         <option>15</option>
                       </select>
+                      {isOpenModal && (
+                        <TimePeriod onClickToggleModal={onClickToggleModal}>
+                          이곳에 children이 들어갑니다.
+                        </TimePeriod>
+                      )}
                       <button
-                        onClick={(e) => e.preventDefault()}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onClickToggleModal();
+                        }}
                         style={{
                           width: 71,
                           height: 25,

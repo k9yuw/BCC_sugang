@@ -1,4 +1,10 @@
-import { ChangeEvent, MouseEvent, useEffect, useState, useCallback } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import { major } from "../../data/major";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "../table/preferredTimeTable/preferredTimeTable";
@@ -716,11 +722,14 @@ export default function RegisterBySearch() {
                     <option>15</option>
                   </select>
                   <span>
-                  {isOpenModal && 
-                  (<TimePeriod onClickToggleModal={onClickToggleModal}>
-                    이곳에 children이 들어갑니다.</TimePeriod>)}
-                    <button type="button" onClick={
-                      onClickToggleModal}
+                    {isOpenModal && (
+                      <TimePeriod onClickToggleModal={onClickToggleModal}>
+                        이곳에 children이 들어갑니다.
+                      </TimePeriod>
+                    )}
+                    <button
+                      type="button"
+                      onClick={onClickToggleModal}
                       style={{
                         width: 71,
                         height: 25,
@@ -739,13 +748,12 @@ export default function RegisterBySearch() {
                         borderLeftColor: "#ccc",
                         borderStyle: "solid",
                         fontFamily: "Segeo UI",
+                        cursor: "pointer",
                       }}
                     >
                       교시확인표
                     </button>
                   </span>
-
-
                   <span
                     style={{
                       width: 80,
