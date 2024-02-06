@@ -651,9 +651,9 @@ export default function RegisterBySearch() {
                       width: 71,
                       height: 25,
                       paddingTop: 0,
-                      paddingRight: 5,
+                      paddingRight: 0,
                       paddingBottom: 2,
-                      paddingLeft: 5,
+                      paddingLeft: 0,
                       marginLeft: 5,
                       fontSize: 12,
                       backgroundColor: "#f9f9f9",
@@ -664,6 +664,7 @@ export default function RegisterBySearch() {
                       borderBottomColor: "#ccc",
                       borderLeftColor: "#ccc",
                       borderStyle: "solid",
+                      fontFamily: "Segeo UI",
                     }}
                   >
                     교시확인표
