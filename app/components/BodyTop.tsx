@@ -93,7 +93,7 @@ export default function BodyTop() {
               borderRightStyle: "solid",
               borderRightColor: "#ccc",
               color: navBar[0] ? "#fff" : "#666",
-              backgroundColor: navBar[0] ? "#a20131" : "#fff",
+              backgroundColor: navBar[0] ? "#a20131" : "#f9f9f9",
               cursor: "pointer",
             }}
           >

@@ -448,7 +448,7 @@ export default function RegisterByPreferredCourses() {
             backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
           }}
         >
-          내 관심강의가 존재하지 않습니다.
+          관심과목 데이터가 없습니다.
         </div>
       ) : null}
     </div>
