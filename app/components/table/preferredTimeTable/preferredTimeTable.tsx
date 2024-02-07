@@ -20,7 +20,6 @@ export default function PreferredTimeTable() {
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-    console.log("useEffect");
   }, []);
 
   return (
@@ -252,7 +251,10 @@ export default function PreferredTimeTable() {
         </table>
       </div>
       {pathname === "/preferredCourses" ? (
-        <BodyBottomPreferred preferredCourses={preferredCourses} />
+        <BodyBottomPreferred
+          preferredCourses={preferredCourses}
+          setPreferredCourses={setPreferredCourses}
+        />
       ) : null}
     </div>
   );
