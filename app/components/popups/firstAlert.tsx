@@ -40,7 +40,7 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
           <strong>알림</strong>
         </span>
         <span style={{fontSize: "18px", margin: "100px", textAlign:"right"}}>
-          <span style={{color: "#a20131", fontWeight: "700"}}>모의</span> 수강 신청 시스템
+          <span style={{color: "#a20131", fontWeight: "700"}}>모의 수강 신청</span> 시스템
         </span>
 			</div>
 			<hr style={{marginTop: "10px", width: "95%", height: "2px", backgroundColor: "rgba(0,0,0,0.05)", border: "0",}}/>
@@ -50,7 +50,8 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
 				textAlign: "left",
 				fontSize: "16px",
         fontWeight: "500",
-        height: "100px"
+        height: "100px",
+        paddingLeft: "40px",
 			}}>
 				본 페이지는 <span style={{color: "#a20131", fontWeight: "800", lineHeight: "2"}}>모의</span> 수강신청 시스템입니다.<br/>
         수강 신청 결과에 대한 어떠한 책임도 지지 않습니다.
@@ -67,6 +68,7 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
 					fontSize: "17px",
 					backgroundColor: "white",
 					color: "#a20131",
+          cursor: "pointer",
 				}}><strong>확인</strong>
 				</button>
 			</div>
