@@ -51,10 +51,7 @@ export default function BodyBottomPreferred({
       const data = [...preferredCourses];
       data.splice(idx, 1);
       setPreferredCourses(data);
-      localStorage.setItem(
-        "preferredCourses",
-        JSON.stringify(preferredCourses)
-      );
+      localStorage.setItem("preferredCourses", JSON.stringify(data));
       alert("삭제되었습니다.");
     }
     console.log(preferredCourses);

@@ -43,6 +43,7 @@ export default function RegisterByCourseCode() {
 
   const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    //입력 에러 핸들링
     if (courseCode.length !== 7) {
       alert("학수번호를 올바르게 입력해주세요.");
       return;
@@ -62,21 +63,23 @@ export default function RegisterByCourseCode() {
       alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
       return;
     }
+    //과목 신청 or 등록
     const courseId = searchedData.rowid + searchedData.params;
-    const courseIdArray = preferredCourses.map(
-      (prop) => prop.rowid + prop.params
-    );
-    if (courseIdArray.includes(courseId)) {
-      //중복 신청 filtering
-      alert("이미 신청한 과목입니다.");
-    } else {
-      let maxCreditLimit = localStorage.getItem("maxCreditLimit");
-      if (maxCreditLimit === null) {
-        maxCreditLimit = "19";
-        localStorage.setItem("maxCreditLimit", "19");
-      }
-      if (pathname === "/courseRegisteration") {
-        //수강신청
+    let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+    if (maxCreditLimit === null) {
+      maxCreditLimit = "19";
+      localStorage.setItem("maxCreditLimit", "19");
+    }
+    //수강신청
+    if (pathname === "/courseRegisteration") {
+      const courseIdArrayRegistered = registeredCourses.map(
+        (prop) => prop.rowid + prop.params
+      );
+      if (courseIdArrayRegistered.includes(courseId))
+        //중복 신청 filtering
+        alert("이미 신청된 과목입니다.");
+      else {
+        //학점 초과 filtering
         if (registeredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
           alert("신청가능한 학점을 초과했습니다");
         } else {
@@ -87,8 +90,18 @@ export default function RegisterByCourseCode() {
           //여기에 게임 넣으면 됨!
           alert("신청 되었습니다.");
         }
-      } else if (pathname === "/preferredCourses") {
-        //관심과목 등록
+      }
+    }
+    //관심과목 등록
+    else if (pathname === "/preferredCourses") {
+      const courseIdArrayPreferred = preferredCourses.map(
+        (prop) => prop.rowid + prop.params
+      );
+      if (courseIdArrayPreferred.includes(courseId))
+        //중복 신청 filtering
+        alert("이미 신청된 과목입니다.");
+      else {
+        //학점 초과 filtering
         if (preferredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
           alert("신청가능한 학점을 초과했습니다");
         } else {

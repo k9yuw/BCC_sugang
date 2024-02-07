@@ -54,7 +54,7 @@ export default function Header() {
           backgroundRepeat: "no-repeat",
           backgroundPositionX: "right",
           backgroundPositionY: "center",
-          lineHeight: 3.5,
+          lineHeight: 3.8,
           textAlign: "right",
           paddingRight: 13,
         }}

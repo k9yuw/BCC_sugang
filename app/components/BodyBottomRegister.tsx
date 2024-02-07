@@ -11,6 +11,9 @@ import TimeTable from "./table/sugangTimeTable/timeTable";
 import Navysm from "./clock/navysm";
 import courseData from "../constant/courseDataInterface";
 import Image from "next/image";
+import { timeTableColor } from "../constant/timeTableColor";
+import { useSpring, animated } from "react-spring";
+import { useDrag } from "react-use-gesture";
 
 export default function BodyBottomRegister({
   registeredCourses,
@@ -23,6 +26,11 @@ export default function BodyBottomRegister({
   const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
   const [registerdCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
+  const logoPos = useSpring({ x: 0, y: 0 });
+  const bindLogoPos = useDrag((params) => {
+    logoPos.x.set(params.offset[0]);
+    logoPos.y.set(params.offset[1]);
+  });
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -51,10 +59,7 @@ export default function BodyBottomRegister({
       const data = [...registeredCourses];
       data.splice(idx, 1);
       setRegisteredCourses(data);
-      localStorage.setItem(
-        "registeredCourses",
-        JSON.stringify(registeredCourses)
-      );
+      localStorage.setItem("registeredCourses", JSON.stringify(data));
       alert("삭제되었습니다.");
     }
     console.log(registeredCourses);
@@ -409,7 +414,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 92,
+                        width: 71.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -417,7 +422,21 @@ export default function BodyBottomRegister({
                         fontWeight: 400,
                       }}
                     >
-                      {prop.cour_cd}
+                      <div
+                        style={{
+                          width: 65,
+                          height: 25,
+                          backgroundColor: timeTableColor[index],
+                          borderRadius: 3,
+                          color: "#fff",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          lineHeight: 2.2,
+                          fontWeight: 800,
+                        }}
+                      >
+                        {prop.cour_cd}
+                      </div>
                     </th>
                     <th
                       style={{
@@ -427,7 +446,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 62,
+                        width: 55.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -445,7 +464,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 92,
+                        width: 71.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -463,7 +482,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 168,
+                        width: 168.375,
                         textAlign: "left",
                         paddingTop: 4,
                         paddingRight: 6,
@@ -482,7 +501,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 92.2,
+                        width: 87.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -500,7 +519,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 92.2,
+                        width: 87.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -518,7 +537,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 76,
+                        width: 71.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -544,7 +563,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 77,
+                        width: 55.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -562,7 +581,7 @@ export default function BodyBottomRegister({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 80,
+                        width: 71.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -636,9 +655,16 @@ export default function BodyBottomRegister({
           </div>
         </div>
       </div>
-      <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
+      <animated.div
+        {...bindLogoPos()}
+        style={{
+          x: logoPos.x,
+          y: logoPos.y,
+          cursor: "grab",
+        }}
+      >
         <Navysm />
-      </div>
+      </animated.div>
     </div>
   );
 }
