@@ -380,7 +380,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: "49.2px",
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -445,7 +445,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: "49.2px",
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -510,7 +510,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: 46,
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -582,7 +582,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: 46,
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -649,7 +649,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: "49.2px",
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -714,7 +714,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: "68.8px",
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
