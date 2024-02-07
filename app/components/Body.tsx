@@ -9,6 +9,7 @@ import courseData from "../constant/courseDataInterface";
 import RegisterByPreferredCourses from "./NavComponents/RegisterByPreferredCourses";
 import RegisterByCourseCode from "./NavComponents/RegisterByCourseCode";
 import Notices from "./NavComponents/Notices";
+import { GameProvider } from "./context/GameContext"
 
 export default function Body() {
   const pathname = usePathname();
@@ -56,6 +57,7 @@ export default function Body() {
   };
 
   return (
+  <GameProvider>
     <div>
       <div //상단 바디
         style={{
@@ -176,5 +178,6 @@ export default function Body() {
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
     </div>
+  </GameProvider>
   );
 }

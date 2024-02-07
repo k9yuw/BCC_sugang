@@ -7,6 +7,7 @@ import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import Body from "../components/Body";
 import TimePeriod from "../components/popups/timePeriod";
+import { GameProvider } from '../components/context/GameContext'
 
 export default function Home() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -330,7 +331,9 @@ export default function Home() {
             </div>
           </div>
           <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
-            <Navysm />
+            <GameProvider>
+              <Navysm />
+            </GameProvider>  
           </div>
         </div>
       </div>

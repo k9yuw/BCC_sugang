@@ -6,6 +6,7 @@ import courseData from "@/app/constant/courseDataInterface";
 import ResultPopUp from "../enrollment/ResultPopUp";
 import WaitingPopUp from "../enrollment/WatingPopUp";
 import { all } from "@/app/data/all";
+import { GameProvider, useGame } from "../context/GameContext"
 
 export default function RegisterByCourseCode() {
   const pathname = usePathname();
@@ -13,6 +14,7 @@ export default function RegisterByCourseCode() {
   const [section, setSection] = useState<string>("");
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const { clickTime, startTime, timeTaken, register } = useGame();
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -22,7 +24,9 @@ export default function RegisterByCourseCode() {
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
   }, []);
 
-  const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const clickRegister = () => {   
+  
+    const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (courseCode.length !== 7) {
       alert("학수번호를 올바르게 입력해주세요.");
@@ -74,6 +78,10 @@ export default function RegisterByCourseCode() {
       }
     }
   };
+  
+    register();
+
+};
 
   return (
     <div>
@@ -202,8 +210,9 @@ export default function RegisterByCourseCode() {
             justifyContent: "center",
           }}
         >
+        
           <button
-            onClick={onRegisterClick}
+            onClick={clickRegister}
             style={{
               height: 30,
               width: 70,
@@ -219,9 +228,11 @@ export default function RegisterByCourseCode() {
           >
             신청
           </button>
+        
           {/* 대기 및 결과 팝업 */}
-          {/* {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
-          {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}} */}
+          {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
+          {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}
+        
           <button
             onClick={() => {
               setCourseCode("");

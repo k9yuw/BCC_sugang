@@ -1,6 +1,7 @@
 import courseData from "@/app/constant/courseDataInterface";
 import Image from "next/image";
 import { MouseEvent, useState, useEffect } from "react";
+import { useGame } from "../context/GameContext"
 
 export default function RegisterByPreferredCourses() {
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
