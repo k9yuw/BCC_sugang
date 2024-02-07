@@ -1,27 +1,27 @@
-"use client";
-
 import {
   useEffect,
   useState,
   MouseEvent,
   useCallback,
-  SetStateAction,
   Dispatch,
+  SetStateAction,
 } from "react";
-import Image from "next/image";
-import courseData from "../constant/courseDataInterface";
 import TimePeriod from "./popups/timePeriod";
+import TimeTable from "./table/sugangTimeTable/timeTable";
+import Navysm from "./clock/navysm";
+import courseData from "../constant/courseDataInterface";
+import Image from "next/image";
 
-export default function BodyBottomPreferred({
-  preferredCourses,
-  setPreferredCourses,
+export default function BodyBottomRegister({
+  registeredCourses,
+  setRegisteredCourses,
 }: {
-  preferredCourses: courseData[];
-  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
 }) {
   const [tableMouseEnter, setTableMouseEnter] = useState<boolean>(false);
   const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
-  const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const [registerdCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   const onClickToggleModal = useCallback(() => {
@@ -30,46 +30,46 @@ export default function BodyBottomPreferred({
 
   useEffect(() => {
     setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
-    const preferredCreditArray = preferredCourses.map((prop) => prop.credit);
-    setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-  }, [preferredCourses]);
+    const registeredCreditArray = registeredCourses.map((prop) => prop.credit);
+    setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
+  }, [registeredCourses]);
 
   const deleteCourse = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
     prop: courseData
   ) => {
-    console.log(preferredCourses);
-    const courseToDelete = preferredCourses.find(
+    console.log(registeredCourses);
+    const courseToDelete = registeredCourses.find(
       (item) => item.params === prop.params
     );
     if (!courseToDelete) {
       console.log("Failed to delete the course");
       return;
     }
-    const idx = preferredCourses.indexOf(courseToDelete);
+    const idx = registeredCourses.indexOf(courseToDelete);
     if (idx > -1) {
-      const data = [...preferredCourses];
+      const data = [...registeredCourses];
       data.splice(idx, 1);
-      setPreferredCourses(data);
+      setRegisteredCourses(data);
       localStorage.setItem(
-        "preferredCourses",
-        JSON.stringify(preferredCourses)
+        "registeredCourses",
+        JSON.stringify(registeredCourses)
       );
       alert("삭제되었습니다.");
     }
-    console.log(preferredCourses);
+    console.log(registeredCourses);
   };
 
   return (
     <div //하단 바디
       style={{
-        borderTop: 1,
-        borderTopStyle: "solid",
-        borderTopColor: "#ccc",
         paddingTop: 20,
         paddingRight: 30,
         paddingBottom: 25,
         paddingLeft: 30,
+        borderTop: 1,
+        borderTopStyle: "solid",
+        borderTopColor: "#ccc",
       }}
     >
       <div //상하단 분리선
@@ -104,7 +104,7 @@ export default function BodyBottomPreferred({
       </div>
       <div style={{ display: "flex", height: 30, paddingBottom: 5 }}>
         <h3 style={{ fontSize: 18, marginBottom: 0, marginTop: 0 }}>
-          희망과목 내역
+          수강신청 내역
         </h3>
         <h6
           style={{
@@ -118,7 +118,8 @@ export default function BodyBottomPreferred({
           [ 최소신청학점 :{" "}
           <span style={{ fontSize: 12, color: "#a20131" }}>1</span> 학점 |
           최대신청학점 :{" "}
-          <span style={{ fontSize: 15, color: "#a20131" }}>
+          <span style={{ fontSize: 12, color: "#a20131" }}>
+            {" "}
             <select
               value={maxCreditLimit ?? "19"}
               onChange={(e) => {
@@ -145,7 +146,7 @@ export default function BodyBottomPreferred({
           </span>{" "}
           학점 | 신청학점 :{" "}
           <span style={{ fontSize: 12, color: "#a20131" }}>
-            {preferredCredit}
+            {registerdCredit}
           </span>{" "}
           학점 ]
         </h6>
@@ -154,9 +155,11 @@ export default function BodyBottomPreferred({
             <TimePeriod onClickToggleModal={onClickToggleModal}></TimePeriod>
           )}
           <button
-            onClick={onClickToggleModal}
+            onClick={(e) => {
+              e.preventDefault();
+              onClickToggleModal();
+            }}
             style={{
-              fontFamily: "Segeo UI",
               width: "79.1px",
               height: 25,
               fontSize: 12,
@@ -176,7 +179,6 @@ export default function BodyBottomPreferred({
           </button>
           <button
             style={{
-              fontFamily: "Segeo UI",
               width: 100,
               height: 25,
               fontSize: 12,
@@ -202,11 +204,10 @@ export default function BodyBottomPreferred({
         </div>
       </div>
       <div style={{ height: "100%", display: "flex" }}>
-        <div //관심과목 내역 테이블
+        <div //수강신청 내역 테이블
           style={{
             borderTop: 1,
             borderTopStyle: "solid",
-            width: "100%",
           }}
         >
           <table
@@ -234,36 +235,8 @@ export default function BodyBottomPreferred({
                     borderBottomStyle: "solid",
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
-                    width: 77,
+                    width: 71.375,
                     fontWeight: 600,
-                  }}
-                >
-                  정렬순서
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ccc",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ccc",
-                    fontWeight: 600,
-                    width: 80,
-                  }}
-                >
-                  삭제
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ccc",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ccc",
-                    fontWeight: 600,
-                    width: 92,
                   }}
                 >
                   학수번호
@@ -277,7 +250,7 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 62,
+                    width: 55.375,
                   }}
                 >
                   분반
@@ -291,7 +264,7 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 92,
+                    width: 71.375,
                   }}
                 >
                   이수구분
@@ -305,10 +278,10 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 168,
+                    width: 168.375,
                   }}
                 >
-                  교과목명(강의계획서)
+                  교과목명
                 </th>
                 <th
                   style={{
@@ -319,7 +292,7 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 92.2,
+                    width: 87.375,
                   }}
                 >
                   담당교수
@@ -333,11 +306,12 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 92.2,
+                    width: 87.375,
                   }}
                 >
                   학점
                   <br />
+                  (시간)
                 </th>
                 <th
                   style={{
@@ -348,24 +322,38 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 138,
-                  }}
-                >
-                  강의시간/강의실
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ccc",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ccc",
-                    fontWeight: 600,
-                    width: 76,
+                    width: 71.375,
                   }}
                 >
                   재수강
+                </th>
+                <th
+                  style={{
+                    borderRightStyle: "solid",
+                    borderRightWidth: 1,
+                    borderRightColor: "#ccc",
+                    borderBottomStyle: "solid",
+                    borderBottomWidth: 1,
+                    borderBottomColor: "#ccc",
+                    fontWeight: 600,
+                    width: 55.375,
+                  }}
+                >
+                  상태
+                </th>
+                <th
+                  style={{
+                    borderRightStyle: "solid",
+                    borderRightWidth: 1,
+                    borderRightColor: "#ccc",
+                    borderBottomStyle: "solid",
+                    borderBottomWidth: 1,
+                    borderBottomColor: "#ccc",
+                    fontWeight: 600,
+                    width: 71.375,
+                  }}
+                >
+                  삭제
                 </th>
               </tr>
             </thead>
@@ -391,7 +379,7 @@ export default function BodyBottomPreferred({
               }}
             >
               <thead>
-                {preferredCourses.map((prop: courseData, index) => (
+                {registeredCourses.map((prop: courseData, index) => (
                   <tr
                     style={{
                       fontSize: 12,
@@ -405,69 +393,6 @@ export default function BodyBottomPreferred({
                     }}
                     key={prop.params + index}
                   >
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 77,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        fontFamily: "Segoe UI",
-                        fontWeight: 400,
-                      }}
-                    >
-                      정렬순서
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 80,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        fontFamily: "Segoe UI",
-                        fontWeight: 400,
-                      }}
-                    >
-                      <button
-                        onClick={(e) => {
-                          deleteCourse(e, prop);
-                        }}
-                        style={{
-                          width: 40,
-                          height: 22,
-                          paddingTop: 0,
-                          paddingRight: 5,
-                          paddingBottom: 2,
-                          paddingLeft: 5,
-                          fontSize: 12,
-                          lineHeight: 1,
-                          backgroundColor: "#876243",
-                          color: "#fff",
-                          borderWidth: "thin",
-                          borderTopColor: "#76563b",
-                          borderRightColor: "#76563b",
-                          borderBottomColor: "#76563b",
-                          borderLeftColor: "#76563b",
-                          borderStyle: "solid",
-                          cursor: "pointer",
-                        }}
-                      >
-                        삭제
-                      </button>
-                    </th>
                     <th
                       style={{
                         borderRightStyle: "solid",
@@ -591,27 +516,6 @@ export default function BodyBottomPreferred({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 138,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        textAlign: "left",
-                        fontFamily: "Segoe UI",
-                        fontWeight: 400,
-                        whiteSpace: "pre",
-                      }}
-                    >
-                      {prop.time_room}
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
                         width: 76,
                         paddingTop: 4,
                         paddingRight: 6,
@@ -630,12 +534,75 @@ export default function BodyBottomPreferred({
                         />
                       ) : null}
                     </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 77,
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        fontFamily: "Segoe UI",
+                        fontWeight: 400,
+                      }}
+                    >
+                      신청
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 80,
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        fontFamily: "Segoe UI",
+                        fontWeight: 400,
+                      }}
+                    >
+                      <button
+                        onClick={(e) => {
+                          deleteCourse(e, prop);
+                        }}
+                        style={{
+                          width: 40,
+                          height: 22,
+                          paddingTop: 0,
+                          paddingRight: 5,
+                          paddingBottom: 2,
+                          paddingLeft: 5,
+                          fontSize: 12,
+                          lineHeight: 1,
+                          backgroundColor: "#876243",
+                          color: "#fff",
+                          borderWidth: "thin",
+                          borderTopColor: "#76563b",
+                          borderRightColor: "#76563b",
+                          borderBottomColor: "#76563b",
+                          borderLeftColor: "#76563b",
+                          borderStyle: "solid",
+                          cursor: "pointer",
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </th>
                   </tr>
                 ))}
               </thead>
             </table>
           </div>
-          {preferredCourses.length === 0 ? ( //희망과목 없음
+          {registeredCourses.length === 0 ? (
             <div
               onMouseEnter={() => {
                 setTableMouseEnter(true);
@@ -655,10 +622,22 @@ export default function BodyBottomPreferred({
                 backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
               }}
             >
-              희망과목 데이터가 없습니다.
+              수강신청 데이터가 없습니다.
             </div>
           ) : null}
         </div>
+        <div //시간표
+          style={{
+            marginLeft: 10,
+          }}
+        >
+          <div>
+            <TimeTable innerColor={new Array(63).fill("white")} />
+          </div>
+        </div>
+      </div>
+      <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
+        <Navysm />
       </div>
     </div>
   );

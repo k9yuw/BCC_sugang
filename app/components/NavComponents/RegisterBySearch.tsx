@@ -18,6 +18,7 @@ import { lifelongEducation } from "@/app/data/lifelongEducation";
 import TimePeriod from "../popups/timePeriod";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import { all } from "@/app/data/all";
+import BodyBottomRegister from "../BodyBottomRegister";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -43,6 +44,8 @@ export default function RegisterBySearch() {
   const [searched, setSearched] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
+  const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   const onClickToggleModal = useCallback(() => {
@@ -61,9 +64,15 @@ export default function RegisterBySearch() {
   }, []);
 
   useEffect(() => {
-    console.log(preferredCourses);
-    console.log(preferredCredit);
-  }, [preferredCourses, preferredCredit]);
+    const registeredCoursesCached = localStorage.getItem("registeredCourses");
+    if (!registeredCoursesCached) {
+      localStorage.setItem("registeredCourses", "[]");
+    }
+    const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
+    setRegisteredCourses(data);
+    const registeredCreditArray = data.map((prop) => prop.credit);
+    setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
+  }, []);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
@@ -71,34 +80,56 @@ export default function RegisterBySearch() {
   ) => {
     e.preventDefault();
     const courseId = prop.rowid + prop.params;
-    const courseIdArray = preferredCourses.map(
-      (prop) => prop.rowid + prop.params
-    );
-    if (courseIdArray.includes(courseId)) {
-      //중복 신청 filtering
-      alert("같은 과목을 중복 신청할 수 없습니다.");
-    } else {
-      if (pathname === "/courseRegisteration") {
-        //수강신청
-      } else if (pathname === "/preferredCourses") {
-        //관심과목 등록
-        let maxCreditLimit = localStorage.getItem("maxCreditLimit");
-        if (maxCreditLimit === null) {
-          maxCreditLimit = "19";
-          localStorage.setItem("maxCreditLimit", "19");
+    let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+    if (maxCreditLimit === null) {
+      maxCreditLimit = "19";
+      localStorage.setItem("maxCreditLimit", "19");
+    }
+    //수강신청
+    if (pathname === "/courseRegisteration") {
+      const courseIdArrayRegistered = registeredCourses.map(
+        (prop) => prop.rowid + prop.params
+      );
+      if (courseIdArrayRegistered.includes(courseId))
+        //중복 신청 filtering
+        alert("이미 신청된 과목입니다.");
+      else {
+        //학점 초과 filtering
+        if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
+          alert("신청가능한 학점을 초과했습니다");
+        } else {
+          const data = [...registeredCourses, prop];
+          setRegisteredCourses(data);
+          setRegisteredCredit((prep) => prep + prop.credit);
+          localStorage.setItem("registeredCourses", JSON.stringify(data));
+          //여기에 게임 넣으면 됨!
+          alert("신청 되었습니다.");
         }
-        if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
+      }
+    }
+    //관심과목 등록
+    else if (pathname === "/preferredCourses") {
+      const courseIdArrayPreferred = preferredCourses.map(
+        (prop) => prop.rowid + prop.params
+      );
+      if (courseIdArrayPreferred.includes(courseId))
+        //중복 신청 filtering
+        alert("이미 신청된 과목입니다.");
+      else {
+        //학점 초과 filtering
+        if (preferredCredit + prop.credit > parseInt(maxCreditLimit)) {
+          alert("신청가능한 학점을 초과했습니다");
+        } else {
           const data = [...preferredCourses, prop];
           setPreferredCourses(data);
           setPreferredCredit((prep) => prep + prop.credit);
           localStorage.setItem("preferredCourses", JSON.stringify(data));
           alert("관심과목 등록 되었습니다.");
-        } else {
-          alert("신청가능한 학점을 초과했습니다");
         }
       }
     }
   };
+
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
     setCourseTypeOne(e.target.value);
     setSelectedIdxOne(e.target.selectedIndex);
@@ -111,6 +142,7 @@ export default function RegisterBySearch() {
       setCourseSelect([false, false]);
     }
   };
+
   const onClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearched(true);
@@ -164,7 +196,6 @@ export default function RegisterBySearch() {
       const re = /\((.*?)\)/;
       const days = data.map((prop) => prop.time_room.match(re));
       // data = data.filter((prop) => prop.time_room.match(re));
-      console.log(days);
       setSearchedData(data);
     }
   };
@@ -720,8 +751,9 @@ export default function RegisterBySearch() {
                   </select>
                   <span>
                     {isOpenModal && (
-                      <TimePeriod onClickToggleModal={onClickToggleModal}>
-                      </TimePeriod>
+                      <TimePeriod
+                        onClickToggleModal={onClickToggleModal}
+                      ></TimePeriod>
                     )}
                     <button
                       type="button"
@@ -1599,8 +1631,17 @@ export default function RegisterBySearch() {
           </div>
         )}
       </div>
+      {pathname === "/courseRegisteration" ? (
+        <BodyBottomRegister
+          registeredCourses={registeredCourses}
+          setRegisteredCourses={setRegisteredCourses}
+        />
+      ) : null}
       {pathname === "/preferredCourses" ? (
-        <BodyBottomPreferred preferredCourses={preferredCourses} />
+        <BodyBottomPreferred
+          preferredCourses={preferredCourses}
+          setPreferredCourses={setPreferredCourses}
+        />
       ) : null}
     </div>
   );
