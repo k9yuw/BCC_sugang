@@ -1,14 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState, useCallback} from "react";
 import { useRouter } from "next/navigation";
+import FirstAlert from "./components/popups/firstAlert";
 
 export default function Home() {
   const [language, setLanguage] = useState<"eng" | "kor">("kor");
   const [id, setId] = useState("");
-
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {setIsOpen(true);};
+
+  const closeModal = () => {setIsOpen(false);};
+
+  useEffect(() =>
+  {
+	openModal();
+  },[])
 
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -33,6 +43,7 @@ export default function Home() {
     <div
       style={{ backgroundColor: "#f5f5f5", fontFamily: "Apple SD Gothic Neo" }}
     >
+      <FirstAlert isOpen={isOpen} closeModal={closeModal} />
       <div //header
         style={{
           minWidth: 1260,
@@ -262,6 +273,7 @@ export default function Home() {
                     textAlign: "center",
                     fontFamily: "Segeo UI",
                     fontWeight: "600",
+                    cursor: "pointer",
                   }}
                 >
                   로그인
