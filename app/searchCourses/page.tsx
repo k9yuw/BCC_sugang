@@ -20,11 +20,11 @@ export default function Home() {
   const [campus, setCampus] = useState("서울"); //캠퍼스
   const [collegeSectionType, setCollegeSectionType] = useState("대학"); //대학구분
   const [courseSelect, setCourseSelect] = useState([true, true]);
-  const [selectedIdxOne, setSelectedIdxOne] = useState(0);
+  const [selectedIdxOne, setSelectedIdxOne] = useState<0 | 1 | 2>(0);
   const [selectedIdxTwo, setSelectedIdxTwo] = useState(0);
   const [selectedIdxThree, setSelectedIdxThree] = useState(0);
-  const [courseTypeOne, setCourseTypeOne] = useState("전공"); //이수구분
-  const [courseTypeTwo, setCourseTypeTwo] = useState("간호대학");
+  const [courseTypeOne, setCourseTypeOne] = useState<string>("전공"); //이수구분
+  const [courseTypeTwo, setCourseTypeTwo] = useState<string>("간호대학");
   const [courseTypeThree, setCourseTypeThree] = useState<string>("간호학과");
   const [credit, setCredit] = useState<string>(); //학점
   const [day, setDay] = useState(""); //요일
@@ -54,7 +54,7 @@ export default function Home() {
   };
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
     setCourseTypeOne(e.target.value);
-    setSelectedIdxOne(e.target.selectedIndex);
+    setSelectedIdxOne(e.target.selectedIndex as 0 | 1 | 2);
 
     if (e.target.selectedIndex < 2) {
       setCourseSelect([true, true]);
@@ -454,8 +454,8 @@ export default function Home() {
                                 outline: "none",
                               }}
                             >
-                              {selectedIdxOne < 2
-                                ? courseSelectData[selectedIdxOne][
+                              {[selectedIdxOne < 2]
+                                ? courseSelectData[selectedIdxOne as 0 | 1][
                                     courseTypeTwo
                                   ]?.map((prop: string) => (
                                     <option key={prop}>{prop}</option>
@@ -496,16 +496,10 @@ export default function Home() {
                       </span>
                       <input
                         type="text"
-                        onInput={(e: any) =>
-                          (e.target.value = e.target.value.replace(
-                            /[^0-9]/g,
-                            ""
-                          ))
-                        }
                         maxLength={3}
                         value={credit}
                         onChange={(e) => {
-                          setCredit(e.target.value);
+                          setCredit(e.target.value.replace(/[^0-9]/g, ""));
                         }}
                         style={{
                           width: 74,
@@ -794,16 +788,14 @@ export default function Home() {
                       <input
                         type="text"
                         maxLength={7}
-                        onInput={(e: any) => {
-                          e.target.value = e.target.value.replace(
-                            /[^a-zA-Z0-9]/g,
-                            ""
-                          );
-                          const x = e.target.value;
-                          e.target.value = x.toUpperCase();
-                        }}
                         value={courseCode}
-                        onChange={(e) => setCourseCode(e.target.value)}
+                        onChange={(e) =>
+                          setCourseCode(
+                            e.target.value
+                              .replace(/[^a-zA-Z0-9]/g, "")
+                              .toUpperCase()
+                          )
+                        }
                         style={{
                           width: 74,
                           height: 25,
@@ -838,16 +830,14 @@ export default function Home() {
                       <input
                         type="text"
                         maxLength={2}
-                        onInput={(e: any) => {
-                          e.target.value = e.target.value.replace(
-                            /[^a-zA-Z0-9]/g,
-                            ""
-                          );
-                          const x = e.target.value;
-                          e.target.value = x.toUpperCase();
-                        }}
                         value={section}
-                        onChange={(e) => setSection(e.target.value)}
+                        onChange={(e) =>
+                          setSection(
+                            e.target.value
+                              .replace(/[^a-zA-Z0-9]/g, "")
+                              .toUpperCase()
+                          )
+                        }
                         style={{
                           width: 74,
                           height: 25,

@@ -15,7 +15,8 @@ export default function RegisterByCourseCode() {
   const [section, setSection] = useState<string>("");
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
-  const { clickTime, startTime, timeTaken, register } = useGame();
+  const { register } = useGame();
+  const [timeTaken, setTimeTaken] = useState<number>();
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
 
@@ -83,12 +84,18 @@ export default function RegisterByCourseCode() {
         if (registeredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
           alert("신청가능한 학점을 초과했습니다");
         } else {
-          const data = [...registeredCourses, searchedData];
-          setRegisteredCourses(data);
-          setRegisteredCredit((prep) => prep + searchedData.credit);
-          localStorage.setItem("registeredCourses", JSON.stringify(data));
           //여기에 게임 넣으면 됨!
-          alert("신청 되었습니다.");
+          const result = register();
+          console.log("result:", result);
+          if (1000 > result && result > 0) {
+            // 조정
+            const data = [...registeredCourses, searchedData];
+            setRegisteredCourses(data);
+            setRegisteredCredit((prep) => prep + searchedData.credit);
+            localStorage.setItem("registeredCourses", JSON.stringify(data));
+          }
+          setTimeTaken(result);
+          // alert("신청 되었습니다.");
         }
       }
     }
@@ -160,14 +167,11 @@ export default function RegisterByCourseCode() {
             <input
               type="text"
               maxLength={7}
-              onInput={(e: any) => {
-                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-                const x = e.target.value;
-                e.target.value = x.toUpperCase();
-              }}
               value={courseCode}
               onChange={(e) => {
-                setCourseCode(e.target.value);
+                setCourseCode(
+                  e.target.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase()
+                );
               }}
               style={{
                 margin: 5,
@@ -213,14 +217,11 @@ export default function RegisterByCourseCode() {
             <input
               type="text"
               maxLength={2}
-              onInput={(e: any) => {
-                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-                const x = e.target.value;
-                e.target.value = x.toUpperCase();
-              }}
               value={section}
               onChange={(e) => {
-                setSection(e.target.value);
+                setCourseCode(
+                  e.target.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase()
+                );
               }}
               style={{
                 margin: 5,
@@ -261,12 +262,11 @@ export default function RegisterByCourseCode() {
           </button>
 
           {/* 대기 및 결과 팝업 */}
-          {startTime != 0 && clickTime != 0 && timeTaken < 1000 ? (
+          {timeTaken === undefined ? null : timeTaken > 0 ? (
+            <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+          ) : (
             <ResultPopUp resultType="toEarly" />
-          ) : null}
-          {startTime != 0 && clickTime != 0 && timeTaken > 1000 ? (
-            <WaitingPopUp timeTaken={timeTaken} rand={Math.random()} />
-          ) : null}
+          )}
 
           <button
             onClick={() => {

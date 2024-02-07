@@ -1,7 +1,11 @@
 type objType = {
-  [index: number]: any;
-  0: object;
-  1: object;
+  0: {
+    [key: string]: string[];
+  };
+  1: {
+    [key: string]: string[];
+  };
+  2: string[];
 };
 
 export const courseSelectData: objType = {
