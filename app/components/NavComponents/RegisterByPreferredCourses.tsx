@@ -3,6 +3,8 @@ import Image from "next/image";
 import { MouseEvent, useState, useEffect } from "react";
 import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
+import WaitingPopUp from "../enrollment/WatingPopUp";
+import ResultPopUp from "../enrollment/ResultPopUp";
 
 export default function RegisterByPreferredCourses() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -254,7 +256,7 @@ export default function RegisterByPreferredCourses() {
               tableLayout: "fixed",
             }}
           >
-            <thead style={{}}>
+            <thead>
               {preferredCourses.map((prop: courseData, index) => (
                 <tr
                   style={{
@@ -503,6 +505,14 @@ export default function RegisterByPreferredCourses() {
           </div>
         ) : null}
       </div>
+
+      {/* 대기 및 결과 팝업 */}
+      {timeTaken === undefined ? null : timeTaken > 0 ? (
+        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      ) : (
+        <ResultPopUp resultType="toEarly" />
+      )}
+
       <BodyBottomRegister
         registeredCourses={registeredCourses}
         setRegisteredCourses={setRegisteredCourses}
