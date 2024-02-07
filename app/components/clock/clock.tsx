@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
 import bgm from './bgm.mp3';
-import useSugang from '../../hooks/useSugang';
+import { useGame } from "../context/GameContext"
 
 const Clock = ({}) => {
   
@@ -11,12 +11,11 @@ const Clock = ({}) => {
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
-  const { startGame, clockStarted, startText, date: clockTime } = useSugang();
+  const { startGame, clockStarted, startText, date: clockTime } = useGame();
  
 
   const clockRef = useRef(null);
   const msCheckboxRef = useRef<HTMLInputElement>(null);
-  const bgmCheckboxRef = useRef<HTMLInputElement>(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -78,10 +77,6 @@ const Clock = ({}) => {
             <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
             밀리초 보기
           </label>
-          <label>
-            <input ref={bgmCheckboxRef} type="checkbox" id="bgmCheckbox" />
-            음악 듣기
-          </label>
         </div>
         <div>
         <button onClick={startGame}>{startText}</button>
@@ -89,7 +84,6 @@ const Clock = ({}) => {
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
     </div>
-
 );
 
 }
