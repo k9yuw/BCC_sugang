@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useEffect, useState, useCallback} from "react";
+import { FormEvent, useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import FirstAlert from "./components/popups/firstAlert";
 
@@ -11,25 +11,25 @@ export default function Home() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {setIsOpen(true);};
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
-  const closeModal = () => {setIsOpen(false);};
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
-  useEffect(() =>
-  {
-	openModal();
-  },[])
-
+  useEffect(() => {
+    openModal();
+  }, []);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(id);
     router.push("/courseRegisteration");
 
     localStorage.setItem("username", id);
 
     // const formData = new FormData(e.currentTarget);
-    // console.log(formData);
     // const response = await fetch("/api/login", {
     //   method: "POST",
     //   body: formData,
@@ -40,9 +40,7 @@ export default function Home() {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "#f5f5f5", fontFamily: "Apple SD Gothic Neo" }}
-    >
+    <div style={{ backgroundColor: "#f5f5f5", fontFamily: "Segoe UI" }}>
       <FirstAlert isOpen={isOpen} closeModal={closeModal} />
       <div //header
         style={{
