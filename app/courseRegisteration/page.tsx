@@ -1,17 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Navysm from "../components/clock/navysm";
 import TimeTable from "../components/table/sugangTimeTable/timeTable";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import Body from "../components/Body";
-import { maxHeaderSize } from "http";
+import TimePeriod from "../components/popups/timePeriod";
 
 export default function Home() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [registerdCredit, setRegisteredCredit] = useState(0);
   const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
 
   useEffect(() => {
     setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
@@ -80,7 +85,16 @@ export default function Home() {
               학점 ]
             </h6>
             <div style={{ marginLeft: "auto" }}>
+              {isOpenModal && (
+                <TimePeriod
+                  onClickToggleModal={onClickToggleModal}
+                ></TimePeriod>
+              )}
               <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClickToggleModal();
+                }}
                 style={{
                   width: "79.1px",
                   height: 25,
@@ -94,7 +108,7 @@ export default function Home() {
                   borderLeftColor: "#ccc",
                   borderStyle: "solid",
                   padding: "0px",
-                  cursor:"pointer"
+                  cursor: "pointer",
                 }}
               >
                 교시확인표

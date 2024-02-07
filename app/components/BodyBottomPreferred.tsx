@@ -150,9 +150,7 @@ export default function BodyBottomPreferred({
         </h6>
         <div style={{ marginLeft: "auto" }}>
           {isOpenModal && (
-            <TimePeriod onClickToggleModal={onClickToggleModal}>
-              이곳에 children이 들어갑니다.
-            </TimePeriod>
+            <TimePeriod onClickToggleModal={onClickToggleModal}></TimePeriod>
           )}
           <button
             onClick={onClickToggleModal}

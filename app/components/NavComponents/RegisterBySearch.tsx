@@ -721,7 +721,6 @@ export default function RegisterBySearch() {
                   <span>
                     {isOpenModal && (
                       <TimePeriod onClickToggleModal={onClickToggleModal}>
-                        이곳에 children이 들어갑니다.
                       </TimePeriod>
                     )}
                     <button

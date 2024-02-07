@@ -207,6 +207,7 @@ body {
   border-radius: 7px;
   width: 400px;
   max-width: 400px; 
+  background-color: #fff;
 }
 
 .clock-container {

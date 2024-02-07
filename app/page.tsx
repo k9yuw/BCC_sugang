@@ -1075,8 +1075,8 @@ export default function Home() {
             lineHeight: 1.5,
           }}
         >
-          02841 서울특별시 성북구 안암로 145 / TEL.02.3290.1114. /
-          webmaster@korea.ac.kr
+          02855 서울특별시 성북구 고려대로22길 6-7 / TEL.02.1234.5678. /
+          sinye2002@korea.ac.kr minwin00@korea.ac.kr kyuwon@korea.ac.kr
           <br />
           Copyright © 2023 BBang Co Co. All Rights Reserved
         </div>
