@@ -19,7 +19,7 @@ export default interface courseData {
   flexible_term: number;
   flipped_class_yn: string;
   absolute_yn: string;
-  time_room: string;
+  time_room: string[];
   campus: string;
   flexible_to_dt: string;
   flexible_fr_dt: string;

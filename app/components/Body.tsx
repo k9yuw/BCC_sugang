@@ -9,6 +9,7 @@ import courseData from "../constant/courseDataInterface";
 import RegisterByPreferredCourses from "./NavComponents/RegisterByPreferredCourses";
 import RegisterByCourseCode from "./NavComponents/RegisterByCourseCode";
 import Notices from "./NavComponents/Notices";
+import { GameProvider } from "./context/GameContext"
 
 export default function Body() {
   const pathname = usePathname();
@@ -34,28 +35,8 @@ export default function Body() {
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
 
-  const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-  };
-  const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value == "전공") {
-    }
-  };
-  const onClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setSearched(true);
-    if (selectedIdxOne === 0) {
-      let data = major[selectedIdxTwo][selectedIdxThree].filter(
-        (prop) => prop.credit === credit
-      );
-      data = data.filter((prop) => prop.time_room.includes(day));
-
-      data = data.filter((prop) => prop.time_room.match("/(*)/"));
-      setSearchedData(major[selectedIdxTwo][selectedIdxThree]);
-    }
-  };
-
   return (
+  <GameProvider>
     <div>
       <div //상단 바디
         style={{
@@ -176,5 +157,6 @@ export default function Body() {
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
     </div>
+  </GameProvider>
   );
 }

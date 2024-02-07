@@ -3,18 +3,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
 import bgm from "./bgm.mp3";
-import useSugang from "../../hooks/useSugang";
+import { useGame } from "../context/GameContext";
+import { faK } from "@fortawesome/free-solid-svg-icons";
 
 const Clock = ({}) => {
-  const [timeFormat, setTimeFormat] = useState<string>("");
+  const [timeFormat, setTimeFormat] = useState<string>("09시 59분 50초");
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
-  const { startGame, clockStarted, startText, date: clockTime } = useSugang();
+  const { startGame, clockStarted, startText, date: clockTime } = useGame();
 
   const clockRef = useRef(null);
   const msCheckboxRef = useRef<HTMLInputElement>(null);
-  const bgmCheckboxRef = useRef<HTMLInputElement>(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -67,35 +67,37 @@ const Clock = ({}) => {
             )}
           </div>
         </div>
-
-        <div className={styles.checkboxes}>
-          <span style={{ marginRight: 130, marginLeft: 7 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            padding: "0px 10px 10px 10px",
+          }}
+        >
+          <div className={styles.checkboxes} style={{ fontSize: 17 }}>
             <label>
               <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
               밀리초 보기
             </label>
-            <label>
-              <input ref={bgmCheckboxRef} type="checkbox" id="bgmCheckbox" />
-              음악 듣기
-            </label>
-          </span>
-          <button
-            onClick={startGame}
-            style={{
-              backgroundColor: "#a20131",
-              fontSize: 17,
-              color: "#fff",
-              border: 0,
-              width: 100,
-              height: 30,
-              marginBottom: 20,
-              borderRadius: "10%",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
-          >
-            {startText}
-          </button>
+          </div>
+          <div>
+            <button
+              onClick={startGame}
+              style={{
+                backgroundColor: "#a20131",
+                fontSize: 20,
+                color: "#fff",
+                width: 130,
+                height: 40,
+                borderRadius: 5,
+                border: 0,
+                cursor: "pointer",
+              }}
+            >
+              {startText}
+            </button>
+          </div>
         </div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />

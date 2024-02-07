@@ -1,28 +1,36 @@
-"use client";
-
 import {
   useEffect,
   useState,
   MouseEvent,
   useCallback,
-  SetStateAction,
   Dispatch,
+  SetStateAction,
 } from "react";
-import Image from "next/image";
-import courseData from "../constant/courseDataInterface";
 import TimePeriod from "./popups/timePeriod";
+import TimeTable from "./table/sugangTimeTable/timeTable";
+import Navysm from "./clock/navysm";
+import courseData from "../constant/courseDataInterface";
+import Image from "next/image";
+import { timeTableColor } from "../constant/timeTableColor";
+import { useSpring, animated } from "react-spring";
+import { useDrag } from "react-use-gesture";
 
-export default function BodyBottomPreferred({
-  preferredCourses,
-  setPreferredCourses,
+export default function BodyBottomRegister({
+  registeredCourses,
+  setRegisteredCourses,
 }: {
-  preferredCourses: courseData[];
-  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
 }) {
   const [tableMouseEnter, setTableMouseEnter] = useState<boolean>(false);
   const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
-  const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const [registerdCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
+  const logoPos = useSpring({ x: 0, y: 0 });
+  const bindLogoPos = useDrag((params) => {
+    logoPos.x.set(params.offset[0]);
+    logoPos.y.set(params.offset[1]);
+  });
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -30,43 +38,43 @@ export default function BodyBottomPreferred({
 
   useEffect(() => {
     setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
-    const preferredCreditArray = preferredCourses.map((prop) => prop.credit);
-    setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-  }, [preferredCourses]);
+    const registeredCreditArray = registeredCourses.map((prop) => prop.credit);
+    setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
+  }, [registeredCourses]);
 
   const deleteCourse = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
     prop: courseData
   ) => {
-    console.log(preferredCourses);
-    const courseToDelete = preferredCourses.find(
+    console.log(registeredCourses);
+    const courseToDelete = registeredCourses.find(
       (item) => item.params === prop.params
     );
     if (!courseToDelete) {
       console.log("Failed to delete the course");
       return;
     }
-    const idx = preferredCourses.indexOf(courseToDelete);
+    const idx = registeredCourses.indexOf(courseToDelete);
     if (idx > -1) {
-      const data = [...preferredCourses];
+      const data = [...registeredCourses];
       data.splice(idx, 1);
-      setPreferredCourses(data);
-      localStorage.setItem("preferredCourses", JSON.stringify(data));
+      setRegisteredCourses(data);
+      localStorage.setItem("registeredCourses", JSON.stringify(data));
       alert("삭제되었습니다.");
     }
-    console.log(preferredCourses);
+    console.log(registeredCourses);
   };
 
   return (
     <div //하단 바디
       style={{
-        borderTop: 1,
-        borderTopStyle: "solid",
-        borderTopColor: "#ccc",
         paddingTop: 20,
         paddingRight: 30,
         paddingBottom: 25,
         paddingLeft: 30,
+        borderTop: 1,
+        borderTopStyle: "solid",
+        borderTopColor: "#ccc",
       }}
     >
       <div //상하단 분리선
@@ -108,7 +116,7 @@ export default function BodyBottomPreferred({
             color: "#0d0d0d",
           }}
         >
-          희망과목 내역
+          수강신청 내역
         </h3>
         <h6
           style={{
@@ -116,14 +124,15 @@ export default function BodyBottomPreferred({
             marginBottom: 0,
             marginTop: 0,
             marginLeft: 15,
-            lineHeight: 1.5,
+            lineHeight: 1.8,
             color: "#333",
           }}
         >
           [ 최소신청학점 :{" "}
           <span style={{ fontSize: 12, color: "#a20131" }}>1</span> 학점 |
           최대신청학점 :{" "}
-          <span style={{ fontSize: 15, color: "#a20131" }}>
+          <span style={{ fontSize: 12, color: "#a20131" }}>
+            {" "}
             <select
               value={maxCreditLimit ?? "19"}
               onChange={(e) => {
@@ -150,7 +159,7 @@ export default function BodyBottomPreferred({
           </span>{" "}
           학점 | 신청학점 :{" "}
           <span style={{ fontSize: 12, color: "#a20131" }}>
-            {preferredCredit}
+            {registerdCredit}
           </span>{" "}
           학점 ]
         </h6>
@@ -159,7 +168,10 @@ export default function BodyBottomPreferred({
             <TimePeriod onClickToggleModal={onClickToggleModal}></TimePeriod>
           )}
           <button
-            onClick={onClickToggleModal}
+            onClick={(e) => {
+              e.preventDefault();
+              onClickToggleModal();
+            }}
             style={{
               width: "79.1px",
               height: 25,
@@ -205,11 +217,10 @@ export default function BodyBottomPreferred({
         </div>
       </div>
       <div style={{ height: "100%", display: "flex" }}>
-        <div //관심과목 내역 테이블
+        <div //수강신청 내역 테이블
           style={{
             borderTop: 1,
             borderTopStyle: "solid",
-            width: "100%",
           }}
         >
           <table
@@ -237,36 +248,8 @@ export default function BodyBottomPreferred({
                     borderBottomStyle: "solid",
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
-                    width: 77,
+                    width: 71.375,
                     fontWeight: 600,
-                  }}
-                >
-                  정렬순서
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ccc",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ccc",
-                    fontWeight: 600,
-                    width: 80,
-                  }}
-                >
-                  삭제
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ccc",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ccc",
-                    fontWeight: 600,
-                    width: 92,
                   }}
                 >
                   학수번호
@@ -280,7 +263,7 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 62,
+                    width: 55.375,
                   }}
                 >
                   분반
@@ -294,7 +277,7 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 92,
+                    width: 71.375,
                   }}
                 >
                   이수구분
@@ -308,10 +291,10 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 168,
+                    width: 168.375,
                   }}
                 >
-                  교과목명(강의계획서)
+                  교과목명
                 </th>
                 <th
                   style={{
@@ -322,7 +305,7 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 92.2,
+                    width: 87.375,
                   }}
                 >
                   담당교수
@@ -336,11 +319,12 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 92.2,
+                    width: 87.375,
                   }}
                 >
                   학점
                   <br />
+                  (시간)
                 </th>
                 <th
                   style={{
@@ -351,24 +335,38 @@ export default function BodyBottomPreferred({
                     borderBottomWidth: 1,
                     borderBottomColor: "#ccc",
                     fontWeight: 600,
-                    width: 138,
-                  }}
-                >
-                  강의시간/강의실
-                </th>
-                <th
-                  style={{
-                    borderRightStyle: "solid",
-                    borderRightWidth: 1,
-                    borderRightColor: "#ccc",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ccc",
-                    fontWeight: 600,
-                    width: 76,
+                    width: 71.375,
                   }}
                 >
                   재수강
+                </th>
+                <th
+                  style={{
+                    borderRightStyle: "solid",
+                    borderRightWidth: 1,
+                    borderRightColor: "#ccc",
+                    borderBottomStyle: "solid",
+                    borderBottomWidth: 1,
+                    borderBottomColor: "#ccc",
+                    fontWeight: 600,
+                    width: 55.375,
+                  }}
+                >
+                  상태
+                </th>
+                <th
+                  style={{
+                    borderRightStyle: "solid",
+                    borderRightWidth: 1,
+                    borderRightColor: "#ccc",
+                    borderBottomStyle: "solid",
+                    borderBottomWidth: 1,
+                    borderBottomColor: "#ccc",
+                    fontWeight: 600,
+                    width: 71.375,
+                  }}
+                >
+                  삭제
                 </th>
               </tr>
             </thead>
@@ -394,7 +392,7 @@ export default function BodyBottomPreferred({
               }}
             >
               <thead>
-                {preferredCourses.map((prop: courseData, index) => (
+                {registeredCourses.map((prop: courseData, index) => (
                   <tr
                     style={{
                       fontSize: 12,
@@ -416,7 +414,7 @@ export default function BodyBottomPreferred({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 77,
+                        width: 71.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -424,7 +422,21 @@ export default function BodyBottomPreferred({
                         fontWeight: 400,
                       }}
                     >
-                      정렬순서
+                      <div
+                        style={{
+                          width: 65,
+                          height: 25,
+                          backgroundColor: timeTableColor[index],
+                          borderRadius: 3,
+                          color: "#fff",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          lineHeight: 2.2,
+                          fontWeight: 800,
+                        }}
+                      >
+                        {prop.cour_cd}
+                      </div>
                     </th>
                     <th
                       style={{
@@ -434,7 +446,142 @@ export default function BodyBottomPreferred({
                         borderBottomStyle: "solid",
                         borderBottomWidth: 1,
                         borderBottomColor: "#ddd",
-                        width: 80,
+                        width: 55.375,
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        fontWeight: 400,
+                      }}
+                    >
+                      {prop.cour_cls}
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 71.375,
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        fontWeight: 400,
+                      }}
+                    >
+                      {prop.isu_nm}
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 168.375,
+                        textAlign: "left",
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        fontWeight: 400,
+                      }}
+                    >
+                      {prop.cour_nm}
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 87.375,
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        fontWeight: 400,
+                      }}
+                    >
+                      {prop.prof_nm}
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 87.375,
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        fontWeight: 400,
+                      }}
+                    >
+                      {prop.time}
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 71.375,
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                      }}
+                    >
+                      {prop.absolute_yn === "Y" ? (
+                        <Image
+                          src={
+                            "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
+                          }
+                          alt="check"
+                          width={13}
+                          height={9}
+                        />
+                      ) : null}
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 55.375,
+                        paddingTop: 4,
+                        paddingRight: 6,
+                        paddingBottom: 4,
+                        paddingLeft: 6,
+                        fontWeight: 400,
+                      }}
+                    >
+                      신청
+                    </th>
+                    <th
+                      style={{
+                        borderRightStyle: "solid",
+                        borderRightWidth: 1,
+                        borderRightColor: "#ddd",
+                        borderBottomStyle: "solid",
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#ddd",
+                        width: 71.375,
                         paddingTop: 4,
                         paddingRight: 6,
                         paddingBottom: 4,
@@ -469,167 +616,12 @@ export default function BodyBottomPreferred({
                         삭제
                       </button>
                     </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 92,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        fontWeight: 400,
-                      }}
-                    >
-                      {prop.cour_cd}
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 62,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        fontWeight: 400,
-                      }}
-                    >
-                      {prop.cour_cls}
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 92,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        fontWeight: 400,
-                      }}
-                    >
-                      {prop.isu_nm}
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 168,
-                        textAlign: "left",
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        fontWeight: 400,
-                      }}
-                    >
-                      {prop.cour_nm}
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 92.2,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        fontWeight: 400,
-                      }}
-                    >
-                      {prop.prof_nm}
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 92.2,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        fontWeight: 400,
-                      }}
-                    >
-                      {prop.time}
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 138,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                        textAlign: "left",
-                        fontWeight: 400,
-                        whiteSpace: "pre",
-                      }}
-                    >
-                      {prop.time_room}
-                    </th>
-                    <th
-                      style={{
-                        borderRightStyle: "solid",
-                        borderRightWidth: 1,
-                        borderRightColor: "#ddd",
-                        borderBottomStyle: "solid",
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#ddd",
-                        width: 76,
-                        paddingTop: 4,
-                        paddingRight: 6,
-                        paddingBottom: 4,
-                        paddingLeft: 6,
-                      }}
-                    >
-                      {prop.absolute_yn === "Y" ? (
-                        <Image
-                          src={
-                            "https://sugang.korea.ac.kr/resources/img/contents/icon-check.png"
-                          }
-                          alt="check"
-                          width={13}
-                          height={9}
-                        />
-                      ) : null}
-                    </th>
                   </tr>
                 ))}
               </thead>
             </table>
           </div>
-          {preferredCourses.length === 0 ? ( //희망과목 없음
+          {registeredCourses.length === 0 ? (
             <div
               onMouseEnter={() => {
                 setTableMouseEnter(true);
@@ -649,11 +641,31 @@ export default function BodyBottomPreferred({
                 backgroundColor: tableMouseEnter ? "#F2F2F2" : "#fff",
               }}
             >
-              희망과목 데이터가 없습니다.
+              수강신청 데이터가 없습니다.
             </div>
           ) : null}
         </div>
+        <div //시간표
+          style={{
+            marginLeft: 10,
+          }}
+        >
+          <div>
+            <TimeTable innerColor={new Array(63).fill("white")} />
+          </div>
+        </div>
       </div>
+      <animated.div
+        {...bindLogoPos()}
+        style={{
+          x: logoPos.x,
+          y: logoPos.y,
+          cursor: "grab",
+          top: 10,
+        }}
+      >
+        <Navysm />
+      </animated.div>
     </div>
   );
 }

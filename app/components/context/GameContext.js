@@ -8,7 +8,8 @@ function GameProvider({ children }) {
   const [startTime, setStartTime] = useState(0);
   const [clickTime, setClickTime] = useState(0);
   const [startText, setStartText] = useState("게임 시작");
-  const [date, setDate] = useState(new Date().getTime());
+  const [date, setDate] = useState(new Date(2024, 1, 13, 9, 59, 50).getTime());
+  const timeTaken = clickTime - startTime;
 
   // 게임 시작 함수
   const startGame = () => {
@@ -42,7 +43,7 @@ function GameProvider({ children }) {
 
 
   return (
-    <GameContext.Provider value={{ startGame, register, startText, clockStarted, clickTime, date }}>
+    <GameContext.Provider value={{ startGame, register, startText, clockStarted, clickTime, date, timeTaken }}>
       {children}
     </GameContext.Provider>
   );

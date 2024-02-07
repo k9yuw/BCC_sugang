@@ -1,11 +1,12 @@
+//쓸 필요없음
 import {useState, useEffect} from "react";
 import ResultPopUp from "./ResultPopUp";
 import WaitingPopUp from "./WatingPopUp";
+import { useGame } from "../context/GameContext"
 
 //신청 버튼
-const ClickGame = ({ startTime, clickTime, register }) => {
+const ClickGame = ({ timeTaken, startTime, clickTime, register }) => {
 
-  const timeTaken = clickTime - startTime
   console.log(`시작 ${startTime}`);
   console.log(`클릭 ${clickTime}`); 
   console.log(timeTaken); 
