@@ -2,19 +2,19 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
-import bgm from "./bgm.mp3";
-import useSugang from "../../hooks/useSugang";
+import bgm from './bgm.mp3';
+import { useGame } from "../context/GameContext"
 
 const Clock = ({}) => {
   const [timeFormat, setTimeFormat] = useState<string>("");
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
-  const { startGame, clockStarted, startText, date: clockTime } = useSugang();
+  const { startGame, clockStarted, startText, date: clockTime } = useGame();
+ 
 
   const clockRef = useRef(null);
   const msCheckboxRef = useRef<HTMLInputElement>(null);
-  const bgmCheckboxRef = useRef<HTMLInputElement>(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -69,37 +69,15 @@ const Clock = ({}) => {
         </div>
 
         <div className={styles.checkboxes}>
-          <span style={{ marginRight: 130, marginLeft: 7 }}>
-            <label>
-              <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
-              밀리초 보기
-            </label>
-            <label>
-              <input ref={bgmCheckboxRef} type="checkbox" id="bgmCheckbox" />
-              음악 듣기
-            </label>
-          </span>
-          <button
-            onClick={startGame}
-            style={{
-              backgroundColor: "#a20131",
-              fontSize: 17,
-              color: "#fff",
-              border: 0,
-              width: 100,
-              height: 30,
-              marginBottom: 20,
-              borderRadius: "10%",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
-          >
-            {startText}
-          </button>
+          <label>
+            <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
+            밀리초 보기
+          </label>
         </div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
     </div>
-  );
-};
+);
+
+}
 export default Clock;
