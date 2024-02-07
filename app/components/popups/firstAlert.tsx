@@ -110,16 +110,20 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
             <button
               onClick={() => closeModal()}
               style={{
-                width: "50px",
+                width: "480px",
                 height: "30px",
                 border: "0",
-                fontSize: "17px",
+                fontSize: "18px",
                 backgroundColor: "white",
                 color: "#a20131",
                 cursor: "pointer",
+                letterSpacing: "5px",
+                textAlign: "center",
+                fontWeight: 700,
+                paddingLeft: 5,
               }}
             >
-              <strong>확인</strong>
+              확인
             </button>
           </div>
         </div>

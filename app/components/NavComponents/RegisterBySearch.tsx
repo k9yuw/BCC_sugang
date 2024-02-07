@@ -20,6 +20,8 @@ import BodyBottomPreferred from "../BodyBottomPreferred";
 import { all } from "@/app/data/all";
 import BodyBottomRegister from "../BodyBottomRegister";
 import { useGame } from "../context/GameContext";
+import WaitingPopUp from "../enrollment/WatingPopUp";
+import ResultPopUp from "../enrollment/ResultPopUp";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -891,7 +893,7 @@ export default function RegisterBySearch() {
                     maxLength={2}
                     value={section}
                     onChange={(e) =>
-                      setCourseCode(
+                      setSection(
                         e.target.value
                           .replace(/[^a-zA-Z0-9]/g, "")
                           .toUpperCase()
@@ -1624,6 +1626,14 @@ export default function RegisterBySearch() {
           </div>
         )}
       </div>
+
+      {/* 대기 및 결과 팝업 */}
+      {timeTaken === undefined ? null : timeTaken > 0 ? (
+        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      ) : (
+        <ResultPopUp resultType="toEarly" />
+      )}
+
       {pathname === "/courseRegisteration" ? (
         <BodyBottomRegister
           registeredCourses={registeredCourses}

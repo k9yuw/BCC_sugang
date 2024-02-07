@@ -15,7 +15,7 @@ export default function RegisterByCourseCode() {
   const [section, setSection] = useState<string>("");
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
-  const { register } = useGame();
+  const { register, clockStarted } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
@@ -86,7 +86,6 @@ export default function RegisterByCourseCode() {
         } else {
           //여기에 게임 넣으면 됨!
           const result = register();
-          console.log("result:", result);
           if (1000 > result && result > 0) {
             // 조정
             const data = [...registeredCourses, searchedData];
@@ -219,7 +218,7 @@ export default function RegisterByCourseCode() {
               maxLength={2}
               value={section}
               onChange={(e) => {
-                setCourseCode(
+                setSection(
                   e.target.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase()
                 );
               }}
@@ -260,14 +259,6 @@ export default function RegisterByCourseCode() {
           >
             신청
           </button>
-
-          {/* 대기 및 결과 팝업 */}
-          {timeTaken === undefined ? null : timeTaken > 0 ? (
-            <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
-          ) : (
-            <ResultPopUp resultType="toEarly" />
-          )}
-
           <button
             onClick={() => {
               setCourseCode("");
@@ -292,6 +283,13 @@ export default function RegisterByCourseCode() {
           </button>
         </div>
       </div>
+      {/* 대기 및 결과 팝업 */}
+      {timeTaken === undefined ? null : timeTaken > 0 ? (
+        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      ) : (
+        <ResultPopUp resultType="toEarly" />
+      )}
+
       {pathname === "/courseRegisteration" ? (
         <BodyBottomRegister
           registeredCourses={registeredCourses}
