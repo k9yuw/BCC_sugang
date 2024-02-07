@@ -1,3 +1,4 @@
+//쓸 필요없음
 import {useState, useEffect} from "react";
 import ResultPopUp from "./ResultPopUp";
 import WaitingPopUp from "./WatingPopUp";

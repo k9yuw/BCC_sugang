@@ -3,6 +3,8 @@ import { MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import courseData from "@/app/constant/courseDataInterface";
+import ResultPopUp from "../enrollment/ResultPopUp";
+import WaitingPopUp from "../enrollment/WatingPopUp";
 import { all } from "@/app/data/all";
 
 export default function RegisterByCourseCode() {
@@ -217,6 +219,9 @@ export default function RegisterByCourseCode() {
           >
             신청
           </button>
+          {/* 대기 및 결과 팝업 */}
+          {/* {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
+          {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}} */}
           <button
             onClick={() => {
               setCourseCode("");
