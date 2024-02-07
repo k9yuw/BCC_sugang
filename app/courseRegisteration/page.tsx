@@ -7,6 +7,7 @@ import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import Body from "../components/Body";
 import TimePeriod from "../components/popups/timePeriod";
+import { GameProvider } from '../components/context/GameContext'
 
 export default function Home() {
   return (

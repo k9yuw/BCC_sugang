@@ -1,7 +1,9 @@
 import courseData from "@/app/constant/courseDataInterface";
 import Image from "next/image";
 import { MouseEvent, useState, useEffect } from "react";
+import { useGame } from "../context/GameContext"
 import BodyBottomRegister from "../BodyBottomRegister";
+
 
 export default function RegisterByPreferredCourses() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);

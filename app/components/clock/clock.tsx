@@ -17,6 +17,8 @@ const Clock = ({}) => {
   const msCheckboxRef = useRef<HTMLInputElement>(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
 
+
+
   useEffect(() => {
     const timerId = setInterval(() => {
       const hours = String(new Date(clockTime).getHours()).padStart(2, "0");
@@ -73,7 +75,10 @@ const Clock = ({}) => {
             <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
             밀리초 보기
           </label>
+
         </div>
+
+        <div><button onClick = {startGame}>{startText}</button></div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
     </div>
