@@ -1,14 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState, useCallback} from "react";
 import { useRouter } from "next/navigation";
+import FirstAlert from "./components/popups/firstAlert";
 
 export default function Home() {
   const [language, setLanguage] = useState<"eng" | "kor">("kor");
   const [id, setId] = useState("");
-
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {setIsOpen(true);};
+
+  const closeModal = () => {setIsOpen(false);};
+
+  useEffect(() =>
+  {
+	openModal();
+  },[])
+
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +43,7 @@ export default function Home() {
     <div
       style={{ backgroundColor: "#f5f5f5", fontFamily: "Apple SD Gothic Neo" }}
     >
+      <FirstAlert isOpen={isOpen} closeModal={closeModal} />
       <div //header
         style={{
           minWidth: 1260,
@@ -261,10 +273,17 @@ export default function Home() {
                     textAlign: "center",
                     fontFamily: "Segeo UI",
                     fontWeight: "600",
+                    cursor: "pointer",
                   }}
                 >
                   로그인
-                  <small style={{ fontWeight: "lighter", fontSize: 12, color: "#ffffff80"}}>
+                  <small
+                    style={{
+                      fontWeight: "lighter",
+                      fontSize: 12,
+                      color: "#ffffff80",
+                    }}
+                  >
                     Login
                   </small>
                 </button>
@@ -285,8 +304,14 @@ export default function Home() {
           position: "relative",
         }}
       >
-        <div style={{fontFamily: "'Segoe UI', sans-serif", lineHeight: "1.4", wordSpacing:"-1px"}}>
-          <div style={{ marginLeft: 30, marginRight: 30, marginBottom: "0px"}}>
+        <div
+          style={{
+            fontFamily: "'Segoe UI', sans-serif",
+            lineHeight: "1.4",
+            wordSpacing: "-1px",
+          }}
+        >
+          <div style={{ marginLeft: 30, marginRight: 30, marginBottom: "0px" }}>
             <h1
               style={{
                 margin: "0px",
@@ -294,7 +319,6 @@ export default function Home() {
                 fontSize: 26,
                 fontWeight: "400",
                 letterSpacing: -2,
-
               }}
             >
               수강신청 안내
@@ -304,9 +328,10 @@ export default function Home() {
                   fontWeight: "400",
                   marginLeft: 10,
                   letterSpacing: "0px",
-                  wordSpacing:"0px",
+                  wordSpacing: "0px",
                   color: "#666",
-                }}>
+                }}
+              >
                 Course Registration Schedule
               </small>
             </h1>
@@ -328,7 +353,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17, }}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17 }}
                 >
                   <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
@@ -359,28 +384,28 @@ export default function Home() {
                   }}
                 >
                   <div>
-                  <div
-                    style={{
-                      fontSize: 15,
-                      color: "#333333",
-                      paddingTop: "1.5px",
-                      fontWeight: "400px",
-                      wordSpacing:"0px"
-                    }}
-                  >
-                    학부 수강신청 안내
+                    <div
+                      style={{
+                        fontSize: 15,
+                        color: "#333333",
+                        paddingTop: "1.5px",
+                        fontWeight: "400px",
+                        wordSpacing: "0px",
+                      }}
+                    >
+                      학부 수강신청 안내
+                    </div>
+                    <div style={{ paddingTop: 5 }}>
+                      <Image
+                        alt="more"
+                        src={
+                          "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                        }
+                        width={60}
+                        height={22}
+                      />
+                    </div>
                   </div>
-                  <div style={{ paddingTop: 5,}}>
-                    <Image
-                      alt="more"
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
-                      }
-                      width={60}
-                      height={22}
-                    />
-                  </div>
-                </div>
                 </div>
               </div>
               <div //2
@@ -393,7 +418,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17,}}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17 }}
                 >
                   <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
@@ -424,27 +449,27 @@ export default function Home() {
                   }}
                 >
                   <div>
-                  <div
-                    style={{
-                      fontSize: 15,
-                      color: "#333333",
-                      paddingTop: "1.5px",
-                      fontWeight: "400px",
-                      wordSpacing:"0px"
-                    }}
-                  >
-                    고려대학교 과목조회
-                  </div>
-                  <div style={{ paddingTop: 5 }}>
-                    <Image
-                      alt="more"
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
-                      }
-                      width={60}
-                      height={22}
-                    />
-                  </div>
+                    <div
+                      style={{
+                        fontSize: 15,
+                        color: "#333333",
+                        paddingTop: "1.5px",
+                        fontWeight: "400px",
+                        wordSpacing: "0px",
+                      }}
+                    >
+                      고려대학교 과목조회
+                    </div>
+                    <div style={{ paddingTop: 5 }}>
+                      <Image
+                        alt="more"
+                        src={
+                          "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                        }
+                        width={60}
+                        height={22}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -489,29 +514,29 @@ export default function Home() {
                   }}
                 >
                   <div>
-                  <div
-                    style={{
-                      fontSize: 15,
-                      color: "#333333",
-                      paddingTop: "0px",
-                      fontWeight: "400px",
-                      wordSpacing:"0px"
-                    }}
-                  >
-                    고려대학교
-                    <br />
-                    교육정보 확인
-                  </div>
-                  <div style={{ paddingTop: 5, display: "inline-block" }}>
-                    <Image
-                      alt="more"
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
-                      }
-                      width={60}
-                      height={22}
-                    />
-                  </div>
+                    <div
+                      style={{
+                        fontSize: 15,
+                        color: "#333333",
+                        paddingTop: "0px",
+                        fontWeight: "400px",
+                        wordSpacing: "0px",
+                      }}
+                    >
+                      고려대학교
+                      <br />
+                      교육정보 확인
+                    </div>
+                    <div style={{ paddingTop: 5, display: "inline-block" }}>
+                      <Image
+                        alt="more"
+                        src={
+                          "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                        }
+                        width={60}
+                        height={22}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -556,29 +581,29 @@ export default function Home() {
                   }}
                 >
                   <div>
-                  <div
-                    style={{
-                      fontSize: 15,
-                      color: "#333333",
-                      paddingTop: "0px",
-                      fontWeight: "400px",
-                      wordSpacing:"0px"
-                    }}
-                  >
-                    포털 미사용자
-                    <br />
-                    비밀번호변경
-                  </div>
-                  <div style={{ paddingTop: 5, display: "inline-block" }}>
-                    <Image
-                      alt="more"
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
-                      }
-                      width={60}
-                      height={22}
-                    />
-                  </div>
+                    <div
+                      style={{
+                        fontSize: 15,
+                        color: "#333333",
+                        paddingTop: "0px",
+                        fontWeight: "400px",
+                        wordSpacing: "0px",
+                      }}
+                    >
+                      포털 미사용자
+                      <br />
+                      비밀번호변경
+                    </div>
+                    <div style={{ paddingTop: 5, display: "inline-block" }}>
+                      <Image
+                        alt="more"
+                        src={
+                          "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                        }
+                        width={60}
+                        height={22}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -623,27 +648,27 @@ export default function Home() {
                   }}
                 >
                   <div>
-                  <div
-                    style={{
-                      fontSize: 15,
-                      color: "#333333",
-                      paddingTop: "1.5px",
-                      fontWeight: "400px",
-                      wordSpacing:"0px"
-                    }}
-                  >
-                    신입생 학번안내
-                  </div>
-                  <div style={{ paddingTop: 5 }}>
-                    <Image
-                      alt="more"
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
-                      }
-                      width={60}
-                      height={22}
-                    />
-                  </div>
+                    <div
+                      style={{
+                        fontSize: 15,
+                        color: "#333333",
+                        paddingTop: "1.5px",
+                        fontWeight: "400px",
+                        wordSpacing: "0px",
+                      }}
+                    >
+                      신입생 학번안내
+                    </div>
+                    <div style={{ paddingTop: 5 }}>
+                      <Image
+                        alt="more"
+                        src={
+                          "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                        }
+                        width={60}
+                        height={22}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -676,41 +701,41 @@ export default function Home() {
                   </p>
                 </div>
                 <div
-                 style={{
-                  borderLeft: 1,
-                  borderLeftStyle: "solid",
-                  borderLeftColor: "#bf0039",
-                  paddingLeft: 20,
-                  height: "68.8px",
-                  display: "flex",
-                  width: "162.5px",
-                  lineHeight: 1.5,
-                }}
+                  style={{
+                    borderLeft: 1,
+                    borderLeftStyle: "solid",
+                    borderLeftColor: "#bf0039",
+                    paddingLeft: 20,
+                    height: "68.8px",
+                    display: "flex",
+                    width: "162.5px",
+                    lineHeight: 1.5,
+                  }}
                 >
                   <div>
-                  <div
-                    style={{
-                      fontSize: 15,
-                      color: "#333333",
-                      paddingTop: "0px",
-                      fontWeight: "400px",
-                      wordSpacing:"0px"
-                    }}
-                  >
-                    대학원생 수강신청
-                    <br />
-                    바로가기
-                  </div>
-                  <div style={{ paddingTop: 3 }}>
-                    <Image
-                      alt="more"
-                      src={
-                        "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
-                      }
-                      width={60}
-                      height={22}
-                    />
-                  </div>
+                    <div
+                      style={{
+                        fontSize: 15,
+                        color: "#333333",
+                        paddingTop: "0px",
+                        fontWeight: "400px",
+                        wordSpacing: "0px",
+                      }}
+                    >
+                      대학원생 수강신청
+                      <br />
+                      바로가기
+                    </div>
+                    <div style={{ paddingTop: 3 }}>
+                      <Image
+                        alt="more"
+                        src={
+                          "https://sugang.korea.ac.kr/resources/img/login/btn-more.png"
+                        }
+                        width={60}
+                        height={22}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -736,7 +761,7 @@ export default function Home() {
                   letterSpacing: "normal",
                   fontWeight: "350",
                   wordSpacing: "-1px",
-                  color : "#666666",
+                  color: "#666666",
                 }}
               >
                 Course Registration Notice
@@ -765,7 +790,6 @@ export default function Home() {
                   fontSize: 14,
                   letterSpacing: "0px",
                   wordSpacing: "-1.5px",
-                  
                 }}
               >
                 <li
@@ -795,7 +819,7 @@ export default function Home() {
                 <li
                   style={{
                     backgroundImage:
-                    'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
+                      'url("	https://sugang.korea.ac.kr/resources/img/login/bullet.png")',
                     backgroundRepeat: "no-repeat",
                     backgroundPositionY: "center",
                     paddingLeft: 12,
@@ -956,10 +980,7 @@ export default function Home() {
                       lineHeight: 1.8,
                     }}
                   >
-                    <li
-                      style={{
-                      }}
-                    >
+                    <li style={{}}>
                       포털 사용자 :
                       <span
                         style={{ color: "#528ecc", margin: 0, marginLeft: 3 }}
@@ -1054,8 +1075,8 @@ export default function Home() {
             lineHeight: 1.5,
           }}
         >
-          02841 서울특별시 성북구 안암로 145 / TEL.02.3290.1114. /
-          webmaster@korea.ac.kr
+          02855 서울특별시 성북구 고려대로22길 6-7 / TEL.02.1234.5678. /
+          sinye2002@korea.ac.kr minwin00@korea.ac.kr kyuwon@korea.ac.kr
           <br />
           Copyright © 2023 BBang Co Co. All Rights Reserved
         </div>

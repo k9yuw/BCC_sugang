@@ -1,3 +1,4 @@
+//쓸 필요없음
 import {useState, useEffect} from "react";
 import ResultPopUp from "./ResultPopUp";
 import WaitingPopUp from "./WatingPopUp";
@@ -28,7 +29,7 @@ const ClickGame = ({ startTime, clickTime, register }) => {
           onClick={register}>
             신청
         </button>
-        <button
+        {/* <button
           style={{
             height: 30,
             width: 70,
@@ -44,13 +45,17 @@ const ClickGame = ({ startTime, clickTime, register }) => {
           }}
         >
           초기화
-        </button>
+        </button> */}
+        {/* 타이머시작 버튼 일단 주석처리 */}
+        {/* <div>
+        <button onClick={startSugang}>{startText}</button>
+      </div>
         {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
-        {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}
+        {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null} */}
       </div>
-      <div>
+      {/* <div>
         <h3>클릭 시간: {(startTime != 0 && clickTime !=0 && timeTaken) >0 ? timeTaken/1000 : 0} 초</h3>
-      </div>
+      </div> */}
     </div>
 	);
 }

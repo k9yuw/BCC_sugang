@@ -1,22 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Navysm from "../components/clock/navysm";
 import TimeTable from "../components/table/sugangTimeTable/timeTable";
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
-import BodyTop from "../components/BodyTop";
+import Body from "../components/Body";
+import TimePeriod from "../components/popups/timePeriod";
 
 export default function Home() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [registerdCredit, setRegisteredCredit] = useState(0);
+  const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
+
+  useEffect(() => {
+    setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
+  }, []);
 
   return (
-    <div style={{ display: "flex", fontFamily: "Segeo UI",}}>
+    <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
       <NavBar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Header />
-        <BodyTop />
+        <Body />
         <div //하단 바디
           style={{
             paddingTop: 20,
@@ -41,15 +52,49 @@ export default function Home() {
               [ 최소신청학점 :{" "}
               <span style={{ fontSize: 12, color: "#a20131" }}>1</span> 학점 |
               최대신청학점 :{" "}
-              <span style={{ fontSize: 12, color: "#a20131" }}>22</span> 학점 |
-              신청학점 :{" "}
+              <span style={{ fontSize: 12, color: "#a20131" }}>
+                {" "}
+                <select
+                  value={maxCreditLimit ?? "19"}
+                  onChange={(e) => {
+                    localStorage.setItem("maxCreditLimit", e.target.value);
+                    setMaxCreditLimit(e.target.value);
+                  }}
+                  style={{
+                    outline: "none",
+                    border: "none",
+                    fontSize: 13,
+                    color: "#a20131",
+                    fontWeight: "bold",
+                    width: 18,
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  <option value={"19"}>19</option>
+                  <option value={"22"}>22</option>
+                  <option value={"25"}>25</option>
+                </select>
+              </span>{" "}
+              학점 | 신청학점 :{" "}
               <span style={{ fontSize: 12, color: "#a20131" }}>
                 {registerdCredit}
               </span>{" "}
               학점 ]
             </h6>
             <div style={{ marginLeft: "auto" }}>
+              {isOpenModal && (
+                <TimePeriod
+                  onClickToggleModal={onClickToggleModal}
+                ></TimePeriod>
+              )}
               <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClickToggleModal();
+                }}
                 style={{
                   width: "79.1px",
                   height: 25,
@@ -61,7 +106,9 @@ export default function Home() {
                   borderRightColor: "#ccc",
                   borderBottomColor: "#ccc",
                   borderLeftColor: "#ccc",
-                  borderStyle: "solid", padding: "0px",
+                  borderStyle: "solid",
+                  padding: "0px",
+                  cursor: "pointer",
                 }}
               >
                 교시확인표
