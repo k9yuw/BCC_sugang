@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { FormEvent, useEffect, useState, useCallback} from "react";
 import { useRouter } from "next/navigation";
-import Modal from "./components/popups/firstAlert";
+import FirstAlert from "./components/popups/firstAlert";
 
 export default function Home() {
   const [language, setLanguage] = useState<"eng" | "kor">("kor");
@@ -11,13 +11,9 @@ export default function Home() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
+  const openModal = () => {setIsOpen(true);};
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const closeModal = () => {setIsOpen(false);};
 
   useEffect(() =>
   {
@@ -47,7 +43,7 @@ export default function Home() {
     <div
       style={{ backgroundColor: "#f5f5f5", fontFamily: "Apple SD Gothic Neo" }}
     >
-      <Modal isOpen={isOpen} closeModal={closeModal} />
+      <FirstAlert isOpen={isOpen} closeModal={closeModal} />
       <div //header
         style={{
           minWidth: 1260,
@@ -277,6 +273,7 @@ export default function Home() {
                     textAlign: "center",
                     fontFamily: "Segeo UI",
                     fontWeight: "600",
+                    cursor: "pointer",
                   }}
                 >
                   로그인
