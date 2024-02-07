@@ -62200,7 +62200,7 @@ export const major = [
         department: "컴퓨터학과",
         flexible_school_yn: "N",
         attend_free_yn: "N",
-        flexible_term: 0,
+        flexible_term: 0, 
         flipped_class_yn: "N",
         absolute_yn: "N",
         time_room: ["화(2) 정보통신관 604호", "목(2) 정보통신관 604호"],

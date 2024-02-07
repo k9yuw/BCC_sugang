@@ -40,7 +40,14 @@ export default function Home() {
   };
 
   return (
-    <div style={{ backgroundColor: "#f5f5f5", fontFamily: "Segoe UI" }}>
+    <div
+      style={{
+        backgroundColor: "#f5f5f5",
+        fontFamily: "Segoe UI",
+        width: "100%",
+        minWidth: 1260,
+      }}
+    >
       <FirstAlert isOpen={isOpen} closeModal={closeModal} />
       <div //header
         style={{

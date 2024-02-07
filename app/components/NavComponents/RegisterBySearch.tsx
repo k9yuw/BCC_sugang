@@ -1464,9 +1464,10 @@ export default function RegisterBySearch() {
                       paddingLeft: 6,
                       textAlign: "left",
                       fontWeight: 400,
+                      whiteSpace: "break-spaces",
                     }}
                   >
-                    {prop.time_room}
+                    {prop.time_room.join("\n")}
                   </th>
                   <th
                     style={{
