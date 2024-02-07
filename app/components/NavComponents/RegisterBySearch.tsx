@@ -46,7 +46,6 @@ export default function RegisterBySearch() {
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  // const [registeredCourses, setRe]
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -724,7 +723,6 @@ export default function RegisterBySearch() {
                   <span>
                     {isOpenModal && (
                       <TimePeriod onClickToggleModal={onClickToggleModal}>
-                        이곳에 children이 들어갑니다.
                       </TimePeriod>
                     )}
                     <button

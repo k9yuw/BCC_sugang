@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState, MouseEvent } from "react";
+import { useEffect, useState, MouseEvent, useCallback } from "react";
 import Image from "next/image";
 import courseData from "../constant/courseDataInterface";
+import TimePeriod from "./popups/timePeriod";
 
 export default function BodyBottomPreferred({
   preferredCourses,
@@ -14,6 +15,11 @@ export default function BodyBottomPreferred({
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
   const [coursesToPaint, setCoursesToPaint] =
     useState<courseData[]>(preferredCourses);
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
 
   useEffect(() => {
     setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
@@ -143,7 +149,11 @@ export default function BodyBottomPreferred({
           학점 ]
         </h6>
         <div style={{ marginLeft: "auto" }}>
+          {isOpenModal && (
+            <TimePeriod onClickToggleModal={onClickToggleModal}></TimePeriod>
+          )}
           <button
+            onClick={onClickToggleModal}
             style={{
               fontFamily: "Segeo UI",
               width: "79.1px",

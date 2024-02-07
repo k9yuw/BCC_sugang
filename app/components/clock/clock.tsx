@@ -2,17 +2,15 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
-import bgm from './bgm.mp3';
-import useSugang from '../../hooks/useSugang';
+import bgm from "./bgm.mp3";
+import useSugang from "../../hooks/useSugang";
 
 const Clock = ({}) => {
-  
   const [timeFormat, setTimeFormat] = useState<string>("");
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
   const { startGame, clockStarted, startText, date: clockTime } = useSugang();
- 
 
   const clockRef = useRef(null);
   const msCheckboxRef = useRef<HTMLInputElement>(null);
@@ -21,16 +19,16 @@ const Clock = ({}) => {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      
       const hours = String(new Date(clockTime).getHours()).padStart(2, "0");
       const minutes = String(new Date(clockTime).getMinutes()).padStart(2, "0");
       const seconds = String(new Date(clockTime).getSeconds()).padStart(2, "0");
-      const milliSeconds = String(new Date(clockTime).getMilliseconds()).padStart(3,"0");
+      const milliSeconds = String(
+        new Date(clockTime).getMilliseconds()
+      ).padStart(3, "0");
 
       setTimeFormat(`${hours}시 ${minutes}분 ${seconds}초 `);
       setMsFormat(`${milliSeconds}`);
-  
-      
+
       if (hours === "09" && minutes === "59" && seconds >= "54") {
         setIsRed(true);
         setBgmplayed(true);
@@ -38,12 +36,10 @@ const Clock = ({}) => {
         setIsRed(false);
         setBgmplayed(false);
       }
-      
     }, 8);
-    
-    return () => clearInterval(timerId);
-  }, [clockTime, clockStarted]); 
 
+    return () => clearInterval(timerId);
+  }, [clockTime, clockStarted]);
 
   useEffect(() => {
     if (bgmPlayed) {
@@ -57,7 +53,6 @@ const Clock = ({}) => {
       }
     }
   }, [bgmPlayed]);
-  
 
   const backgroundClass = isRed ? styles.redBackground : "";
 
@@ -74,23 +69,37 @@ const Clock = ({}) => {
         </div>
 
         <div className={styles.checkboxes}>
-          <label>
-            <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
-            밀리초 보기
-          </label>
-          <label>
-            <input ref={bgmCheckboxRef} type="checkbox" id="bgmCheckbox" />
-            음악 듣기
-          </label>
+          <span style={{ marginRight: 130, marginLeft: 7 }}>
+            <label>
+              <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
+              밀리초 보기
+            </label>
+            <label>
+              <input ref={bgmCheckboxRef} type="checkbox" id="bgmCheckbox" />
+              음악 듣기
+            </label>
+          </span>
+          <button
+            onClick={startGame}
+            style={{
+              backgroundColor: "#a20131",
+              fontSize: 17,
+              color: "#fff",
+              border: 0,
+              width: 100,
+              height: 30,
+              marginBottom: 20,
+              borderRadius: "10%",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            {startText}
+          </button>
         </div>
-        <div>
-        <button onClick={startGame}>{startText}</button>
-      </div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
     </div>
-
-);
-
-}
+  );
+};
 export default Clock;
