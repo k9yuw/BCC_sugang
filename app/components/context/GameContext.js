@@ -9,6 +9,7 @@ function GameProvider({ children }) {
   const [clickTime, setClickTime] = useState(0);
   const [startText, setStartText] = useState("게임 시작");
   const [date, setDate] = useState(new Date().getTime());
+  const timeTaken = clickTime - startTime;
 
   // 게임 시작 함수
   const startGame = () => {

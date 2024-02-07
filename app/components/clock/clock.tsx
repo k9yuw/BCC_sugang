@@ -2,25 +2,16 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
-<<<<<<< HEAD
 import bgm from './bgm.mp3';
 import { useGame } from "../context/GameContext"
-=======
-import bgm from "./bgm.mp3";
-import useSugang from "../../hooks/useSugang";
->>>>>>> 8e53611360ab22e44aa2f99e03fc92371cd0ca43
 
 const Clock = ({}) => {
   const [timeFormat, setTimeFormat] = useState<string>("");
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
-<<<<<<< HEAD
   const { startGame, clockStarted, startText, date: clockTime } = useGame();
  
-=======
-  const { startGame, clockStarted, startText, date: clockTime } = useSugang();
->>>>>>> 8e53611360ab22e44aa2f99e03fc92371cd0ca43
 
   const clockRef = useRef(null);
   const msCheckboxRef = useRef<HTMLInputElement>(null);
@@ -78,51 +69,15 @@ const Clock = ({}) => {
         </div>
 
         <div className={styles.checkboxes}>
-<<<<<<< HEAD
           <label>
             <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
             밀리초 보기
           </label>
-=======
-          <span style={{ marginRight: 130, marginLeft: 7 }}>
-            <label>
-              <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
-              밀리초 보기
-            </label>
-            <label>
-              <input ref={bgmCheckboxRef} type="checkbox" id="bgmCheckbox" />
-              음악 듣기
-            </label>
-          </span>
-          <button
-            onClick={startGame}
-            style={{
-              backgroundColor: "#a20131",
-              fontSize: 17,
-              color: "#fff",
-              border: 0,
-              width: 100,
-              height: 30,
-              marginBottom: 20,
-              borderRadius: "10%",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
-          >
-            {startText}
-          </button>
->>>>>>> 8e53611360ab22e44aa2f99e03fc92371cd0ca43
         </div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
     </div>
-<<<<<<< HEAD
 );
 
 }
 export default Clock;
-=======
-  );
-};
-export default Clock;
->>>>>>> 8e53611360ab22e44aa2f99e03fc92371cd0ca43
