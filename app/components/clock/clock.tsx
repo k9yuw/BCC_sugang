@@ -2,22 +2,20 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
-import bgm from './bgm.mp3';
-import { useGame } from "../context/GameContext"
+import bgm from "./bgm.mp3";
+import { useGame } from "../context/GameContext";
+import { faK } from "@fortawesome/free-solid-svg-icons";
 
 const Clock = ({}) => {
-  const [timeFormat, setTimeFormat] = useState<string>("");
+  const [timeFormat, setTimeFormat] = useState<string>("09시 59분 50초");
   const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
   const { startGame, clockStarted, startText, date: clockTime } = useGame();
- 
 
   const clockRef = useRef(null);
   const msCheckboxRef = useRef<HTMLInputElement>(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
-
-
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -69,20 +67,41 @@ const Clock = ({}) => {
             )}
           </div>
         </div>
-
-        <div className={styles.checkboxes}>
-          <label>
-            <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
-            밀리초 보기
-          </label>
-
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            padding: "0px 10px 10px 10px",
+          }}
+        >
+          <div className={styles.checkboxes} style={{ fontSize: 17 }}>
+            <label>
+              <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
+              밀리초 보기
+            </label>
+          </div>
+          <div>
+            <button
+              onClick={startGame}
+              style={{
+                backgroundColor: "#a20131",
+                fontSize: 20,
+                color: "#fff",
+                width: 130,
+                height: 40,
+                borderRadius: 5,
+                border: 0,
+                cursor: "pointer",
+              }}
+            >
+              {startText}
+            </button>
+          </div>
         </div>
-
-        <div><button onClick = {startGame}>{startText}</button></div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />
     </div>
-);
-
-}
+  );
+};
 export default Clock;

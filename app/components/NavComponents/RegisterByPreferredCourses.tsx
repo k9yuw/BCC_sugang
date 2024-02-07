@@ -45,7 +45,7 @@ export default function RegisterByPreferredCourses() {
     const courseIdArrayRegistered = registeredCourses.map(
       (prop) => prop.rowid + prop.params
     );
-    
+
     if (courseIdArrayRegistered.includes(courseId))
       //중복 신청 filtering
       alert("이미 신청된 과목입니다.");
@@ -275,7 +275,6 @@ export default function RegisterByPreferredCourses() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -310,7 +309,6 @@ export default function RegisterByPreferredCourses() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -329,7 +327,6 @@ export default function RegisterByPreferredCourses() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -348,7 +345,6 @@ export default function RegisterByPreferredCourses() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -368,7 +364,6 @@ export default function RegisterByPreferredCourses() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -389,7 +384,6 @@ export default function RegisterByPreferredCourses() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -408,7 +402,6 @@ export default function RegisterByPreferredCourses() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -428,7 +421,6 @@ export default function RegisterByPreferredCourses() {
                       paddingBottom: 4,
                       paddingLeft: 6,
                       textAlign: "left",
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >

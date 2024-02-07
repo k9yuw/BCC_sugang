@@ -6,9 +6,8 @@ import courseData from "@/app/constant/courseDataInterface";
 import ResultPopUp from "../enrollment/ResultPopUp";
 import WaitingPopUp from "../enrollment/WatingPopUp";
 import { all } from "@/app/data/all";
-import { GameProvider, useGame } from "../context/GameContext"
+import { GameProvider, useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
-
 
 export default function RegisterByCourseCode() {
   const pathname = usePathname();
@@ -19,7 +18,6 @@ export default function RegisterByCourseCode() {
   const { clickTime, startTime, timeTaken, register } = useGame();
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
-
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -103,10 +101,6 @@ export default function RegisterByCourseCode() {
       }
     }
   };
-  
-    register();
-
-};
 
   return (
     <div>
@@ -235,9 +229,8 @@ export default function RegisterByCourseCode() {
             justifyContent: "center",
           }}
         >
-        
           <button
-            onClick={clickRegister}
+            onClick={onRegisterClick}
             style={{
               height: 30,
               width: 70,
@@ -253,11 +246,15 @@ export default function RegisterByCourseCode() {
           >
             신청
           </button>
-        
+
           {/* 대기 및 결과 팝업 */}
-          {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
-          {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}
-        
+          {startTime != 0 && clickTime != 0 && timeTaken < 1000 ? (
+            <ResultPopUp resultType="toEarly" />
+          ) : null}
+          {startTime != 0 && clickTime != 0 && timeTaken > 1000 ? (
+            <WaitingPopUp timeTaken={timeTaken} rand={Math.random()} />
+          ) : null}
+
           <button
             onClick={() => {
               setCourseCode("");

@@ -775,7 +775,6 @@ export default function RegisterBySearch() {
                         borderBottomColor: "#ccc",
                         borderLeftColor: "#ccc",
                         borderStyle: "solid",
-                        fontFamily: "Segeo UI",
                         cursor: "pointer",
                       }}
                     >
@@ -1066,7 +1065,6 @@ export default function RegisterBySearch() {
                 paddingRight: 0,
                 paddingBottom: 3,
                 fontSize: 13,
-                fontFamily: "sans-serif",
               }}
             >
               학수번호 클릭시 강의계획안 조회가 가능합니다.
@@ -1321,7 +1319,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1354,7 +1351,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1373,7 +1369,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1392,7 +1387,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1412,7 +1406,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1433,7 +1426,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1452,7 +1444,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1472,7 +1463,6 @@ export default function RegisterBySearch() {
                       paddingBottom: 4,
                       paddingLeft: 6,
                       textAlign: "left",
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >

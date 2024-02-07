@@ -89,7 +89,7 @@ export default function Home() {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
       <NavBar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Header />
@@ -696,8 +696,9 @@ export default function Home() {
                         <option>15</option>
                       </select>
                       {isOpenModal && (
-                        <TimePeriod onClickToggleModal={onClickToggleModal}>
-                        </TimePeriod>
+                        <TimePeriod
+                          onClickToggleModal={onClickToggleModal}
+                        ></TimePeriod>
                       )}
                       <button
                         onClick={(e) => {
@@ -1008,7 +1009,6 @@ export default function Home() {
                     paddingBottom: 3,
                     fontSize: 13,
                     whiteSpace: "break-spaces",
-                    fontFamily: "Malgun Gothic",
                   }}
                 >
                   <span style={{ color: "#f23d18" }}>M</span>: MOOC
@@ -1033,7 +1033,6 @@ export default function Home() {
                     paddingRight: 0,
                     paddingBottom: 3,
                     fontSize: 13,
-                    fontFamily: "sans-serif",
                   }}
                 >
                   학수번호 클릭시 강의계획안 조회가 가능합니다.

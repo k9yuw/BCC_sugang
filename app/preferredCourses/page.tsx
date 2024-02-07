@@ -12,7 +12,7 @@ import BodyBottom from "../components/BodyBottomPreferred";
 
 export default function Home() {
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
       <NavBar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Header />

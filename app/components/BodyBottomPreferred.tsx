@@ -103,7 +103,14 @@ export default function BodyBottomPreferred({
         ></div>
       </div>
       <div style={{ display: "flex", height: 30, paddingBottom: 5 }}>
-        <h3 style={{ fontSize: 18, marginBottom: 0, marginTop: 0 }}>
+        <h3
+          style={{
+            fontSize: 18,
+            marginBottom: 0,
+            marginTop: 0,
+            color: "#0d0d0d",
+          }}
+        >
           희망과목 내역
         </h3>
         <h6
@@ -112,7 +119,8 @@ export default function BodyBottomPreferred({
             marginBottom: 0,
             marginTop: 0,
             marginLeft: 15,
-            lineHeight: 1.8,
+            lineHeight: 1.5,
+            color: "#333",
           }}
         >
           [ 최소신청학점 :{" "}
@@ -156,7 +164,6 @@ export default function BodyBottomPreferred({
           <button
             onClick={onClickToggleModal}
             style={{
-              fontFamily: "Segeo UI",
               width: "79.1px",
               height: 25,
               fontSize: 12,
@@ -176,7 +183,6 @@ export default function BodyBottomPreferred({
           </button>
           <button
             style={{
-              fontFamily: "Segeo UI",
               width: 100,
               height: 25,
               fontSize: 12,
@@ -418,7 +424,6 @@ export default function BodyBottomPreferred({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -437,7 +442,6 @@ export default function BodyBottomPreferred({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -481,7 +485,6 @@ export default function BodyBottomPreferred({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -500,7 +503,6 @@ export default function BodyBottomPreferred({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -519,7 +521,6 @@ export default function BodyBottomPreferred({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -539,7 +540,6 @@ export default function BodyBottomPreferred({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -558,7 +558,6 @@ export default function BodyBottomPreferred({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -577,7 +576,6 @@ export default function BodyBottomPreferred({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -597,7 +595,6 @@ export default function BodyBottomPreferred({
                         paddingBottom: 4,
                         paddingLeft: 6,
                         textAlign: "left",
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                         whiteSpace: "pre",
                       }}

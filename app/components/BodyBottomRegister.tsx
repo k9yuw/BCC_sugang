@@ -103,7 +103,14 @@ export default function BodyBottomRegister({
         ></div>
       </div>
       <div style={{ display: "flex", height: 30, paddingBottom: 5 }}>
-        <h3 style={{ fontSize: 18, marginBottom: 0, marginTop: 0 }}>
+        <h3
+          style={{
+            fontSize: 18,
+            marginBottom: 0,
+            marginTop: 0,
+            color: "#0d0d0d",
+          }}
+        >
           수강신청 내역
         </h3>
         <h6
@@ -113,6 +120,7 @@ export default function BodyBottomRegister({
             marginTop: 0,
             marginLeft: 15,
             lineHeight: 1.8,
+            color: "#333",
           }}
         >
           [ 최소신청학점 :{" "}
@@ -406,7 +414,6 @@ export default function BodyBottomRegister({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -425,7 +432,6 @@ export default function BodyBottomRegister({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -444,7 +450,6 @@ export default function BodyBottomRegister({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -464,7 +469,6 @@ export default function BodyBottomRegister({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -483,7 +487,6 @@ export default function BodyBottomRegister({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -502,7 +505,6 @@ export default function BodyBottomRegister({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -547,7 +549,6 @@ export default function BodyBottomRegister({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
@@ -566,7 +567,6 @@ export default function BodyBottomRegister({
                         paddingRight: 6,
                         paddingBottom: 4,
                         paddingLeft: 6,
-                        fontFamily: "Segoe UI",
                         fontWeight: 400,
                       }}
                     >
