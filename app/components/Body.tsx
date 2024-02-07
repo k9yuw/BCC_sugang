@@ -35,27 +35,6 @@ export default function Body() {
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
 
-  const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-  };
-  const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value == "전공") {
-    }
-  };
-  const onClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setSearched(true);
-    if (selectedIdxOne === 0) {
-      let data = major[selectedIdxTwo][selectedIdxThree].filter(
-        (prop) => prop.credit === credit
-      );
-      data = data.filter((prop) => prop.time_room.includes(day));
-
-      data = data.filter((prop) => prop.time_room.match("/(*)/"));
-      setSearchedData(major[selectedIdxTwo][selectedIdxThree]);
-    }
-  };
-
   return (
   <GameProvider>
     <div>

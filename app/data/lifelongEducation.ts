@@ -20,7 +20,7 @@ export const lifelongEducation = [
     flexible_term: 0,
     flipped_class_yn: "N",
     absolute_yn: "N",
-    time_room: "금(5-6) 교육관 313호",
+    time_room: ["금(5-6) 교육관 313호"],
     campus: "서울",
     flexible_to_dt: "",
     flexible_fr_dt: "",

@@ -661,6 +661,7 @@ export default function BodyBottomRegister({
           x: logoPos.x,
           y: logoPos.y,
           cursor: "grab",
+          top: 10,
         }}
       >
         <Navysm />

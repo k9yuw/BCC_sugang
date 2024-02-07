@@ -194,7 +194,7 @@ export default function RegisterBySearch() {
         //종료교시
       }
       const re = /\((.*?)\)/;
-      const days = data.map((prop) => prop.time_room.match(re));
+      // const days = data.map((prop) => prop.time_room.match(re));
       // data = data.filter((prop) => prop.time_room.match(re));
       setSearchedData(data);
     }
@@ -380,7 +380,7 @@ export default function RegisterBySearch() {
                           overflow: "hidden",
                           whiteSpace: "nowrap",
                           textOverflow: "clip",
-                          flex: 1,
+                          width: "100%",
                           outline: "none",
                         }}
                       >
@@ -439,7 +439,7 @@ export default function RegisterBySearch() {
                             overflow: "hidden",
                             whiteSpace: "nowrap",
                             textOverflow: "clip",
-                            flex: 1,
+                            width: "100%",
                             outline: "none",
                           }}
                         >
@@ -500,7 +500,7 @@ export default function RegisterBySearch() {
                             overflow: "hidden",
                             whiteSpace: "nowrap",
                             textOverflow: "clip",
-                            flex: 1,
+                            width: "100%",
                             outline: "none",
                           }}
                         >
