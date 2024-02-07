@@ -1,15 +1,16 @@
 import courseData from "@/app/constant/courseDataInterface";
 import Image from "next/image";
 import { MouseEvent, useState, useEffect } from "react";
-import { useGame } from "../context/GameContext"
+import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
-
 
 export default function RegisterByPreferredCourses() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
+  const { register } = useGame();
+  const [timeTaken, setTimeTaken] = useState<number>();
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -57,9 +58,15 @@ export default function RegisterByPreferredCourses() {
         const data = [...registeredCourses, prop];
         setRegisteredCourses(data);
         setRegisteredCredit((prep) => prep + prop.credit);
-        localStorage.setItem("registeredCourses", JSON.stringify(data));
+
         //여기에 게임 넣으면 됨!
-        alert("신청 되었습니다.");
+        const result = register();
+        if (1000 > result && result > 0) {
+          // 조정
+          localStorage.setItem("registeredCourses", JSON.stringify(data));
+        }
+        setTimeTaken(result);
+        // alert("신청 되었습니다.");
       }
     }
   };

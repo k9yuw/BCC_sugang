@@ -19,6 +19,7 @@ import TimePeriod from "../popups/timePeriod";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import { all } from "@/app/data/all";
 import BodyBottomRegister from "../BodyBottomRegister";
+import { useGame } from "../context/GameContext";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -26,7 +27,7 @@ export default function RegisterBySearch() {
   const [campus, setCampus] = useState("서울"); //캠퍼스
   const [collegeSectionType, setCollegeSectionType] = useState("대학"); //대학구분
   const [courseSelect, setCourseSelect] = useState([true, true]);
-  const [selectedIdxOne, setSelectedIdxOne] = useState(0);
+  const [selectedIdxOne, setSelectedIdxOne] = useState<0 | 1 | 2>(0);
   const [selectedIdxTwo, setSelectedIdxTwo] = useState(0);
   const [selectedIdxThree, setSelectedIdxThree] = useState(0);
   const [courseTypeOne, setCourseTypeOne] = useState("전공"); //이수구분
@@ -47,6 +48,8 @@ export default function RegisterBySearch() {
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
+  const { register } = useGame();
+  const [timeTaken, setTimeTaken] = useState<number>();
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -98,12 +101,18 @@ export default function RegisterBySearch() {
         if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
           alert("신청가능한 학점을 초과했습니다");
         } else {
-          const data = [...registeredCourses, prop];
-          setRegisteredCourses(data);
-          setRegisteredCredit((prep) => prep + prop.credit);
-          localStorage.setItem("registeredCourses", JSON.stringify(data));
           //여기에 게임 넣으면 됨!
-          alert("신청 되었습니다.");
+          const result = register();
+          console.log("result:", result);
+          if (1000 > result && result > 0) {
+            // 조정
+            const data = [...registeredCourses, prop];
+            setRegisteredCourses(data);
+            setRegisteredCredit((prep) => prep + prop.credit);
+            localStorage.setItem("registeredCourses", JSON.stringify(data));
+          }
+          setTimeTaken(result);
+          // alert("신청 되었습니다.");
         }
       }
     }
@@ -132,7 +141,7 @@ export default function RegisterBySearch() {
 
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
     setCourseTypeOne(e.target.value);
-    setSelectedIdxOne(e.target.selectedIndex);
+    setSelectedIdxOne(e.target.selectedIndex as 0 | 1 | 2);
 
     if (e.target.selectedIndex < 2) {
       setCourseSelect([true, true]);
@@ -505,7 +514,7 @@ export default function RegisterBySearch() {
                           }}
                         >
                           {selectedIdxOne < 2
-                            ? courseSelectData[selectedIdxOne][
+                            ? courseSelectData[selectedIdxOne as 0 | 1][
                                 courseTypeTwo
                               ]?.map((prop: string) => (
                                 <option key={prop}>{prop}</option>
@@ -546,13 +555,10 @@ export default function RegisterBySearch() {
                   </span>
                   <input
                     type="text"
-                    onInput={(e: any) =>
-                      (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
-                    }
                     maxLength={3}
                     value={credit}
                     onChange={(e) => {
-                      setCredit(e.target.value);
+                      setCredit(e.target.value.replace(/[^0-9]/g, ""));
                     }}
                     style={{
                       width: 74,
@@ -841,16 +847,14 @@ export default function RegisterBySearch() {
                   <input
                     type="text"
                     maxLength={7}
-                    onInput={(e: any) => {
-                      e.target.value = e.target.value.replace(
-                        /[^a-zA-Z0-9]/g,
-                        ""
-                      );
-                      const x = e.target.value;
-                      e.target.value = x.toUpperCase();
-                    }}
                     value={courseCode}
-                    onChange={(e) => setCourseCode(e.target.value)}
+                    onChange={(e) =>
+                      setCourseCode(
+                        e.target.value
+                          .replace(/[^a-zA-Z0-9]/g, "")
+                          .toUpperCase()
+                      )
+                    }
                     style={{
                       width: 74,
                       height: 25,
@@ -885,16 +889,14 @@ export default function RegisterBySearch() {
                   <input
                     type="text"
                     maxLength={2}
-                    onInput={(e: any) => {
-                      e.target.value = e.target.value.replace(
-                        /[^a-zA-Z0-9]/g,
-                        ""
-                      );
-                      const x = e.target.value;
-                      e.target.value = x.toUpperCase();
-                    }}
                     value={section}
-                    onChange={(e) => setSection(e.target.value)}
+                    onChange={(e) =>
+                      setCourseCode(
+                        e.target.value
+                          .replace(/[^a-zA-Z0-9]/g, "")
+                          .toUpperCase()
+                      )
+                    }
                     style={{
                       width: 74,
                       height: 25,
