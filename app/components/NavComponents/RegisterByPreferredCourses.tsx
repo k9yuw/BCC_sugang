@@ -1,6 +1,6 @@
 import courseData from "@/app/constant/courseDataInterface";
 import Image from "next/image";
-import { MouseEvent, useState, useEffect } from "react";
+import { MouseEvent, useState, useEffect, useRef } from "react";
 import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
 import WaitingPopUp from "../enrollment/WatingPopUp";
@@ -12,13 +12,18 @@ export default function RegisterByPreferredCourses() {
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
-  const { register } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
+  const { clickTime, startTime, register } = useGame();
 
   const openCustomPopup = () => {setCustomPopupOpen(true);};
   const closeCustomPopup = () => {setCustomPopupOpen(false);};
+
+
+  useEffect(() => {
+    console.log(`customPopupOpen 상태: ${customPopupOpen}`);
+  }, [customPopupOpen]);
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -44,7 +49,10 @@ export default function RegisterByPreferredCourses() {
     e: MouseEvent<HTMLButtonElement>,
     prop: courseData
   ) => {
+
+
     e.preventDefault();
+    
     const courseId = prop.rowid + prop.params;
     let maxCreditLimit = localStorage.getItem("maxCreditLimit");
     if (maxCreditLimit === null) {
@@ -70,13 +78,12 @@ export default function RegisterByPreferredCourses() {
         }
       } else {
         const data = [...registeredCourses, prop];
-        setRegisteredCourses(data);
-        setRegisteredCredit((prep) => prep + prop.credit);
 
         //여기에 게임 넣으면 됨!
         const result = register();
-        if (1000 > result && result > 0) {
-          // 조정
+        if (30000 > result && result > 0) {
+          setRegisteredCourses(data);
+          setRegisteredCredit((prep) => prep + prop.credit);
           localStorage.setItem("registeredCourses", JSON.stringify(data));
         }
         setTimeTaken(result);
@@ -302,6 +309,7 @@ export default function RegisterByPreferredCourses() {
                     <button
                       onClick={(e) => {
                         onRegisterClick(e, prop);
+                        //여기서 ResultPopup의 ResultOpen과 WaitingPopUp의 WaitingOpen이 true가 되어야 함. 그래야 바로 신청으로 안넘어가고 모달이 또 열림
                       }}
                       style={{
                         height: 23,
@@ -532,4 +540,6 @@ export default function RegisterByPreferredCourses() {
       />
     </div>
   );
-}
+
+};
+
