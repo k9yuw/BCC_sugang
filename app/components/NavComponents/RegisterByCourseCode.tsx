@@ -5,6 +5,7 @@ import BodyBottomPreferred from "../BodyBottomPreferred";
 import courseData from "@/app/constant/courseDataInterface";
 import ResultPopUp from "../enrollment/ResultPopUp";
 import WaitingPopUp from "../enrollment/WatingPopUp";
+import CustomPopup from "../popups/customPopup";
 import { all } from "@/app/data/all";
 
 export default function RegisterByCourseCode() {
@@ -13,6 +14,12 @@ export default function RegisterByCourseCode() {
   const [section, setSection] = useState<string>("");
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+
+  const openCustomPopup = () => {setCustomPopupOpen(true);};
+
+  const closeCustomPopup = () => {setCustomPopupOpen(false);};
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -25,11 +32,13 @@ export default function RegisterByCourseCode() {
   const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (courseCode.length !== 7) {
-      alert("학수번호를 올바르게 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("학수번호를 올바르게 입력해주세요.");
       return;
     }
     if (section.length !== 2) {
-      alert("분반을 올바르게 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("분반을 올바르게 입력해주세요.");
       return;
     }
     const params = courseCode + "@" + section;
@@ -37,12 +46,14 @@ export default function RegisterByCourseCode() {
     // const data = all[courseCodeStart];
     const data = all.filter((prop) => prop.cour_cd === courseCode);
     if (!data) {
-      alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
       return;
     }
     const searchedData = data.find((prop) => prop.params === params);
     if (!searchedData) {
-      alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
+      openCustomPopup();
+      setTextAlert(`해당하는 과목이 없습니다. 다시 한 번 입력해주세요.`);
       return;
     }
     const courseId = searchedData.rowid + searchedData.params;
@@ -51,7 +62,8 @@ export default function RegisterByCourseCode() {
     );
     if (courseIdArray.includes(courseId)) {
       //중복 신청 filtering
-      alert("같은 과목을 중복 신청할 수 없습니다.");
+      openCustomPopup();
+      setTextAlert("같은 과목을 중복 신청할 수 없습니다.");
     } else {
       if (pathname === "/courseRegisteration") {
         //수강신청
@@ -67,9 +79,11 @@ export default function RegisterByCourseCode() {
           setPreferredCourses(data);
           setPreferredCredit((prep) => prep + searchedData.credit);
           localStorage.setItem("preferredCourses", JSON.stringify(data));
-          alert("관심과목 등록 되었습니다.");
+          openCustomPopup();
+          setTextAlert("관심과목 등록 되었습니다.");
         } else {
-          alert("신청가능한 학점을 초과했습니다");
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
         }
       }
     }
@@ -219,6 +233,7 @@ export default function RegisterByCourseCode() {
           >
             신청
           </button>
+          <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
           {/* 대기 및 결과 팝업 */}
           {/* {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
           {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}} */}

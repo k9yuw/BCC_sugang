@@ -110,8 +110,6 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
             <button
               onClick={() => closeModal()}
               style={{
-                width: "50px",
-                height: "30px",
                 border: "0",
                 fontSize: "17px",
                 backgroundColor: "white",
