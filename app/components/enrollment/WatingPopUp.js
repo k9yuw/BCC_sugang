@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import ResultPopUp from "./ResultPopUp";
+import React, { forwardRef, useImperativeHandle } from 'react';
 
 function WaitingPopUp({ timeTaken, rand }) {
-  const time = Math.ceil((timeTaken * 3) / 1000);
   const [waitingOpen, setWaitingOpen] = useState(true);
+  const time = Math.ceil((timeTaken * 3) / 1000);
   const [success, setSuccess] = useState(false);
   const [waitingTime, setWaitingTime] = useState(time);
+  
 
   let progress = 0;
 
   const peopleInfront = Math.ceil(waitingTime * rand * 500);
   const peopleBack = Math.ceil((time - Math.ceil(waitingTime)) * rand * 600);
+
 
   const customStyles = {
     zIndex: 2,
@@ -158,6 +161,6 @@ function WaitingPopUp({ timeTaken, rand }) {
       ) : null}
     </div>
   );
-}
+};
 
 export default WaitingPopUp;
