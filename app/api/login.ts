@@ -5,7 +5,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const data = req.body;
-  console.log(data);
   //   const id = await createItem(data);
   //   res.status(200).json({ id });
 }

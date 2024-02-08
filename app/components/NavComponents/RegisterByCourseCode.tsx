@@ -7,6 +7,8 @@ import ResultPopUp from "../enrollment/ResultPopUp";
 import WaitingPopUp from "../enrollment/WatingPopUp";
 import CustomPopup from "../popups/customPopup";
 import { all } from "@/app/data/all";
+import { GameProvider, useGame } from "../context/GameContext";
+import BodyBottomRegister from "../BodyBottomRegister";
 
 export default function RegisterByCourseCode() {
   const pathname = usePathname();
@@ -14,23 +16,41 @@ export default function RegisterByCourseCode() {
   const [section, setSection] = useState<string>("");
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const { register, clockStarted } = useGame();
+  const [timeTaken, setTimeTaken] = useState<number>();
+  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
+  const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
 
   const openCustomPopup = () => {setCustomPopupOpen(true);};
-
   const closeCustomPopup = () => {setCustomPopupOpen(false);};
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
+    if (!preferredCoursesCached) {
+      localStorage.setItem("preferredCourses", "[]");
+    }
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
   }, []);
 
+  useEffect(() => {
+    const registeredCoursesCached = localStorage.getItem("registeredCourses");
+    if (!registeredCoursesCached) {
+      localStorage.setItem("registeredCourses", "[]");
+    }
+    const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
+    setRegisteredCourses(data);
+    const registeredCreditArray = data.map((prop) => prop.credit);
+    setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
+  }, []);
+
   const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    //입력 에러 핸들링
     if (courseCode.length !== 7) {
       openCustomPopup();
       setTextAlert("학수번호를 올바르게 입력해주세요.");
@@ -42,8 +62,6 @@ export default function RegisterByCourseCode() {
       return;
     }
     const params = courseCode + "@" + section;
-    // const courseCodeStart = courseCode.substring(0, 4);
-    // const data = all[courseCodeStart];
     const data = all.filter((prop) => prop.cour_cd === courseCode);
     if (!data) {
       openCustomPopup();
@@ -56,34 +74,67 @@ export default function RegisterByCourseCode() {
       setTextAlert(`해당하는 과목이 없습니다. 다시 한 번 입력해주세요.`);
       return;
     }
+    //과목 신청 or 등록
     const courseId = searchedData.rowid + searchedData.params;
-    const courseIdArray = preferredCourses.map(
-      (prop) => prop.rowid + prop.params
-    );
-    if (courseIdArray.includes(courseId)) {
-      //중복 신청 filtering
-      openCustomPopup();
-      setTextAlert("같은 과목을 중복 신청할 수 없습니다.");
-    } else {
-      if (pathname === "/courseRegisteration") {
-        //수강신청
-      } else if (pathname === "/preferredCourses") {
-        //관심과목 등록
-        let maxCreditLimit = localStorage.getItem("maxCreditLimit");
-        if (maxCreditLimit === null) {
-          maxCreditLimit = "19";
-          localStorage.setItem("maxCreditLimit", "19");
+    let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+    if (maxCreditLimit === null) {
+      maxCreditLimit = "19";
+      localStorage.setItem("maxCreditLimit", "19");
+    }
+    //수강신청
+    if (pathname === "/courseRegisteration") {
+      const courseIdArrayRegistered = registeredCourses.map(
+        (prop) => prop.rowid + prop.params
+      );
+      if (courseIdArrayRegistered.includes(courseId))
+        //중복 신청 filtering
+      {
+        openCustomPopup();
+        setTextAlert("이미 신청된 과목입니다.");
+      }
+      else {
+        //학점 초과 filtering
+        if (registeredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
+        } else {
+          //여기에 게임 넣으면 됨!
+          const result = register();
+          if (1000 > result && result > 0) {
+            // 조정
+            const data = [...registeredCourses, searchedData];
+            setRegisteredCourses(data);
+            setRegisteredCredit((prep) => prep + searchedData.credit);
+            localStorage.setItem("registeredCourses", JSON.stringify(data));
+          }
+          setTimeTaken(result);
+          // alert("신청 되었습니다.");
         }
-        if (preferredCredit + searchedData.credit < parseInt(maxCreditLimit)) {
+      }
+    }
+    //관심과목 등록
+    else if (pathname === "/preferredCourses") {
+      const courseIdArrayPreferred = preferredCourses.map(
+        (prop) => prop.rowid + prop.params
+      );
+      if (courseIdArrayPreferred.includes(courseId))
+        //중복 신청 filtering
+      {
+        openCustomPopup();
+        setTextAlert("이미 신청된 과목입니다.");
+      }
+      else {
+        //학점 초과 filtering
+        if (preferredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
+        } else {
           const data = [...preferredCourses, searchedData];
           setPreferredCourses(data);
           setPreferredCredit((prep) => prep + searchedData.credit);
           localStorage.setItem("preferredCourses", JSON.stringify(data));
           openCustomPopup();
           setTextAlert("관심과목 등록 되었습니다.");
-        } else {
-          openCustomPopup();
-          setTextAlert("신청가능한 학점을 초과했습니다");
         }
       }
     }
@@ -134,14 +185,11 @@ export default function RegisterByCourseCode() {
             <input
               type="text"
               maxLength={7}
-              onInput={(e: any) => {
-                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-                const x = e.target.value;
-                e.target.value = x.toUpperCase();
-              }}
               value={courseCode}
               onChange={(e) => {
-                setCourseCode(e.target.value);
+                setCourseCode(
+                  e.target.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase()
+                );
               }}
               style={{
                 margin: 5,
@@ -187,14 +235,11 @@ export default function RegisterByCourseCode() {
             <input
               type="text"
               maxLength={2}
-              onInput={(e: any) => {
-                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-                const x = e.target.value;
-                e.target.value = x.toUpperCase();
-              }}
               value={section}
               onChange={(e) => {
-                setSection(e.target.value);
+                setSection(
+                  e.target.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase()
+                );
               }}
               style={{
                 margin: 5,
@@ -261,8 +306,24 @@ export default function RegisterByCourseCode() {
           </button>
         </div>
       </div>
+      {/* 대기 및 결과 팝업 */}
+      {timeTaken === undefined ? null : timeTaken > 0 ? (
+        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      ) : (
+        <ResultPopUp resultType="toEarly" />
+      )}
+
+      {pathname === "/courseRegisteration" ? (
+        <BodyBottomRegister
+          registeredCourses={registeredCourses}
+          setRegisteredCourses={setRegisteredCourses}
+        />
+      ) : null}
       {pathname === "/preferredCourses" ? (
-        <BodyBottomPreferred preferredCourses={preferredCourses} />
+        <BodyBottomPreferred
+          preferredCourses={preferredCourses}
+          setPreferredCourses={setPreferredCourses}
+        />
       ) : null}
     </div>
   );

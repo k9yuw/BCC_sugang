@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useEffect, useState, useCallback} from "react";
+import { FormEvent, useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import FirstAlert from "./components/popups/firstAlert";
 
@@ -11,25 +11,25 @@ export default function Home() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {setIsOpen(true);};
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
-  const closeModal = () => {setIsOpen(false);};
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
-  useEffect(() =>
-  {
-	openModal();
-  },[])
-
+  useEffect(() => {
+    openModal();
+  }, []);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(id);
     router.push("/courseRegisteration");
 
     localStorage.setItem("username", id);
 
     // const formData = new FormData(e.currentTarget);
-    // console.log(formData);
     // const response = await fetch("/api/login", {
     //   method: "POST",
     //   body: formData,
@@ -41,7 +41,12 @@ export default function Home() {
 
   return (
     <div
-      style={{ backgroundColor: "#f5f5f5", fontFamily: "Apple SD Gothic Neo" }}
+      style={{
+        backgroundColor: "#f5f5f5",
+        fontFamily: "Segoe UI",
+        width: "100%",
+        minWidth: 1260,
+      }}
     >
       <FirstAlert isOpen={isOpen} closeModal={closeModal} />
       <div //header
@@ -153,7 +158,6 @@ export default function Home() {
                         position: "relative",
                         bottom: 2.5,
                         left: 5,
-                        fontFamily: "Apple SD Gothic Neo",
                         fontSize: 13,
                       }}
                     >
@@ -197,7 +201,6 @@ export default function Home() {
                         position: "relative",
                         bottom: 2.5,
                         left: 3,
-                        fontFamily: "Apple SD Gothic Neo",
                         fontSize: 13,
                       }}
                     >
@@ -230,7 +233,6 @@ export default function Home() {
                       paddingLeft: 36,
                       paddingBottom: 3,
                       fontSize: 12,
-                      fontFamily: "Apple SD Gothic Neo",
                       border: 1,
                       borderColor: "#ccc",
                       borderStyle: "solid",
@@ -253,7 +255,6 @@ export default function Home() {
                     marginBottom: 10,
                     paddingLeft: 36,
                     fontSize: 12,
-                    fontFamily: "Apple SD Gothic Neo",
                     borderWidth: 1,
                   }}
                 />
@@ -272,7 +273,7 @@ export default function Home() {
                     color: "#fff",
                     textAlign: "center",
                     fontFamily: "Segeo UI",
-                    fontWeight: "600",
+                    fontWeight: 600,
                     cursor: "pointer",
                   }}
                 >
@@ -364,7 +365,7 @@ export default function Home() {
                       fontSize: 14,
                       fontWeight: 400,
                       letterSpacing: -1,
-                      lineHeight: 2.2,
+                      lineHeight: 2.5,
                       color: "#fff",
                     }}
                   >
@@ -379,7 +380,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: "49.2px",
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -429,7 +430,7 @@ export default function Home() {
                       fontSize: 14,
                       fontWeight: 400,
                       letterSpacing: -1,
-                      lineHeight: 2.2,
+                      lineHeight: 2.5,
                       color: "#fff",
                     }}
                   >
@@ -444,7 +445,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: "49.2px",
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -483,7 +484,7 @@ export default function Home() {
                 }}
               >
                 <div
-                  style={{ textAlign: "left", marginTop: 10, marginBottom: 15 }}
+                  style={{ textAlign: "left", marginTop: 10, marginBottom: 17 }}
                 >
                   <Image alt="tag" src="/tag.svg" width={163} height={30} />
                   <p
@@ -494,7 +495,7 @@ export default function Home() {
                       fontSize: 14,
                       fontWeight: 400,
                       letterSpacing: -1,
-                      lineHeight: 2.2,
+                      lineHeight: 2.5,
                       color: "#fff",
                     }}
                   >
@@ -507,13 +508,13 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: "72px",
+                    height: 46,
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
-                  <div>
+                  <div style={{ display: "flex", flexDirection: "row" }}>
                     <div
                       style={{
                         fontSize: 15,
@@ -527,7 +528,12 @@ export default function Home() {
                       <br />
                       교육정보 확인
                     </div>
-                    <div style={{ paddingTop: 5, display: "inline-block" }}>
+                    <div
+                      style={{
+                        display: "inline-block",
+                        marginTop: 20,
+                      }}
+                    >
                       <Image
                         alt="more"
                         src={
@@ -561,7 +567,7 @@ export default function Home() {
                       fontSize: 14,
                       fontWeight: 400,
                       letterSpacing: -1,
-                      lineHeight: 2.2,
+                      lineHeight: 2.5,
                       color: "#fff",
                     }}
                   >
@@ -574,13 +580,13 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: "72px",
+                    height: 46,
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
-                  <div>
+                  <div style={{ display: "flex", flexDirection: "row" }}>
                     <div
                       style={{
                         fontSize: 15,
@@ -594,7 +600,7 @@ export default function Home() {
                       <br />
                       비밀번호변경
                     </div>
-                    <div style={{ paddingTop: 5, display: "inline-block" }}>
+                    <div style={{ marginTop: 20, display: "inline-block" }}>
                       <Image
                         alt="more"
                         src={
@@ -628,7 +634,7 @@ export default function Home() {
                       fontSize: 14,
                       fontWeight: 400,
                       letterSpacing: -1,
-                      lineHeight: 2.2,
+                      lineHeight: 2.5,
                       color: "#fff",
                     }}
                   >
@@ -643,7 +649,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: "49.2px",
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -693,7 +699,7 @@ export default function Home() {
                       fontSize: 14,
                       fontWeight: 400,
                       letterSpacing: -1,
-                      lineHeight: 2.2,
+                      lineHeight: 2.5,
                       color: "#fff",
                     }}
                   >
@@ -708,7 +714,7 @@ export default function Home() {
                     paddingLeft: 20,
                     height: "68.8px",
                     display: "flex",
-                    width: "162.5px",
+                    width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
@@ -946,15 +952,13 @@ export default function Home() {
                       lineHeight: 1.8,
                     }}
                   >
-                    <li style={{ fontFamily: "Apple SD Gothic Neo" }}>
-                      포털(KUPID)사용자 : 포털비밀번호
-                    </li>
-                    <li style={{ fontFamily: "Apple SD Gothic Neo" }}>
+                    <li>포털(KUPID)사용자 : 포털비밀번호</li>
+                    <li>
                       포털(KUPID)미사용자 : &apos;포털미사용자
                       비밀번호변경&apos;에서 설정한 비밀번호(설정전:
                       주민번호뒷자리)
                     </li>
-                    <li style={{ fontFamily: "Apple SD Gothic Neo" }}>
+                    <li>
                       (포털사용중인 신입생도 개강전에는 포털미사용자에 해당하는
                       비밀번호 사용)
                     </li>
@@ -1076,7 +1080,7 @@ export default function Home() {
           }}
         >
           02855 서울특별시 성북구 고려대로22길 6-7 / TEL.02.1234.5678. /
-          sinye2002@korea.ac.kr minwin00@korea.ac.kr kyuwon@korea.ac.kr
+          sinye2002@korea.ac.kr minwin00@korea.ac.kr gyuwoneeee@korea.ac.kr
           <br />
           Copyright © 2023 BBang Co Co. All Rights Reserved
         </div>

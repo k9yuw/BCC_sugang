@@ -11,16 +11,8 @@ import Body from "../components/Body";
 import BodyBottom from "../components/BodyBottomPreferred";
 
 export default function Home() {
-  const [tableMouseEnter, setTableMouseEnter] = useState(false);
-  const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
-  const [preferredCredit, setPreferredCredit] = useState("0");
-
-  useEffect(() => {
-    setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
-  }, []);
-
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
       <NavBar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Header />

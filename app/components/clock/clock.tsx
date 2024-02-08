@@ -3,43 +3,48 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
 import bgm from "./bgm.mp3";
-import useSugang from "../../hooks/useSugang";
+import { useGame } from "../context/GameContext";
+import { faK } from "@fortawesome/free-solid-svg-icons";
+
+const formatTimeString = (dateValue: number, isMs = false) => {
+  const date = new Date(dateValue);
+  if (isMs)
+    return `${Math.floor((dateValue % 1000) / 10)}`.padStart(2, "0") + "0";
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+  return `${hours}시 ${minutes}분 ${seconds}초 `;
+};
 
 const Clock = ({}) => {
-  const [timeFormat, setTimeFormat] = useState<string>("");
-  const [msFormat, setMsFormat] = useState<string>("");
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
-  const { startGame, clockStarted, startText, date: clockTime } = useSugang();
+  const {
+    startGame,
+    // startText,
+    date: clockTime,
+    clockStarted,
+  } = useGame();
+  const [msChecked, setMsChecked] = useState(false);
 
   const clockRef = useRef(null);
-  const msCheckboxRef = useRef<HTMLInputElement>(null);
-  const bgmCheckboxRef = useRef<HTMLInputElement>(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    const timerId = setInterval(() => {
-      const hours = String(new Date(clockTime).getHours()).padStart(2, "0");
-      const minutes = String(new Date(clockTime).getMinutes()).padStart(2, "0");
-      const seconds = String(new Date(clockTime).getSeconds()).padStart(2, "0");
-      const milliSeconds = String(
-        new Date(clockTime).getMilliseconds()
-      ).padStart(3, "0");
+    const redStart = new Date(2024, 1, 13, 9, 59, 53, 200);
+    const redEnd = new Date(2024, 1, 13, 10, 0, 3);
 
-      setTimeFormat(`${hours}시 ${minutes}분 ${seconds}초 `);
-      setMsFormat(`${milliSeconds}`);
+    if (redEnd < clockTime) {
+      setIsRed(false);
+      setBgmplayed(false);
+      return;
+    }
 
-      if (hours === "09" && minutes === "59" && seconds >= "54") {
-        setIsRed(true);
-        setBgmplayed(true);
-      } else if (hours === "10" && minutes === "00" && seconds === "03") {
-        setIsRed(false);
-        setBgmplayed(false);
-      }
-    }, 8);
-
-    return () => clearInterval(timerId);
-  }, [clockTime, clockStarted]);
+    if (redStart < clockTime) {
+      setIsRed(true);
+      setBgmplayed(true);
+    }
+  }, [clockTime]);
 
   useEffect(() => {
     if (bgmPlayed) {
@@ -61,41 +66,51 @@ const Clock = ({}) => {
       <div className="position">
         <div className={styles.timeArea}>
           <div ref={clockRef} id="clock" className={styles.clockWithMsec}>
-            {timeFormat}
-            {msCheckboxRef.current?.checked && (
-              <div className={styles.msecArea}>{msFormat}</div>
+            {clockTime ? formatTimeString(clockTime) : "9시 59분 50초"}
+            {msChecked && (
+              <div className={styles.msecArea}>
+                {clockTime ? formatTimeString(clockTime, true) : "000"}
+              </div>
             )}
           </div>
         </div>
-
-        <div className={styles.checkboxes}>
-          <span style={{ marginRight: 130, marginLeft: 7 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            padding: "0px 10px 10px 10px",
+          }}
+        >
+          <div className={styles.checkboxes} style={{ fontSize: 17 }}>
             <label>
-              <input ref={msCheckboxRef} type="checkbox" id="msCheckbox" />
+              <input
+                type="checkbox"
+                id="msCheckbox"
+                onChange={(e) => {
+                  setMsChecked(e.target.checked);
+                }}
+              />
               밀리초 보기
             </label>
-            <label>
-              <input ref={bgmCheckboxRef} type="checkbox" id="bgmCheckbox" />
-              음악 듣기
-            </label>
-          </span>
-          <button
-            onClick={startGame}
-            style={{
-              backgroundColor: "#a20131",
-              fontSize: 17,
-              color: "#fff",
-              border: 0,
-              width: 100,
-              height: 30,
-              marginBottom: 20,
-              borderRadius: "10%",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
-          >
-            {startText}
-          </button>
+          </div>
+          <div>
+            <button
+              onClick={startGame}
+              style={{
+                backgroundColor: "#a20131",
+                fontSize: 20,
+                color: "#fff",
+                width: 130,
+                height: 40,
+                borderRadius: 5,
+                border: 0,
+                cursor: "pointer",
+              }}
+            >
+              {clockStarted ? "다시 시작" : "게임 시작"}
+            </button>
+          </div>
         </div>
       </div>
       <audio ref={bgmRef} src={bgm} id="backgroundMusic" />

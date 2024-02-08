@@ -9,17 +9,18 @@ interface ModalProps {
 const CustomPopup: React.FC<ModalProps> = ({ customPopupOpen, closeCustomPopup, textValue }) => {
   const customStyles = {
     overlay: {
-      backgroundColor: "rgba(0,0,0,0.7)",
+		zIndex: 2,
+      	backgroundColor: "rgba(0,0,0,0.7)",
     },
     content: {
-      backgroundColor: "white",
-      width: "400px",
-      height: "190px",
-      margin: "auto",
-      borderRadius: "8px",
-      borderColor: "rgba(0,0,0,0.1)",
-      boxShadow: "0, 2px 4px rgba(0,0,0,0.1)",
-      padding: "8px",
+		backgroundColor: "white",
+		width: "400px",
+		height: "190px",
+		margin: "auto",
+		borderRadius: "8px",
+		borderColor: "rgba(0,0,0,0.1)",
+		boxShadow: "0, 2px 4px rgba(0,0,0,0.1)",
+		padding: "8px",
     },
   };
 

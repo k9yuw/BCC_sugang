@@ -18,6 +18,11 @@ import { lifelongEducation } from "@/app/data/lifelongEducation";
 import TimePeriod from "../popups/timePeriod";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import { all } from "@/app/data/all";
+import BodyBottomRegister from "../BodyBottomRegister";
+import { useGame } from "../context/GameContext";
+import WaitingPopUp from "../enrollment/WatingPopUp";
+import ResultPopUp from "../enrollment/ResultPopUp";
+import CustomPopup from "../popups/customPopup";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -25,7 +30,7 @@ export default function RegisterBySearch() {
   const [campus, setCampus] = useState("서울"); //캠퍼스
   const [collegeSectionType, setCollegeSectionType] = useState("대학"); //대학구분
   const [courseSelect, setCourseSelect] = useState([true, true]);
-  const [selectedIdxOne, setSelectedIdxOne] = useState(0);
+  const [selectedIdxOne, setSelectedIdxOne] = useState<0 | 1 | 2>(0);
   const [selectedIdxTwo, setSelectedIdxTwo] = useState(0);
   const [selectedIdxThree, setSelectedIdxThree] = useState(0);
   const [courseTypeOne, setCourseTypeOne] = useState("전공"); //이수구분
@@ -43,7 +48,16 @@ export default function RegisterBySearch() {
   const [searched, setSearched] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
+  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
+  const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
+  const { register } = useGame();
+  const [timeTaken, setTimeTaken] = useState<number>();
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+
+  const openCustomPopup = () => {setCustomPopupOpen(true);};
+  const closeCustomPopup = () => {setCustomPopupOpen(false);};
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -61,9 +75,15 @@ export default function RegisterBySearch() {
   }, []);
 
   useEffect(() => {
-    console.log(preferredCourses);
-    console.log(preferredCredit);
-  }, [preferredCourses, preferredCredit]);
+    const registeredCoursesCached = localStorage.getItem("registeredCourses");
+    if (!registeredCoursesCached) {
+      localStorage.setItem("registeredCourses", "[]");
+    }
+    const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
+    setRegisteredCourses(data);
+    const registeredCreditArray = data.map((prop) => prop.credit);
+    setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
+  }, []);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
@@ -71,37 +91,76 @@ export default function RegisterBySearch() {
   ) => {
     e.preventDefault();
     const courseId = prop.rowid + prop.params;
-    const courseIdArray = preferredCourses.map(
-      (prop) => prop.rowid + prop.params
-    );
-    if (courseIdArray.includes(courseId)) {
-      //중복 신청 filtering
-      alert("같은 과목을 중복 신청할 수 없습니다.");
-    } else {
-      if (pathname === "/courseRegisteration") {
-        //수강신청
-      } else if (pathname === "/preferredCourses") {
-        //관심과목 등록
-        let maxCreditLimit = localStorage.getItem("maxCreditLimit");
-        if (maxCreditLimit === null) {
-          maxCreditLimit = "19";
-          localStorage.setItem("maxCreditLimit", "19");
+    let maxCreditLimit = localStorage.getItem("maxCreditLimit");
+    if (maxCreditLimit === null) {
+      maxCreditLimit = "19";
+      localStorage.setItem("maxCreditLimit", "19");
+    }
+    //수강신청
+    if (pathname === "/courseRegisteration") {
+      const courseIdArrayRegistered = registeredCourses.map(
+        (prop) => prop.rowid + prop.params
+      );
+      if (courseIdArrayRegistered.includes(courseId))
+        //중복 신청 filtering
+        {
+          openCustomPopup();
+          setTextAlert("이미 신청된 과목입니다.");
         }
-        if (preferredCredit + prop.credit < parseInt(maxCreditLimit)) {
+      else {
+        //학점 초과 filtering
+        if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
+          {
+            openCustomPopup();
+            setTextAlert("신청가능한 학점을 초과했습니다");
+          }
+        } else {
+          //여기에 게임 넣으면 됨!
+          const result = register();
+          console.log("result:", result);
+          if (1000 > result && result > 0) {
+            // 조정
+            const data = [...registeredCourses, prop];
+            setRegisteredCourses(data);
+            setRegisteredCredit((prep) => prep + prop.credit);
+            localStorage.setItem("registeredCourses", JSON.stringify(data));
+          }
+          setTimeTaken(result);
+          // alert("신청 되었습니다.");
+        }
+      }
+    }
+    //관심과목 등록
+    else if (pathname === "/preferredCourses") {
+      const courseIdArrayPreferred = preferredCourses.map(
+        (prop) => prop.rowid + prop.params
+      );
+      if (courseIdArrayPreferred.includes(courseId))
+        //중복 신청 filtering
+        {
+          openCustomPopup();
+          setTextAlert("이미 신청된 과목입니다.");
+        }
+      else {
+        //학점 초과 filtering
+        if (preferredCredit + prop.credit > parseInt(maxCreditLimit)) {
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
+        } else {
           const data = [...preferredCourses, prop];
           setPreferredCourses(data);
           setPreferredCredit((prep) => prep + prop.credit);
           localStorage.setItem("preferredCourses", JSON.stringify(data));
-          alert("관심과목 등록 되었습니다.");
-        } else {
-          alert("신청가능한 학점을 초과했습니다");
+          openCustomPopup();
+          setTextAlert("관심과목 등록 되었습니다.");
         }
       }
     }
   };
+
   const onChangeCourseTypeOne = (e: ChangeEvent<HTMLSelectElement>) => {
     setCourseTypeOne(e.target.value);
-    setSelectedIdxOne(e.target.selectedIndex);
+    setSelectedIdxOne(e.target.selectedIndex as 0 | 1 | 2);
 
     if (e.target.selectedIndex < 2) {
       setCourseSelect([true, true]);
@@ -111,6 +170,7 @@ export default function RegisterBySearch() {
       setCourseSelect([false, false]);
     }
   };
+
   const onClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearched(true);
@@ -118,7 +178,8 @@ export default function RegisterBySearch() {
     if (courseCode !== "") {
       //학수번호 (+분반)
       if (courseName !== "") {
-        alert("학수번호 입력시 교과목명을 입력 할 수 없습니다.");
+        openCustomPopup();
+        setTextAlert("학수번호 입력시 교과목명을 입력 할 수 없습니다.");
         return;
       }
       data = all.filter((prop) => prop.cour_cd === courseCode);
@@ -162,9 +223,8 @@ export default function RegisterBySearch() {
         //종료교시
       }
       const re = /\((.*?)\)/;
-      const days = data.map((prop) => prop.time_room.match(re));
+      // const days = data.map((prop) => prop.time_room.match(re));
       // data = data.filter((prop) => prop.time_room.match(re));
-      console.log(days);
       setSearchedData(data);
     }
   };
@@ -349,7 +409,7 @@ export default function RegisterBySearch() {
                           overflow: "hidden",
                           whiteSpace: "nowrap",
                           textOverflow: "clip",
-                          flex: 1,
+                          width: "100%",
                           outline: "none",
                         }}
                       >
@@ -408,7 +468,7 @@ export default function RegisterBySearch() {
                             overflow: "hidden",
                             whiteSpace: "nowrap",
                             textOverflow: "clip",
-                            flex: 1,
+                            width: "100%",
                             outline: "none",
                           }}
                         >
@@ -469,12 +529,12 @@ export default function RegisterBySearch() {
                             overflow: "hidden",
                             whiteSpace: "nowrap",
                             textOverflow: "clip",
-                            flex: 1,
+                            width: "100%",
                             outline: "none",
                           }}
                         >
                           {selectedIdxOne < 2
-                            ? courseSelectData[selectedIdxOne][
+                            ? courseSelectData[selectedIdxOne as 0 | 1][
                                 courseTypeTwo
                               ]?.map((prop: string) => (
                                 <option key={prop}>{prop}</option>
@@ -515,13 +575,10 @@ export default function RegisterBySearch() {
                   </span>
                   <input
                     type="text"
-                    onInput={(e: any) =>
-                      (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
-                    }
                     maxLength={3}
                     value={credit}
                     onChange={(e) => {
-                      setCredit(e.target.value);
+                      setCredit(e.target.value.replace(/[^0-9]/g, ""));
                     }}
                     style={{
                       width: 74,
@@ -720,8 +777,9 @@ export default function RegisterBySearch() {
                   </select>
                   <span>
                     {isOpenModal && (
-                      <TimePeriod onClickToggleModal={onClickToggleModal}>
-                      </TimePeriod>
+                      <TimePeriod
+                        onClickToggleModal={onClickToggleModal}
+                      ></TimePeriod>
                     )}
                     <button
                       type="button"
@@ -743,7 +801,6 @@ export default function RegisterBySearch() {
                         borderBottomColor: "#ccc",
                         borderLeftColor: "#ccc",
                         borderStyle: "solid",
-                        fontFamily: "Segeo UI",
                         cursor: "pointer",
                       }}
                     >
@@ -810,16 +867,14 @@ export default function RegisterBySearch() {
                   <input
                     type="text"
                     maxLength={7}
-                    onInput={(e: any) => {
-                      e.target.value = e.target.value.replace(
-                        /[^a-zA-Z0-9]/g,
-                        ""
-                      );
-                      const x = e.target.value;
-                      e.target.value = x.toUpperCase();
-                    }}
                     value={courseCode}
-                    onChange={(e) => setCourseCode(e.target.value)}
+                    onChange={(e) =>
+                      setCourseCode(
+                        e.target.value
+                          .replace(/[^a-zA-Z0-9]/g, "")
+                          .toUpperCase()
+                      )
+                    }
                     style={{
                       width: 74,
                       height: 25,
@@ -854,16 +909,14 @@ export default function RegisterBySearch() {
                   <input
                     type="text"
                     maxLength={2}
-                    onInput={(e: any) => {
-                      e.target.value = e.target.value.replace(
-                        /[^a-zA-Z0-9]/g,
-                        ""
-                      );
-                      const x = e.target.value;
-                      e.target.value = x.toUpperCase();
-                    }}
                     value={section}
-                    onChange={(e) => setSection(e.target.value)}
+                    onChange={(e) =>
+                      setSection(
+                        e.target.value
+                          .replace(/[^a-zA-Z0-9]/g, "")
+                          .toUpperCase()
+                      )
+                    }
                     style={{
                       width: 74,
                       height: 25,
@@ -1034,7 +1087,6 @@ export default function RegisterBySearch() {
                 paddingRight: 0,
                 paddingBottom: 3,
                 fontSize: 13,
-                fontFamily: "sans-serif",
               }}
             >
               학수번호 클릭시 강의계획안 조회가 가능합니다.
@@ -1289,7 +1341,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1308,6 +1359,7 @@ export default function RegisterBySearch() {
                     >
                       {pathname === "/courseRegisteration" ? "신청" : "등록"}
                     </button>
+                    <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
                   </th>
                   <th
                     style={{
@@ -1322,7 +1374,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1341,7 +1392,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1360,7 +1410,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1380,7 +1429,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1401,7 +1449,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1420,7 +1467,6 @@ export default function RegisterBySearch() {
                       paddingRight: 6,
                       paddingBottom: 4,
                       paddingLeft: 6,
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
                     }}
                   >
@@ -1440,11 +1486,11 @@ export default function RegisterBySearch() {
                       paddingBottom: 4,
                       paddingLeft: 6,
                       textAlign: "left",
-                      fontFamily: "Segoe UI",
                       fontWeight: 400,
+                      whiteSpace: "break-spaces",
                     }}
                   >
-                    {prop.time_room}
+                    {prop.time_room.join("\n")}
                   </th>
                   <th
                     style={{
@@ -1599,8 +1645,25 @@ export default function RegisterBySearch() {
           </div>
         )}
       </div>
+
+      {/* 대기 및 결과 팝업 */}
+      {timeTaken === undefined ? null : timeTaken > 0 ? (
+        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      ) : (
+        <ResultPopUp resultType="toEarly" />
+      )}
+
+      {pathname === "/courseRegisteration" ? (
+        <BodyBottomRegister
+          registeredCourses={registeredCourses}
+          setRegisteredCourses={setRegisteredCourses}
+        />
+      ) : null}
       {pathname === "/preferredCourses" ? (
-        <BodyBottomPreferred preferredCourses={preferredCourses} />
+        <BodyBottomPreferred
+          preferredCourses={preferredCourses}
+          setPreferredCourses={setPreferredCourses}
+        />
       ) : null}
     </div>
   );

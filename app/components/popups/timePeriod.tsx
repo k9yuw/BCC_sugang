@@ -19,7 +19,7 @@ export default function TimePeriod({
     },
     content: {
       backgroundColor: "white",
-      width: "650px",
+      width: "480px",
       height: "655px",
       margin: "auto",
       borderRadius: "8px",
@@ -58,19 +58,32 @@ export default function TimePeriod({
               textAlign: "left",
               fontSize: "17px",
               fontWeight: "200",
+              display: "flex",
+              flexDirection: "row",
             }}
           >
-            <span style={{ marginRight: "350px" }}>
-              <strong>교시확인표(Course Time table)</strong>
-            </span>
-            <span
-              style={{ margin: 0, padding: 0, cursor: "pointer" }}
+            <div
+              style={{
+                fontWeight: 500,
+                fontFamily: "Segoe UI",
+                fontSize: 17,
+              }}
+            >
+              교시확인표(Course Time table)
+            </div>
+            <div
+              style={{
+                marginLeft: "auto",
+                marginRight: 17,
+                padding: 0,
+                cursor: "pointer",
+              }}
               onClick={() => {
                 if (onClickToggleModal) onClickToggleModal();
               }}
             >
               <Image src={closeImage} alt="check" width={20} height={20} />
-            </span>
+            </div>
           </div>
           <div style={{ marginBottom: "0px" }}>
             <hr

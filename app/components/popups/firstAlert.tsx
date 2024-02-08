@@ -65,7 +65,7 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
           </div>
           <hr
             style={{
-              marginTop: "10px",
+              marginTop: "0px",
               width: "95%",
               height: "2px",
               backgroundColor: "rgba(0,0,0,0.05)",
@@ -95,7 +95,7 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
           </div>
           <hr
             style={{
-              marginTop: "10px",
+              marginTop: "0px",
               width: "95%",
               height: "2px",
               backgroundColor: "rgba(0,0,0,0.05)",
@@ -111,13 +111,17 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
               onClick={() => closeModal()}
               style={{
                 border: "0",
-                fontSize: "17px",
+                fontSize: "18px",
                 backgroundColor: "white",
                 color: "#a20131",
                 cursor: "pointer",
+                letterSpacing: "5px",
+                textAlign: "center",
+                fontWeight: 700,
+                paddingLeft: 5,
               }}
             >
-              <strong>확인</strong>
+              확인
             </button>
           </div>
         </div>
