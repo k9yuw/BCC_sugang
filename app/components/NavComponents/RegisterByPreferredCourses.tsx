@@ -5,6 +5,7 @@ import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
 import WaitingPopUp from "../enrollment/WatingPopUp";
 import ResultPopUp from "../enrollment/ResultPopUp";
+import CustomPopup from "../popups/customPopup";
 
 export default function RegisterByPreferredCourses() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -13,6 +14,11 @@ export default function RegisterByPreferredCourses() {
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const { register } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+
+  const openCustomPopup = () => {setCustomPopupOpen(true);};
+  const closeCustomPopup = () => {setCustomPopupOpen(false);};
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -51,11 +57,17 @@ export default function RegisterByPreferredCourses() {
 
     if (courseIdArrayRegistered.includes(courseId))
       //중복 신청 filtering
-      alert("이미 신청된 과목입니다.");
+    {
+      openCustomPopup();
+      setTextAlert("이미 신청된 과목입니다.");
+    }
     else {
       //학점 초과 filtering
       if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
-        alert("신청가능한 학점을 초과했습니다");
+        {
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
+        }
       } else {
         const data = [...registeredCourses, prop];
         setRegisteredCourses(data);
@@ -304,6 +316,7 @@ export default function RegisterByPreferredCourses() {
                     >
                       신청
                     </button>
+                    <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
                   </th>
                   <th
                     style={{

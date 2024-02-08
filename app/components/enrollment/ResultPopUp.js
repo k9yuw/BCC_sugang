@@ -7,6 +7,7 @@ function ResultPopUp({ resultType }) {
   let textValueEN = "It is not the registration period";
 
   const customStyles = {
+    zIndex: 2,
     overlay: {
       backgroundColor: "rgba(0,0,0,0.7)",
     },

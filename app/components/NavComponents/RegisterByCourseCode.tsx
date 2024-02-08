@@ -5,6 +5,7 @@ import BodyBottomPreferred from "../BodyBottomPreferred";
 import courseData from "@/app/constant/courseDataInterface";
 import ResultPopUp from "../enrollment/ResultPopUp";
 import WaitingPopUp from "../enrollment/WatingPopUp";
+import CustomPopup from "../popups/customPopup";
 import { all } from "@/app/data/all";
 import { GameProvider, useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
@@ -19,6 +20,11 @@ export default function RegisterByCourseCode() {
   const [timeTaken, setTimeTaken] = useState<number>();
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+
+  const openCustomPopup = () => {setCustomPopupOpen(true);};
+  const closeCustomPopup = () => {setCustomPopupOpen(false);};
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -46,22 +52,26 @@ export default function RegisterByCourseCode() {
     e.preventDefault();
     //입력 에러 핸들링
     if (courseCode.length !== 7) {
-      alert("학수번호를 올바르게 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("학수번호를 올바르게 입력해주세요.");
       return;
     }
     if (section.length !== 2) {
-      alert("분반을 올바르게 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("분반을 올바르게 입력해주세요.");
       return;
     }
     const params = courseCode + "@" + section;
     const data = all.filter((prop) => prop.cour_cd === courseCode);
     if (!data) {
-      alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
       return;
     }
     const searchedData = data.find((prop) => prop.params === params);
     if (!searchedData) {
-      alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
+      openCustomPopup();
+      setTextAlert(`해당하는 과목이 없습니다. 다시 한 번 입력해주세요.`);
       return;
     }
     //과목 신청 or 등록
@@ -78,11 +88,15 @@ export default function RegisterByCourseCode() {
       );
       if (courseIdArrayRegistered.includes(courseId))
         //중복 신청 filtering
-        alert("이미 신청된 과목입니다.");
+      {
+        openCustomPopup();
+        setTextAlert("이미 신청된 과목입니다.");
+      }
       else {
         //학점 초과 filtering
         if (registeredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
-          alert("신청가능한 학점을 초과했습니다");
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
         } else {
           //여기에 게임 넣으면 됨!
           const result = register();
@@ -105,17 +119,22 @@ export default function RegisterByCourseCode() {
       );
       if (courseIdArrayPreferred.includes(courseId))
         //중복 신청 filtering
-        alert("이미 신청된 과목입니다.");
+      {
+        openCustomPopup();
+        setTextAlert("이미 신청된 과목입니다.");
+      }
       else {
         //학점 초과 filtering
         if (preferredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
-          alert("신청가능한 학점을 초과했습니다");
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
         } else {
           const data = [...preferredCourses, searchedData];
           setPreferredCourses(data);
           setPreferredCredit((prep) => prep + searchedData.credit);
           localStorage.setItem("preferredCourses", JSON.stringify(data));
-          alert("관심과목 등록 되었습니다.");
+          openCustomPopup();
+          setTextAlert("관심과목 등록 되었습니다.");
         }
       }
     }
@@ -259,6 +278,10 @@ export default function RegisterByCourseCode() {
           >
             신청
           </button>
+          <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
+          {/* 대기 및 결과 팝업 */}
+          {/* {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
+          {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}} */}
           <button
             onClick={() => {
               setCourseCode("");

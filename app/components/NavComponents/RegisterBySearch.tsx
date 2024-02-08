@@ -22,6 +22,7 @@ import BodyBottomRegister from "../BodyBottomRegister";
 import { useGame } from "../context/GameContext";
 import WaitingPopUp from "../enrollment/WatingPopUp";
 import ResultPopUp from "../enrollment/ResultPopUp";
+import CustomPopup from "../popups/customPopup";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -52,6 +53,11 @@ export default function RegisterBySearch() {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const { register } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+
+  const openCustomPopup = () => {setCustomPopupOpen(true);};
+  const closeCustomPopup = () => {setCustomPopupOpen(false);};
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -97,11 +103,17 @@ export default function RegisterBySearch() {
       );
       if (courseIdArrayRegistered.includes(courseId))
         //중복 신청 filtering
-        alert("이미 신청된 과목입니다.");
+        {
+          openCustomPopup();
+          setTextAlert("이미 신청된 과목입니다.");
+        }
       else {
         //학점 초과 filtering
         if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
-          alert("신청가능한 학점을 초과했습니다");
+          {
+            openCustomPopup();
+            setTextAlert("신청가능한 학점을 초과했습니다");
+          }
         } else {
           //여기에 게임 넣으면 됨!
           const result = register();
@@ -125,17 +137,22 @@ export default function RegisterBySearch() {
       );
       if (courseIdArrayPreferred.includes(courseId))
         //중복 신청 filtering
-        alert("이미 신청된 과목입니다.");
+        {
+          openCustomPopup();
+          setTextAlert("이미 신청된 과목입니다.");
+        }
       else {
         //학점 초과 filtering
         if (preferredCredit + prop.credit > parseInt(maxCreditLimit)) {
-          alert("신청가능한 학점을 초과했습니다");
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
         } else {
           const data = [...preferredCourses, prop];
           setPreferredCourses(data);
           setPreferredCredit((prep) => prep + prop.credit);
           localStorage.setItem("preferredCourses", JSON.stringify(data));
-          alert("관심과목 등록 되었습니다.");
+          openCustomPopup();
+          setTextAlert("관심과목 등록 되었습니다.");
         }
       }
     }
@@ -161,7 +178,8 @@ export default function RegisterBySearch() {
     if (courseCode !== "") {
       //학수번호 (+분반)
       if (courseName !== "") {
-        alert("학수번호 입력시 교과목명을 입력 할 수 없습니다.");
+        openCustomPopup();
+        setTextAlert("학수번호 입력시 교과목명을 입력 할 수 없습니다.");
         return;
       }
       data = all.filter((prop) => prop.cour_cd === courseCode);
@@ -1341,6 +1359,7 @@ export default function RegisterBySearch() {
                     >
                       {pathname === "/courseRegisteration" ? "신청" : "등록"}
                     </button>
+                    <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
                   </th>
                   <th
                     style={{

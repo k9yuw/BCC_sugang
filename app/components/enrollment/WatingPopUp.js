@@ -14,6 +14,7 @@ function WaitingPopUp({ timeTaken, rand }) {
   const peopleBack = Math.ceil((time - Math.ceil(waitingTime)) * rand * 600);
 
   const customStyles = {
+    zIndex: 2,
     overlay: {
       backgroundColor: "rgba(0,0,0,0.1)",
     },
