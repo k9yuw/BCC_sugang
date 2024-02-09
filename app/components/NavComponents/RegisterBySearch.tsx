@@ -1667,4 +1667,5 @@ export default function RegisterBySearch() {
       ) : null}
     </div>
   );
+
 }
