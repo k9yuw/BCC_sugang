@@ -14,6 +14,8 @@ const START_TIME = 1707785990000; // 2024-02-13T09:59:50.000
 function GameProvider({ children }) {
   const [clockStarted, setClockStarted] = useState(false);
   const [startTime, setStartTime] = useState(0);
+  // const [clickTime, setClickTime] = useState(0);
+  // const [startText, setStartText] = useState("게임 시작");
   const [date, setDate] = useState(START_TIME);
   // const timeTaken = clickTime - startTime;
 
@@ -22,7 +24,10 @@ function GameProvider({ children }) {
     // start
     if (!clockStarted) {
       setClockStarted(true);
+      // const time = new Date(2024, 1, 13, 10, 0, 0);
+      // setStartTime(time.getTime());
       setStartTime(new Date().valueOf());
+      // setClickTime(0);
     } else {
       setClockStarted(false);
       setDate(START_TIME);
@@ -31,7 +36,7 @@ function GameProvider({ children }) {
     return;
   };
 
-  // 시계 작동
+  // useEffect를 사용하여 시계 작동
   useEffect(() => {
     let timerId;
     if (clockStarted) {
@@ -55,8 +60,11 @@ function GameProvider({ children }) {
       value={{
         startGame,
         register,
+        // startText,
         clockStarted,
+        // clickTime,
         date,
+        // timeTaken,
       }}
     >
       {children}
