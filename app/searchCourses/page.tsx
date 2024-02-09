@@ -1742,9 +1742,10 @@ export default function Home() {
                           textAlign: "left",
                           fontFamily: "Segoe UI",
                           fontWeight: 400,
+                          whiteSpace: "break-spaces",
                         }}
                       >
-                        {prop.time_room}
+                        {prop.time_room.join("\n")}
                       </th>
                       <th
                         style={{
