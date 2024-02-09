@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "./table/preferredTimeTable/preferredTimeTable";
 import RegisterBySearch from "./NavComponents/RegisterBySearch";

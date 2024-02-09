@@ -1,11 +1,5 @@
 import React from "react";
 import "./globals.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faArrowRight,
-  faRefresh,
-} from "@fortawesome/free-solid-svg-icons";
 import Clock from "./clock";
 
 const Navysm = ({}) => {

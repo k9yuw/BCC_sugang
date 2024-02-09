@@ -15,14 +15,14 @@ import { generalStudies } from "@/app/data/generalStudies";
 import { teacherEducation } from "@/app/data/teacherEducatoin";
 import { militaryStudies } from "@/app/data/militaryStudies";
 import { lifelongEducation } from "@/app/data/lifelongEducation";
-import TimePeriod from "../popups/timePeriod";
+import TimePeriod from "../popups/TimePeriod";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import { all } from "@/app/data/all";
 import BodyBottomRegister from "../BodyBottomRegister";
 import { useGame } from "../context/GameContext";
-import WaitingPopUp from "../enrollment/WatingPopUp";
-import ResultPopUp from "../enrollment/ResultPopUp";
-import CustomPopup from "../popups/customPopup";
+import WaitingPopUp from "../popups/WatingPopUp";
+import ResultPopUp from "../popups/ResultPopUp";
+import CustomPopup from "../popups/CustomPopup";
 
 export default function RegisterBySearch() {
   const pathname = usePathname();
@@ -56,8 +56,12 @@ export default function RegisterBySearch() {
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
 
-  const openCustomPopup = () => {setCustomPopupOpen(true);};
-  const closeCustomPopup = () => {setCustomPopupOpen(false);};
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -101,13 +105,11 @@ export default function RegisterBySearch() {
       const courseIdArrayRegistered = registeredCourses.map(
         (prop) => prop.rowid + prop.params
       );
-      if (courseIdArrayRegistered.includes(courseId))
+      if (courseIdArrayRegistered.includes(courseId)) {
         //중복 신청 filtering
-        {
-          openCustomPopup();
-          setTextAlert("이미 신청된 과목입니다.");
-        }
-      else {
+        openCustomPopup();
+        setTextAlert("이미 신청된 과목입니다.");
+      } else {
         //학점 초과 filtering
         if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
           {
@@ -135,13 +137,11 @@ export default function RegisterBySearch() {
       const courseIdArrayPreferred = preferredCourses.map(
         (prop) => prop.rowid + prop.params
       );
-      if (courseIdArrayPreferred.includes(courseId))
+      if (courseIdArrayPreferred.includes(courseId)) {
         //중복 신청 filtering
-        {
-          openCustomPopup();
-          setTextAlert("이미 신청된 과목입니다.");
-        }
-      else {
+        openCustomPopup();
+        setTextAlert("이미 신청된 과목입니다.");
+      } else {
         //학점 초과 filtering
         if (preferredCredit + prop.credit > parseInt(maxCreditLimit)) {
           openCustomPopup();
@@ -1359,7 +1359,11 @@ export default function RegisterBySearch() {
                     >
                       {pathname === "/courseRegisteration" ? "신청" : "등록"}
                     </button>
-                    <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
+                    <CustomPopup
+                      customPopupOpen={customPopupOpen}
+                      closeCustomPopup={closeCustomPopup}
+                      textValue={textAlert}
+                    />
                   </th>
                   <th
                     style={{
@@ -1667,5 +1671,4 @@ export default function RegisterBySearch() {
       ) : null}
     </div>
   );
-
 }

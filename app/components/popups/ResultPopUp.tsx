@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 
-function ResultPopUp({ resultType }) {
+function ResultPopUp({ resultType }: { resultType: string }) {
   const [resultOpen, setResultOpen] = useState(true);
   let textValueKR = "지금은 수강신청 기간이 아닙니다.";
   let textValueEN = "It is not the registration period";
@@ -37,7 +37,7 @@ function ResultPopUp({ resultType }) {
         isOpen={resultOpen}
         onRequestClose={() => setResultOpen(false)}
         style={customStyles}
-        appElement={document.getElementById("root")}
+        // appElement={document.getElementById("root")}
       >
         <div
           style={{
@@ -91,7 +91,6 @@ function ResultPopUp({ resultType }) {
           >
             <button
               onClick={() => setResultOpen(false)}
-              type="text"
               style={{
                 width: "50px",
                 height: "30px",

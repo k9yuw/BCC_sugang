@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import ResultPopUp from "./ResultPopUp";
 
-function WaitingPopUp({ timeTaken, rand }) {
+function WaitingPopUp({
+  timeTaken,
+  rand,
+}: {
+  timeTaken: number;
+  rand: number;
+}) {
   const time = Math.ceil((timeTaken * 3) / 1000);
   const [waitingOpen, setWaitingOpen] = useState(true);
   const [success, setSuccess] = useState(false);
@@ -64,7 +70,7 @@ function WaitingPopUp({ timeTaken, rand }) {
         isOpen={waitingOpen}
         onRequestClose={() => setWaitingOpen(false)}
         style={customStyles}
-        appElement={document.getElementById("root")}
+        // appElement={document.getElementById("root")}
       >
         <div
           style={{

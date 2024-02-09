@@ -3,9 +3,9 @@ import Image from "next/image";
 import { MouseEvent, useState, useEffect } from "react";
 import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
-import WaitingPopUp from "../enrollment/WatingPopUp";
-import ResultPopUp from "../enrollment/ResultPopUp";
-import CustomPopup from "../popups/customPopup";
+import WaitingPopUp from "../popups/WatingPopUp";
+import ResultPopUp from "../popups/ResultPopUp";
+import CustomPopup from "../popups/CustomPopup";
 
 export default function RegisterByPreferredCourses() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -17,8 +17,12 @@ export default function RegisterByPreferredCourses() {
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
 
-  const openCustomPopup = () => {setCustomPopupOpen(true);};
-  const closeCustomPopup = () => {setCustomPopupOpen(false);};
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -55,13 +59,11 @@ export default function RegisterByPreferredCourses() {
       (prop) => prop.rowid + prop.params
     );
 
-    if (courseIdArrayRegistered.includes(courseId))
+    if (courseIdArrayRegistered.includes(courseId)) {
       //중복 신청 filtering
-    {
       openCustomPopup();
       setTextAlert("이미 신청된 과목입니다.");
-    }
-    else {
+    } else {
       //학점 초과 filtering
       if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
         {
@@ -316,7 +318,11 @@ export default function RegisterByPreferredCourses() {
                     >
                       신청
                     </button>
-                    <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
+                    <CustomPopup
+                      customPopupOpen={customPopupOpen}
+                      closeCustomPopup={closeCustomPopup}
+                      textValue={textAlert}
+                    />
                   </th>
                   <th
                     style={{
@@ -493,7 +499,7 @@ export default function RegisterByPreferredCourses() {
             </thead>
           </table>
         </div>
-        {preferredCourses?.length === 0 ? ( //검색 결과 없음
+        {preferredCourses?.length === 0 ? ( //관심과목 없음
           <div
             onMouseEnter={() => {
               setTableMouseEnter(true);
