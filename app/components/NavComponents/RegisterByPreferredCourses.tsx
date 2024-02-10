@@ -77,18 +77,16 @@ export default function RegisterByPreferredCourses() {
         }
       } else {
         const data = [...registeredCourses, prop];
-        setRegisteredCourses(data);
-        setRegisteredCredit((prep) => prep + prop.credit);
+        // setRegisteredCourses(data);
+        // setRegisteredCredit((prep) => prep + prop.credit);
 
         //여기에 게임 넣으면 됨!
         const result = register();
 
         if (result < 0) {
           setResultPopupOpen(true);
-          return;
-        }
-
-        if (result > 0) {
+          // return;
+        } else {
           // 조정
           setWaitingOpen(true);
           const data = [...registeredCourses, prop];
