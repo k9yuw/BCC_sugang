@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { FormEvent, useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import FirstAlert from "./components/popups/FirstAlert";
+import FirstAlert from "./components/popups/firstAlert";
 
 export default function Home() {
   const [language, setLanguage] = useState<"eng" | "kor">("kor");
