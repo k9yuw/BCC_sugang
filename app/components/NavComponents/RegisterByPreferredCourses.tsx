@@ -19,6 +19,7 @@ export default function RegisterByPreferredCourses() {
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
+  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
 
   const [waitingOpen, setWaitingOpen] = useState(false);
 
@@ -89,10 +90,18 @@ export default function RegisterByPreferredCourses() {
         } else {
           // 조정
           setWaitingOpen(true);
+          setResultPopupOpen(false);
           const data = [...registeredCourses, prop];
           setRegisteredCourses(data);
           setRegisteredCredit((prep) => prep + prop.credit);
           localStorage.setItem("registeredCourses", JSON.stringify(data));
+          if (result < 20000) {
+            setResultType("success"); 
+            setResultPopupOpen(true); }  
+          else {
+            setResultType("fail"); 
+            setResultPopupOpen(true);
+          }
         }
         setTimeTaken(result);
       }
@@ -547,7 +556,7 @@ export default function RegisterByPreferredCourses() {
         />
       ) : (
         <ResultPopUp
-          resultType="toEarly"
+          resultType={resultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />

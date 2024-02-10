@@ -12,7 +12,6 @@ export default function Body() {
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
 
   return (
-    // <GameProvider>
     <div>
       <div //상단 바디
         style={{
@@ -127,6 +126,5 @@ export default function Body() {
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
     </div>
-    // </GameProvider>
   );
 }
