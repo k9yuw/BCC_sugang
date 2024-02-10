@@ -10,7 +10,8 @@ import {
 } from "react";
 import Image from "next/image";
 import courseData from "../constant/courseDataInterface";
-import TimePeriod from "./popups/timePeriod";
+import TimePeriod from "./popups/TimePeriod";
+import CustomPopup from "./popups/CustomPopup";
 
 export default function BodyBottomPreferred({
   preferredCourses,
@@ -23,6 +24,15 @@ export default function BodyBottomPreferred({
   const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -52,7 +62,8 @@ export default function BodyBottomPreferred({
       data.splice(idx, 1);
       setPreferredCourses(data);
       localStorage.setItem("preferredCourses", JSON.stringify(data));
-      alert("삭제되었습니다.");
+      openCustomPopup();
+      setTextAlert("삭제되었습니다.");
     }
     console.log(preferredCourses);
   };
@@ -468,6 +479,11 @@ export default function BodyBottomPreferred({
                       >
                         삭제
                       </button>
+                      <CustomPopup
+                        customPopupOpen={customPopupOpen}
+                        closeCustomPopup={closeCustomPopup}
+                        textValue={textAlert}
+                      />
                     </th>
                     <th
                       style={{

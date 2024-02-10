@@ -3,8 +3,11 @@ import Image from "next/image";
 import { MouseEvent, useState, useEffect } from "react";
 import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
-import WaitingPopUp from "../enrollment/WatingPopUp";
-import ResultPopUp from "../enrollment/ResultPopUp";
+import WaitingPopUp from "../popups/WatingPopUp";
+import ResultPopUp from "../popups/ResultPopUp";
+import CustomPopup from "../popups/CustomPopup";
+
+const rand = Math.random();
 
 export default function RegisterByPreferredCourses() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -13,6 +16,18 @@ export default function RegisterByPreferredCourses() {
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const { register } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+  const [resultPopupOpen, setResultPopupOpen] = useState(false);
+
+  const [waitingOpen, setWaitingOpen] = useState(false);
+
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -49,13 +64,17 @@ export default function RegisterByPreferredCourses() {
       (prop) => prop.rowid + prop.params
     );
 
-    if (courseIdArrayRegistered.includes(courseId))
+    if (courseIdArrayRegistered.includes(courseId)) {
       //중복 신청 filtering
-      alert("이미 신청된 과목입니다.");
-    else {
+      openCustomPopup();
+      setTextAlert("이미 신청된 과목입니다.");
+    } else {
       //학점 초과 filtering
       if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
-        alert("신청가능한 학점을 초과했습니다");
+        {
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
+        }
       } else {
         const data = [...registeredCourses, prop];
         setRegisteredCourses(data);
@@ -63,12 +82,21 @@ export default function RegisterByPreferredCourses() {
 
         //여기에 게임 넣으면 됨!
         const result = register();
-        if (1000 > result && result > 0) {
+
+        if (result < 0) {
+          setResultPopupOpen(true);
+          return;
+        }
+
+        if (result > 0) {
           // 조정
+          setWaitingOpen(true);
+          const data = [...registeredCourses, prop];
+          setRegisteredCourses(data);
+          setRegisteredCredit((prep) => prep + prop.credit);
           localStorage.setItem("registeredCourses", JSON.stringify(data));
         }
         setTimeTaken(result);
-        // alert("신청 되었습니다.");
       }
     }
   };
@@ -304,6 +332,11 @@ export default function RegisterByPreferredCourses() {
                     >
                       신청
                     </button>
+                    <CustomPopup
+                      customPopupOpen={customPopupOpen}
+                      closeCustomPopup={closeCustomPopup}
+                      textValue={textAlert}
+                    />
                   </th>
                   <th
                     style={{
@@ -480,7 +513,7 @@ export default function RegisterByPreferredCourses() {
             </thead>
           </table>
         </div>
-        {preferredCourses?.length === 0 ? ( //검색 결과 없음
+        {preferredCourses?.length === 0 ? ( //관심과목 없음
           <div
             onMouseEnter={() => {
               setTableMouseEnter(true);
@@ -507,10 +540,19 @@ export default function RegisterByPreferredCourses() {
       </div>
 
       {/* 대기 및 결과 팝업 */}
-      {timeTaken === undefined ? null : timeTaken > 0 ? (
-        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      {timeTaken === undefined ? null : timeTaken > 0 && waitingOpen ? (
+        <WaitingPopUp
+          timeTaken={timeTaken ?? 0}
+          rand={rand}
+          waitingOpen={waitingOpen}
+          setWaitingOpen={setWaitingOpen}
+        />
       ) : (
-        <ResultPopUp resultType="toEarly" />
+        <ResultPopUp
+          resultType="toEarly"
+          resultOpen={resultPopupOpen}
+          setResultOpen={setResultPopupOpen}
+        />
       )}
 
       <BodyBottomRegister

@@ -3,11 +3,14 @@ import { MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import courseData from "@/app/constant/courseDataInterface";
-import ResultPopUp from "../enrollment/ResultPopUp";
-import WaitingPopUp from "../enrollment/WatingPopUp";
+import ResultPopUp from "../popups/ResultPopUp";
+import WaitingPopUp from "../popups/WatingPopUp";
+import CustomPopup from "../popups/CustomPopup";
 import { all } from "@/app/data/all";
-import { GameProvider, useGame } from "../context/GameContext";
+import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
+
+const rand = Math.random();
 
 export default function RegisterByCourseCode() {
   const pathname = usePathname();
@@ -19,6 +22,17 @@ export default function RegisterByCourseCode() {
   const [timeTaken, setTimeTaken] = useState<number>();
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState<string>("");
+  const [resultPopupOpen, setResultPopupOpen] = useState(false);
+  const [waitingOpen, setWaitingOpen] = useState(false);
+
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -46,22 +60,26 @@ export default function RegisterByCourseCode() {
     e.preventDefault();
     //입력 에러 핸들링
     if (courseCode.length !== 7) {
-      alert("학수번호를 올바르게 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("학수번호를 올바르게 입력해주세요.");
       return;
     }
     if (section.length !== 2) {
-      alert("분반을 올바르게 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("분반을 올바르게 입력해주세요.");
       return;
     }
     const params = courseCode + "@" + section;
     const data = all.filter((prop) => prop.cour_cd === courseCode);
     if (!data) {
-      alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
+      openCustomPopup();
+      setTextAlert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
       return;
     }
     const searchedData = data.find((prop) => prop.params === params);
     if (!searchedData) {
-      alert("해당하는 과목이 없습니다. 다시 한 번 입력해주세요.");
+      openCustomPopup();
+      setTextAlert(`해당하는 과목이 없습니다. 다시 한 번 입력해주세요.`);
       return;
     }
     //과목 신청 or 등록
@@ -76,17 +94,26 @@ export default function RegisterByCourseCode() {
       const courseIdArrayRegistered = registeredCourses.map(
         (prop) => prop.rowid + prop.params
       );
-      if (courseIdArrayRegistered.includes(courseId))
+      if (courseIdArrayRegistered.includes(courseId)) {
         //중복 신청 filtering
-        alert("이미 신청된 과목입니다.");
-      else {
+        openCustomPopup();
+        setTextAlert("이미 신청된 과목입니다.");
+      } else {
         //학점 초과 filtering
         if (registeredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
-          alert("신청가능한 학점을 초과했습니다");
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
         } else {
           //여기에 게임 넣으면 됨!
           const result = register();
-          if (1000 > result && result > 0) {
+          if (result < 0) {
+            setResultPopupOpen(true);
+            return;
+          }
+
+          setTimeTaken(result);
+          if (result > 0) {
+            setWaitingOpen(true);
             // 조정
             const data = [...registeredCourses, searchedData];
             setRegisteredCourses(data);
@@ -103,19 +130,22 @@ export default function RegisterByCourseCode() {
       const courseIdArrayPreferred = preferredCourses.map(
         (prop) => prop.rowid + prop.params
       );
-      if (courseIdArrayPreferred.includes(courseId))
+      if (courseIdArrayPreferred.includes(courseId)) {
         //중복 신청 filtering
-        alert("이미 신청된 과목입니다.");
-      else {
+        openCustomPopup();
+        setTextAlert("이미 신청된 과목입니다.");
+      } else {
         //학점 초과 filtering
         if (preferredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
-          alert("신청가능한 학점을 초과했습니다");
+          openCustomPopup();
+          setTextAlert("신청가능한 학점을 초과했습니다");
         } else {
           const data = [...preferredCourses, searchedData];
           setPreferredCourses(data);
           setPreferredCredit((prep) => prep + searchedData.credit);
           localStorage.setItem("preferredCourses", JSON.stringify(data));
-          alert("관심과목 등록 되었습니다.");
+          openCustomPopup();
+          setTextAlert("관심과목 등록 되었습니다.");
         }
       }
     }
@@ -259,6 +289,14 @@ export default function RegisterByCourseCode() {
           >
             신청
           </button>
+          <CustomPopup
+            customPopupOpen={customPopupOpen}
+            closeCustomPopup={closeCustomPopup}
+            textValue={textAlert}
+          />
+          {/* 대기 및 결과 팝업 */}
+          {/* {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
+          {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}} */}
           <button
             onClick={() => {
               setCourseCode("");
@@ -284,10 +322,19 @@ export default function RegisterByCourseCode() {
         </div>
       </div>
       {/* 대기 및 결과 팝업 */}
-      {timeTaken === undefined ? null : timeTaken > 0 ? (
-        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      {timeTaken === undefined ? null : timeTaken > 0 && waitingOpen ? (
+        <WaitingPopUp
+          timeTaken={timeTaken ?? 0}
+          rand={rand}
+          waitingOpen={waitingOpen}
+          setWaitingOpen={setWaitingOpen}
+        />
       ) : (
-        <ResultPopUp resultType="toEarly" />
+        <ResultPopUp
+          resultType="toEarly"
+          resultOpen={resultPopupOpen}
+          setResultOpen={setResultPopupOpen}
+        />
       )}
 
       {pathname === "/courseRegisteration" ? (

@@ -65,7 +65,7 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
           </div>
           <hr
             style={{
-              marginTop: "10px",
+              marginTop: "0px",
               width: "95%",
               height: "2px",
               backgroundColor: "rgba(0,0,0,0.05)",
@@ -95,7 +95,7 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
           </div>
           <hr
             style={{
-              marginTop: "10px",
+              marginTop: "0px",
               width: "95%",
               height: "2px",
               backgroundColor: "rgba(0,0,0,0.05)",
@@ -110,8 +110,6 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
             <button
               onClick={() => closeModal()}
               style={{
-                width: "480px",
-                height: "30px",
                 border: "0",
                 fontSize: "18px",
                 backgroundColor: "white",

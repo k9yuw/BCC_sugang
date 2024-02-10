@@ -13,7 +13,7 @@ import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import courseData from "../constant/courseDataInterface";
 import { courseSelectData } from "../constant/CourseSelectData";
-import TimePeriod from "../components/popups/timePeriod";
+import TimePeriod from "../components/popups/TimePeriod";
 
 export default function Home() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -1742,9 +1742,10 @@ export default function Home() {
                           textAlign: "left",
                           fontFamily: "Segoe UI",
                           fontWeight: 400,
+                          whiteSpace: "break-spaces",
                         }}
                       >
-                        {prop.time_room}
+                        {prop.time_room.join("\n")}
                       </th>
                       <th
                         style={{

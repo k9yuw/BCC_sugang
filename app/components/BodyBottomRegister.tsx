@@ -6,7 +6,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import TimePeriod from "./popups/timePeriod";
+import TimePeriod from "./popups/TimePeriod";
 import TimeTable from "./table/sugangTimeTable/timeTable";
 import Navysm from "./clock/navysm";
 import courseData from "../constant/courseDataInterface";
@@ -14,6 +14,7 @@ import Image from "next/image";
 import { timeTableColor } from "../constant/timeTableColor";
 import { useSpring, animated } from "react-spring";
 import { useDrag } from "react-use-gesture";
+import CustomPopup from "./popups/CustomPopup";
 
 export default function BodyBottomRegister({
   registeredCourses,
@@ -26,11 +27,21 @@ export default function BodyBottomRegister({
   const [maxCreditLimit, setMaxCreditLimit] = useState<string>("");
   const [registerdCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  const logoPos = useSpring({ x: 0, y: 0 });
-  const bindLogoPos = useDrag((params) => {
-    logoPos.x.set(params.offset[0]);
-    logoPos.y.set(params.offset[1]);
-  });
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
+
+  // const logoPos = useSpring({ x: 0, y: 0 });
+  // const bindLogoPos = useDrag((params) => {
+  //   logoPos.x.set(params.offset[0]);
+  //   logoPos.y.set(params.offset[1]);
+  // });
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -60,7 +71,8 @@ export default function BodyBottomRegister({
       data.splice(idx, 1);
       setRegisteredCourses(data);
       localStorage.setItem("registeredCourses", JSON.stringify(data));
-      alert("삭제되었습니다.");
+      openCustomPopup();
+      setTextAlert("삭제되었습니다.");
     }
     console.log(registeredCourses);
   };
@@ -615,6 +627,11 @@ export default function BodyBottomRegister({
                       >
                         삭제
                       </button>
+                      <CustomPopup
+                        customPopupOpen={customPopupOpen}
+                        closeCustomPopup={closeCustomPopup}
+                        textValue={textAlert}
+                      />
                     </th>
                   </tr>
                 ))}
@@ -655,7 +672,7 @@ export default function BodyBottomRegister({
           </div>
         </div>
       </div>
-      <animated.div
+      {/* <animated.div
         {...bindLogoPos()}
         style={{
           x: logoPos.x,
@@ -666,7 +683,7 @@ export default function BodyBottomRegister({
         }}
       >
         <Navysm />
-      </animated.div>
+      </animated.div> */}
     </div>
   );
 }

@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./navysm.module.css";
 import bgm from "./bgm.mp3";
 import { useGame } from "../context/GameContext";
-import { faK } from "@fortawesome/free-solid-svg-icons";
 
 const formatTimeString = (dateValue: number, isMs = false) => {
   const date = new Date(dateValue);

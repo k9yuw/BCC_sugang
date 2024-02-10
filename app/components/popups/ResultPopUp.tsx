@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Modal from "react-modal";
 
-function ResultPopUp({ resultType }) {
-  const [resultOpen, setResultOpen] = useState(true);
+function ResultPopUp({
+  resultType,
+  resultOpen,
+  setResultOpen,
+}: {
+  resultType: string;
+  resultOpen: boolean;
+  setResultOpen: Dispatch<SetStateAction<boolean>>;
+}) {
+  const [] = useState(true);
   let textValueKR = "지금은 수강신청 기간이 아닙니다.";
   let textValueEN = "It is not the registration period";
 
   const customStyles = {
+    zIndex: 2,
     overlay: {
       backgroundColor: "rgba(0,0,0,0.7)",
     },
@@ -36,7 +45,7 @@ function ResultPopUp({ resultType }) {
         isOpen={resultOpen}
         onRequestClose={() => setResultOpen(false)}
         style={customStyles}
-        appElement={document.getElementById("root")}
+        appElement={document.getElementById("root") ?? undefined}
       >
         <div
           style={{
@@ -90,7 +99,6 @@ function ResultPopUp({ resultType }) {
           >
             <button
               onClick={() => setResultOpen(false)}
-              type="text"
               style={{
                 width: "50px",
                 height: "30px",
