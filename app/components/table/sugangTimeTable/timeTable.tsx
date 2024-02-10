@@ -1,11 +1,88 @@
 "use client";
 
+import courseData from "@/app/constant/courseDataInterface";
 import styles from "./timeTable.module.css";
+import { MouseEvent, useState, useEffect } from "react";
 
 // const innerColor = new Array(63).fill('white');
 // const colorKind = ["#D63D2F", "#E06616", "#E0A605", "#789C0C", "#1879D3"];
 
-export default function TimeTable({ innerColor }: { innerColor: string[] }) {
+export default function TimeTable(/* { innerColor }: { innerColor: string[] }*/) {
+
+  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
+  const [registeredDaySlot, setRegisteredDaySlot] = useState<string[]>([]);
+  const [registeredTimeSlot, setRegisteredTimeSlot] = useState<number[][]>([]);
+  const [slotToColor, setSlotToColor] = useState<number[][]>([]);
+  const [innerColor, setInnerColor] = useState<string[]>(new Array(54).fill('white'));
+
+  // 요일정보, 교시정보 추출
+  useEffect(() => {
+    const registeredCoursesCached = localStorage.getItem("registeredCourses");
+    if (!registeredCoursesCached) {
+      localStorage.setItem("registeredCourses", "[]");
+    }
+    const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
+    setRegisteredCourses(data);
+
+    let days: string[] = [];
+    let periods: number[][] = [];
+
+    data.forEach((course) => {
+      course.time_room.forEach((timeRoom) => {
+        const dayMatch = timeRoom.match(/[월화수목금토](?=\()/g);
+        const periodMatch = timeRoom.match(/\((\d+)(-\d+)?\)/);
+
+        if (dayMatch) {
+          days = days.concat(dayMatch);
+        }
+
+        if (periodMatch) {
+          const startPeriod = parseInt(periodMatch[1], 10);
+          let coursePeriods: number[] = [];
+
+          if (periodMatch[2]) {
+            const endPeriod = parseInt(periodMatch[2].slice(1), 10);
+            // 연속된 교시 배열 추가
+            for (let i = startPeriod; i <= endPeriod; i++) {
+              coursePeriods.push(i);
+            }
+          } else {
+            // 단일 교시 배열 추가
+            coursePeriods.push(startPeriod);
+          }
+        }
+      });
+    });
+
+    setRegisteredDaySlot(days);
+    setRegisteredTimeSlot(periods);
+  }, []);
+
+
+  // 요일, 교시를 통해 칠해야되는 인덱스 계산
+  const calculateSlots = (days: string[], periods: number[][]): number[] => {
+    const dayToNumber = (day: string): number => {
+      const daysMap: { [key: string]: number } = { '월': 0, '화': 1, '수': 2, '목': 3, '금': 4, '토': 5 };
+      return daysMap[day] ?? -1;
+    };
+  
+    let coloringSlots: number[] = [];
+    days.forEach((day, i) => {
+      const dayIndex = dayToNumber(day);
+      if (dayIndex === -1) {
+        return;
+      }
+      periods[i].forEach((period) => {
+        const slotIndex = (period - 1) * 6 + dayIndex;
+        coloringSlots.push(slotIndex);
+      });
+    });
+
+    return coloringSlots;
+  };
+  
+
+
   return (
     <div>
       <div //수강신청 내역 테이블
