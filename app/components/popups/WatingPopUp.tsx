@@ -2,6 +2,7 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Modal from "react-modal";
 import ResultPopUp from "./ResultPopUp";
 
+
 function WaitingPopUp({
   timeTaken,
   rand,
@@ -17,7 +18,7 @@ function WaitingPopUp({
   // const [success, setSuccess] = useState(false);
   const [waitingTime, setWaitingTime] = useState(time);
   const [resultPopupOpen, setResultPopupOpen] = useState(true);
-  const [resultType, setResultType] = useState<"success" | "fail">("success");
+  // const [resultType, setResultType] = useState<"success" | "fail">("success");
 
   useEffect(() => {
     console.log("RENDERED!");
@@ -54,16 +55,16 @@ function WaitingPopUp({
     },
   };
 
+
+
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (waitingOpen) {
       timer = setTimeout(() => {
-        setWaitingOpen(false);
-        // setWaitingTime(time);
-        if (timeTaken < 2000) {
-          setResultType("success");
-        }
-        // else setSuccess(false);
+        setWaitingOpen(false); 
+        // if (timeTaken < 2000) {
+        //   setResultType("success"); }
+        // setResultPopupOpen(true); 
       }, time * 1000);
     }
 
@@ -178,18 +179,18 @@ function WaitingPopUp({
           </div>
         </div>
       </Modal>
-      {waitingTime <= 0 ? (
+      {waitingTime >= 0 && !waitingOpen && resultPopupOpen && (
         // success ? (
         //   <ResultPopUp resultType={"success"} />
         // ) : (
         //   <ResultPopUp resultType={"fail"} />
         // )
         <ResultPopUp
-          resultType={resultType}
+          resultType="toEarly"
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />
-      ) : null}
+      ) }
     </div>
   );
 }

@@ -30,10 +30,16 @@ function ResultPopUp({
       padding: "8px",
     },
   };
-  if (resultType === "success") {
+  
+  if (resultType === "toEarly") {
+    textValueKR = "지금은 수강신청 기간이 아닙니다.";
+    textValueEN = "It is not the registration period";
+  }
+  else if (resultType === "success") {
     textValueKR = "신청되었습니다.";
     textValueEN = "The registration has been completed.";
-  } else if (resultType === "fail") {
+  } 
+    else if (resultType === "fail") {
     textValueKR = "제한인원이 마감되었습니다.";
     textValueEN = "Enrollment for the course has been reached.";
   }
