@@ -7,6 +7,8 @@ import WaitingPopUp from "../popups/WatingPopUp";
 import ResultPopUp from "../popups/ResultPopUp";
 import CustomPopup from "../popups/CustomPopup";
 
+const rand = Math.random();
+
 export default function RegisterByPreferredCourses() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
@@ -16,6 +18,9 @@ export default function RegisterByPreferredCourses() {
   const [timeTaken, setTimeTaken] = useState<number>();
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
+  const [resultPopupOpen, setResultPopupOpen] = useState(false);
+
+  const [waitingOpen, setWaitingOpen] = useState(false);
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
@@ -77,12 +82,21 @@ export default function RegisterByPreferredCourses() {
 
         //여기에 게임 넣으면 됨!
         const result = register();
-        if (1000 > result && result > 0) {
+
+        if (result < 0) {
+          setResultPopupOpen(true);
+          return;
+        }
+
+        if (result > 0) {
           // 조정
+          setWaitingOpen(true);
+          const data = [...registeredCourses, prop];
+          setRegisteredCourses(data);
+          setRegisteredCredit((prep) => prep + prop.credit);
           localStorage.setItem("registeredCourses", JSON.stringify(data));
         }
         setTimeTaken(result);
-        // alert("신청 되었습니다.");
       }
     }
   };
@@ -526,10 +540,19 @@ export default function RegisterByPreferredCourses() {
       </div>
 
       {/* 대기 및 결과 팝업 */}
-      {timeTaken === undefined ? null : timeTaken > 0 ? (
-        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      {timeTaken === undefined ? null : timeTaken > 0 && waitingOpen ? (
+        <WaitingPopUp
+          timeTaken={timeTaken ?? 0}
+          rand={rand}
+          waitingOpen={waitingOpen}
+          setWaitingOpen={setWaitingOpen}
+        />
       ) : (
-        <ResultPopUp resultType="toEarly" />
+        <ResultPopUp
+          resultType="toEarly"
+          resultOpen={resultPopupOpen}
+          setResultOpen={setResultPopupOpen}
+        />
       )}
 
       <BodyBottomRegister

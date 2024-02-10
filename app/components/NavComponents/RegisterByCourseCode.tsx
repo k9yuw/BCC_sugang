@@ -10,6 +10,8 @@ import { all } from "@/app/data/all";
 import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
 
+const rand = Math.random();
+
 export default function RegisterByCourseCode() {
   const pathname = usePathname();
   const [courseCode, setCourseCode] = useState<string>("");
@@ -22,6 +24,8 @@ export default function RegisterByCourseCode() {
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState<string>("");
+  const [resultPopupOpen, setResultPopupOpen] = useState(false);
+  const [waitingOpen, setWaitingOpen] = useState(false);
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
@@ -102,7 +106,14 @@ export default function RegisterByCourseCode() {
         } else {
           //여기에 게임 넣으면 됨!
           const result = register();
-          if (1000 > result && result > 0) {
+          if (result < 0) {
+            setResultPopupOpen(true);
+            return;
+          }
+
+          setTimeTaken(result);
+          if (result > 0) {
+            setWaitingOpen(true);
             // 조정
             const data = [...registeredCourses, searchedData];
             setRegisteredCourses(data);
@@ -311,10 +322,19 @@ export default function RegisterByCourseCode() {
         </div>
       </div>
       {/* 대기 및 결과 팝업 */}
-      {timeTaken === undefined ? null : timeTaken > 0 ? (
-        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      {timeTaken === undefined ? null : timeTaken > 0 && waitingOpen ? (
+        <WaitingPopUp
+          timeTaken={timeTaken ?? 0}
+          rand={rand}
+          waitingOpen={waitingOpen}
+          setWaitingOpen={setWaitingOpen}
+        />
       ) : (
-        <ResultPopUp resultType="toEarly" />
+        <ResultPopUp
+          resultType="toEarly"
+          resultOpen={resultPopupOpen}
+          setResultOpen={setResultPopupOpen}
+        />
       )}
 
       {pathname === "/courseRegisteration" ? (

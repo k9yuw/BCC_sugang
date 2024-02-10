@@ -24,6 +24,8 @@ import WaitingPopUp from "../popups/WatingPopUp";
 import ResultPopUp from "../popups/ResultPopUp";
 import CustomPopup from "../popups/CustomPopup";
 
+const rand = Math.random();
+
 export default function RegisterBySearch() {
   const pathname = usePathname();
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -55,6 +57,8 @@ export default function RegisterBySearch() {
   const [timeTaken, setTimeTaken] = useState<number>();
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
+  const [resultPopupOpen, setResultPopupOpen] = useState(false);
+  const [waitingOpen, setWaitingOpen] = useState(false);
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
@@ -118,17 +122,25 @@ export default function RegisterBySearch() {
           }
         } else {
           //여기에 게임 넣으면 됨!
+          console.log("click game!");
           const result = register();
-          console.log("result:", result);
-          if (1000 > result && result > 0) {
+
+          if (result < 0) {
+            setResultPopupOpen(true);
+            return;
+          }
+          console.log("waitingOpen:", waitingOpen);
+
+          if (result > 0) {
             // 조정
+            setWaitingOpen(true);
             const data = [...registeredCourses, prop];
             setRegisteredCourses(data);
             setRegisteredCredit((prep) => prep + prop.credit);
             localStorage.setItem("registeredCourses", JSON.stringify(data));
           }
           setTimeTaken(result);
-          // alert("신청 되었습니다.");
+          // setTimeout(() => setTimeTaken(undefined), 500);
         }
       }
     }
@@ -1651,11 +1663,21 @@ export default function RegisterBySearch() {
       </div>
 
       {/* 대기 및 결과 팝업 */}
-      {timeTaken === undefined ? null : timeTaken > 0 ? (
-        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
-      ) : (
-        <ResultPopUp resultType="toEarly" />
-      )}
+
+      {waitingOpen ? (
+        <WaitingPopUp
+          timeTaken={timeTaken ?? 0}
+          rand={rand}
+          waitingOpen={waitingOpen}
+          setWaitingOpen={setWaitingOpen}
+        />
+      ) : null}
+
+      <ResultPopUp
+        resultType="toEarly"
+        resultOpen={resultPopupOpen}
+        setResultOpen={setResultPopupOpen}
+      />
 
       {pathname === "/courseRegisteration" ? (
         <BodyBottomRegister

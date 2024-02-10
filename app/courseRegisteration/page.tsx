@@ -6,6 +6,7 @@ import Body from "../components/Body";
 import { useSpring, animated } from "react-spring";
 import { useDrag } from "react-use-gesture";
 import Navysm from "../components/clock/navysm";
+import MyLayout from "../components/MyLayout";
 
 export default function Home() {
   const logoPos = useSpring({ x: 0, y: 0 });
@@ -13,25 +14,30 @@ export default function Home() {
     logoPos.x.set(params.offset[0]);
     logoPos.y.set(params.offset[1]);
   });
+
   return (
-    <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
-      <NavBar />
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <Header />
-        <Body />
-        <animated.div
-          {...bindLogoPos()}
-          style={{
-            x: logoPos.x,
-            y: logoPos.y,
-            cursor: "grab",
-            marginLeft: 30,
-            width: 400,
-          }}
-        >
-          <Navysm />
-        </animated.div>
+    <MyLayout>
+      <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
+        <NavBar />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Header />
+          <Body />
+          <animated.div
+            {...bindLogoPos()}
+            style={{
+              x: logoPos.x,
+              y: logoPos.y,
+              cursor: "grab",
+              marginLeft: "auto",
+              marginRight: 30,
+              marginTop: -10,
+              width: 400,
+            }}
+          >
+            <Navysm />
+          </animated.div>
+        </div>
       </div>
-    </div>
+    </MyLayout>
   );
 }
