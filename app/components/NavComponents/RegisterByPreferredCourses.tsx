@@ -152,6 +152,11 @@ export default function RegisterByPreferredCourses({
           marginBottom: 32.7,
         }}
       >
+        <CustomPopup
+          customPopupOpen={customPopupOpen}
+          closeCustomPopup={closeCustomPopup}
+          textValue={textAlert}
+        />
         <table
           style={{
             borderCollapse: "collapse",
@@ -371,11 +376,6 @@ export default function RegisterByPreferredCourses({
                     >
                       신청
                     </button>
-                    <CustomPopup
-                      customPopupOpen={customPopupOpen}
-                      closeCustomPopup={closeCustomPopup}
-                      textValue={textAlert}
-                    />
                   </th>
                   <th
                     style={{

@@ -205,6 +205,11 @@ export default function RegisterByCourseCode({
           fontSize: 14,
         }}
       >
+        <CustomPopup
+          customPopupOpen={customPopupOpen}
+          closeCustomPopup={closeCustomPopup}
+          textValue={textAlert}
+        />
         <div
           style={{
             borderBottom: 1,
@@ -329,14 +334,6 @@ export default function RegisterByCourseCode({
           >
             신청
           </button>
-          <CustomPopup
-            customPopupOpen={customPopupOpen}
-            closeCustomPopup={closeCustomPopup}
-            textValue={textAlert}
-          />
-          {/* 대기 및 결과 팝업 */}
-          {/* {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
-          {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}} */}
           <button
             onClick={() => {
               setCourseCode("");

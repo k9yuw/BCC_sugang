@@ -420,6 +420,11 @@ export default function BodyBottomRegister({
               borderBottomColor: "#ccc",
             }}
           >
+            <CustomPopup
+                customPopupOpen={customPopupOpen}
+                closeCustomPopup={closeCustomPopup}
+                textValue={textAlert}
+              />
             <table
               style={{
                 borderCollapse: "collapse",
@@ -652,11 +657,6 @@ export default function BodyBottomRegister({
                       >
                         삭제
                       </button>
-                      <CustomPopup
-                        customPopupOpen={customPopupOpen}
-                        closeCustomPopup={closeCustomPopup}
-                        textValue={textAlert}
-                      />
                     </th>
                   </tr>
                 ))}
