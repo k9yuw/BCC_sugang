@@ -82,8 +82,9 @@ export default function Notices({
             </ol>
           </li>
           <li>
-            <span style={{}}>
-              빵코코가 여러분의 올클을 기원합니다! (ง •̀ω•́)ง
+            <span>
+              <span title="빵 터지는 코딩 코미디">빵코코</span>가 여러분의 올클을 기원합니다! (ง
+              •̀ω•́)ง
             </span>
           </li>
         </ul>

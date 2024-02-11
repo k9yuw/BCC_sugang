@@ -35,7 +35,8 @@ export default function RegisterBySearch({
   setPreferredCourses,
   registeredNum,
   plusRegistered,
-  resultType, setResultType
+  resultType,
+  setResultType,
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
@@ -145,39 +146,37 @@ export default function RegisterBySearch({
           if (result < 0) {
             setResultPopupOpen(true);
             // return;
-          // console.log("waitingOpen:", waitingOpen);
+            // console.log("waitingOpen:", waitingOpen);
           } else {
-            if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
+            if (registeredNum === 0) {
+              // 게임 시작 후 첫 수강 신청
               if (result < 700) {
                 setWaitingOpen(true);
-                setResultType("success"); 
-                setResultPopupOpen(true); 
+                setResultType("success");
+                setResultPopupOpen(true);
                 const data = [...registeredCourses, prop];
                 setRegisteredCourses(data);
                 setRegisteredCredit((prep) => prep + prop.credit);
                 localStorage.setItem("registeredCourses", JSON.stringify(data));
                 plusRegistered();
-              }  
-              else {
+              } else {
                 setWaitingOpen(true);
-                setResultType("fail"); 
+                setResultType("fail");
                 setResultPopupOpen(true);
               }
-            }
-            else {
-              if (result < 5000 + (registeredNum-1)*7000){
+            } else {
+              if (result < 5000 + (registeredNum - 1) * 7000) {
                 setWaitingOpen(true);
                 const data = [...registeredCourses, prop];
                 setRegisteredCourses(data);
                 setRegisteredCredit((prep) => prep + prop.credit);
                 localStorage.setItem("registeredCourses", JSON.stringify(data));
-                setResultType("success"); 
+                setResultType("success");
                 setResultPopupOpen(true);
                 plusRegistered();
-              }
-              else {
+              } else {
                 setWaitingOpen(true);
-                setResultType("fail"); 
+                setResultType("fail");
                 setResultPopupOpen(true);
               }
             }
@@ -278,9 +277,7 @@ export default function RegisterBySearch({
       if (endTime !== "전체--") {
         //종료교시
       }
-      const re = /\((.*?)\)/;
-      // const days = data.map((prop) => prop.time_room.match(re));
-      // data = data.filter((prop) => prop.time_room.match(re));
+
       setSearchedData(data);
     }
   };
