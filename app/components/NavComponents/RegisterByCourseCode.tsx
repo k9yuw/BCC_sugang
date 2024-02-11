@@ -26,6 +26,7 @@ export default function RegisterByCourseCode() {
   const [textAlert, setTextAlert] = useState<string>("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
   const [waitingOpen, setWaitingOpen] = useState(false);
+  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
@@ -108,23 +109,31 @@ export default function RegisterByCourseCode() {
           const result = register();
           if (result < 0) {
             setResultPopupOpen(true);
-            return;
+            // return;
           }
-
-          setTimeTaken(result);
-          if (result > 0) {
+          // setTimeTaken(result);
+          else {
             setWaitingOpen(true);
+            setResultPopupOpen(false);
             // 조정
             const data = [...registeredCourses, searchedData];
             setRegisteredCourses(data);
             setRegisteredCredit((prep) => prep + searchedData.credit);
             localStorage.setItem("registeredCourses", JSON.stringify(data));
+          
+            if (result < 20000) {
+              setResultType("success"); 
+              setResultPopupOpen(true); }  
+            else {
+              setResultType("fail"); 
+              setResultPopupOpen(true);
+          
           }
           setTimeTaken(result);
           // alert("신청 되었습니다.");
         }
       }
-    }
+    }}
     //관심과목 등록
     else if (pathname === "/preferredCourses") {
       const courseIdArrayPreferred = preferredCourses.map(
@@ -331,7 +340,7 @@ export default function RegisterByCourseCode() {
         />
       ) : (
         <ResultPopUp
-          resultType="toEarly"
+          resultType={resultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />

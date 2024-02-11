@@ -17,13 +17,9 @@ const formatTimeString = (dateValue: number, isMs = false) => {
 const Clock = ({}) => {
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
-  const {
-    startGame,
-    // startText,
-    date: clockTime,
-    clockStarted,
-  } = useGame();
+  const { startGame, date: clockTime, clockStarted } = useGame();
   const [msChecked, setMsChecked] = useState(false);
+  const [disableTransition, setDisableTransition] = useState(false);
 
   const clockRef = useRef(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
@@ -57,11 +53,26 @@ const Clock = ({}) => {
     }
   }, [bgmPlayed]);
 
+const handleButtonClick = () => {
+  startGame();
+  setIsRed(false);
+  setDisableTransition(true);
+};
+
+useEffect(() => {
+  if (disableTransition) {
+    const timer = setTimeout(() => {
+      setDisableTransition(false);
+    }, 0); 
+
+  return () => clearTimeout(timer);
+  }
+}, [disableTransition]);
 
   return (
     <div 
       style={{
-      transition: "background-color 7s",
+      transition: disableTransition ? undefined : "background-color 7s",
       backgroundColor: isRed ? "red" : "transparent", 
       borderBottomLeftRadius: "5px",
       borderBottomRightRadius: "5px",
@@ -131,7 +142,7 @@ const Clock = ({}) => {
           </div>
           <div>
             <button
-              onClick={startGame}
+              onClick={handleButtonClick}
               style={{
                 backgroundColor: "#a20131",
                 fontSize: 20,
