@@ -1,14 +1,19 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import courseData from "@/app/constant/courseDataInterface";
 import BodyBottomRegister from "../BodyBottomRegister";
 
-export default function Notices() {
+export default function Notices({
+  registeredCourses,
+  setRegisteredCourses,
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+}) {
   const pathname = usePathname();
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
-  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
 
   useEffect(() => {
@@ -28,10 +33,10 @@ export default function Notices() {
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
-    setRegisteredCourses(data);
+    // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setRegisteredCourses]);
 
   return (
     <div>
