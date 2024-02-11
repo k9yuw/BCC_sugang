@@ -14,8 +14,8 @@ function WaitingPopUp({
   waitingOpen: boolean;
   setWaitingOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  const time = Math.ceil((timeTaken * 3) / 1000);
-  // const [success, setSuccess] = useState(false);
+  const timePassed = Math.ceil((timeTaken * 3) / 1000);
+  const time = (timePassed >= 7 ? Math.ceil(7 - 3*rand) : timePassed);
   const [waitingTime, setWaitingTime] = useState(time);
   const [resultPopupOpen, setResultPopupOpen] = useState(true);
   // const [resultType, setResultType] = useState<"success" | "fail">("success");
@@ -180,11 +180,6 @@ function WaitingPopUp({
         </div>
       </Modal>
       {waitingTime >= 0 && !waitingOpen && resultPopupOpen && (
-        // success ? (
-        //   <ResultPopUp resultType={"success"} />
-        // ) : (
-        //   <ResultPopUp resultType={"fail"} />
-        // )
         <ResultPopUp
           resultType="toEarly"
           resultOpen={resultPopupOpen}

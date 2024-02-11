@@ -20,6 +20,7 @@ export default function RegisterByPreferredCourses() {
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
   const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
+  const [registeredNum, setRegisteredNum] = useState<number>(0);
 
   const [waitingOpen, setWaitingOpen] = useState(false);
 
@@ -89,18 +90,38 @@ export default function RegisterByPreferredCourses() {
           // return;
         } else {
           // 조정
-          setWaitingOpen(true);
-          setResultPopupOpen(false);
-          const data = [...registeredCourses, prop];
-          setRegisteredCourses(data);
-          setRegisteredCredit((prep) => prep + prop.credit);
-          localStorage.setItem("registeredCourses", JSON.stringify(data));
-          if (result < 20000) {
-            setResultType("success"); 
-            setResultPopupOpen(true); }  
+          if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
+            if (result < 700) {
+              setWaitingOpen(true);
+              setResultType("success"); 
+              setResultPopupOpen(true); 
+              const data = [...registeredCourses, prop];
+              setRegisteredCourses(data);
+              setRegisteredCredit((prep) => prep + prop.credit);
+              localStorage.setItem("registeredCourses", JSON.stringify(data));
+              setRegisteredNum(1);
+            }  
+            else {
+              setWaitingOpen(true);
+              setResultType("fail"); 
+              setResultPopupOpen(true);
+            }
+          }
           else {
-            setResultType("fail"); 
-            setResultPopupOpen(true);
+            if (result < 15000){
+              setWaitingOpen(true);
+              const data = [...registeredCourses, prop];
+              setRegisteredCourses(data);
+              setRegisteredCredit((prep) => prep + prop.credit);
+              localStorage.setItem("registeredCourses", JSON.stringify(data));
+              setResultType("success"); 
+              setResultPopupOpen(true);
+            }
+            else {
+              setWaitingOpen(true);
+              setResultType("fail"); 
+              setResultPopupOpen(true);
+            }
           }
         }
         setTimeTaken(result);
