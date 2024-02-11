@@ -10,6 +10,10 @@ import { GameProvider } from "./context/GameContext";
 export default function Body() {
   const pathname = usePathname();
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
+  const [registeredNum, setRegisteredNum] = useState<number>(0);
+  const plusRegistered = () => {
+    setRegisteredNum(prevNumber => prevNumber + 1);
+  };
 
   return (
     <div>
@@ -120,9 +124,9 @@ export default function Body() {
           ) : null}
         </div>
         {navBar[0] ? <Notices /> : null}
-        {navBar[1] ? <RegisterByCourseCode /> : null}
-        {navBar[2] ? <RegisterByPreferredCourses /> : null}
-        {navBar[3] ? <RegisterBySearch /> : null}
+        {navBar[1] ? <RegisterByCourseCode registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
+        {navBar[2] ? <RegisterByPreferredCourses registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
+        {navBar[3] ? <RegisterBySearch registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
     </div>
