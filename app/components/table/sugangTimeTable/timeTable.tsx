@@ -7,13 +7,13 @@ import { MouseEvent, useState, useEffect } from "react";
 // const innerColor = new Array(63).fill('white');
 // const colorKind = ["#D63D2F", "#E06616", "#E0A605", "#789C0C", "#1879D3"];
 
-export default function TimeTable(/* { innerColor }: { innerColor: string[] }*/) {
+export default function TimeTable({ innerColor }: { innerColor: string[] }) {
 
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredDaySlot, setRegisteredDaySlot] = useState<string[]>([]);
   const [registeredTimeSlot, setRegisteredTimeSlot] = useState<number[][]>([]);
   const [slotToColor, setSlotToColor] = useState<number[][]>([]);
-  const [innerColor, setInnerColor] = useState<string[]>(new Array(54).fill('white'));
+
 
   // 요일정보, 교시정보 추출
   useEffect(() => {

@@ -1,14 +1,13 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import "./navysm.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faArrowRight,
-  faRefresh,
-} from "@fortawesome/free-solid-svg-icons";
 import Clock from "./clock";
+import courseData from "@/app/constant/courseDataInterface";
 
-const Navysm = ({}) => {
+const Navysm = ({registeredCourses,
+  setRegisteredCourses} : {
+    registeredCourses: courseData[];
+    setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  }) => {
   return (
     <>
       <div className="shadow">
@@ -86,7 +85,8 @@ const Navysm = ({}) => {
         </div>
         <main>
           <div className="clock-container" style={{ backgroundColor: "white" }}>
-            <Clock />
+            <Clock registeredCourses={registeredCourses}
+          setRegisteredCourses={setRegisteredCourses}/>
           </div>
         </main>
       </div>

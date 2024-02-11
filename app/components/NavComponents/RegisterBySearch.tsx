@@ -4,6 +4,8 @@ import {
   useEffect,
   useState,
   useCallback,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import { major } from "../../data/major";
 import { usePathname } from "next/navigation";
@@ -26,7 +28,15 @@ import CustomPopup from "../popups/CustomPopup";
 
 const rand = Math.random();
 
-export default function RegisterBySearch({registeredNum, plusRegistered} : {registeredNum: number; plusRegistered: () => void;}) {
+export default function RegisterBySearch({
+  registeredCourses,
+  setRegisteredCourses,
+        registeredNum, plusRegistered
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum: number; plusRegistered: () => void;
+}) {
   const pathname = usePathname();
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [campus, setCampus] = useState("서울"); //캠퍼스
@@ -50,7 +60,6 @@ export default function RegisterBySearch({registeredNum, plusRegistered} : {regi
   const [searched, setSearched] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
-  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const { register } = useGame();
@@ -89,10 +98,10 @@ export default function RegisterBySearch({registeredNum, plusRegistered} : {regi
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
-    setRegisteredCourses(data);
+    // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setRegisteredCourses]);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,

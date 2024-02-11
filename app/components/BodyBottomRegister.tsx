@@ -8,12 +8,9 @@ import {
 } from "react";
 import TimePeriod from "./popups/TimePeriod";
 import TimeTable from "./table/sugangTimeTable/timeTable";
-import Navysm from "./clock/navysm";
 import courseData from "../constant/courseDataInterface";
 import Image from "next/image";
 import { timeTableColor } from "../constant/timeTableColor";
-import { useSpring, animated } from "react-spring";
-import { useDrag } from "react-use-gesture";
 import CustomPopup from "./popups/CustomPopup";
 
 export default function BodyBottomRegister({
@@ -29,6 +26,7 @@ export default function BodyBottomRegister({
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
+  const [colorArray, setColorArray] = useState<string[]>([""]);
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
@@ -36,12 +34,6 @@ export default function BodyBottomRegister({
   const closeCustomPopup = () => {
     setCustomPopupOpen(false);
   };
-
-  // const logoPos = useSpring({ x: 0, y: 0 });
-  // const bindLogoPos = useDrag((params) => {
-  //   logoPos.x.set(params.offset[0]);
-  //   logoPos.y.set(params.offset[1]);
-  // });
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -51,6 +43,33 @@ export default function BodyBottomRegister({
     setMaxCreditLimit(localStorage.getItem("maxCreditLimit") ?? "19");
     const registeredCreditArray = registeredCourses.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
+    let colors = new Array(54).fill("#fff");
+    registeredCourses.map((prop, index) => {
+      prop.time_room.forEach((e) => {
+        const day = e.search(/[월화수목금토]/);
+        const startTime = e.indexOf("(") + 1;
+        const endTime = e.indexOf(")") - 1;
+        if (e.substring(day, day + 1) === "월") {
+          colors[startTime * 6 - 1] = timeTableColor[index];
+        } else if (e.substring(day, day + 1) === "화") {
+          colors[startTime * 6 - 1 + 1] = timeTableColor[index];
+        } else if (e.substring(day, day + 1) === "수") {
+          colors[startTime * 6 - 1 + 2] = timeTableColor[index];
+        } else if (e.substring(day, day + 1) === "목") {
+          colors[startTime * 6 - 1 + 3] = timeTableColor[index];
+        } else if (e.substring(day, day + 1) === "금") {
+          colors[startTime * 6 - 1 + 4] = timeTableColor[index];
+        } else if (e.substring(day, day + 1) === "토") {
+          colors[startTime * 6 - 1 + 5] = timeTableColor[index];
+        }
+        console.log(day);
+        console.log(startTime);
+        console.log(endTime);
+        console.log(colors);
+        console.log(registeredCourses);
+      });
+    });
+    setColorArray(colors);
   }, [registeredCourses]);
 
   const deleteCourse = (
@@ -74,7 +93,6 @@ export default function BodyBottomRegister({
       openCustomPopup();
       setTextAlert("삭제되었습니다.");
     }
-    console.log(registeredCourses);
   };
 
   return (
@@ -228,7 +246,7 @@ export default function BodyBottomRegister({
           </button>
         </div>
       </div>
-      <div style={{  height: "100%", display: "flex" }}>
+      <div style={{ height: "100%", display: "flex" }}>
         <div //수강신청 내역 테이블
           style={{
             borderTop: 1,
@@ -667,7 +685,7 @@ export default function BodyBottomRegister({
           }}
         >
           <div>
-            <TimeTable innerColor={new Array(63).fill("white")} />
+            <TimeTable innerColor={new Array(54).fill("white")} />
           </div>
         </div>
       </div>

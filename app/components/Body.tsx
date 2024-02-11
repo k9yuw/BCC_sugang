@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "./table/preferredTimeTable/preferredTimeTable";
 import RegisterBySearch from "./NavComponents/RegisterBySearch";
@@ -6,8 +6,15 @@ import RegisterByPreferredCourses from "./NavComponents/RegisterByPreferredCours
 import RegisterByCourseCode from "./NavComponents/RegisterByCourseCode";
 import Notices from "./NavComponents/Notices";
 import { GameProvider } from "./context/GameContext";
+import courseData from "../constant/courseDataInterface";
 
-export default function Body() {
+export default function Body({
+  registeredCourses,
+  setRegisteredCourses,
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+}) {
   const pathname = usePathname();
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
   const [registeredNum, setRegisteredNum] = useState<number>(0);
@@ -123,10 +130,14 @@ export default function Body() {
             </div>
           ) : null}
         </div>
-        {navBar[0] ? <Notices /> : null}
-        {navBar[1] ? <RegisterByCourseCode registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
-        {navBar[2] ? <RegisterByPreferredCourses registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
-        {navBar[3] ? <RegisterBySearch registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
+        {navBar[0] ? <Notices registeredCourses={registeredCourses}
+              setRegisteredCourses={setRegisteredCourses} /> : null}
+        {navBar[1] ? <RegisterByCourseCode registeredCourses={registeredCourses}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
+        {navBar[2] ? <RegisterByPreferredCourses registeredCourses={registeredCourses}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
+        {navBar[3] ? <RegisterBySearch registeredCourses={registeredCourses}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
     </div>
