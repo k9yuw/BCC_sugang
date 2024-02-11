@@ -87,7 +87,7 @@ export default function NavBar() {
         </div>
         <div
           style={{
-            flexGrow: 0.3,
+            flexGrow: 1,
             flexShrink: 1,
             flexBasis: "auto",
             paddingRight: 20,
