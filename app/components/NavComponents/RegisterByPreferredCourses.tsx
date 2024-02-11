@@ -12,18 +12,22 @@ const rand = Math.random();
 export default function RegisterByPreferredCourses({
   registeredCourses,
   setRegisteredCourses,
-  registeredNum, plusRegistered,
-  resultType, setResultType,
-
+  preferredCourses,
+  setPreferredCourses,
+  registeredNum,
+  plusRegistered,
+  resultType,
+  setResultType,
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  preferredCourses: courseData[];
+  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
   registeredNum: number; plusRegistered: () => void;
   resultType: string; 
   setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
-  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const { register } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
@@ -48,7 +52,7 @@ export default function RegisterByPreferredCourses({
     }
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
-  }, []);
+  }, [setPreferredCourses]);
 
   useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
@@ -59,7 +63,7 @@ export default function RegisterByPreferredCourses({
     // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, [setRegisteredCourses]);
+  }, [setRegisteredCourses, registeredCourses]);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,

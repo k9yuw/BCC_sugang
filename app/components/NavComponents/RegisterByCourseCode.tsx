@@ -15,12 +15,16 @@ const rand = Math.random();
 export default function RegisterByCourseCode({
   registeredCourses,
   setRegisteredCourses,
+  preferredCourses,
+  setPreferredCourses,
   registeredNum,
   plusRegistered,
   resultType, setResultType
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  preferredCourses: courseData[];
+  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
   registeredNum: number;
   plusRegistered: () => void;
   resultType: string;
@@ -29,7 +33,6 @@ export default function RegisterByCourseCode({
   const pathname = usePathname();
   const [courseCode, setCourseCode] = useState<string>("");
   const [section, setSection] = useState<string>("");
-  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
   const { register, clockStarted } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
@@ -56,7 +59,7 @@ export default function RegisterByCourseCode({
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setPreferredCourses]);
 
   useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
@@ -67,7 +70,7 @@ export default function RegisterByCourseCode({
     // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, [setRegisteredCourses]);
+  }, [setRegisteredCourses, registeredCourses]);
 
   const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
