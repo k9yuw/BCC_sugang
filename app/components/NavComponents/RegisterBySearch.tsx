@@ -31,11 +31,13 @@ const rand = Math.random();
 export default function RegisterBySearch({
   registeredCourses,
   setRegisteredCourses,
-        registeredNum, plusRegistered
+  registeredNum,
+  plusRegistered
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
-  registeredNum: number; plusRegistered: () => void;
+  registeredNum: number;
+  plusRegistered: () => void;
 }) {
   const pathname = usePathname();
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
