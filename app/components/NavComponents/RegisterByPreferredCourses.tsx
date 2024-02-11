@@ -118,7 +118,7 @@ export default function RegisterByPreferredCourses({
             }
           }
           else {
-            if (result < 5000 + (registeredNum-1)*6500){
+            if (result < 5000 + (registeredNum-1)*6600){
               setWaitingOpen(true);
               const data = [...registeredCourses, prop];
               setRegisteredCourses(data);
