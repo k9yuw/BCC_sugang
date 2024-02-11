@@ -142,7 +142,7 @@ export default function RegisterByCourseCode({
               }
             }
             else {
-              if (result < 15000){
+              if (result < 5000 + (registeredNum-1)*7000){
                 setWaitingOpen(true);
                 const data = [...registeredCourses, searchedData];
                 setRegisteredCourses(data);

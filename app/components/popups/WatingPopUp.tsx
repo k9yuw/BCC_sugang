@@ -22,7 +22,6 @@ function WaitingPopUp({
   const time = (timePassed >= 7 ? Math.ceil(4 + timeTaken % 3) : timePassed);
   const [waitingTime, setWaitingTime] = useState(time);
   const [resultPopupOpen, setResultPopupOpen] = useState(waitingOpen);
-  // const [resultType, setResultType] = useState<"success" | "fail">("success");
 
   useEffect(() => {
     console.log("RENDERED!");
@@ -75,13 +74,9 @@ function WaitingPopUp({
   }, []);
 
   progress = (1 - waitingTime / time) * 100;
-  // console.log(`progress ${progress}`);
-  // console.log(waitingTime);
-  // console.log(time);
 
   return (
     <div>
-      {/* <button onClick={()=> setWaitingOpen(true)}>Modal Open</button> */}
       <Modal
         isOpen={waitingOpen}
         // onRequestClose={() => setWaitingOpen(false)}
