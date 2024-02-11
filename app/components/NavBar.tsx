@@ -31,7 +31,7 @@ export default function NavBar() {
           flexDirection: "column",
           width: 250,
           minWidth: 250,
-          // minHeight: "100vh",
+          minHeight: "100vh",
           borderRight: 1,
           borderRightColor: "#ccc",
           borderRightStyle: "solid",
@@ -352,12 +352,13 @@ export default function NavBar() {
             </li>
           </ul>
         </div>
-        <div style={{ height: 210, padding: 20, backgroundColor: "#262626",
-        position: "relative",
-        bottom: 0,
-        left: 0,
-
-      }}>
+        <div
+          style={{
+            height: 210,
+            padding: 20,
+            backgroundColor: "#262626",
+          }}
+        >
           <div>
             <button
               style={{
