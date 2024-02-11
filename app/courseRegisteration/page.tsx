@@ -14,6 +14,7 @@ export default function Home() {
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [registeredNum, setRegisteredNum] = useState<number>(0);
+  const [resultType, setResultType] = useState<string>("toEarly");
   const plusRegistered = () => {
     setRegisteredNum(prevNumber => prevNumber + 1);
   };
@@ -22,7 +23,6 @@ export default function Home() {
   }
 
   const logoPos = useSpring({ x: 0, y: 0 });
-  const [resultType, setResultType] = useState<string>("toEarly");
   const bindLogoPos = useDrag((params) => {
     logoPos.x.set(params.offset[0]);
     logoPos.y.set(params.offset[1]);
