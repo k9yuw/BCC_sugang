@@ -26,7 +26,9 @@ export default function BodyBottomRegister({
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
-  const [colorArray, setColorArray] = useState<string[]>([""]);
+  const [colorArray, setColorArray] = useState<string[]>(
+    new Array(54).fill("#fff")
+  );
   const [resultType, setResultType] = useState<string>("toEarly");
 
   const openCustomPopup = () => {
@@ -47,27 +49,32 @@ export default function BodyBottomRegister({
     let colors = new Array(54).fill("#fff");
     registeredCourses.map((prop, index) => {
       prop.time_room.forEach((e) => {
-        const day = e.search(/[월화수목금토]/);
-        const startTime = e.indexOf("(") + 1;
-        const endTime = e.indexOf(")") - 1;
-        if (e.substring(day, day + 1) === "월") {
-          colors[startTime * 6 - 1] = timeTableColor[index];
-        } else if (e.substring(day, day + 1) === "화") {
-          colors[startTime * 6 - 1 + 1] = timeTableColor[index];
-        } else if (e.substring(day, day + 1) === "수") {
-          colors[startTime * 6 - 1 + 2] = timeTableColor[index];
-        } else if (e.substring(day, day + 1) === "목") {
-          colors[startTime * 6 - 1 + 3] = timeTableColor[index];
-        } else if (e.substring(day, day + 1) === "금") {
-          colors[startTime * 6 - 1 + 4] = timeTableColor[index];
-        } else if (e.substring(day, day + 1) === "토") {
-          colors[startTime * 6 - 1 + 5] = timeTableColor[index];
+        const dayIdx = e.search(/[월화수목금토]/);
+        const startIdx = e.indexOf("(") + 1;
+        const endIdx = e.indexOf(")") - 1;
+        const day = e.substring(dayIdx, dayIdx + 1);
+        const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+        const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+        let time;
+        if (day === "월") {
+          for (time = startTime; time <= endTime; time++)
+            colors[(time - 1) * 6] = timeTableColor[index];
+        } else if (day === "화") {
+          for (time = startTime; time <= endTime; time++)
+            colors[(time - 1) * 6 + 1] = timeTableColor[index];
+        } else if (day === "수") {
+          for (time = startTime; time <= endTime; time++)
+            colors[(time - 1) * 6 + 2] = timeTableColor[index];
+        } else if (day === "목") {
+          for (time = startTime; time <= endTime; time++)
+            colors[(time - 1) * 6 + 3] = timeTableColor[index];
+        } else if (day === "금") {
+          for (time = startTime; time <= endTime; time++)
+            colors[(time - 1) * 6 + 4] = timeTableColor[index];
+        } else if (day === "토") {
+          for (time = startTime; time <= endTime; time++)
+            colors[(time - 1) * 6 + 5] = timeTableColor[index];
         }
-        console.log(day);
-        console.log(startTime);
-        console.log(endTime);
-        console.log(colors);
-        console.log(registeredCourses);
       });
     });
     setColorArray(colors);
@@ -686,7 +693,7 @@ export default function BodyBottomRegister({
           }}
         >
           <div>
-            <TimeTable innerColor={new Array(54).fill("white")} />
+            <TimeTable innerColor={colorArray} />
           </div>
         </div>
       </div>
