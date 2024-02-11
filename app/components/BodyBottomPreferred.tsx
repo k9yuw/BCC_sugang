@@ -10,8 +10,8 @@ import {
 } from "react";
 import Image from "next/image";
 import courseData from "../constant/courseDataInterface";
-import TimePeriod from "./popups/timePeriod";
-import CustomPopup from "./popups/customPopup";
+import TimePeriod from "./popups/TimePeriod";
+import CustomPopup from "./popups/CustomPopup";
 
 export default function BodyBottomPreferred({
   preferredCourses,
@@ -27,8 +27,12 @@ export default function BodyBottomPreferred({
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
 
-  const openCustomPopup = () => {setCustomPopupOpen(true);};
-  const closeCustomPopup = () => {setCustomPopupOpen(false);};
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -475,7 +479,11 @@ export default function BodyBottomPreferred({
                       >
                         삭제
                       </button>
-                      <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
+                      <CustomPopup
+                        customPopupOpen={customPopupOpen}
+                        closeCustomPopup={closeCustomPopup}
+                        textValue={textAlert}
+                      />
                     </th>
                     <th
                       style={{

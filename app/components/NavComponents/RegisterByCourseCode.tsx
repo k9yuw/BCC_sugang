@@ -3,12 +3,14 @@ import { MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import courseData from "@/app/constant/courseDataInterface";
-import ResultPopUp from "../enrollment/ResultPopUp";
-import WaitingPopUp from "../enrollment/WatingPopUp";
-import CustomPopup from "../popups/customPopup";
+import ResultPopUp from "../popups/ResultPopUp";
+import WaitingPopUp from "../popups/WatingPopUp";
+import CustomPopup from "../popups/CustomPopup";
 import { all } from "@/app/data/all";
-import { GameProvider, useGame } from "../context/GameContext";
+import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
+
+const rand = Math.random();
 
 export default function RegisterByCourseCode() {
   const pathname = usePathname();
@@ -21,10 +23,16 @@ export default function RegisterByCourseCode() {
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
-  const [textAlert, setTextAlert] = useState("");
+  const [textAlert, setTextAlert] = useState<string>("");
+  const [resultPopupOpen, setResultPopupOpen] = useState(false);
+  const [waitingOpen, setWaitingOpen] = useState(false);
 
-  const openCustomPopup = () => {setCustomPopupOpen(true);};
-  const closeCustomPopup = () => {setCustomPopupOpen(false);};
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
 
   useEffect(() => {
     const preferredCoursesCached = localStorage.getItem("preferredCourses");
@@ -86,13 +94,11 @@ export default function RegisterByCourseCode() {
       const courseIdArrayRegistered = registeredCourses.map(
         (prop) => prop.rowid + prop.params
       );
-      if (courseIdArrayRegistered.includes(courseId))
+      if (courseIdArrayRegistered.includes(courseId)) {
         //중복 신청 filtering
-      {
         openCustomPopup();
         setTextAlert("이미 신청된 과목입니다.");
-      }
-      else {
+      } else {
         //학점 초과 filtering
         if (registeredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
           openCustomPopup();
@@ -100,7 +106,14 @@ export default function RegisterByCourseCode() {
         } else {
           //여기에 게임 넣으면 됨!
           const result = register();
-          if (1000 > result && result > 0) {
+          if (result < 0) {
+            setResultPopupOpen(true);
+            return;
+          }
+
+          setTimeTaken(result);
+          if (result > 0) {
+            setWaitingOpen(true);
             // 조정
             const data = [...registeredCourses, searchedData];
             setRegisteredCourses(data);
@@ -117,13 +130,11 @@ export default function RegisterByCourseCode() {
       const courseIdArrayPreferred = preferredCourses.map(
         (prop) => prop.rowid + prop.params
       );
-      if (courseIdArrayPreferred.includes(courseId))
+      if (courseIdArrayPreferred.includes(courseId)) {
         //중복 신청 filtering
-      {
         openCustomPopup();
         setTextAlert("이미 신청된 과목입니다.");
-      }
-      else {
+      } else {
         //학점 초과 filtering
         if (preferredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
           openCustomPopup();
@@ -278,7 +289,11 @@ export default function RegisterByCourseCode() {
           >
             신청
           </button>
-          <CustomPopup customPopupOpen={customPopupOpen} closeCustomPopup={closeCustomPopup} textValue={textAlert}/>
+          <CustomPopup
+            customPopupOpen={customPopupOpen}
+            closeCustomPopup={closeCustomPopup}
+            textValue={textAlert}
+          />
           {/* 대기 및 결과 팝업 */}
           {/* {(startTime != 0 && clickTime !=0 && timeTaken< 1000) ? <ResultPopUp resultType = "toEarly"/> : null}
           {(startTime != 0 && clickTime !=0 && timeTaken > 1000) ? <WaitingPopUp timeTaken={timeTaken} rand={Math.random()}/> : null}} */}
@@ -307,10 +322,19 @@ export default function RegisterByCourseCode() {
         </div>
       </div>
       {/* 대기 및 결과 팝업 */}
-      {timeTaken === undefined ? null : timeTaken > 0 ? (
-        <WaitingPopUp timeTaken={timeTaken ?? 0} rand={Math.random()} />
+      {timeTaken === undefined ? null : timeTaken > 0 && waitingOpen ? (
+        <WaitingPopUp
+          timeTaken={timeTaken ?? 0}
+          rand={rand}
+          waitingOpen={waitingOpen}
+          setWaitingOpen={setWaitingOpen}
+        />
       ) : (
-        <ResultPopUp resultType="toEarly" />
+        <ResultPopUp
+          resultType="toEarly"
+          resultOpen={resultPopupOpen}
+          setResultOpen={setResultPopupOpen}
+        />
       )}
 
       {pathname === "/courseRegisteration" ? (

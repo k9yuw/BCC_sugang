@@ -32,7 +32,6 @@ function GameProvider({ children }) {
       setClockStarted(false);
       setDate(START_TIME);
     }
-
     return;
   };
 
@@ -42,18 +41,18 @@ function GameProvider({ children }) {
     if (clockStarted) {
       timerId = setInterval(() => {
         setDate(START_TIME + new Date().valueOf() - startTime);
-      }, 8);
+      }, 20);
     }
     return () => clearInterval(timerId); // 컴포넌트 언마운트 시 시계 정지
-  }, [clockStarted, startTime]);
+  }, [clockStarted, startTime, setDate]);
 
   // 과목 신청
-  const register = () => {
+  const register = useCallback(() => {
     if (!clockStarted) return -1;
     const clickTime = new Date().valueOf() - startTime;
 
     return clickTime - 10 * 1000;
-  };
+  }, [clockStarted, startTime]);
 
   return (
     <GameContext.Provider

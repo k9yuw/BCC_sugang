@@ -1,12 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Modal from "react-modal";
 import ResultPopUp from "./ResultPopUp";
 
-function WaitingPopUp({ timeTaken, rand }) {
+
+function WaitingPopUp({
+  timeTaken,
+  rand,
+  waitingOpen,
+  setWaitingOpen,
+}: {
+  timeTaken: number;
+  rand: number;
+  waitingOpen: boolean;
+  setWaitingOpen: Dispatch<SetStateAction<boolean>>;
+}) {
   const time = Math.ceil((timeTaken * 3) / 1000);
-  const [waitingOpen, setWaitingOpen] = useState(true);
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
   const [waitingTime, setWaitingTime] = useState(time);
+  const [resultPopupOpen, setResultPopupOpen] = useState(true);
+  // const [resultType, setResultType] = useState<"success" | "fail">("success");
+
+  useEffect(() => {
+    console.log("RENDERED!");
+  }, []);
+
+  // const openResultPopup = (type: "success" | "fail") => {
+  //   setResultType(type);
+  //   setResultPopupOpen(true);
+  // };
+
+  // const closeResultPopup = () => {
+  //   setResultPopupOpen(true);
+  // };
 
   let progress = 0;
 
@@ -30,18 +55,23 @@ function WaitingPopUp({ timeTaken, rand }) {
     },
   };
 
+
+
   useEffect(() => {
-    let timer = setTimeout(() => {
-      setWaitingOpen(false);
-      // setWaitingTime(time);
-      if (timeTaken < 2000) setSuccess(true);
-      // else setSuccess(false);
-    }, time * 1000);
+    let timer: NodeJS.Timeout;
+    if (waitingOpen) {
+      timer = setTimeout(() => {
+        setWaitingOpen(false); 
+        // if (timeTaken < 2000) {
+        //   setResultType("success"); }
+        // setResultPopupOpen(true); 
+      }, time * 1000);
+    }
 
     return () => {
       clearTimeout(timer);
     };
-  }, [waitingOpen]);
+  }, [waitingOpen, setWaitingOpen, time, timeTaken]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -53,9 +83,9 @@ function WaitingPopUp({ timeTaken, rand }) {
   }, []);
 
   progress = (1 - waitingTime / time) * 100;
-  console.log(`progress ${progress}`);
-  console.log(waitingTime);
-  console.log(time);
+  // console.log(`progress ${progress}`);
+  // console.log(waitingTime);
+  // console.log(time);
 
   return (
     <div>
@@ -64,7 +94,7 @@ function WaitingPopUp({ timeTaken, rand }) {
         isOpen={waitingOpen}
         onRequestClose={() => setWaitingOpen(false)}
         style={customStyles}
-        appElement={document.getElementById("root")}
+        appElement={document.getElementById("root") ?? undefined}
       >
         <div
           style={{
@@ -149,13 +179,18 @@ function WaitingPopUp({ timeTaken, rand }) {
           </div>
         </div>
       </Modal>
-      {waitingTime <= 0 ? (
-        success ? (
-          <ResultPopUp resultType={"success"} />
-        ) : (
-          <ResultPopUp resultType={"fail"} />
-        )
-      ) : null}
+      {waitingTime >= 0 && !waitingOpen && resultPopupOpen && (
+        // success ? (
+        //   <ResultPopUp resultType={"success"} />
+        // ) : (
+        //   <ResultPopUp resultType={"fail"} />
+        // )
+        <ResultPopUp
+          resultType="toEarly"
+          resultOpen={resultPopupOpen}
+          setResultOpen={setResultPopupOpen}
+        />
+      ) }
     </div>
   );
 }
