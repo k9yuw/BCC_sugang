@@ -27,6 +27,7 @@ export default function BodyBottomRegister({
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
   const [colorArray, setColorArray] = useState<string[]>([""]);
+  const [resultType, setResultType] = useState<string>("toEarly");
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);

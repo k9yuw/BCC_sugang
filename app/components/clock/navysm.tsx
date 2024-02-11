@@ -4,9 +4,12 @@ import Clock from "./clock";
 import courseData from "@/app/constant/courseDataInterface";
 
 const Navysm = ({registeredCourses,
-  setRegisteredCourses} : {
+  setRegisteredCourses,
+  resultType, setResultType} : {
     registeredCourses: courseData[];
     setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+    resultType: string; 
+    setResultType: Dispatch<SetStateAction<string>>;
   }) => {
   return (
     <>
@@ -86,7 +89,9 @@ const Navysm = ({registeredCourses,
         <main>
           <div className="clock-container" style={{ backgroundColor: "white" }}>
             <Clock registeredCourses={registeredCourses}
-          setRegisteredCourses={setRegisteredCourses}/>
+          setRegisteredCourses={setRegisteredCourses}
+          resultType={resultType} setResultType={setResultType}
+          />
           </div>
         </main>
       </div>

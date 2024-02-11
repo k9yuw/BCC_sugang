@@ -24,9 +24,12 @@ const formatTimeString = (dateValue: number, isMs = false) => {
 const Clock = ({
   registeredCourses,
   setRegisteredCourses,
+  resultType, setResultType
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  resultType: string; 
+  setResultType: Dispatch<SetStateAction<string>>;
 }) => {
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
@@ -72,6 +75,7 @@ const Clock = ({
     setDisableTransition(true);
     localStorage.setItem("registeredCourses", "[]");
     setRegisteredCourses([]);
+    setResultType?.("toEarly");
   };
 
   useEffect(() => {

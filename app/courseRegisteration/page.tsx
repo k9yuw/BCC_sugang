@@ -14,6 +14,7 @@ export default function Home() {
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const logoPos = useSpring({ x: 0, y: 0 });
+  const [resultType, setResultType] = useState<string>("toEarly");
   const bindLogoPos = useDrag((params) => {
     logoPos.x.set(params.offset[0]);
     logoPos.y.set(params.offset[1]);
@@ -39,6 +40,8 @@ export default function Home() {
           <Body
             registeredCourses={registeredCourses}
             setRegisteredCourses={setRegisteredCourses}
+            resultType={resultType} 
+            setResultType={setResultType}
           />
           <animated.div
             {...bindLogoPos()}
@@ -56,6 +59,8 @@ export default function Home() {
             <Navysm
               registeredCourses={registeredCourses}
               setRegisteredCourses={setRegisteredCourses}
+              resultType={resultType} 
+              setResultType={setResultType}
             />
           </animated.div>
         </div>

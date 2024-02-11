@@ -11,9 +11,12 @@ import courseData from "../constant/courseDataInterface";
 export default function Body({
   registeredCourses,
   setRegisteredCourses,
+  resultType, setResultType
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  resultType: string; 
+  setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const pathname = usePathname();
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
@@ -133,9 +136,13 @@ export default function Body({
         {navBar[0] ? <Notices registeredCourses={registeredCourses}
               setRegisteredCourses={setRegisteredCourses} /> : null}
         {navBar[1] ? <RegisterByCourseCode registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
+              resultType={resultType} setResultType={setResultType}
+              /> : null}
         {navBar[2] ? <RegisterByPreferredCourses registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
+              resultType={resultType} setResultType={setResultType}
+              /> : null}
         {navBar[3] ? <RegisterBySearch registeredCourses={registeredCourses}
               setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
         {navBar[4] ? <PreferredTimeTable /> : null}
