@@ -8,8 +8,8 @@ interface ModalProps {
 
 const CustomPopup: React.FC<ModalProps> = ({ customPopupOpen, closeCustomPopup, textValue }) => {
   const customStyles = {
+	zIndex: 2,
     overlay: {
-		zIndex: 2,
       	backgroundColor: "rgba(0,0,0,0.7)",
     },
     content: {
@@ -23,7 +23,6 @@ const CustomPopup: React.FC<ModalProps> = ({ customPopupOpen, closeCustomPopup, 
 		padding: "8px",
     },
   };
-
   return (
     <div>
       <Modal

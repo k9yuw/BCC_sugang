@@ -17,6 +17,7 @@ function GameProvider({ children }) {
   // const [clickTime, setClickTime] = useState(0);
   // const [startText, setStartText] = useState("게임 시작");
   const [date, setDate] = useState(START_TIME);
+  const [randomStandard, setRandomStandard] = useState(0);
   // const timeTaken = clickTime - startTime;
 
   // 게임 시작 함수
@@ -42,6 +43,7 @@ function GameProvider({ children }) {
       timerId = setInterval(() => {
         setDate(START_TIME + new Date().valueOf() - startTime);
       }, 20);
+      setRandomStandard(Math.random()/5);
     }
     return () => clearInterval(timerId); // 컴포넌트 언마운트 시 시계 정지
   }, [clockStarted, startTime, setDate]);
@@ -51,7 +53,7 @@ function GameProvider({ children }) {
     if (!clockStarted) return -1;
     const clickTime = new Date().valueOf() - startTime;
 
-    return clickTime - 10 * 1000;
+    return clickTime - (8.9 + randomStandard) * 1000;
   }, [clockStarted, startTime]);
 
   return (

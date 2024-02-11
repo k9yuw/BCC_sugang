@@ -228,7 +228,7 @@ export default function BodyBottomRegister({
           </button>
         </div>
       </div>
-      <div style={{ height: "100%", display: "flex" }}>
+      <div style={{  height: "100%", display: "flex" }}>
         <div //수강신청 내역 테이블
           style={{
             borderTop: 1,
@@ -672,18 +672,6 @@ export default function BodyBottomRegister({
           </div>
         </div>
       </div>
-      {/* <animated.div
-        {...bindLogoPos()}
-        style={{
-          x: logoPos.x,
-          y: logoPos.y,
-          cursor: "grab",
-          top: 10,
-          width: 400,
-        }}
-      >
-        <Navysm />
-      </animated.div> */}
     </div>
   );
 }

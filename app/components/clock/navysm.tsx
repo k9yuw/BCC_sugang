@@ -1,5 +1,11 @@
 import React from "react";
-import "./globals.css";
+import "./navysm.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faRefresh,
+} from "@fortawesome/free-solid-svg-icons";
 import Clock from "./clock";
 
 const Navysm = ({}) => {
@@ -17,21 +23,6 @@ const Navysm = ({}) => {
           </div>
           <div className="top-bar">
             <div className="icon-container">
-              {/* <FontAwesomeIcon
-                icon={faArrowLeft}
-                className="left-bt"
-                size="2xs"
-              /> */}
-              {/* <FontAwesomeIcon
-                icon={faArrowRight}
-                className="left-bt"
-                size="2xs"
-              /> */}
-              {/* <FontAwesomeIcon
-                icon={faRefresh}
-                className="left-bt"
-                size="2xs"
-              /> */}
               <div style={{ display: "flex" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

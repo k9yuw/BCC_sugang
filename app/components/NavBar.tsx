@@ -352,7 +352,13 @@ export default function NavBar() {
             </li>
           </ul>
         </div>
-        <div style={{ height: 210, padding: 20, backgroundColor: "#262626" }}>
+        <div
+          style={{
+            height: 210,
+            padding: 20,
+            backgroundColor: "#262626",
+          }}
+        >
           <div>
             <button
               style={{

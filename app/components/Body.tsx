@@ -12,7 +12,6 @@ export default function Body() {
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
 
   return (
-    // <GameProvider>
     <div>
       <div //상단 바디
         style={{
@@ -28,7 +27,7 @@ export default function Body() {
             height: 40,
             border: 1,
             borderStyle: "solid",
-            borderColor: "#ccc",
+            borderColor: "#e1e1e1",
             lineHeight: 2.7,
             textAlign: "center",
             fontSize: 13,
@@ -44,7 +43,7 @@ export default function Body() {
               width: "25%",
               borderRight: 1,
               borderRightStyle: "solid",
-              borderRightColor: "#ccc",
+              borderRightColor: "#e1e1e1",
               color: navBar[0] ? "#fff" : "#666",
               backgroundColor: navBar[0] ? "#a20131" : "#f9f9f9",
               cursor: "pointer",
@@ -60,7 +59,7 @@ export default function Body() {
               width: "25%",
               borderRight: 1,
               borderRightStyle: "solid",
-              borderRightColor: "#ccc",
+              borderRightColor: "#e1e1e1",
               color: navBar[1] ? "#fff" : "#666",
               backgroundColor: navBar[1] ? "#a20131" : "#f9f9f9",
               cursor: "pointer",
@@ -77,7 +76,7 @@ export default function Body() {
                 width: "25%",
                 borderRight: 1,
                 borderRightStyle: "solid",
-                borderRightColor: "#ccc",
+                borderRightColor: "#e1e1e1",
                 color: navBar[2] ? "#fff" : "#666",
                 backgroundColor: navBar[2] ? "#a20131" : "#f9f9f9",
                 cursor: "pointer",
@@ -96,7 +95,7 @@ export default function Body() {
               borderRightStyle:
                 pathname === "/courseRegisteration" ? "none" : "solid",
               borderRightColor:
-                pathname === "/courseRegisteration" ? "" : "#ccc",
+                pathname === "/courseRegisteration" ? "" : "#e1e1e1",
               color: navBar[3] ? "#fff" : "#666",
               backgroundColor: navBar[3] ? "#a20131" : "#f9f9f9",
               cursor: "pointer",
@@ -127,6 +126,5 @@ export default function Body() {
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
     </div>
-    // </GameProvider>
   );
 }

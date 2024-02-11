@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import styles from "./navysm.module.css";
 import bgm from "./bgm.mp3";
 import { useGame } from "../context/GameContext";
 
@@ -18,13 +17,9 @@ const formatTimeString = (dateValue: number, isMs = false) => {
 const Clock = ({}) => {
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
-  const {
-    startGame,
-    // startText,
-    date: clockTime,
-    clockStarted,
-  } = useGame();
+  const { startGame, date: clockTime, clockStarted } = useGame();
   const [msChecked, setMsChecked] = useState(false);
+  const [disableTransition, setDisableTransition] = useState(false);
 
   const clockRef = useRef(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
@@ -58,16 +53,68 @@ const Clock = ({}) => {
     }
   }, [bgmPlayed]);
 
-  const backgroundClass = isRed ? styles.redBackground : "";
+const handleButtonClick = () => {
+  startGame();
+  setIsRed(false);
+  setDisableTransition(true);
+};
+
+useEffect(() => {
+  if (disableTransition) {
+    const timer = setTimeout(() => {
+      setDisableTransition(false);
+    }, 0); 
+
+  return () => clearTimeout(timer);
+  }
+}, [disableTransition]);
 
   return (
-    <div className={`${backgroundClass}`}>
-      <div className="position">
-        <div className={styles.timeArea}>
-          <div ref={clockRef} id="clock" className={styles.clockWithMsec}>
+    <div 
+      style={{
+      transition: disableTransition ? undefined : "background-color 7s",
+      backgroundColor: isRed ? "red" : "transparent", 
+      borderBottomLeftRadius: "5px",
+      borderBottomRightRadius: "5px",
+    }}
+    >
+      <div style = {{
+        maxWidth: "500px",
+        display: "flex",
+        flexDirection: "column"
+      }}>
+        <div style = {{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            letterSpacing: "-6px",
+            fontSize: "40pt",
+            color: "#a20131",
+            fontWeight: "bold",
+            textShadow: "rgb(80, 80, 80) -1px -1px 1px",
+            width: "100%",
+            marginLeft: "7px",
+            paddingTop: "4px",
+        }}>
+          <div ref={clockRef} id="clock" 
+          style = {{
+            display: "flex",
+            alignItems: "baseline"
+          }}
+          >
             {clockTime ? formatTimeString(clockTime) : "9시 59분 50초"}
             {msChecked && (
-              <div className={styles.msecArea}>
+              <div 
+              style = {{
+                letterSpacing: "-3px",
+                fontSize: "27pt",
+                color: "#a20131",
+                fontWeight: "bold",
+                textShadow: "rgb(80, 80, 80) -1px -1px 1px",
+                paddingTop: "2px",
+                paddingLeft: "10px"
+              }}
+              >
                 {clockTime ? formatTimeString(clockTime, true) : "000"}
               </div>
             )}
@@ -81,7 +128,7 @@ const Clock = ({}) => {
             padding: "0px 10px 10px 10px",
           }}
         >
-          <div className={styles.checkboxes} style={{ fontSize: 17 }}>
+          <div style = {{fontSize: 17, margin: "0px 5px 5px 5px" }}>
             <label>
               <input
                 type="checkbox"
@@ -95,7 +142,7 @@ const Clock = ({}) => {
           </div>
           <div>
             <button
-              onClick={startGame}
+              onClick={handleButtonClick}
               style={{
                 backgroundColor: "#a20131",
                 fontSize: 20,

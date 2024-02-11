@@ -1,4 +1,4 @@
-import React, { useState, PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import Image from "next/image";
 import closeImage from "./closeIcon.png";
 import Modal from "react-modal";
@@ -10,9 +10,7 @@ interface ModalDefaultType {
 
 export default function TimePeriod({
   onClickToggleModal,
-  children,
 }: PropsWithChildren<ModalDefaultType>) {
-  const [open, setOpen] = useState(true);
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.7)",
@@ -39,6 +37,7 @@ export default function TimePeriod({
           }
         }}
         style={customStyles}
+        ariaHideApp={false}
       >
         <div
           style={{

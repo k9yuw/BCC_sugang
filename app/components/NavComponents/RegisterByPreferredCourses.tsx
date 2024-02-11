@@ -19,6 +19,8 @@ export default function RegisterByPreferredCourses() {
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
+  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
+  const [registeredNum, setRegisteredNum] = useState<number>(0);
 
   const [waitingOpen, setWaitingOpen] = useState(false);
 
@@ -77,24 +79,50 @@ export default function RegisterByPreferredCourses() {
         }
       } else {
         const data = [...registeredCourses, prop];
-        setRegisteredCourses(data);
-        setRegisteredCredit((prep) => prep + prop.credit);
+        // setRegisteredCourses(data);
+        // setRegisteredCredit((prep) => prep + prop.credit);
 
         //여기에 게임 넣으면 됨!
         const result = register();
 
         if (result < 0) {
           setResultPopupOpen(true);
-          return;
-        }
-
-        if (result > 0) {
+          // return;
+        } else {
           // 조정
-          setWaitingOpen(true);
-          const data = [...registeredCourses, prop];
-          setRegisteredCourses(data);
-          setRegisteredCredit((prep) => prep + prop.credit);
-          localStorage.setItem("registeredCourses", JSON.stringify(data));
+          if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
+            if (result < 700) {
+              setWaitingOpen(true);
+              setResultType("success"); 
+              setResultPopupOpen(true); 
+              const data = [...registeredCourses, prop];
+              setRegisteredCourses(data);
+              setRegisteredCredit((prep) => prep + prop.credit);
+              localStorage.setItem("registeredCourses", JSON.stringify(data));
+              setRegisteredNum(1);
+            }  
+            else {
+              setWaitingOpen(true);
+              setResultType("fail"); 
+              setResultPopupOpen(true);
+            }
+          }
+          else {
+            if (result < 15000){
+              setWaitingOpen(true);
+              const data = [...registeredCourses, prop];
+              setRegisteredCourses(data);
+              setRegisteredCredit((prep) => prep + prop.credit);
+              localStorage.setItem("registeredCourses", JSON.stringify(data));
+              setResultType("success"); 
+              setResultPopupOpen(true);
+            }
+            else {
+              setWaitingOpen(true);
+              setResultType("fail"); 
+              setResultPopupOpen(true);
+            }
+          }
         }
         setTimeTaken(result);
       }
@@ -549,7 +577,7 @@ export default function RegisterByPreferredCourses() {
         />
       ) : (
         <ResultPopUp
-          resultType="toEarly"
+          resultType={resultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />
