@@ -11,7 +11,7 @@ import courseData from "../constant/courseDataInterface";
 export default function Body({
   registeredCourses,
   setRegisteredCourses,
-  resultType, setResultType
+  resultType, setResultType,
   registeredNum, plusRegistered,
 }: {
   registeredCourses: courseData[];
