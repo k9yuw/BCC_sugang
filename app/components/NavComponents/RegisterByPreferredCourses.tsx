@@ -13,13 +13,17 @@ export default function RegisterByPreferredCourses({
   registeredCourses,
   setRegisteredCourses,
   registeredNum, plusRegistered,
-  resultType, setResultType
+  resultType, setResultType,
+  registeredNum,
+  plusRegistered
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
   registeredNum: number; plusRegistered: () => void;
   resultType: string; 
   setResultType: Dispatch<SetStateAction<string>>;
+  registeredNum: number;
+  plusRegistered: () => void;
 }) {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);

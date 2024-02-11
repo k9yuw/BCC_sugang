@@ -13,6 +13,14 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
+  const [registeredNum, setRegisteredNum] = useState<number>(0);
+  const plusRegistered = () => {
+    setRegisteredNum(prevNumber => prevNumber + 1);
+  };
+  const resetRegistered = () => {
+    setRegisteredNum(0);
+  }
+
   const logoPos = useSpring({ x: 0, y: 0 });
   const [resultType, setResultType] = useState<string>("toEarly");
   const bindLogoPos = useDrag((params) => {
@@ -42,6 +50,8 @@ export default function Home() {
             setRegisteredCourses={setRegisteredCourses}
             resultType={resultType} 
             setResultType={setResultType}
+            registeredNum = {registeredNum}
+            plusRegistered = {plusRegistered}
           />
           <animated.div
             {...bindLogoPos()}
@@ -53,7 +63,7 @@ export default function Home() {
               marginRight: 30,
               marginTop: -10,
               width: 400,
-              transform: logoPos.y.interpolate((y) => `translateY(-375px)`),
+              transform: logoPos.y.to((y) => `translateY(-375px)`),
             }}
           >
             <Navysm
@@ -61,6 +71,7 @@ export default function Home() {
               setRegisteredCourses={setRegisteredCourses}
               resultType={resultType} 
               setResultType={setResultType}
+              resetRegistered={resetRegistered}
             />
           </animated.div>
         </div>

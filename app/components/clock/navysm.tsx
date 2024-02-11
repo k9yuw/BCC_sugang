@@ -5,11 +5,12 @@ import courseData from "@/app/constant/courseDataInterface";
 
 const Navysm = ({registeredCourses,
   setRegisteredCourses,
-  resultType, setResultType} : {
+  resultType, setResultType, resetRegistered} : {
     registeredCourses: courseData[];
     setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
     resultType: string; 
     setResultType: Dispatch<SetStateAction<string>>;
+    resetRegistered: () => void;
   }) => {
   return (
     <>
@@ -91,6 +92,7 @@ const Navysm = ({registeredCourses,
             <Clock registeredCourses={registeredCourses}
           setRegisteredCourses={setRegisteredCourses}
           resultType={resultType} setResultType={setResultType}
+          resetRegistered={resetRegistered}
           />
           </div>
         </main>
