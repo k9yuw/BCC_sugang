@@ -12,9 +12,11 @@ const rand = Math.random();
 export default function RegisterByPreferredCourses({
   registeredCourses,
   setRegisteredCourses,
+        registeredNum, plusRegistered
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum: number; plusRegistered: () => void;
 }) {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
@@ -25,7 +27,6 @@ export default function RegisterByPreferredCourses({
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
   const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
-  const [registeredNum, setRegisteredNum] = useState<number>(0);
 
   const [waitingOpen, setWaitingOpen] = useState(false);
 
@@ -104,7 +105,7 @@ export default function RegisterByPreferredCourses({
               setRegisteredCourses(data);
               setRegisteredCredit((prep) => prep + prop.credit);
               localStorage.setItem("registeredCourses", JSON.stringify(data));
-              setRegisteredNum(1);
+              plusRegistered();
             }  
             else {
               setWaitingOpen(true);
@@ -121,6 +122,7 @@ export default function RegisterByPreferredCourses({
               localStorage.setItem("registeredCourses", JSON.stringify(data));
               setResultType("success"); 
               setResultPopupOpen(true);
+              plusRegistered();
             }
             else {
               setWaitingOpen(true);

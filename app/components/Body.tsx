@@ -17,6 +17,10 @@ export default function Body({
 }) {
   const pathname = usePathname();
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
+  const [registeredNum, setRegisteredNum] = useState<number>(0);
+  const plusRegistered = () => {
+    setRegisteredNum(prevNumber => prevNumber + 1);
+  };
 
   return (
     <div>
@@ -127,13 +131,13 @@ export default function Body({
           ) : null}
         </div>
         {navBar[0] ? <Notices registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses}/> : null}
+              setRegisteredCourses={setRegisteredCourses} /> : null}
         {navBar[1] ? <RegisterByCourseCode registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses}/> : null}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
         {navBar[2] ? <RegisterByPreferredCourses registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses}/> : null}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
         {navBar[3] ? <RegisterBySearch registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses}/> : null}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
     </div>

@@ -15,9 +15,13 @@ const rand = Math.random();
 export default function RegisterByCourseCode({
   registeredCourses,
   setRegisteredCourses,
+  registeredNum,
+  plusRegistered
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum: number;
+  plusRegistered: () => void;
 }) {
   const pathname = usePathname();
   const [courseCode, setCourseCode] = useState<string>("");
@@ -114,31 +118,50 @@ export default function RegisterByCourseCode({
           const result = register();
           if (result < 0) {
             setResultPopupOpen(true);
-            // return;
+            return;
           }
-          // setTimeTaken(result);
-          else {
-            setWaitingOpen(true);
-            setResultPopupOpen(false);
-            // 조정
-            const data = [...registeredCourses, searchedData];
-            setRegisteredCourses(data);
-            setRegisteredCredit((prep) => prep + searchedData.credit);
-            localStorage.setItem("registeredCourses", JSON.stringify(data));
-          
-            if (result < 20000) {
-              setResultType("success"); 
-              setResultPopupOpen(true); }  
+          else{
+            if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
+              if (result < 700) {
+                setWaitingOpen(true);
+                setResultType("success"); 
+                setResultPopupOpen(true); 
+                const data = [...registeredCourses, searchedData];
+                setRegisteredCourses(data);
+                setRegisteredCredit((prep) => prep + searchedData.credit);
+                localStorage.setItem("registeredCourses", JSON.stringify(data));
+                plusRegistered();
+              }  
+              else {
+                setWaitingOpen(true);
+                setResultType("fail"); 
+                setResultPopupOpen(true);
+              }
+            }
             else {
-              setResultType("fail"); 
-              setResultPopupOpen(true);
-          
+              if (result < 15000){
+                setWaitingOpen(true);
+                const data = [...registeredCourses, searchedData];
+                setRegisteredCourses(data);
+                setRegisteredCredit((prep) => prep + searchedData.credit);
+                localStorage.setItem("registeredCourses", JSON.stringify(data));
+                setResultType("success"); 
+                setResultPopupOpen(true);
+                plusRegistered();
+              }
+              else {
+                setWaitingOpen(true);
+                setResultType("fail"); 
+                setResultPopupOpen(true);
+              }
+            }
           }
           setTimeTaken(result);
           // alert("신청 되었습니다.");
+          
         }
       }
-    }}
+    }
     //관심과목 등록
     else if (pathname === "/preferredCourses") {
       const courseIdArrayPreferred = preferredCourses.map(
