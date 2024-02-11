@@ -12,13 +12,15 @@ const rand = Math.random();
 export default function RegisterByPreferredCourses({
   registeredCourses,
   setRegisteredCourses,
-  registeredNum,
-  plusRegistered
+  registeredNum, plusRegistered,
+  resultType, setResultType,
+
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
-  registeredNum: number;
-  plusRegistered: () => void;
+  registeredNum: number; plusRegistered: () => void;
+  resultType: string; 
+  setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
@@ -28,7 +30,7 @@ export default function RegisterByPreferredCourses({
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
-  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
+  // const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
 
   const [waitingOpen, setWaitingOpen] = useState(false);
 
@@ -97,7 +99,7 @@ export default function RegisterByPreferredCourses({
           setResultPopupOpen(true);
           // return;
         } else {
-          // 조정
+
           if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
             if (result < 700) {
               setWaitingOpen(true);
@@ -587,6 +589,7 @@ export default function RegisterByPreferredCourses({
       ) : (
         <ResultPopUp
           resultType={resultType}
+          setResultType={setResultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />

@@ -29,6 +29,7 @@ export default function BodyBottomRegister({
   const [colorArray, setColorArray] = useState<string[]>(
     new Array(54).fill("#fff")
   );
+  const [resultType, setResultType] = useState<string>("toEarly");
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);

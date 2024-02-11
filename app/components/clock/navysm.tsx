@@ -3,13 +3,13 @@ import "./navysm.css";
 import Clock from "./clock";
 import courseData from "@/app/constant/courseDataInterface";
 
-const Navysm = ({
-  registeredCourses,
+const Navysm = ({registeredCourses,
   setRegisteredCourses,
-  resetRegistered
-} : {
+  resultType, setResultType, resetRegistered} : {
     registeredCourses: courseData[];
     setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+    resultType: string; 
+    setResultType: Dispatch<SetStateAction<string>>;
     resetRegistered: () => void;
   }) => {
   return (
@@ -91,6 +91,7 @@ const Navysm = ({
           <div className="clock-container" style={{ backgroundColor: "white" }}>
             <Clock registeredCourses={registeredCourses}
           setRegisteredCourses={setRegisteredCourses}
+          resultType={resultType} setResultType={setResultType}
           resetRegistered={resetRegistered}
           />
           </div>
