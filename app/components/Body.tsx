@@ -11,16 +11,16 @@ import courseData from "../constant/courseDataInterface";
 export default function Body({
   registeredCourses,
   setRegisteredCourses,
+  registeredNum,
+  plusRegistered,
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum : number;
+  plusRegistered: () => void;
 }) {
   const pathname = usePathname();
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
-  const [registeredNum, setRegisteredNum] = useState<number>(0);
-  const plusRegistered = () => {
-    setRegisteredNum(prevNumber => prevNumber + 1);
-  };
 
   return (
     <div>
