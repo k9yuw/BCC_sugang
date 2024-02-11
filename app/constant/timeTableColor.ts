@@ -9,4 +9,6 @@ export const timeTableColor = [
   "#A1887F",
   "#757575",
   "#78909C",
+  "#B0E0E6",
+  "#FFB6C1",
 ];
