@@ -1,19 +1,24 @@
-.indexTop{
-	padding: 0;
-	border-right-style: solid;
-	border-right-width: 1px;
-	border-right-color: #ccc;
-	border-bottom-style: solid;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-	font-weight: bold;
+.indexTop {
+  padding: 5px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: #ccc;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #ccc;
+  font-weight: bold;
+  color: #333;
+  height: 36px;
 }
-.inner{
-	border-right-style: solid;
-	border-right-width: 1px;
-	border-right-color: #ccc;
-	border-bottom-style: solid;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-	font-weight: bold;
+.inner {
+  padding: 5px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: #ccc;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #ccc;
+  font-weight: bold;
+  color: #333;
+  height: 36px;
 }

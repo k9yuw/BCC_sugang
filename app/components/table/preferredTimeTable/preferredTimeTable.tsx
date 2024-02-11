@@ -24,19 +24,17 @@ export default function PreferredTimeTable() {
 
   return (
     <div>
-      <div //수강신청 내역 테이블
+      <div //관심과목 시간표
         style={{
           marginLeft: 30,
           marginRight: 30,
           borderTop: "1px solid black",
           marginTop: "10px",
-          height: "468px",
           paddingBottom: 32.7,
         }}
       >
         <table
           style={{
-            // borderLeft: "1px solid #ccc",
             borderCollapse: "collapse",
             width: "100%",
             height: "100%",
@@ -65,6 +63,20 @@ export default function PreferredTimeTable() {
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <th
+                className={styles.inner}
+                style={{ backgroundColor: "rgb(249,249,249)" }}
+              >
+                0
+              </th>
+              <th className={styles.inner}></th>
+              <th className={styles.inner}></th>
+              <th className={styles.inner}></th>
+              <th className={styles.inner}></th>
+              <th className={styles.inner}></th>
+              <th className={styles.inner} style={{ borderRight: "0" }}></th>
+            </tr>
             <tr>
               <th
                 className={styles.inner}
