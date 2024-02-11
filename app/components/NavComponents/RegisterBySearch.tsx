@@ -32,12 +32,15 @@ export default function RegisterBySearch({
   registeredCourses,
   setRegisteredCourses,
   registeredNum,
-  plusRegistered
+  plusRegistered,
+  resultType, setResultType
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
   registeredNum: number;
   plusRegistered: () => void;
+  resultType: string;
+  setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const pathname = usePathname();
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -70,7 +73,6 @@ export default function RegisterBySearch({
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
   const [waitingOpen, setWaitingOpen] = useState(false);
-  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
@@ -1714,6 +1716,7 @@ export default function RegisterBySearch({
 
       <ResultPopUp
         resultType={resultType}
+        setResultType={setResultType}
         resultOpen={resultPopupOpen}
         setResultOpen={setResultPopupOpen}
       />

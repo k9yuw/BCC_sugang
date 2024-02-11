@@ -143,7 +143,9 @@ export default function Body({
               resultType={resultType} setResultType={setResultType}
               /> : null}
         {navBar[3] ? <RegisterBySearch registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}/> : null}
+              setRegisteredCourses={setRegisteredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
+              resultType={resultType} setResultType={setResultType}
+              /> : null}
         {navBar[4] ? <PreferredTimeTable /> : null}
       </div>
     </div>
