@@ -1,6 +1,6 @@
 import courseData from "@/app/constant/courseDataInterface";
 import Image from "next/image";
-import { MouseEvent, useState, useEffect } from "react";
+import { MouseEvent, useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
 import WaitingPopUp from "../popups/WatingPopUp";
@@ -9,10 +9,17 @@ import CustomPopup from "../popups/CustomPopup";
 
 const rand = Math.random();
 
-export default function RegisterByPreferredCourses({registeredNum, plusRegistered} : {registeredNum: number; plusRegistered: () => void;}) {
+export default function RegisterByPreferredCourses({
+  registeredCourses,
+  setRegisteredCourses,
+        registeredNum, plusRegistered
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum: number; plusRegistered: () => void;
+}) {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
-  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const { register } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
@@ -45,10 +52,10 @@ export default function RegisterByPreferredCourses({registeredNum, plusRegistere
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
-    setRegisteredCourses(data);
+    // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setRegisteredCourses]);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,

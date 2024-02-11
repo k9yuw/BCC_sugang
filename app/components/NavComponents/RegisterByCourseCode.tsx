@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import BodyBottomPreferred from "../BodyBottomPreferred";
@@ -12,7 +12,17 @@ import BodyBottomRegister from "../BodyBottomRegister";
 
 const rand = Math.random();
 
-export default function RegisterByCourseCode({registeredNum, plusRegistered} : {registeredNum: number; plusRegistered: () => void;}) {
+export default function RegisterByCourseCode({
+  registeredCourses,
+  setRegisteredCourses,
+  registeredNum,
+  plusRegistered
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum: number;
+  plusRegistered: () => void;
+}) {
   const pathname = usePathname();
   const [courseCode, setCourseCode] = useState<string>("");
   const [section, setSection] = useState<string>("");
@@ -20,7 +30,6 @@ export default function RegisterByCourseCode({registeredNum, plusRegistered} : {
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
   const { register, clockStarted } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
-  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState<string>("");
@@ -52,10 +61,10 @@ export default function RegisterByCourseCode({registeredNum, plusRegistered} : {
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
-    setRegisteredCourses(data);
+    // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setRegisteredCourses]);
 
   const onRegisterClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
