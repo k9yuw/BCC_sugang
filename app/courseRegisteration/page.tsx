@@ -60,7 +60,7 @@ export default function Home() {
               marginRight: 30,
               marginTop: -10,
               width: 400,
-              transform: logoPos.y.interpolate((y) => `translateY(-375px)`),
+              transform: logoPos.y.to((y) => `translateY(-375px)`),
             }}
           >
             <Navysm
