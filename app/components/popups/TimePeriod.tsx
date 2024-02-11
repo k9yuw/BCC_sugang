@@ -37,6 +37,7 @@ export default function TimePeriod({
           }
         }}
         style={customStyles}
+        ariaHideApp={false}
       >
         <div
           style={{
