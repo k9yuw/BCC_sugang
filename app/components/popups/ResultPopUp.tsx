@@ -51,7 +51,7 @@ function ResultPopUp({
         isOpen={resultOpen}
         onRequestClose={() => setResultOpen(false)}
         style={customStyles}
-        appElement={document.getElementById("root") ?? undefined}
+        ariaHideApp={false}
       >
         <div
           style={{
