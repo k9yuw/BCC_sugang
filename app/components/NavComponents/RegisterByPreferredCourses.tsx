@@ -30,7 +30,6 @@ export default function RegisterByPreferredCourses({
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
-  // const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
 
   const [waitingOpen, setWaitingOpen] = useState(false);
 
