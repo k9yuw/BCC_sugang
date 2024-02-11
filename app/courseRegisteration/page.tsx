@@ -22,11 +22,18 @@ export default function Home() {
     setRegisteredNum(0);
   }
 
-  const logoPos = useSpring({ x: 0, y: 0 });
+  const [logoPos, setLogoPos] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    config: { tension: 300, friction: 40 },
+  }));
+
+  // const logoPos = useSpring({ x: 0, y: 0 });
   const bindLogoPos = useDrag((params) => {
     logoPos.x.set(params.offset[0]);
     logoPos.y.set(params.offset[1]);
   });
+
 
   useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
@@ -64,6 +71,7 @@ export default function Home() {
               marginTop: -10,
               width: 400,
               transform: logoPos.y.to((y) => `translateY(-375px)`),
+              userSelect: "none",
             }}
           >
             <Navysm

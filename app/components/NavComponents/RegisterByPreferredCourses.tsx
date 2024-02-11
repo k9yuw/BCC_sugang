@@ -61,6 +61,7 @@ export default function RegisterByPreferredCourses({
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
   }, [setRegisteredCourses]);
 
+
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
     prop: courseData
@@ -89,10 +90,10 @@ export default function RegisterByPreferredCourses({
         }
       } else {
         const data = [...registeredCourses, prop];
-        // setRegisteredCourses(data);
-        // setRegisteredCredit((prep) => prep + prop.credit);
 
         //여기에 게임 넣으면 됨!
+
+
         const result = register();
 
         if (result < 0) {
@@ -105,6 +106,7 @@ export default function RegisterByPreferredCourses({
               setWaitingOpen(true);
               setResultType("success"); 
               setResultPopupOpen(true); 
+              
               const data = [...registeredCourses, prop];
               setRegisteredCourses(data);
               setRegisteredCredit((prep) => prep + prop.credit);
@@ -120,13 +122,15 @@ export default function RegisterByPreferredCourses({
           else {
             if (result < 5000 + (registeredNum-1)*6600){
               setWaitingOpen(true);
+              setResultType("success"); 
+              setResultPopupOpen(true);
+              
               const data = [...registeredCourses, prop];
               setRegisteredCourses(data);
               setRegisteredCredit((prep) => prep + prop.credit);
               localStorage.setItem("registeredCourses", JSON.stringify(data));
-              setResultType("success"); 
-              setResultPopupOpen(true);
               plusRegistered();
+
             }
             else {
               setWaitingOpen(true);
