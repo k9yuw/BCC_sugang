@@ -8,11 +8,15 @@ function WaitingPopUp({
   rand,
   waitingOpen,
   setWaitingOpen,
+  resultType,
+  setResultType,
 }: {
   timeTaken: number;
   rand: number;
   waitingOpen: boolean;
   setWaitingOpen: Dispatch<SetStateAction<boolean>>;
+  resultType: string;
+  setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const timePassed = Math.ceil((timeTaken * 3) / 1000);
   const time = (timePassed >= 7 ? Math.ceil(4 + timeTaken % 3) : timePassed);
@@ -181,7 +185,8 @@ function WaitingPopUp({
       </Modal>
       {waitingTime >= 0 && !waitingOpen && resultPopupOpen && (
         <ResultPopUp
-          resultType="toEarly"
+          resultType={resultType}
+          setResultType={setResultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />
