@@ -26,7 +26,6 @@ export default function BodyBottomPreferred({
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
-  // const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
   
 
   const openCustomPopup = () => {

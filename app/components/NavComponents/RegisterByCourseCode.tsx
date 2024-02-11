@@ -38,7 +38,6 @@ export default function RegisterByCourseCode({
   const [textAlert, setTextAlert] = useState<string>("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
   const [waitingOpen, setWaitingOpen] = useState(false);
-  // const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
