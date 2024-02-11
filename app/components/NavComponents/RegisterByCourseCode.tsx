@@ -16,12 +16,15 @@ export default function RegisterByCourseCode({
   registeredCourses,
   setRegisteredCourses,
   registeredNum,
-  plusRegistered
+  plusRegistered,
+  resultType, setResultType
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
   registeredNum: number;
   plusRegistered: () => void;
+  resultType: string;
+  setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const pathname = usePathname();
   const [courseCode, setCourseCode] = useState<string>("");
@@ -35,7 +38,7 @@ export default function RegisterByCourseCode({
   const [textAlert, setTextAlert] = useState<string>("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
   const [waitingOpen, setWaitingOpen] = useState(false);
-  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
+  // const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
@@ -369,6 +372,7 @@ export default function RegisterByCourseCode({
       ) : (
         <ResultPopUp
           resultType={resultType}
+          setResultType={setResultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />

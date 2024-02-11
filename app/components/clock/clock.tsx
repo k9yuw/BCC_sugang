@@ -24,10 +24,13 @@ const formatTimeString = (dateValue: number, isMs = false) => {
 const Clock = ({
   registeredCourses,
   setRegisteredCourses,
-  resetRegistered,
+  resultType, setResultType,
+  resetRegistered
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  resultType: string; 
+  setResultType: Dispatch<SetStateAction<string>>;
   resetRegistered: () => void;
 }) => {
   const [isRed, setIsRed] = useState<boolean>(false);
@@ -74,6 +77,7 @@ const Clock = ({
     setDisableTransition(true);
     localStorage.setItem("registeredCourses", "[]");
     setRegisteredCourses([]);
+    setResultType?.("toEarly");
     resetRegistered();
   };
 
