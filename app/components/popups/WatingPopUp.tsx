@@ -35,8 +35,8 @@ function WaitingPopUp({
 
   let progress = 0;
 
-  const peopleInfront = Math.ceil(waitingTime * rand * 460);
-  const peopleBack = Math.ceil((time - Math.ceil(waitingTime)) * rand * 600);
+  const peopleInfront = Math.ceil(waitingTime * rand/7 * 4600);
+  const peopleBack = Math.ceil((time - Math.ceil(waitingTime)) * rand/7 * 6000);
 
   const customStyles = {
     zIndex: 2,
