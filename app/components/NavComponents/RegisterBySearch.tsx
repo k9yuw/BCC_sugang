@@ -31,12 +31,16 @@ const rand = Math.random();
 export default function RegisterBySearch({
   registeredCourses,
   setRegisteredCourses,
+  preferredCourses,
+  setPreferredCourses,
   registeredNum,
   plusRegistered,
   resultType, setResultType
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  preferredCourses: courseData[];
+  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
   registeredNum: number;
   plusRegistered: () => void;
   resultType: string;
@@ -63,7 +67,6 @@ export default function RegisterBySearch({
   const [courseName, setCourseName] = useState(""); //교과목명
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
-  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -94,7 +97,7 @@ export default function RegisterBySearch({
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setPreferredCourses]);
 
   useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
@@ -105,7 +108,7 @@ export default function RegisterBySearch({
     // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, [setRegisteredCourses]);
+  }, [setRegisteredCourses, registeredCourses]);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,

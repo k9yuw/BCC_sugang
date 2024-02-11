@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
-  const [registeredCredit, setRegisteredCredit] = useState<number>(0);
+  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [registeredNum, setRegisteredNum] = useState<number>(0);
   const [resultType, setResultType] = useState<string>("toEarly");
   const plusRegistered = () => {
@@ -29,14 +29,21 @@ export default function Home() {
   });
 
   useEffect(() => {
+    const preferredCoursesCached = localStorage.getItem("preferredCourses");
+    if (!preferredCoursesCached) {
+      localStorage.setItem("preferredCourses", "[]");
+    }
+    const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
+    setPreferredCourses(data);
+  }, [setPreferredCourses]);
+
+  useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
     if (!registeredCoursesCached) {
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
     setRegisteredCourses(data);
-    const registeredCreditArray = data.map((prop) => prop.credit);
-    setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
   }, []);
 
   return (
@@ -48,6 +55,8 @@ export default function Home() {
           <Body
             registeredCourses={registeredCourses}
             setRegisteredCourses={setRegisteredCourses}
+            preferredCourses={preferredCourses}
+            setPreferredCourses={setPreferredCourses}
             resultType={resultType} 
             setResultType={setResultType}
             registeredNum = {registeredNum}
