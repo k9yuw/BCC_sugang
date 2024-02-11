@@ -389,7 +389,6 @@ export default function BodyBottomRegister({
           <div
             style={{
               maxHeight: 489,
-              overflow: "auto",
               borderBottom: 1,
               borderBottomStyle: "solid",
               borderBottomColor: "#ccc",

@@ -15,9 +15,9 @@ function WaitingPopUp({
   setWaitingOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   const timePassed = Math.ceil((timeTaken * 3) / 1000);
-  const time = (timePassed >= 7 ? Math.ceil(7 - 3*rand) : timePassed);
+  const time = (timePassed >= 7 ? Math.ceil(5 + timeTaken % 3) : timePassed);
   const [waitingTime, setWaitingTime] = useState(time);
-  const [resultPopupOpen, setResultPopupOpen] = useState(true);
+  const [resultPopupOpen, setResultPopupOpen] = useState(waitingOpen);
   // const [resultType, setResultType] = useState<"success" | "fail">("success");
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function WaitingPopUp({
 
   let progress = 0;
 
-  const peopleInfront = Math.ceil(waitingTime * rand * 500);
+  const peopleInfront = Math.ceil(waitingTime * rand * 460);
   const peopleBack = Math.ceil((time - Math.ceil(waitingTime)) * rand * 600);
 
   const customStyles = {
