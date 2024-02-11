@@ -26,6 +26,7 @@ const Clock = ({
   setRegisteredCourses,
   resultType, setResultType,
   resetRegistered
+  
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
@@ -38,6 +39,7 @@ const Clock = ({
   const { startGame, date: clockTime, clockStarted } = useGame();
   const [msChecked, setMsChecked] = useState(false);
   const [disableTransition, setDisableTransition] = useState(false);
+  // const [clickTimeChecked, setClickTimeChecked] = useState<boolean>(false); // 시즌2를 위한 주석처리
 
   const clockRef = useRef(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
@@ -156,7 +158,7 @@ const Clock = ({
             padding: "0px 10px 10px 10px",
           }}
         >
-          <div style={{ fontSize: 17, margin: "0px 5px 5px 5px" }}>
+          <div style={{ fontSize: 17, margin: "0px 5px 0px 5px" }}>
             <label>
               <input
                 type="checkbox"
@@ -167,6 +169,22 @@ const Clock = ({
               />
               밀리초 보기
             </label>
+            {/* 시즌2를 위한 주석처리 */}
+            {/* <label>
+              <input
+                type="checkbox"
+                id="clickTimeCheckbox"
+                onChange={(e) => {
+                  setClickTimeChecked(e.target.checked);
+                }}
+              />
+              클릭시간 보기
+            </label>
+            {clickTimeChecked ? <div style={{margin: 0, paddingLeft: "5px", letterSpacing: "0px",
+                  color: "#a20131",
+                  fontWeight: "600",}}>
+              00초 000
+            </div> : null} */}
           </div>
           <div>
             <button
