@@ -585,6 +585,8 @@ export default function RegisterByPreferredCourses({
           rand={rand}
           waitingOpen={waitingOpen}
           setWaitingOpen={setWaitingOpen}
+          resultType={resultType}
+          setResultType={setResultType}
         />
       ) : (
         <ResultPopUp
