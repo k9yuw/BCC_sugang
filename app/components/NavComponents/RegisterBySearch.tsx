@@ -296,6 +296,11 @@ export default function RegisterBySearch({
           borderColor: "#e6e6e6",
         }}
       >
+        <CustomPopup
+          customPopupOpen={customPopupOpen}
+          closeCustomPopup={closeCustomPopup}
+          textValue={textAlert}
+        />
         <form>
           <div
             style={{
@@ -1412,11 +1417,6 @@ export default function RegisterBySearch({
                     >
                       {pathname === "/courseRegisteration" ? "신청" : "등록"}
                     </button>
-                    <CustomPopup
-                      customPopupOpen={customPopupOpen}
-                      closeCustomPopup={closeCustomPopup}
-                      textValue={textAlert}
-                    />
                   </th>
                   <th
                     style={{
