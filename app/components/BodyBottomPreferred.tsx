@@ -433,9 +433,11 @@ export default function BodyBottomPreferred({
                         paddingBottom: 4,
                         paddingLeft: 6,
                         fontWeight: 400,
+                        backgroundColor:
+                          index % 2 === 0 ? "#fafafa" : "#f1f1f1",
                       }}
                     >
-                      정렬순서
+                      {index + 1}
                     </th>
                     <th
                       style={{
