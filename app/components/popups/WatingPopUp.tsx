@@ -28,15 +28,6 @@ function WaitingPopUp({
     console.log("RENDERED!");
   }, []);
 
-  // const openResultPopup = (type: "success" | "fail") => {
-  //   setResultType(type);
-  //   setResultPopupOpen(true);
-  // };
-
-  // const closeResultPopup = () => {
-  //   setResultPopupOpen(true);
-  // };
-
   let progress = 0;
 
   const peopleInfront = Math.ceil(waitingTime * rand/7 * 4600);
@@ -65,10 +56,7 @@ function WaitingPopUp({
     let timer: NodeJS.Timeout;
     if (waitingOpen) {
       timer = setTimeout(() => {
-        setWaitingOpen(false); 
-        // if (timeTaken < 2000) {
-        //   setResultType("success"); }
-        // setResultPopupOpen(true); 
+        setWaitingOpen(false);
       }, time * 1000);
     }
 

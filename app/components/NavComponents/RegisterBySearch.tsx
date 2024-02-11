@@ -1711,6 +1711,8 @@ export default function RegisterBySearch({
           rand={rand}
           waitingOpen={waitingOpen}
           setWaitingOpen={setWaitingOpen}
+          resultType={resultType}
+          setResultType={setResultType}
         />
       ) : null}
 

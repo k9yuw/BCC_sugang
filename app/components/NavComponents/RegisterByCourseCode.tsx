@@ -368,6 +368,8 @@ export default function RegisterByCourseCode({
           rand={rand}
           waitingOpen={waitingOpen}
           setWaitingOpen={setWaitingOpen}
+          resultType={resultType}
+          setResultType={setResultType}
         />
       ) : (
         <ResultPopUp
