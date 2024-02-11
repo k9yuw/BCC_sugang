@@ -92,7 +92,7 @@ function WaitingPopUp({
       {/* <button onClick={()=> setWaitingOpen(true)}>Modal Open</button> */}
       <Modal
         isOpen={waitingOpen}
-        onRequestClose={() => setWaitingOpen(false)}
+        // onRequestClose={() => setWaitingOpen(false)}
         style={customStyles}
         appElement={document.getElementById("root") ?? undefined}
       >
