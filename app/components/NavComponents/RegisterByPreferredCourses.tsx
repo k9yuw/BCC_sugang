@@ -98,23 +98,26 @@ export default function RegisterByPreferredCourses({
 
 
         const result = register();
+        const timePassed = Math.ceil((result * 3) / 1000);
+          const time = (timePassed >= 4 ? Math.ceil(4 + result % 3) : timePassed);
 
         if (result < 0) {
           setResultPopupOpen(true);
           // return;
         } else {
-
           if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
             if (result < 700) {
               setWaitingOpen(true);
               setResultType("success"); 
               setResultPopupOpen(true); 
-              
-              const data = [...registeredCourses, prop];
-              setRegisteredCourses(data);
-              setRegisteredCredit((prep) => prep + prop.credit);
-              localStorage.setItem("registeredCourses", JSON.stringify(data));
               plusRegistered();
+              setTimeout(
+                () => {
+                  const data = [...registeredCourses, prop];
+                  setRegisteredCourses(data);
+                  setRegisteredCredit((prep) => prep + prop.credit);
+                  localStorage.setItem("registeredCourses", JSON.stringify(data));
+                }, time*1000);
             }  
             else {
               setWaitingOpen(true);
@@ -123,17 +126,18 @@ export default function RegisterByPreferredCourses({
             }
           }
           else {
-            if (result < 5000 + (registeredNum-1)*6600){
+            if (result < 5000 + (registeredNum-1)*6100){
               setWaitingOpen(true);
               setResultType("success"); 
               setResultPopupOpen(true);
-              
-              const data = [...registeredCourses, prop];
-              setRegisteredCourses(data);
-              setRegisteredCredit((prep) => prep + prop.credit);
-              localStorage.setItem("registeredCourses", JSON.stringify(data));
               plusRegistered();
-
+              setTimeout(
+                () => {
+                  const data = [...registeredCourses, prop];
+                  setRegisteredCourses(data);
+                  setRegisteredCredit((prep) => prep + prop.credit);
+                  localStorage.setItem("registeredCourses", JSON.stringify(data));
+                }, time*1000);
             }
             else {
               setWaitingOpen(true);

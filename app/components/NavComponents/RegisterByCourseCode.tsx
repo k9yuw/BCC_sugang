@@ -121,6 +121,8 @@ export default function RegisterByCourseCode({
         } else {
           //여기에 게임 넣으면 됨!
           const result = register();
+          const timePassed = Math.ceil((result * 3) / 1000);
+          const time = (timePassed >= 4 ? Math.ceil(4 + result % 3) : timePassed);
           if (result < 0) {
             setResultPopupOpen(true);
             return;
@@ -130,12 +132,15 @@ export default function RegisterByCourseCode({
               if (result < 700) {
                 setWaitingOpen(true);
                 setResultType("success"); 
-                setResultPopupOpen(true); 
-                const data = [...registeredCourses, searchedData];
-                setRegisteredCourses(data);
-                setRegisteredCredit((prep) => prep + searchedData.credit);
-                localStorage.setItem("registeredCourses", JSON.stringify(data));
+                setResultPopupOpen(true);
                 plusRegistered();
+                setTimeout(
+                  () => {
+                    const data = [...registeredCourses, searchedData];
+                    setRegisteredCourses(data);
+                    setRegisteredCredit((prep) => prep + searchedData.credit);
+                    localStorage.setItem("registeredCourses", JSON.stringify(data));
+                  }, time*1000);                
               }  
               else {
                 setWaitingOpen(true);
@@ -146,13 +151,16 @@ export default function RegisterByCourseCode({
             else {
               if (result < 5000 + (registeredNum-1)*7000){
                 setWaitingOpen(true);
-                const data = [...registeredCourses, searchedData];
-                setRegisteredCourses(data);
-                setRegisteredCredit((prep) => prep + searchedData.credit);
-                localStorage.setItem("registeredCourses", JSON.stringify(data));
                 setResultType("success"); 
                 setResultPopupOpen(true);
                 plusRegistered();
+                setTimeout(
+                  () => {
+                    const data = [...registeredCourses, searchedData];
+                  setRegisteredCourses(data);
+                  setRegisteredCredit((prep) => prep + searchedData.credit);
+                  localStorage.setItem("registeredCourses", JSON.stringify(data));
+                  }, time*1000);
               }
               else {
                 setWaitingOpen(true);
