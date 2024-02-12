@@ -18,7 +18,9 @@
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: #ccc;
-  font-weight: bold;
+  font-weight: 400;
+  font-size: 11px;
   color: #333;
   height: 36px;
+  line-height: 1.4;
 }

@@ -8,35 +8,29 @@ function WaitingPopUp({
   rand,
   waitingOpen,
   setWaitingOpen,
+  resultType,
+  setResultType,
 }: {
   timeTaken: number;
   rand: number;
   waitingOpen: boolean;
   setWaitingOpen: Dispatch<SetStateAction<boolean>>;
+  resultType: string;
+  setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const timePassed = Math.ceil((timeTaken * 3) / 1000);
-  const time = (timePassed >= 7 ? Math.ceil(7 - 3*rand) : timePassed);
+  const time = (timePassed >= 7 ? Math.ceil(4 + timeTaken % 3) : timePassed);
   const [waitingTime, setWaitingTime] = useState(time);
-  const [resultPopupOpen, setResultPopupOpen] = useState(true);
-  // const [resultType, setResultType] = useState<"success" | "fail">("success");
+  const [resultPopupOpen, setResultPopupOpen] = useState(waitingOpen);
 
   useEffect(() => {
     console.log("RENDERED!");
   }, []);
 
-  // const openResultPopup = (type: "success" | "fail") => {
-  //   setResultType(type);
-  //   setResultPopupOpen(true);
-  // };
-
-  // const closeResultPopup = () => {
-  //   setResultPopupOpen(true);
-  // };
-
   let progress = 0;
 
-  const peopleInfront = Math.ceil(waitingTime * rand * 500);
-  const peopleBack = Math.ceil((time - Math.ceil(waitingTime)) * rand * 600);
+  const peopleInfront = Math.ceil(waitingTime * rand/7 * 4600);
+  const peopleBack = Math.ceil((time - Math.ceil(waitingTime)) * rand/7 * 6000);
 
   const customStyles = {
     zIndex: 2,
@@ -61,10 +55,7 @@ function WaitingPopUp({
     let timer: NodeJS.Timeout;
     if (waitingOpen) {
       timer = setTimeout(() => {
-        setWaitingOpen(false); 
-        // if (timeTaken < 2000) {
-        //   setResultType("success"); }
-        // setResultPopupOpen(true); 
+        setWaitingOpen(false);
       }, time * 1000);
     }
 
@@ -83,13 +74,9 @@ function WaitingPopUp({
   }, []);
 
   progress = (1 - waitingTime / time) * 100;
-  // console.log(`progress ${progress}`);
-  // console.log(waitingTime);
-  // console.log(time);
 
   return (
     <div>
-      {/* <button onClick={()=> setWaitingOpen(true)}>Modal Open</button> */}
       <Modal
         isOpen={waitingOpen}
         // onRequestClose={() => setWaitingOpen(false)}
@@ -181,7 +168,8 @@ function WaitingPopUp({
       </Modal>
       {waitingTime >= 0 && !waitingOpen && resultPopupOpen && (
         <ResultPopUp
-          resultType="toEarly"
+          resultType={resultType}
+          setResultType={setResultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />

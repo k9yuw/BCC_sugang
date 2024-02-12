@@ -54,7 +54,7 @@ function GameProvider({ children }) {
     const clickTime = new Date().valueOf() - startTime;
 
     return clickTime - (8.9 + randomStandard) * 1000;
-  }, [clockStarted, startTime]);
+  }, [clockStarted, startTime, randomStandard]);
 
   return (
     <GameContext.Provider

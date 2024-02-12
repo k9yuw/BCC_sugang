@@ -1,14 +1,21 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import BodyBottomPreferred from "../BodyBottomPreferred";
 import courseData from "@/app/constant/courseDataInterface";
 import BodyBottomRegister from "../BodyBottomRegister";
 
-export default function Notices() {
+export default function Notices({
+  registeredCourses,
+  setRegisteredCourses,
+  preferredCourses,
+  setPreferredCourses,
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  preferredCourses: courseData[];
+  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
+}) {
   const pathname = usePathname();
-  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
-  const [preferredCredit, setPreferredCredit] = useState<number>(0);
-  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
 
   useEffect(() => {
@@ -18,9 +25,9 @@ export default function Notices() {
     }
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
-    const preferredCreditArray = data.map((prop) => prop.credit);
-    setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+    // const preferredCreditArray = data.map((prop) => prop.credit);
+    // setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
+  }, [setPreferredCourses]);
 
   useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
@@ -28,10 +35,10 @@ export default function Notices() {
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
-    setRegisteredCourses(data);
+    // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setRegisteredCourses]);
 
   return (
     <div>
@@ -75,8 +82,9 @@ export default function Notices() {
             </ol>
           </li>
           <li>
-            <span style={{}}>
-              빵코코가 여러분의 올클을 기원합니다! (ง •̀ω•́)ง
+            <span>
+              <span title="빵 터지는 코딩 코미디">빵코코</span>가 여러분의 올클을 기원합니다! (ง
+              •̀ω•́)ง
             </span>
           </li>
         </ul>

@@ -1,4 +1,3 @@
-import React from "react";
 import Modal from "react-modal";
 interface ModalProps {
   customPopupOpen: boolean;
@@ -8,7 +7,6 @@ interface ModalProps {
 
 const CustomPopup: React.FC<ModalProps> = ({ customPopupOpen, closeCustomPopup, textValue }) => {
   const customStyles = {
-	zIndex: 2,
     overlay: {
       	backgroundColor: "rgba(0,0,0,0.7)",
     },
@@ -74,5 +72,3 @@ const CustomPopup: React.FC<ModalProps> = ({ customPopupOpen, closeCustomPopup, 
   );
 };
 export default CustomPopup;
-
-//<span className="close" onClick={closeCustomPopup}>&times;</span>

@@ -1,6 +1,6 @@
 import courseData from "@/app/constant/courseDataInterface";
 import Image from "next/image";
-import { MouseEvent, useState, useEffect } from "react";
+import { MouseEvent, useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
 import WaitingPopUp from "../popups/WatingPopUp";
@@ -9,18 +9,31 @@ import CustomPopup from "../popups/CustomPopup";
 
 const rand = Math.random();
 
-export default function RegisterByPreferredCourses() {
+export default function RegisterByPreferredCourses({
+  registeredCourses,
+  setRegisteredCourses,
+  preferredCourses,
+  setPreferredCourses,
+  registeredNum,
+  plusRegistered,
+  resultType,
+  setResultType,
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  preferredCourses: courseData[];
+  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum: number; plusRegistered: () => void;
+  resultType: string; 
+  setResultType: Dispatch<SetStateAction<string>>;
+}) {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
-  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
-  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const { register } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
-  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
-  const [registeredNum, setRegisteredNum] = useState<number>(0);
 
   const [waitingOpen, setWaitingOpen] = useState(false);
 
@@ -38,7 +51,7 @@ export default function RegisterByPreferredCourses() {
     }
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
-  }, []);
+  }, [setPreferredCourses]);
 
   useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
@@ -46,10 +59,11 @@ export default function RegisterByPreferredCourses() {
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
-    setRegisteredCourses(data);
+    // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setRegisteredCourses, registeredCourses]);
+
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
@@ -79,27 +93,28 @@ export default function RegisterByPreferredCourses() {
         }
       } else {
         const data = [...registeredCourses, prop];
-        // setRegisteredCourses(data);
-        // setRegisteredCredit((prep) => prep + prop.credit);
 
         //여기에 게임 넣으면 됨!
+
+
         const result = register();
 
         if (result < 0) {
           setResultPopupOpen(true);
           // return;
         } else {
-          // 조정
+
           if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
             if (result < 700) {
               setWaitingOpen(true);
               setResultType("success"); 
               setResultPopupOpen(true); 
+              
               const data = [...registeredCourses, prop];
               setRegisteredCourses(data);
               setRegisteredCredit((prep) => prep + prop.credit);
               localStorage.setItem("registeredCourses", JSON.stringify(data));
-              setRegisteredNum(1);
+              plusRegistered();
             }  
             else {
               setWaitingOpen(true);
@@ -108,14 +123,17 @@ export default function RegisterByPreferredCourses() {
             }
           }
           else {
-            if (result < 15000){
+            if (result < 5000 + (registeredNum-1)*6600){
               setWaitingOpen(true);
+              setResultType("success"); 
+              setResultPopupOpen(true);
+              
               const data = [...registeredCourses, prop];
               setRegisteredCourses(data);
               setRegisteredCredit((prep) => prep + prop.credit);
               localStorage.setItem("registeredCourses", JSON.stringify(data));
-              setResultType("success"); 
-              setResultPopupOpen(true);
+              plusRegistered();
+
             }
             else {
               setWaitingOpen(true);
@@ -141,6 +159,11 @@ export default function RegisterByPreferredCourses() {
           marginBottom: 32.7,
         }}
       >
+        <CustomPopup
+          customPopupOpen={customPopupOpen}
+          closeCustomPopup={closeCustomPopup}
+          textValue={textAlert}
+        />
         <table
           style={{
             borderCollapse: "collapse",
@@ -360,11 +383,6 @@ export default function RegisterByPreferredCourses() {
                     >
                       신청
                     </button>
-                    <CustomPopup
-                      customPopupOpen={customPopupOpen}
-                      closeCustomPopup={closeCustomPopup}
-                      textValue={textAlert}
-                    />
                   </th>
                   <th
                     style={{
@@ -574,10 +592,13 @@ export default function RegisterByPreferredCourses() {
           rand={rand}
           waitingOpen={waitingOpen}
           setWaitingOpen={setWaitingOpen}
+          resultType={resultType}
+          setResultType={setResultType}
         />
       ) : (
         <ResultPopUp
           resultType={resultType}
+          setResultType={setResultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />

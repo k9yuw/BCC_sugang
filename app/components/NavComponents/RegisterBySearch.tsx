@@ -4,6 +4,8 @@ import {
   useEffect,
   useState,
   useCallback,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import { major } from "../../data/major";
 import { usePathname } from "next/navigation";
@@ -26,7 +28,25 @@ import CustomPopup from "../popups/CustomPopup";
 
 const rand = Math.random();
 
-export default function RegisterBySearch() {
+export default function RegisterBySearch({
+  registeredCourses,
+  setRegisteredCourses,
+  preferredCourses,
+  setPreferredCourses,
+  registeredNum,
+  plusRegistered,
+  resultType,
+  setResultType,
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  preferredCourses: courseData[];
+  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum: number;
+  plusRegistered: () => void;
+  resultType: string;
+  setResultType: Dispatch<SetStateAction<string>>;
+}) {
   const pathname = usePathname();
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
   const [campus, setCampus] = useState("서울"); //캠퍼스
@@ -48,9 +68,7 @@ export default function RegisterBySearch() {
   const [courseName, setCourseName] = useState(""); //교과목명
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
-  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
   const [preferredCredit, setPreferredCredit] = useState<number>(0);
-  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const { register } = useGame();
@@ -59,7 +77,6 @@ export default function RegisterBySearch() {
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
   const [waitingOpen, setWaitingOpen] = useState(false);
-  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
 
   const openCustomPopup = () => {
     setCustomPopupOpen(true);
@@ -81,7 +98,7 @@ export default function RegisterBySearch() {
     setPreferredCourses(data);
     const preferredCreditArray = data.map((prop) => prop.credit);
     setPreferredCredit(preferredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setPreferredCourses]);
 
   useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
@@ -89,10 +106,10 @@ export default function RegisterBySearch() {
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
-    setRegisteredCourses(data);
+    // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setRegisteredCourses, registeredCourses]);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
@@ -129,21 +146,39 @@ export default function RegisterBySearch() {
           if (result < 0) {
             setResultPopupOpen(true);
             // return;
-          // console.log("waitingOpen:", waitingOpen);
+            // console.log("waitingOpen:", waitingOpen);
           } else {
-            // 조정
-            setWaitingOpen(true);
-            setResultPopupOpen(false);
-            const data = [...registeredCourses, prop];
-            setRegisteredCourses(data);
-            setRegisteredCredit((prep) => prep + prop.credit);
-            localStorage.setItem("registeredCourses", JSON.stringify(data));
-            if (result < 20000) {
-              setResultType("success"); 
-              setResultPopupOpen(true); }  
-            else {
-              setResultType("fail"); 
-              setResultPopupOpen(true);
+            if (registeredNum === 0) {
+              // 게임 시작 후 첫 수강 신청
+              if (result < 700) {
+                setWaitingOpen(true);
+                setResultType("success");
+                setResultPopupOpen(true);
+                const data = [...registeredCourses, prop];
+                setRegisteredCourses(data);
+                setRegisteredCredit((prep) => prep + prop.credit);
+                localStorage.setItem("registeredCourses", JSON.stringify(data));
+                plusRegistered();
+              } else {
+                setWaitingOpen(true);
+                setResultType("fail");
+                setResultPopupOpen(true);
+              }
+            } else {
+              if (result < 5000 + (registeredNum - 1) * 7000) {
+                setWaitingOpen(true);
+                const data = [...registeredCourses, prop];
+                setRegisteredCourses(data);
+                setRegisteredCredit((prep) => prep + prop.credit);
+                localStorage.setItem("registeredCourses", JSON.stringify(data));
+                setResultType("success");
+                setResultPopupOpen(true);
+                plusRegistered();
+              } else {
+                setWaitingOpen(true);
+                setResultType("fail");
+                setResultPopupOpen(true);
+              }
             }
           }
           setTimeTaken(result);
@@ -242,9 +277,7 @@ export default function RegisterBySearch() {
       if (endTime !== "전체--") {
         //종료교시
       }
-      const re = /\((.*?)\)/;
-      // const days = data.map((prop) => prop.time_room.match(re));
-      // data = data.filter((prop) => prop.time_room.match(re));
+
       setSearchedData(data);
     }
   };
@@ -263,6 +296,11 @@ export default function RegisterBySearch() {
           borderColor: "#e6e6e6",
         }}
       >
+        <CustomPopup
+          customPopupOpen={customPopupOpen}
+          closeCustomPopup={closeCustomPopup}
+          textValue={textAlert}
+        />
         <form>
           <div
             style={{
@@ -1379,11 +1417,6 @@ export default function RegisterBySearch() {
                     >
                       {pathname === "/courseRegisteration" ? "신청" : "등록"}
                     </button>
-                    <CustomPopup
-                      customPopupOpen={customPopupOpen}
-                      closeCustomPopup={closeCustomPopup}
-                      textValue={textAlert}
-                    />
                   </th>
                   <th
                     style={{
@@ -1678,11 +1711,14 @@ export default function RegisterBySearch() {
           rand={rand}
           waitingOpen={waitingOpen}
           setWaitingOpen={setWaitingOpen}
+          resultType={resultType}
+          setResultType={setResultType}
         />
       ) : null}
 
       <ResultPopUp
         resultType={resultType}
+        setResultType={setResultType}
         resultOpen={resultPopupOpen}
         setResultOpen={setResultPopupOpen}
       />
