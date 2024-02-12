@@ -243,12 +243,23 @@ export default function RegisterBySearch({
         openCustomPopup();
         setTextAlert("신청가능한 학점을 초과했습니다");
         return;
-      }  else {
+      } else {
+        //여기에 게임 넣으면 됨!
+        console.log("click game!");
+        const result = register();
+        const timePassed = Math.ceil((result * 3) / 1000);
+        const time = timePassed >= 4 ? Math.ceil(4 + (result % 3)) : timePassed;
+        if (result < 0) {
+          setResultPopupOpen(true);
+          // return;
+          // console.log("waitingOpen:", waitingOpen);
+        } else {
           //여기에 게임 넣으면 됨!
           console.log("click game!");
           const result = register();
           const timePassed = Math.ceil((result * 3) / 1000);
-          const time = (timePassed >= 4 ? Math.ceil(4 + result % 3) : timePassed);
+          const time =
+            timePassed >= 4 ? Math.ceil(4 + (result % 3)) : timePassed;
           if (result < 0) {
             setResultPopupOpen(true);
             // return;
@@ -261,13 +272,15 @@ export default function RegisterBySearch({
                 setResultType("success");
                 setResultPopupOpen(true);
                 plusRegistered();
-                setTimeout(
-                  () => {
-                    const data = [...registeredCourses, prop];
-                    setRegisteredCourses(data);
-                    setRegisteredCredit((prep) => prep + prop.credit);
-                    localStorage.setItem("registeredCourses", JSON.stringify(data));
-                  }, time*1000);
+                setTimeout(() => {
+                  const data = [...registeredCourses, prop];
+                  setRegisteredCourses(data);
+                  setRegisteredCredit((prep) => prep + prop.credit);
+                  localStorage.setItem(
+                    "registeredCourses",
+                    JSON.stringify(data)
+                  );
+                }, time * 1000);
               } else {
                 setWaitingOpen(true);
                 setResultType("fail");
@@ -279,13 +292,15 @@ export default function RegisterBySearch({
                 setResultType("success");
                 setResultPopupOpen(true);
                 plusRegistered();
-                setTimeout(
-                  () => {
-                    const data = [...registeredCourses, prop];
-                    setRegisteredCourses(data);
-                    setRegisteredCredit((prep) => prep + prop.credit);
-                    localStorage.setItem("registeredCourses", JSON.stringify(data));
-                  }, time*1000);
+                setTimeout(() => {
+                  const data = [...registeredCourses, prop];
+                  setRegisteredCourses(data);
+                  setRegisteredCredit((prep) => prep + prop.credit);
+                  localStorage.setItem(
+                    "registeredCourses",
+                    JSON.stringify(data)
+                  );
+                }, time * 1000);
               } else {
                 setWaitingOpen(true);
                 setResultType("fail");
@@ -293,9 +308,9 @@ export default function RegisterBySearch({
               }
             }
           }
+          setTimeTaken(result);
+          // setTimeout(() => setTimeTaken(undefined), 500);
         }
-        setTimeTaken(result);
-        // setTimeout(() => setTimeTaken(undefined), 500);
       }
     }
     //관심과목 등록
@@ -314,10 +329,7 @@ export default function RegisterBySearch({
         //강의시간 중복 filtering
         openCustomPopup();
         setTextAlert(`관심과목의 강의날짜와 강의시간이 중복되었습니다.`);
-      } else if (
-        preferredCredit + prop.credit >
-        parseInt(maxCreditLimit)
-      ) {
+      } else if (preferredCredit + prop.credit > parseInt(maxCreditLimit)) {
         //학점 초과 filtering
         openCustomPopup();
         setTextAlert("신청가능한 학점을 초과했습니다");
@@ -392,7 +404,6 @@ export default function RegisterBySearch({
       }
       if (startTime !== "전체--") {
         //시작교시
-        
       }
       if (endTime !== "전체--") {
         //종료교시
