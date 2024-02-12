@@ -1,6 +1,12 @@
 import courseData from "@/app/constant/courseDataInterface";
 import Image from "next/image";
-import { MouseEvent, useState, useEffect } from "react";
+import {
+  MouseEvent,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { useGame } from "../context/GameContext";
 import BodyBottomRegister from "../BodyBottomRegister";
 import WaitingPopUp from "../popups/WatingPopUp";
@@ -9,18 +15,32 @@ import CustomPopup from "../popups/CustomPopup";
 
 const rand = Math.random();
 
-export default function RegisterByPreferredCourses() {
+export default function RegisterByPreferredCourses({
+  registeredCourses,
+  setRegisteredCourses,
+  preferredCourses,
+  setPreferredCourses,
+  registeredNum,
+  plusRegistered,
+  resultType,
+  setResultType,
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  preferredCourses: courseData[];
+  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
+  registeredNum: number;
+  plusRegistered: () => void;
+  resultType: string;
+  setResultType: Dispatch<SetStateAction<string>>;
+}) {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
-  const [preferredCourses, setPreferredCourses] = useState<courseData[]>([]);
-  const [registeredCourses, setRegisteredCourses] = useState<courseData[]>([]);
   const [registeredCredit, setRegisteredCredit] = useState<number>(0);
   const { register } = useGame();
   const [timeTaken, setTimeTaken] = useState<number>();
   const [customPopupOpen, setCustomPopupOpen] = useState(false);
   const [textAlert, setTextAlert] = useState("");
   const [resultPopupOpen, setResultPopupOpen] = useState(false);
-  const [resultType, setResultType] = useState< "toEarly" |"success" | "fail">("toEarly");
-  const [registeredNum, setRegisteredNum] = useState<number>(0);
 
   const [waitingOpen, setWaitingOpen] = useState(false);
 
@@ -38,7 +58,7 @@ export default function RegisterByPreferredCourses() {
     }
     const data = JSON.parse(preferredCoursesCached ?? "[]") as courseData[];
     setPreferredCourses(data);
-  }, []);
+  }, [setPreferredCourses]);
 
   useEffect(() => {
     const registeredCoursesCached = localStorage.getItem("registeredCourses");
@@ -46,10 +66,10 @@ export default function RegisterByPreferredCourses() {
       localStorage.setItem("registeredCourses", "[]");
     }
     const data = JSON.parse(registeredCoursesCached ?? "[]") as courseData[];
-    setRegisteredCourses(data);
+    // setRegisteredCourses(data);
     const registeredCreditArray = data.map((prop) => prop.credit);
     setRegisteredCredit(registeredCreditArray.reduce((a, b) => a + b, 0));
-  }, []);
+  }, [setRegisteredCourses, registeredCourses]);
 
   const onRegisterClick = (
     e: MouseEvent<HTMLButtonElement>,
@@ -65,67 +85,140 @@ export default function RegisterByPreferredCourses() {
     const courseIdArrayRegistered = registeredCourses.map(
       (prop) => prop.rowid + prop.params
     );
+    let registeredTimes: number[] = [];
+    registeredCourses.forEach((prop) => {
+      prop.time_room.forEach((e) => {
+        if (e !== "미정") {
+          const dayIdx = e.search(/[월화수목금토]/);
+          const startIdx = e.indexOf("(") + 1;
+          const endIdx = e.indexOf(")") - 1;
+          const day = e.substring(dayIdx, dayIdx + 1);
+          const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+          const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+          let time;
+          if (day === "월") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6);
+          } else if (day === "화") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 1);
+          } else if (day === "수") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 2);
+          } else if (day === "목") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 3);
+          } else if (day === "금") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 4);
+          } else if (day === "토") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 5);
+          }
+        }
+      });
+    });
+    let searchedTimes: number[] = [];
+    prop.time_room.forEach((e) => {
+      if (e !== "미정") {
+        const dayIdx = e.search(/[월화수목금토]/);
+        const startIdx = e.indexOf("(") + 1;
+        const endIdx = e.indexOf(")") - 1;
+        const day = e.substring(dayIdx, dayIdx + 1);
+        const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+        const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+        let time;
+        if (day === "월") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6);
+        } else if (day === "화") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 1);
+        } else if (day === "수") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 2);
+        } else if (day === "목") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 3);
+        } else if (day === "금") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 4);
+        } else if (day === "토") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 5);
+        }
+      }
+    });
+    const registeredSet = new Set([...registeredTimes, ...searchedTimes]);
 
     if (courseIdArrayRegistered.includes(courseId)) {
       //중복 신청 filtering
       openCustomPopup();
       setTextAlert("이미 신청된 과목입니다.");
-    } else {
+    } else if (
+      registeredTimes.length + searchedTimes.length >=
+      registeredSet.size
+    ) {
+      //강의시간 중복 filtering
+      openCustomPopup();
+      setTextAlert(`수강신청과목의 강의날짜와 강의시간이 중복되었습니다.`);
+    } else if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
       //학점 초과 filtering
-      if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
-        {
-          openCustomPopup();
-          setTextAlert("신청가능한 학점을 초과했습니다");
-        }
+
+      openCustomPopup();
+      setTextAlert("신청가능한 학점을 초과했습니다");
+      return;
+    } else {
+      const data = [...registeredCourses, prop];
+
+      //여기에 게임 넣으면 됨!
+
+      const result = register();
+      const timePassed = Math.ceil((result * 3) / 1000);
+      const time = timePassed >= 4 ? Math.ceil(4 + (result % 3)) : timePassed;
+
+      if (result < 0) {
+        setResultPopupOpen(true);
+        // return;
       } else {
-        const data = [...registeredCourses, prop];
-        // setRegisteredCourses(data);
-        // setRegisteredCredit((prep) => prep + prop.credit);
-
-        //여기에 게임 넣으면 됨!
-        const result = register();
-
-        if (result < 0) {
-          setResultPopupOpen(true);
-          // return;
-        } else {
-          // 조정
-          if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
-            if (result < 700) {
-              setWaitingOpen(true);
-              setResultType("success"); 
-              setResultPopupOpen(true); 
+        if (registeredNum === 0) {
+          // 게임 시작 후 첫 수강 신청
+          if (result < 700) {
+            setWaitingOpen(true);
+            setResultType("success");
+            setResultPopupOpen(true);
+            plusRegistered();
+            setTimeout(() => {
               const data = [...registeredCourses, prop];
               setRegisteredCourses(data);
               setRegisteredCredit((prep) => prep + prop.credit);
               localStorage.setItem("registeredCourses", JSON.stringify(data));
-              setRegisteredNum(1);
-            }  
-            else {
-              setWaitingOpen(true);
-              setResultType("fail"); 
-              setResultPopupOpen(true);
-            }
+            }, time * 1000);
+          } else {
+            setWaitingOpen(true);
+            setResultType("fail");
+            setResultPopupOpen(true);
           }
-          else {
-            if (result < 15000){
-              setWaitingOpen(true);
+        } else {
+          if (result < 5000 + (registeredNum - 1) * 6100) {
+            setWaitingOpen(true);
+            setResultType("success");
+            setResultPopupOpen(true);
+            plusRegistered();
+            setTimeout(() => {
               const data = [...registeredCourses, prop];
               setRegisteredCourses(data);
               setRegisteredCredit((prep) => prep + prop.credit);
               localStorage.setItem("registeredCourses", JSON.stringify(data));
-              setResultType("success"); 
-              setResultPopupOpen(true);
-            }
-            else {
-              setWaitingOpen(true);
-              setResultType("fail"); 
-              setResultPopupOpen(true);
-            }
+            }, time * 1000);
+          } else {
+            setWaitingOpen(true);
+            setResultType("fail");
+            setResultPopupOpen(true);
           }
         }
-        setTimeTaken(result);
       }
+      setTimeTaken(result);
     }
   };
 
@@ -141,6 +234,11 @@ export default function RegisterByPreferredCourses() {
           marginBottom: 32.7,
         }}
       >
+        <CustomPopup
+          customPopupOpen={customPopupOpen}
+          closeCustomPopup={closeCustomPopup}
+          textValue={textAlert}
+        />
         <table
           style={{
             borderCollapse: "collapse",
@@ -360,11 +458,6 @@ export default function RegisterByPreferredCourses() {
                     >
                       신청
                     </button>
-                    <CustomPopup
-                      customPopupOpen={customPopupOpen}
-                      closeCustomPopup={closeCustomPopup}
-                      textValue={textAlert}
-                    />
                   </th>
                   <th
                     style={{
@@ -574,10 +667,13 @@ export default function RegisterByPreferredCourses() {
           rand={rand}
           waitingOpen={waitingOpen}
           setWaitingOpen={setWaitingOpen}
+          resultType={resultType}
+          setResultType={setResultType}
         />
       ) : (
         <ResultPopUp
           resultType={resultType}
+          setResultType={setResultType}
           resultOpen={resultPopupOpen}
           setResultOpen={setResultPopupOpen}
         />

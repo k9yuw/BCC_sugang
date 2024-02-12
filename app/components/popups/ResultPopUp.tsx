@@ -3,12 +3,14 @@ import Modal from "react-modal";
 
 function ResultPopUp({
   resultType,
+  setResultType,
   resultOpen,
   setResultOpen,
 }: {
   resultType: string;
   resultOpen: boolean;
   setResultOpen: Dispatch<SetStateAction<boolean>>;
+  setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const [] = useState(true);
   let textValueKR = "지금은 수강신청 기간이 아닙니다.";
