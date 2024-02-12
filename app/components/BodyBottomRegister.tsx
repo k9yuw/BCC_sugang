@@ -77,6 +77,7 @@ export default function BodyBottomRegister({
         }
       });
     });
+    console.log(colors);
     setColorArray(colors);
   }, [registeredCourses]);
 
@@ -421,10 +422,10 @@ export default function BodyBottomRegister({
             }}
           >
             <CustomPopup
-                customPopupOpen={customPopupOpen}
-                closeCustomPopup={closeCustomPopup}
-                textValue={textAlert}
-              />
+              customPopupOpen={customPopupOpen}
+              closeCustomPopup={closeCustomPopup}
+              textValue={textAlert}
+            />
             <table
               style={{
                 borderCollapse: "collapse",
