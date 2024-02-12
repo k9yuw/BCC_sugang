@@ -508,13 +508,13 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: 46,
+                    height: "68.8px",
                     display: "flex",
                     width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
-                  <div style={{ display: "flex", flexDirection: "row" }}>
+                  <div>
                     <div
                       style={{
                         fontSize: 15,
@@ -528,12 +528,7 @@ export default function Home() {
                       <br />
                       교육정보 확인
                     </div>
-                    <div
-                      style={{
-                        display: "inline-block",
-                        marginTop: 20,
-                      }}
-                    >
+                    <div style={{ paddingTop: 3 }}>
                       <Image
                         alt="more"
                         src={
@@ -580,13 +575,13 @@ export default function Home() {
                     borderLeftStyle: "solid",
                     borderLeftColor: "#bf0039",
                     paddingLeft: 20,
-                    height: 46,
+                    height: "68.8px",
                     display: "flex",
                     width: "167px",
                     lineHeight: 1.5,
                   }}
                 >
-                  <div style={{ display: "flex", flexDirection: "row" }}>
+                  <div>
                     <div
                       style={{
                         fontSize: 15,
@@ -600,7 +595,7 @@ export default function Home() {
                       <br />
                       비밀번호변경
                     </div>
-                    <div style={{ marginTop: 20, display: "inline-block" }}>
+                    <div style={{ paddingTop: 3 }}>
                       <Image
                         alt="more"
                         src={
