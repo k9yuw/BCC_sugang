@@ -122,6 +122,105 @@ export default function RegisterBySearch({
       maxCreditLimit = "19";
       localStorage.setItem("maxCreditLimit", "19");
     }
+    let registeredTimes: number[] = [];
+    registeredCourses.forEach((prop) => {
+      prop.time_room.forEach((e) => {
+        if (e !== "미정") {
+          const dayIdx = e.search(/[월화수목금토]/);
+          const startIdx = e.indexOf("(") + 1;
+          const endIdx = e.indexOf(")") - 1;
+          const day = e.substring(dayIdx, dayIdx + 1);
+          const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+          const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+          let time;
+          if (day === "월") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6);
+          } else if (day === "화") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 1);
+          } else if (day === "수") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 2);
+          } else if (day === "목") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 3);
+          } else if (day === "금") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 4);
+          } else if (day === "토") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 5);
+          }
+        }
+      });
+    });
+    let preferredTimes: number[] = [];
+    preferredCourses.forEach((prop) => {
+      prop.time_room.forEach((e) => {
+        if (e !== "미정") {
+          const dayIdx = e.search(/[월화수목금토]/);
+          const startIdx = e.indexOf("(") + 1;
+          const endIdx = e.indexOf(")") - 1;
+          const day = e.substring(dayIdx, dayIdx + 1);
+          const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+          const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+          let time;
+          if (day === "월") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6);
+          } else if (day === "화") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 1);
+          } else if (day === "수") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 2);
+          } else if (day === "목") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 3);
+          } else if (day === "금") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 4);
+          } else if (day === "토") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 5);
+          }
+        }
+      });
+    });
+    let searchedTimes: number[] = [];
+    prop.time_room.forEach((e) => {
+      if (e !== "미정") {
+        const dayIdx = e.search(/[월화수목금토]/);
+        const startIdx = e.indexOf("(") + 1;
+        const endIdx = e.indexOf(")") - 1;
+        const day = e.substring(dayIdx, dayIdx + 1);
+        const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+        const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+        let time;
+        if (day === "월") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6);
+        } else if (day === "화") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 1);
+        } else if (day === "수") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 2);
+        } else if (day === "목") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 3);
+        } else if (day === "금") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 4);
+        } else if (day === "토") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 5);
+        }
+      }
+    });
+    const registeredSet = new Set([...registeredTimes, ...searchedTimes]);
+    const preferredSet = new Set([...preferredTimes, ...searchedTimes]);
     //수강신청
     if (pathname === "/courseRegisteration") {
       const courseIdArrayRegistered = registeredCourses.map(
@@ -131,14 +230,20 @@ export default function RegisterBySearch({
         //중복 신청 filtering
         openCustomPopup();
         setTextAlert("이미 신청된 과목입니다.");
-      } else {
+      } else if (
+        registeredTimes.length + searchedTimes.length >=
+        registeredSet.size
+      ) {
+        //강의시간 중복 filtering
+        openCustomPopup();
+        setTextAlert(`수강신청과목의 강의날짜와 강의시간이 중복되었습니다.`);
+      } else if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
         //학점 초과 filtering
-        if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
-          {
-            openCustomPopup();
-            setTextAlert("신청가능한 학점을 초과했습니다");
-          }
-        } else {
+
+        openCustomPopup();
+        setTextAlert("신청가능한 학점을 초과했습니다");
+        return;
+      }  else {
           //여기에 게임 넣으면 됨!
           console.log("click game!");
           const result = register();
@@ -188,12 +293,11 @@ export default function RegisterBySearch({
               }
             }
           }
-          setTimeTaken(result);
-          // setTimeout(() => setTimeTaken(undefined), 500);
         }
+        setTimeTaken(result);
+        // setTimeout(() => setTimeTaken(undefined), 500);
       }
     }
-
     //관심과목 등록
     else if (pathname === "/preferredCourses") {
       const courseIdArrayPreferred = preferredCourses.map(
@@ -203,19 +307,27 @@ export default function RegisterBySearch({
         //중복 신청 filtering
         openCustomPopup();
         setTextAlert("이미 신청된 과목입니다.");
-      } else {
+      } else if (
+        preferredTimes.length + searchedTimes.length >=
+        preferredSet.size
+      ) {
+        //강의시간 중복 filtering
+        openCustomPopup();
+        setTextAlert(`관심과목의 강의날짜와 강의시간이 중복되었습니다.`);
+      } else if (
+        preferredCredit + prop.credit >
+        parseInt(maxCreditLimit)
+      ) {
         //학점 초과 filtering
-        if (preferredCredit + prop.credit > parseInt(maxCreditLimit)) {
-          openCustomPopup();
-          setTextAlert("신청가능한 학점을 초과했습니다");
-        } else {
-          const data = [...preferredCourses, prop];
-          setPreferredCourses(data);
-          setPreferredCredit((prep) => prep + prop.credit);
-          localStorage.setItem("preferredCourses", JSON.stringify(data));
-          openCustomPopup();
-          setTextAlert("관심과목 등록 되었습니다.");
-        }
+        openCustomPopup();
+        setTextAlert("신청가능한 학점을 초과했습니다");
+      } else {
+        const data = [...preferredCourses, prop];
+        setPreferredCourses(data);
+        setPreferredCredit((prep) => prep + prop.credit);
+        localStorage.setItem("preferredCourses", JSON.stringify(data));
+        openCustomPopup();
+        setTextAlert("관심과목 등록 되었습니다.");
       }
     }
   };
@@ -280,6 +392,7 @@ export default function RegisterBySearch({
       }
       if (startTime !== "전체--") {
         //시작교시
+        
       }
       if (endTime !== "전체--") {
         //종료교시
