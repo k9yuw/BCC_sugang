@@ -1,13 +1,31 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { usePathname } from "next/navigation";
 import PreferredTimeTable from "./table/preferredTimeTable/preferredTimeTable";
 import RegisterBySearch from "./NavComponents/RegisterBySearch";
 import RegisterByPreferredCourses from "./NavComponents/RegisterByPreferredCourses";
 import RegisterByCourseCode from "./NavComponents/RegisterByCourseCode";
 import Notices from "./NavComponents/Notices";
-import { GameProvider } from "./context/GameContext";
+import courseData from "../constant/courseDataInterface";
 
-export default function Body() {
+export default function Body({
+  registeredCourses,
+  setRegisteredCourses,
+  preferredCourses,
+  setPreferredCourses,
+  resultType,
+  setResultType,
+  registeredNum,
+  plusRegistered,
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  preferredCourses: courseData[];
+  setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
+  resultType: string; 
+  setResultType: Dispatch<SetStateAction<string>>;
+  registeredNum : number;
+  plusRegistered: () => void;
+}) {
   const pathname = usePathname();
   const [navBar, setNavRegister] = useState([true, false, false, false, false]);
 
@@ -119,11 +137,26 @@ export default function Body() {
             </div>
           ) : null}
         </div>
-        {navBar[0] ? <Notices /> : null}
-        {navBar[1] ? <RegisterByCourseCode /> : null}
-        {navBar[2] ? <RegisterByPreferredCourses /> : null}
-        {navBar[3] ? <RegisterBySearch /> : null}
-        {navBar[4] ? <PreferredTimeTable /> : null}
+        {navBar[0] ? <Notices registeredCourses={registeredCourses}
+              setRegisteredCourses={setRegisteredCourses} preferredCourses={preferredCourses}
+              setPreferredCourses={setPreferredCourses}/> : null}
+        {navBar[1] ? <RegisterByCourseCode registeredCourses={registeredCourses}
+              setRegisteredCourses={setRegisteredCourses} preferredCourses={preferredCourses}
+              setPreferredCourses={setPreferredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
+              resultType={resultType} setResultType={setResultType}
+              /> : null}
+        {navBar[2] ? <RegisterByPreferredCourses registeredCourses={registeredCourses}
+              setRegisteredCourses={setRegisteredCourses} preferredCourses={preferredCourses}
+              setPreferredCourses={setPreferredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
+              resultType={resultType} setResultType={setResultType}
+              /> : null}
+        {navBar[3] ? <RegisterBySearch registeredCourses={registeredCourses}
+              setRegisteredCourses={setRegisteredCourses} preferredCourses={preferredCourses}
+              setPreferredCourses={setPreferredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
+              resultType={resultType} setResultType={setResultType}
+              /> : null}
+        {navBar[4] ? <PreferredTimeTable preferredCourses={preferredCourses}
+            setPreferredCourses={setPreferredCourses}/> : null}
       </div>
     </div>
   );

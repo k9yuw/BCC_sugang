@@ -1,8 +1,15 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import bgm from "./bgm.mp3";
 import { useGame } from "../context/GameContext";
+import courseData from "@/app/constant/courseDataInterface";
 
 const formatTimeString = (dateValue: number, isMs = false) => {
   const date = new Date(dateValue);
@@ -14,12 +21,25 @@ const formatTimeString = (dateValue: number, isMs = false) => {
   return `${hours}시 ${minutes}분 ${seconds}초 `;
 };
 
-const Clock = ({}) => {
+const Clock = ({
+  registeredCourses,
+  setRegisteredCourses,
+  resultType, setResultType,
+  resetRegistered
+  
+}: {
+  registeredCourses: courseData[];
+  setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
+  resultType: string; 
+  setResultType: Dispatch<SetStateAction<string>>;
+  resetRegistered: () => void;
+}) => {
   const [isRed, setIsRed] = useState<boolean>(false);
   const [bgmPlayed, setBgmplayed] = useState<boolean>(false);
   const { startGame, date: clockTime, clockStarted } = useGame();
   const [msChecked, setMsChecked] = useState(false);
   const [disableTransition, setDisableTransition] = useState(false);
+  // const [clickTimeChecked, setClickTimeChecked] = useState<boolean>(false); // 시즌2를 위한 주석처리
 
   const clockRef = useRef(null);
   const bgmRef = useRef<HTMLAudioElement>(null);
@@ -53,37 +73,44 @@ const Clock = ({}) => {
     }
   }, [bgmPlayed]);
 
-const handleButtonClick = () => {
-  startGame();
-  setIsRed(false);
-  setDisableTransition(true);
-};
+  const handleButtonClick = () => {
+    startGame();
+    setIsRed(false);
+    setDisableTransition(true);
+    localStorage.setItem("registeredCourses", "[]");
+    setRegisteredCourses([]);
+    setResultType?.("toEarly");
+    resetRegistered();
+  };
 
-useEffect(() => {
-  if (disableTransition) {
-    const timer = setTimeout(() => {
-      setDisableTransition(false);
-    }, 0); 
+  useEffect(() => {
+    if (disableTransition) {
+      const timer = setTimeout(() => {
+        setDisableTransition(false);
+      }, 0);
 
-  return () => clearTimeout(timer);
-  }
-}, [disableTransition]);
+      return () => clearTimeout(timer);
+    }
+  }, [disableTransition]);
 
   return (
-    <div 
+    <div
       style={{
-      transition: disableTransition ? undefined : "background-color 7s",
-      backgroundColor: isRed ? "red" : "transparent", 
-      borderBottomLeftRadius: "5px",
-      borderBottomRightRadius: "5px",
-    }}
+        transition: disableTransition ? undefined : "background-color 7s",
+        backgroundColor: isRed ? "red" : "transparent",
+        borderBottomLeftRadius: "5px",
+        borderBottomRightRadius: "5px",
+      }}
     >
-      <div style = {{
-        maxWidth: "500px",
-        display: "flex",
-        flexDirection: "column"
-      }}>
-        <div style = {{
+      <div
+        style={{
+          maxWidth: "500px",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div
+          style={{
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
@@ -95,25 +122,28 @@ useEffect(() => {
             width: "100%",
             marginLeft: "7px",
             paddingTop: "4px",
-        }}>
-          <div ref={clockRef} id="clock" 
-          style = {{
-            display: "flex",
-            alignItems: "baseline"
           }}
+        >
+          <div
+            ref={clockRef}
+            id="clock"
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+            }}
           >
             {clockTime ? formatTimeString(clockTime) : "9시 59분 50초"}
             {msChecked && (
-              <div 
-              style = {{
-                letterSpacing: "-3px",
-                fontSize: "27pt",
-                color: "#a20131",
-                fontWeight: "bold",
-                textShadow: "rgb(80, 80, 80) -1px -1px 1px",
-                paddingTop: "2px",
-                paddingLeft: "10px"
-              }}
+              <div
+                style={{
+                  letterSpacing: "-3px",
+                  fontSize: "27pt",
+                  color: "#a20131",
+                  fontWeight: "bold",
+                  textShadow: "rgb(80, 80, 80) -1px -1px 1px",
+                  paddingTop: "2px",
+                  paddingLeft: "10px",
+                }}
               >
                 {clockTime ? formatTimeString(clockTime, true) : "000"}
               </div>
@@ -128,7 +158,7 @@ useEffect(() => {
             padding: "0px 10px 10px 10px",
           }}
         >
-          <div style = {{fontSize: 17, margin: "0px 5px 5px 5px" }}>
+          <div style={{ fontSize: 17, margin: "0px 5px 0px 5px" }}>
             <label>
               <input
                 type="checkbox"
@@ -139,6 +169,22 @@ useEffect(() => {
               />
               밀리초 보기
             </label>
+            {/* 시즌2를 위한 주석처리 */}
+            {/* <label>
+              <input
+                type="checkbox"
+                id="clickTimeCheckbox"
+                onChange={(e) => {
+                  setClickTimeChecked(e.target.checked);
+                }}
+              />
+              클릭시간 보기
+            </label>
+            {clickTimeChecked ? <div style={{margin: 0, paddingLeft: "5px", letterSpacing: "0px",
+                  color: "#a20131",
+                  fontWeight: "600",}}>
+              00초 000
+            </div> : null} */}
           </div>
           <div>
             <button
