@@ -164,49 +164,63 @@ export default function RegisterByPreferredCourses({
       setTextAlert(`수강신청과목의 강의날짜와 강의시간이 중복되었습니다.`);
     } else if (registeredCredit + prop.credit > parseInt(maxCreditLimit)) {
       //학점 초과 filtering
+
       openCustomPopup();
       setTextAlert("신청가능한 학점을 초과했습니다");
       return;
-    } else {
-      //여기에 게임 넣으면 됨!
-      const result = register();
+    }  else {
+        const data = [...registeredCourses, prop];
 
-      if (result < 0) {
-        setResultPopupOpen(true);
-        // return;
-      } else {
-        if (registeredNum === 0) {
-          // 게임 시작 후 첫 수강 신청
-          if (result < 700) {
-            setWaitingOpen(true);
-            setResultType("success");
-            setResultPopupOpen(true);
+        //여기에 게임 넣으면 됨!
 
-            const data = [...registeredCourses, prop];
-            setRegisteredCourses(data);
-            setRegisteredCredit((prep) => prep + prop.credit);
-            localStorage.setItem("registeredCourses", JSON.stringify(data));
-            plusRegistered();
-          } else {
-            setWaitingOpen(true);
-            setResultType("fail");
-            setResultPopupOpen(true);
-          }
+
+        const result = register();
+        const timePassed = Math.ceil((result * 3) / 1000);
+          const time = (timePassed >= 4 ? Math.ceil(4 + result % 3) : timePassed);
+
+        if (result < 0) {
+          setResultPopupOpen(true);
+          // return;
         } else {
-          if (result < 5000 + (registeredNum - 1) * 6600) {
-            setWaitingOpen(true);
-            setResultType("success");
-            setResultPopupOpen(true);
-
-            const data = [...registeredCourses, prop];
-            setRegisteredCourses(data);
-            setRegisteredCredit((prep) => prep + prop.credit);
-            localStorage.setItem("registeredCourses", JSON.stringify(data));
-            plusRegistered();
-          } else {
-            setWaitingOpen(true);
-            setResultType("fail");
-            setResultPopupOpen(true);
+          if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
+            if (result < 700) {
+              setWaitingOpen(true);
+              setResultType("success"); 
+              setResultPopupOpen(true); 
+              plusRegistered();
+              setTimeout(
+                () => {
+                  const data = [...registeredCourses, prop];
+                  setRegisteredCourses(data);
+                  setRegisteredCredit((prep) => prep + prop.credit);
+                  localStorage.setItem("registeredCourses", JSON.stringify(data));
+                }, time*1000);
+            }  
+            else {
+              setWaitingOpen(true);
+              setResultType("fail"); 
+              setResultPopupOpen(true);
+            }
+          }
+          else {
+            if (result < 5000 + (registeredNum-1)*6100){
+              setWaitingOpen(true);
+              setResultType("success"); 
+              setResultPopupOpen(true);
+              plusRegistered();
+              setTimeout(
+                () => {
+                  const data = [...registeredCourses, prop];
+                  setRegisteredCourses(data);
+                  setRegisteredCredit((prep) => prep + prop.credit);
+                  localStorage.setItem("registeredCourses", JSON.stringify(data));
+                }, time*1000);
+            }
+            else {
+              setWaitingOpen(true);
+              setResultType("fail"); 
+              setResultPopupOpen(true);
+            }
           }
         }
       }
