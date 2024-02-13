@@ -12,6 +12,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <meta
+          property="og:url"
+          content="https://kusugangpractice.vercel.app/"
+        ></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta
+          property="og:image"
+          content="/thumnnail.png"
+        ></meta>
+      </head>
       <body>{children}</body>
     </html>
   );
