@@ -25,7 +25,7 @@ const CustomPopup: React.FC<ModalProps> = ({ customPopupOpen, closeCustomPopup, 
     <div>
       <Modal
         isOpen={customPopupOpen}
-        onRequestClose={() => closeCustomPopup}
+        // onRequestClose={() => closeCustomPopup}
         style={customStyles}
         ariaHideApp={false}
       >
