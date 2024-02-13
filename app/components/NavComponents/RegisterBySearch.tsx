@@ -231,7 +231,7 @@ export default function RegisterBySearch({
         openCustomPopup();
         setTextAlert("이미 신청된 과목입니다.");
       } else if (
-        registeredTimes.length + searchedTimes.length >=
+        registeredTimes.length + searchedTimes.length >
         registeredSet.size
       ) {
         //강의시간 중복 filtering
