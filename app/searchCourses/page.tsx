@@ -14,6 +14,8 @@ import Header from "../components/Header";
 import courseData from "../constant/courseDataInterface";
 import { courseSelectData } from "../constant/CourseSelectData";
 import TimePeriod from "../components/popups/TimePeriod";
+import { all } from "../data/all";
+import CustomPopup from "../components/popups/CustomPopup";
 
 export default function Home() {
   const [tableMouseEnter, setTableMouseEnter] = useState(false);
@@ -26,19 +28,28 @@ export default function Home() {
   const [courseTypeOne, setCourseTypeOne] = useState<string>("전공"); //이수구분
   const [courseTypeTwo, setCourseTypeTwo] = useState<string>("간호대학");
   const [courseTypeThree, setCourseTypeThree] = useState<string>("간호학과");
-  const [credit, setCredit] = useState<string>(); //학점
-  const [day, setDay] = useState(""); //요일
-  const [startTime, setStartTime] = useState<string>(); //교시
-  const [endTime, setEndTime] = useState<string>();
-  const [professor, setProfessor] = useState(""); //교수
+  const [credit, setCredit] = useState<string>(""); //학점
+  const [day, setDay] = useState<string>("전체--"); //요일
+  const [startTime, setStartTime] = useState<string>("전체--"); //교시
+  const [endTime, setEndTime] = useState<string>("전체--");
+  const [professor, setProfessor] = useState<string>(""); //교수
   const [courseCode, setCourseCode] = useState(""); //학수번호
   const [section, setSection] = useState(""); //분반
   const [courseName, setCourseName] = useState(""); //교과목명
   const [searchedData, setSearchedData] = useState<courseData[]>([]);
   const [searched, setSearched] = useState(false);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
 
   const router = useRouter();
+
+  const openCustomPopup = () => {
+    setCustomPopupOpen(true);
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -64,32 +75,103 @@ export default function Home() {
       setCourseSelect([false, false]);
     }
   };
+
   const onClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearched(true);
-    if (selectedIdxOne === 0) {
-      // let data = major[selectedIdxTwo][selectedIdxThree].filter(
-      //   (prop) => prop.credit === credit
-      // );
-      // data = data.filter((prop) => prop.time_room.includes(day));
+    let data: courseData[] = [];
+    if (courseCode !== "") {
+      //학수번호 (+분반)
+      if (courseName !== "") {
+        openCustomPopup();
+        setTextAlert("학수번호 입력시 교과목명을 입력 할 수 없습니다.");
+        return;
+      }
+      data = all.filter((prop) => prop.cour_cd === courseCode);
+      if (section !== "") {
+        data = data.filter((prop) => prop.cour_cls === section);
+      }
+    } else if (courseName !== "") {
+      //교과목명
+      data = all.filter((prop) => prop.cour_nm === courseName);
+    } else {
+      //이수구분
+      if (selectedIdxOne === 0) {
+        data = major[selectedIdxTwo][selectedIdxThree];
+      } else if (selectedIdxOne === 1) {
+        data = academicFoundations[selectedIdxTwo][selectedIdxThree];
+      } else if (selectedIdxOne === 2) {
+        data = generalStudies[selectedIdxTwo];
+      } else if (selectedIdxOne === 3) {
+        data = teacherEducation;
+      } else if (selectedIdxOne === 4) {
+        data = militaryStudies;
+      } else if (selectedIdxOne === 5) {
+        data = lifelongEducation;
+      }
+      if (credit !== "") {
+        //학점
+        data = data.filter((prop) => prop.credit === parseInt(credit));
+      }
+      if (day !== "전체--") {
+        //요일
+        data = data.filter((prop) => prop.time_room.join("").includes(day));
+      }
+      if (professor !== "") {
+        //교수
+        data = data.filter((prop) => prop.prof_nm === professor);
+      }
+      if (startTime !== "전체--") {
+        //시작교시
+        const isAfterStartTime = (e: courseData, start: number) => {
+          let testArray: boolean[] = [];
+          e.time_room.forEach((e) => {
+            if (e !== "미정") {
+              // const dayIdx = e.search(/[월화수목금토]/);
+              const startIdx = e.indexOf("(") + 1;
+              // const endIdx = e.indexOf(")") - 1;
+              // const day = e.substring(dayIdx, dayIdx + 1);
+              const propStartTime = parseInt(
+                e.substring(startIdx, startIdx + 1)
+              );
+              // const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+              testArray.push(start <= propStartTime);
+            }
+          });
+          console.log(testArray.every((e) => e === true));
+          return testArray.every((e) => e === true);
+        };
+        data = data.filter((prop) =>
+          isAfterStartTime(prop, parseInt(startTime))
+        );
+      }
+      if (endTime !== "전체--") {
+        //종료교시
+        const isBeforeEndTime = (e: courseData, end: number) => {
+          let testArray: boolean[] = [];
+          e.time_room.forEach((e) => {
+            if (e !== "미정") {
+              const endIdx = e.indexOf(")") - 1;
+              const propEndTime = parseInt(e.substring(endIdx, endIdx + 1));
+              testArray.push(end >= propEndTime);
+            }
+          });
+          return testArray.every((e) => e === true);
+        };
+        data = data.filter((prop) => isBeforeEndTime(prop, parseInt(endTime)));
+      }
 
-      // data = data.filter((prop) => prop.time_room.match("/(*)/"));
-      setSearchedData(major[selectedIdxTwo][selectedIdxThree]);
-    } else if (selectedIdxOne === 1) {
-      setSearchedData(academicFoundations[selectedIdxTwo][selectedIdxThree]);
-    } else if (selectedIdxOne === 2) {
-      setSearchedData(generalStudies[selectedIdxTwo]);
-    } else if (selectedIdxOne === 3) {
-      setSearchedData(teacherEducation);
-    } else if (selectedIdxOne === 4) {
-      setSearchedData(militaryStudies);
-    } else if (selectedIdxOne === 5) {
-      setSearchedData(lifelongEducation);
+      setSearchedData(data);
     }
   };
 
   return (
     <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
+      <CustomPopup
+          customPopupOpen={customPopupOpen}
+          closeCustomPopup={closeCustomPopup}
+          textValue={textAlert}
+        />
       <NavBar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Header />

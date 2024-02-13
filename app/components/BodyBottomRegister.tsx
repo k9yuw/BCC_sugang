@@ -77,7 +77,6 @@ export default function BodyBottomRegister({
         }
       });
     });
-    console.log(colors);
     setColorArray(colors);
   }, [registeredCourses]);
 
@@ -85,12 +84,10 @@ export default function BodyBottomRegister({
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
     prop: courseData
   ) => {
-    console.log(registeredCourses);
     const courseToDelete = registeredCourses.find(
       (item) => item.params === prop.params
     );
     if (!courseToDelete) {
-      console.log("Failed to delete the course");
       return;
     }
     const idx = registeredCourses.indexOf(courseToDelete);
