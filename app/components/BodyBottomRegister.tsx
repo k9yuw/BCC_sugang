@@ -84,12 +84,10 @@ export default function BodyBottomRegister({
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
     prop: courseData
   ) => {
-    console.log(registeredCourses);
     const courseToDelete = registeredCourses.find(
       (item) => item.params === prop.params
     );
     if (!courseToDelete) {
-      console.log("Failed to delete the course");
       return;
     }
     const idx = registeredCourses.indexOf(courseToDelete);
@@ -421,10 +419,10 @@ export default function BodyBottomRegister({
             }}
           >
             <CustomPopup
-                customPopupOpen={customPopupOpen}
-                closeCustomPopup={closeCustomPopup}
-                textValue={textAlert}
-              />
+              customPopupOpen={customPopupOpen}
+              closeCustomPopup={closeCustomPopup}
+              textValue={textAlert}
+            />
             <table
               style={{
                 borderCollapse: "collapse",

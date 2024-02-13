@@ -19,7 +19,8 @@ export default function RegisterByCourseCode({
   setPreferredCourses,
   registeredNum,
   plusRegistered,
-  resultType, setResultType
+  resultType,
+  setResultType,
 }: {
   registeredCourses: courseData[];
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
@@ -97,6 +98,105 @@ export default function RegisterByCourseCode({
       setTextAlert(`해당하는 과목이 없습니다. 다시 한 번 입력해주세요.`);
       return;
     }
+    let registeredTimes: number[] = [];
+    registeredCourses.forEach((prop) => {
+      prop.time_room.forEach((e) => {
+        if (e !== "미정") {
+          const dayIdx = e.search(/[월화수목금토]/);
+          const startIdx = e.indexOf("(") + 1;
+          const endIdx = e.indexOf(")") - 1;
+          const day = e.substring(dayIdx, dayIdx + 1);
+          const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+          const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+          let time;
+          if (day === "월") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6);
+          } else if (day === "화") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 1);
+          } else if (day === "수") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 2);
+          } else if (day === "목") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 3);
+          } else if (day === "금") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 4);
+          } else if (day === "토") {
+            for (time = startTime; time <= endTime; time++)
+              registeredTimes.push((time - 1) * 6 + 5);
+          }
+        }
+      });
+    });
+    let preferredTimes: number[] = [];
+    preferredCourses.forEach((prop) => {
+      prop.time_room.forEach((e) => {
+        if (e !== "미정") {
+          const dayIdx = e.search(/[월화수목금토]/);
+          const startIdx = e.indexOf("(") + 1;
+          const endIdx = e.indexOf(")") - 1;
+          const day = e.substring(dayIdx, dayIdx + 1);
+          const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+          const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+          let time;
+          if (day === "월") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6);
+          } else if (day === "화") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 1);
+          } else if (day === "수") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 2);
+          } else if (day === "목") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 3);
+          } else if (day === "금") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 4);
+          } else if (day === "토") {
+            for (time = startTime; time <= endTime; time++)
+              preferredTimes.push((time - 1) * 6 + 5);
+          }
+        }
+      });
+    });
+    let searchedTimes: number[] = [];
+    searchedData.time_room.forEach((e) => {
+      if (e !== "미정") {
+        const dayIdx = e.search(/[월화수목금토]/);
+        const startIdx = e.indexOf("(") + 1;
+        const endIdx = e.indexOf(")") - 1;
+        const day = e.substring(dayIdx, dayIdx + 1);
+        const startTime = parseInt(e.substring(startIdx, startIdx + 1));
+        const endTime = parseInt(e.substring(endIdx, endIdx + 1));
+        let time;
+        if (day === "월") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6);
+        } else if (day === "화") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 1);
+        } else if (day === "수") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 2);
+        } else if (day === "목") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 3);
+        } else if (day === "금") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 4);
+        } else if (day === "토") {
+          for (time = startTime; time <= endTime; time++)
+            searchedTimes.push((time - 1) * 6 + 5);
+        }
+      }
+    });
+    const registeredSet = new Set([...registeredTimes, ...searchedTimes]);
+    const preferredSet = new Set([...preferredTimes, ...searchedTimes]);
     //과목 신청 or 등록
     const courseId = searchedData.rowid + searchedData.params;
     let maxCreditLimit = localStorage.getItem("maxCreditLimit");
@@ -113,66 +213,69 @@ export default function RegisterByCourseCode({
         //중복 신청 filtering
         openCustomPopup();
         setTextAlert("이미 신청된 과목입니다.");
-      } else {
+      } else if (
+        registeredTimes.length + searchedTimes.length >
+        registeredSet.size
+      ) {
+        //강의시간 중복 filtering
+        openCustomPopup();
+        setTextAlert(`수강신청과목의 강의날짜와 강의시간이 중복되었습니다.`);
+      } else if (
+        registeredCredit + searchedData.credit >
+        parseInt(maxCreditLimit)
+      ) {
         //학점 초과 filtering
-        if (registeredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
-          openCustomPopup();
-          setTextAlert("신청가능한 학점을 초과했습니다");
+        openCustomPopup();
+        setTextAlert("신청가능한 학점을 초과했습니다");
+        return;
+      } else {
+        //여기에 게임 넣으면 됨!
+        const result = register();
+        const timePassed = Math.ceil((result * 3) / 1000);
+        const time = timePassed >= 4 ? Math.ceil(4 + (result % 3)) : timePassed;
+        if (result < 0) {
+          setResultPopupOpen(true);
+          return;
         } else {
-          //여기에 게임 넣으면 됨!
-          const result = register();
-          const timePassed = Math.ceil((result * 3) / 1000);
-          const time = (timePassed >= 4 ? Math.ceil(4 + result % 3) : timePassed);
-          if (result < 0) {
-            setResultPopupOpen(true);
-            return;
-          }
-          else{
-            if (registeredNum === 0){ // 게임 시작 후 첫 수강 신청
-              if (result < 700) {
-                setWaitingOpen(true);
-                setResultType("success"); 
-                setResultPopupOpen(true);
-                plusRegistered();
-                setTimeout(
-                  () => {
-                    const data = [...registeredCourses, searchedData];
-                    setRegisteredCourses(data);
-                    setRegisteredCredit((prep) => prep + searchedData.credit);
-                    localStorage.setItem("registeredCourses", JSON.stringify(data));
-                  }, time*1000);                
-              }  
-              else {
-                setWaitingOpen(true);
-                setResultType("fail"); 
-                setResultPopupOpen(true);
-              }
+          if (registeredNum === 0) {
+            // 게임 시작 후 첫 수강 신청
+            if (result < 700) {
+              setWaitingOpen(true);
+              setResultType("success");
+              setResultPopupOpen(true);
+              plusRegistered();
+              setTimeout(() => {
+                const data = [...registeredCourses, searchedData];
+                setRegisteredCourses(data);
+                setRegisteredCredit((prep) => prep + searchedData.credit);
+                localStorage.setItem("registeredCourses", JSON.stringify(data));
+              }, time * 1000);
+            } else {
+              setWaitingOpen(true);
+              setResultType("fail");
+              setResultPopupOpen(true);
             }
-            else {
-              if (result < 5000 + (registeredNum-1)*7000){
-                setWaitingOpen(true);
-                setResultType("success"); 
-                setResultPopupOpen(true);
-                plusRegistered();
-                setTimeout(
-                  () => {
-                    const data = [...registeredCourses, searchedData];
-                  setRegisteredCourses(data);
-                  setRegisteredCredit((prep) => prep + searchedData.credit);
-                  localStorage.setItem("registeredCourses", JSON.stringify(data));
-                  }, time*1000);
-              }
-              else {
-                setWaitingOpen(true);
-                setResultType("fail"); 
-                setResultPopupOpen(true);
-              }
+          } else {
+            if (result < 5000 + (registeredNum - 1) * 7000) {
+              setWaitingOpen(true);
+              setResultType("success");
+              setResultPopupOpen(true);
+              plusRegistered();
+              setTimeout(() => {
+                const data = [...registeredCourses, searchedData];
+                setRegisteredCourses(data);
+                setRegisteredCredit((prep) => prep + searchedData.credit);
+                localStorage.setItem("registeredCourses", JSON.stringify(data));
+              }, time * 1000);
+            } else {
+              setWaitingOpen(true);
+              setResultType("fail");
+              setResultPopupOpen(true);
             }
           }
-          setTimeTaken(result);
-          // alert("신청 되었습니다.");
-          
         }
+        setTimeTaken(result);
+        // alert("신청 되었습니다.");
       }
     }
     //관심과목 등록
@@ -184,19 +287,27 @@ export default function RegisterByCourseCode({
         //중복 신청 filtering
         openCustomPopup();
         setTextAlert("이미 신청된 과목입니다.");
-      } else {
+      } else if (
+        preferredTimes.length + searchedTimes.length >=
+        preferredSet.size
+      ) {
+        //강의시간 중복 filtering
+        openCustomPopup();
+        setTextAlert(`관심과목의 강의날짜와 강의시간이 중복되었습니다.`);
+      } else if (
+        preferredCredit + searchedData.credit >
+        parseInt(maxCreditLimit)
+      ) {
         //학점 초과 filtering
-        if (preferredCredit + searchedData.credit > parseInt(maxCreditLimit)) {
-          openCustomPopup();
-          setTextAlert("신청가능한 학점을 초과했습니다");
-        } else {
-          const data = [...preferredCourses, searchedData];
-          setPreferredCourses(data);
-          setPreferredCredit((prep) => prep + searchedData.credit);
-          localStorage.setItem("preferredCourses", JSON.stringify(data));
-          openCustomPopup();
-          setTextAlert("관심과목 등록 되었습니다.");
-        }
+        openCustomPopup();
+        setTextAlert("신청가능한 학점을 초과했습니다");
+      } else {
+        const data = [...preferredCourses, searchedData];
+        setPreferredCourses(data);
+        setPreferredCredit((prep) => prep + searchedData.credit);
+        localStorage.setItem("preferredCourses", JSON.stringify(data));
+        openCustomPopup();
+        setTextAlert("관심과목 등록 되었습니다.");
       }
     }
   };
