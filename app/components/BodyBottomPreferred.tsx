@@ -49,12 +49,10 @@ export default function BodyBottomPreferred({
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
     prop: courseData
   ) => {
-    console.log(preferredCourses);
     const courseToDelete = preferredCourses.find(
       (item) => item.params === prop.params
     );
     if (!courseToDelete) {
-      console.log("Failed to delete the course");
       return;
     }
     const idx = preferredCourses.indexOf(courseToDelete);
@@ -66,7 +64,6 @@ export default function BodyBottomPreferred({
       openCustomPopup();
       setTextAlert("삭제되었습니다.");
     }
-    console.log(preferredCourses);
   };
 
   return (
