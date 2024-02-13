@@ -12,13 +12,13 @@ const CustomPopup: React.FC<ModalProps> = ({ customPopupOpen, closeCustomPopup, 
     },
     content: {
 		backgroundColor: "white",
-		width: "400px",
+		width: "450px",
 		height: "190px",
 		margin: "auto",
 		borderRadius: "8px",
 		borderColor: "rgba(0,0,0,0.1)",
 		boxShadow: "0, 2px 4px rgba(0,0,0,0.1)",
-		padding: "8px",
+		padding: "0px",
     },
   };
   return (
@@ -39,30 +39,51 @@ const CustomPopup: React.FC<ModalProps> = ({ customPopupOpen, closeCustomPopup, 
 			flexDirection: "column",
 			alignItems: "stretch",
 		}}>
-			<div style={{margin: "4px 6px 4px 6px", textAlign:"left", fontSize: "17px", fontWeight:"600"}}>
+			<div style={{ fontSize: "17px", fontWeight: "600", marginLeft: "14px", marginTop: "10px", marginBottom: "8px", textAlign: "left" }}>
 				알림
 			</div>
-			<hr style={{marginTop: "8px", width: "95%", height: "1px", backgroundColor: "rgba(0,0,0,0.05)", border: "0",}}/>
+			<hr
+            style={{
+              width: "100%",
+              height: "1px",
+              backgroundColor: "rgba(0,0,0,0.05)",
+              border: "0",
+            }}
+          />
 			<div style={{
-				height: "30px",
-				margin: "20px 10px",
-				paddingTop: "0px",
+				margin: "5px 10px 20px 10px",
+				paddingTop: "5px",
+				paddingLeft: "3px",
 				textAlign: "left",
-				fontSize: "14",
+				letterSpacing: "-2",
+				fontSize: "14px",
+				height:"43px",
 			}}>
 				{textValue}
 			</div>
-			<hr style={{marginTop: "10px", width: "95%", height: "1px", backgroundColor: "rgba(0,0,0,0.05)", border: "0",}}/>
-			<div style={{
-				margin: "auto"
-			}}>
+			<hr
+            style={{
+              width: "100%",
+              height: "1px",
+              backgroundColor: "rgba(0,0,0,0.05)",
+              border: "0",
+            }}
+          />
+			<div
+            style={{
+              margin: "auto",
+              marginTop: "7px",
+            }}
+          >
 				<button onClick={() => closeCustomPopup()}
 					style={{
 					border:"0",
-					fontSize: "16px",
+					fontSize: "15px",
 					backgroundColor: "white",
 					color: "#a20131",
 					cursor: "pointer",
+					letterSpacing: "1px",
+                	fontWeight: "600",
 				}}><strong>확인</strong>
 				</button>
 			</div>

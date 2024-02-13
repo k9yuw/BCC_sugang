@@ -39,8 +39,8 @@ function WaitingPopUp({
     },
     content: {
       backgroundColor: "#EBF0EF",
-      width: "500px",
-      height: "230px",
+      width: "470px",
+      height: "220px",
       margin: "auto",
       borderRadius: "7px",
       borderColor: "rgba(0,0,0,0.1)",
@@ -97,8 +97,9 @@ function WaitingPopUp({
             wordSpacing: "1px",
           }}
         >
-          <h3
+          <div
             style={{
+              fontWeight: "600",
               color: "rgb(23,62,110)",
               margin: 0,
               paddingTop: 30,
@@ -106,9 +107,9 @@ function WaitingPopUp({
             }}
           >
             서비스 접속대기 중입니다.
-          </h3>
-          <div style={{ width: "96%", textAlign: "right" }}>
-            예상대기시간 : <u>{waitingTime}초</u>
+          </div>
+          <div style={{ width: "96%", textAlign: "right", fontSize: "13px", fontWeight: "600", }}>
+            예상대기시간 : <u>0{waitingTime}초</u>
           </div>
           <div
             style={{
@@ -139,7 +140,10 @@ function WaitingPopUp({
               width: "90%",
               height: "95px",
               borderRadius: "2px",
-              fontSize: "13px",
+              fontSize: "11.5px",
+              letterSpacing: "-0.2px",
+              wordSpacing: "-0.2px",
+              fontWeight: "lighter",
             }}
           >
             <div
@@ -147,8 +151,8 @@ function WaitingPopUp({
                 margin: "10px",
               }}
             >
-              고객님 앞에 <strong>{peopleInfront}</strong>명, 뒤에{" "}
-              <strong>{peopleBack}</strong>명의 대기자가 있습니다.
+              고객님 앞에 <strong>{peopleInfront}</strong> 명, 뒤에{" "}
+              <strong>{peopleBack}</strong> 명의 대기자가 있습니다.
               <br />
               현재 접속 사용자가 많아 대기 중이며, 잠시만 기다리시면
               <br />
@@ -159,9 +163,12 @@ function WaitingPopUp({
                 color: "rgb(37,80,161)",
                 margin: "5px",
                 textAlign: "center",
+                fontWeight: "600",
+                wordSpacing: "1px",
+                letterSpacing: "0.1px",
               }}
             >
-              ※재 접속하시면 대기시간이 더 길어집니다. [중지]
+              ※ 재 접속하시면 대기시간이 더 길어집니다. [중지]
             </div>
           </div>
         </div>
