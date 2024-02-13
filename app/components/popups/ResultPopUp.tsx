@@ -116,7 +116,7 @@ function ResultPopUp({
                 backgroundColor: "white",
                 color: "#a20131",
                 cursor: "pointer",
-                letterSpacing: "2",
+                letterSpacing: "1px",
                 fontWeight: "600",
               }}
             >
