@@ -779,8 +779,8 @@ export default function Home() {
                         ></TimePeriod>
                       )}
                       <button
-                          type="button"
-                          onClick={onClickToggleModal}
+                        type="button"
+                        onClick={onClickToggleModal}
                         style={{
                           width: 71,
                           height: 25,
