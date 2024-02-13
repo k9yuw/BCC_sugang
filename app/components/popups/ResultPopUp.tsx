@@ -13,8 +13,8 @@ function ResultPopUp({
   setResultType: Dispatch<SetStateAction<string>>;
 }) {
   const [] = useState(true);
-  let textValueKR = "지금은 수강신청 기간이 아닙니다.";
-  let textValueEN = "It is not the registration period";
+  let textValueKR = "신청 기간이 아닙니다!";
+  let textValueEN = "(Not Period!)";
 
   const customStyles = {
     zIndex: 2,
@@ -23,19 +23,19 @@ function ResultPopUp({
     },
     content: {
       backgroundColor: "rgb(228,228,228)",
-      width: "500px",
-      height: "230px",
+      width: "450px",
+      height: "190px",
       margin: "auto",
       borderRadius: "8px",
       borderColor: "rgba(0,0,0,0.1)",
       boxShadow: "0, 2px 4px rgba(0,0,0,0.1)",
-      padding: "8px",
+      padding: "0px",
     },
   };
   
   if (resultType === "toEarly") {
-    textValueKR = "지금은 수강신청 기간이 아닙니다.";
-    textValueEN = "It is not the registration period";
+    textValueKR = "신청 기간이 아닙니다!";
+    textValueEN = "(Not Period!)";
   }
   else if (resultType === "success") {
     textValueKR = "신청되었습니다.";
@@ -57,7 +57,7 @@ function ResultPopUp({
       >
         <div
           style={{
-            backgroundColor: "rgb(228,228,228)",
+            backgroundColor: "white",
             borderRadius: "8px",
             margin: "0",
             width: "100%",
@@ -67,24 +67,25 @@ function ResultPopUp({
             alignItems: "stretch",
           }}
         >
-          <h3 style={{ margin: "10px", textAlign: "left" }}>
-            <strong>알림</strong>
-          </h3>
+          <div style={{ fontSize: "17px", fontWeight: "600", marginLeft: "14px", marginTop: "10px", marginBottom: "8px", textAlign: "left" }}>
+            알림
+          </div>
           <hr
             style={{
-              marginTop: "10px",
-              width: "95%",
-              height: "2px",
+              width: "100%",
+              height: "1px",
               backgroundColor: "rgba(0,0,0,0.05)",
               border: "0",
             }}
           />
           <div
             style={{
-              margin: "20px 10px",
-              paddingTop: "0px",
+              margin: "5px 10px 20px 10px",
+              paddingTop: "5px",
+              paddingLeft: "3px",
               textAlign: "left",
-              fontSize: "14",
+              letterSpacing: "-2",
+              fontSize: "14px",
             }}
           >
             {textValueKR}
@@ -93,9 +94,8 @@ function ResultPopUp({
           </div>
           <hr
             style={{
-              marginTop: "10px",
-              width: "95%",
-              height: "2px",
+              width: "100%",
+              height: "1px",
               backgroundColor: "rgba(0,0,0,0.05)",
               border: "0",
             }}
@@ -103,21 +103,24 @@ function ResultPopUp({
           <div
             style={{
               margin: "auto",
+              marginTop: "7px",
             }}
           >
             <button
               onClick={() => setResultOpen(false)}
               style={{
-                width: "50px",
-                height: "30px",
+                width: "60px",
+                height: "20px",
                 border: "0",
-                fontSize: "17px",
-                backgroundColor: "rgb(228,228,228)",
+                fontSize: "15px",
+                backgroundColor: "white",
                 color: "#a20131",
                 cursor: "pointer",
+                letterSpacing: "2",
+                fontWeight: "600",
               }}
             >
-              <strong>확인</strong>
+              확인
             </button>
           </div>
         </div>

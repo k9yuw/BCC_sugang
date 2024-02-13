@@ -39,8 +39,8 @@ function WaitingPopUp({
     },
     content: {
       backgroundColor: "#EBF0EF",
-      width: "500px",
-      height: "230px",
+      width: "470px",
+      height: "220px",
       margin: "auto",
       borderRadius: "7px",
       borderColor: "rgba(0,0,0,0.1)",
@@ -97,8 +97,9 @@ function WaitingPopUp({
             wordSpacing: "1px",
           }}
         >
-          <h3
+          <div
             style={{
+              fontWeight: "600",
               color: "rgb(23,62,110)",
               margin: 0,
               paddingTop: 30,
@@ -106,9 +107,9 @@ function WaitingPopUp({
             }}
           >
             서비스 접속대기 중입니다.
-          </h3>
-          <div style={{ width: "96%", textAlign: "right" }}>
-            예상대기시간 : <u>{waitingTime}초</u>
+          </div>
+          <div style={{ width: "96%", textAlign: "right", fontSize: "13px", fontWeight: "600", }}>
+            예상대기시간 : <u>0{waitingTime}초</u>
           </div>
           <div
             style={{
@@ -139,7 +140,9 @@ function WaitingPopUp({
               width: "90%",
               height: "95px",
               borderRadius: "2px",
-              fontSize: "13px",
+              fontSize: "12px",
+              letterSpacing: "-2",
+              wordSpacing: "-2",
             }}
           >
             <div
