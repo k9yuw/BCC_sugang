@@ -1510,6 +1510,8 @@ export default function RegisterBySearch({
             </tr>
           </thead>
         </table>
+        
+        <div style = {{ marginRight: "-18px"}}>
         <div
           style={{
             maxHeight: 489,
@@ -1540,10 +1542,10 @@ export default function RegisterBySearch({
                     color: "#333",
                     backgroundColor: index % 2 == 0 ? "#fff" : "#f9f9f9",
                   }}
-                  key={prop.params}
+                  key={prop.params} 
                 >
                   <th
-                    style={{
+                    style={{ // 수강신청
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
                       borderRightColor: "#ddd",
@@ -1574,7 +1576,7 @@ export default function RegisterBySearch({
                       {pathname === "/courseRegisteration" ? "신청" : "등록"}
                     </button>
                   </th>
-                  <th
+                  <th // 학수번호
                     style={{
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
@@ -1593,7 +1595,7 @@ export default function RegisterBySearch({
                     {prop.cour_cd}
                   </th>
                   <th
-                    style={{
+                    style={{ //분반
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
                       borderRightColor: "#ddd",
@@ -1611,7 +1613,7 @@ export default function RegisterBySearch({
                     {prop.cour_cls}
                   </th>
                   <th
-                    style={{
+                    style={{ //이수구분
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
                       borderRightColor: "#ddd",
@@ -1628,7 +1630,7 @@ export default function RegisterBySearch({
                   >
                     {prop.isu_nm}
                   </th>
-                  <th
+                  <th //교과목명
                     style={{
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
@@ -1649,7 +1651,7 @@ export default function RegisterBySearch({
                     <br />
                     {prop.apply_dept}
                   </th>
-                  <th
+                  <th //담당교수
                     style={{
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
@@ -1667,7 +1669,7 @@ export default function RegisterBySearch({
                   >
                     {prop.prof_nm}
                   </th>
-                  <th
+                  <th //학점
                     style={{
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
@@ -1686,7 +1688,7 @@ export default function RegisterBySearch({
                     {prop.time}
                   </th>
                   <th
-                    style={{
+                    style={{ // 강의시간, 강의실
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
                       borderRightColor: "#ddd",
@@ -1706,7 +1708,7 @@ export default function RegisterBySearch({
                     {prop.time_room.join("\n")}
                   </th>
                   <th
-                    style={{
+                    style={{ // 상대평가
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
                       borderRightColor: "#ddd",
@@ -1732,7 +1734,7 @@ export default function RegisterBySearch({
                     ) : null}
                   </th>
                   <th
-                    style={{
+                    style={{ //인원제한
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
                       borderRightColor: "#ddd",
@@ -1758,7 +1760,7 @@ export default function RegisterBySearch({
                       />
                     ) : null}
                   </th>
-                  <th
+                  <th //교환학생
                     style={{
                       borderRightStyle: "solid",
                       borderRightWidth: 1,
@@ -1786,7 +1788,7 @@ export default function RegisterBySearch({
                     )}
                   </th>
 
-                  <th
+                  <th // 마감현황
                     style={{
                       borderBottomStyle: "solid",
                       borderBottomWidth: 1,
@@ -1808,6 +1810,7 @@ export default function RegisterBySearch({
             </thead>
           </table>
         </div>
+        </div> 
 
         {searched && searchedData?.length === 0 ? ( //검색 결과 없음
           <div
