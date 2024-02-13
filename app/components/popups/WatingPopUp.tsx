@@ -23,9 +23,9 @@ function WaitingPopUp({
   const [waitingTime, setWaitingTime] = useState(time);
   const [resultPopupOpen, setResultPopupOpen] = useState(waitingOpen);
 
-  useEffect(() => {
-    console.log("RENDERED!");
-  }, []);
+  // useEffect(() => {
+  //   console.log("RENDERED!");
+  // }, []);
 
   let progress = 0;
 

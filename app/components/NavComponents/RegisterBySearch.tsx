@@ -245,7 +245,6 @@ export default function RegisterBySearch({
         return;
       } else {
         //여기에 게임 넣으면 됨!
-        console.log("click game!");
         const result = register();
         const timePassed = Math.ceil((result * 3) / 1000);
         const time = timePassed >= 4 ? Math.ceil(4 + (result % 3)) : timePassed;
@@ -255,7 +254,6 @@ export default function RegisterBySearch({
           // console.log("waitingOpen:", waitingOpen);
         } else {
           //여기에 게임 넣으면 됨!
-          console.log("click game!");
           const result = register();
           const timePassed = Math.ceil((result * 3) / 1000);
           const time =
@@ -374,7 +372,7 @@ export default function RegisterBySearch({
       }
     } else if (courseName !== "") {
       //교과목명
-      data = all.filter((prop) => prop.cour_nm === courseName);
+      data = all.filter((prop) => prop.cour_nm.includes(courseName));
     } else {
       //이수구분
       if (selectedIdxOne === 0) {
@@ -396,21 +394,48 @@ export default function RegisterBySearch({
       }
       if (day !== "전체--") {
         //요일
-        data = data.filter((prop) => prop.time_room.includes(day));
+        data = data.filter((prop) => prop.time_room.join("").includes(day));
       }
       if (professor !== "") {
         //교수
-        data = data.filter((prop) => prop.prof_nm === professor);
+        data = data.filter((prop) => prop.prof_nm.includes(professor));
       }
       if (startTime !== "전체--") {
         //시작교시
+        const isAfterStartTime = (e: courseData, start: number) => {
+          let testArray: boolean[] = [];
+          e.time_room.forEach((e) => {
+            if (e !== "미정") {
+              const startIdx = e.indexOf("(") + 1;
+              const propStartTime = parseInt(
+                e.substring(startIdx, startIdx + 1)
+              );
+              testArray.push(start <= propStartTime);
+            }
+          });
+          return testArray.every((e) => e === true);
+        };
+        data = data.filter((prop) =>
+          isAfterStartTime(prop, parseInt(startTime))
+        );
       }
       if (endTime !== "전체--") {
         //종료교시
+        const isBeforeEndTime = (e: courseData, end: number) => {
+          let testArray: boolean[] = [];
+          e.time_room.forEach((e) => {
+            if (e !== "미정") {
+              const endIdx = e.indexOf(")") - 1;
+              const propEndTime = parseInt(e.substring(endIdx, endIdx + 1));
+              testArray.push(end >= propEndTime);
+            }
+          });
+          return testArray.every((e) => e === true);
+        };
+        data = data.filter((prop) => isBeforeEndTime(prop, parseInt(endTime)));
       }
-
-      setSearchedData(data);
     }
+    setSearchedData(data);
   };
 
   return (
