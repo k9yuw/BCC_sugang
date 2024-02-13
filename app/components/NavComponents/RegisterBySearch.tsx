@@ -1511,7 +1511,8 @@ export default function RegisterBySearch({
           </thead>
         </table>
         
-        <div style = {{ marginRight: "-18px"}}>
+        <div>
+       
         <div
           style={{
             maxHeight: 489,
@@ -1810,7 +1811,7 @@ export default function RegisterBySearch({
             </thead>
           </table>
         </div>
-        </div> 
+        </div>
 
         {searched && searchedData?.length === 0 ? ( //검색 결과 없음
           <div
