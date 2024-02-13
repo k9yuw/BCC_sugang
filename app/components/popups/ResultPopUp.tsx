@@ -51,7 +51,7 @@ function ResultPopUp({
       {/* <button onClick={()=> setResultOpen(true)}>Modal Open</button> */}
       <Modal
         isOpen={resultOpen}
-        onRequestClose={() => setResultOpen(false)}
+        // onRequestClose={() => setResultOpen(false)}
         style={customStyles}
         ariaHideApp={false}
       >
