@@ -51,22 +51,22 @@ export default function PreferredTimeTable({
         let time;
         if (day === "월") {
           for (time = startTime; time <= endTime; time++)
-            tableData[(time - 1) * 6] = text;
+            tableData[(time) * 6] = text;
         } else if (day === "화") {
           for (time = startTime; time <= endTime; time++)
-            tableData[(time - 1) * 6 + 1] = text;
+            tableData[(time) * 6 + 1] = text;
         } else if (day === "수") {
           for (time = startTime; time <= endTime; time++)
-            tableData[(time - 1) * 6 + 2] = text;
+            tableData[(time) * 6 + 2] = text;
         } else if (day === "목") {
           for (time = startTime; time <= endTime; time++)
-            tableData[(time - 1) * 6 + 3] = text;
+            tableData[(time) * 6 + 3] = text;
         } else if (day === "금") {
           for (time = startTime; time <= endTime; time++)
-            tableData[(time - 1) * 6 + 4] = text;
+            tableData[(time) * 6 + 4] = text;
         } else if (day === "토") {
           for (time = startTime; time <= endTime; time++)
-            tableData[(time - 1) * 6 + 5] = text;
+            tableData[(time) * 6 + 5] = text;
         }
       });
     });
