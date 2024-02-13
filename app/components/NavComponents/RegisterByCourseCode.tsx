@@ -214,7 +214,7 @@ export default function RegisterByCourseCode({
         openCustomPopup();
         setTextAlert("이미 신청된 과목입니다.");
       } else if (
-        registeredTimes.length + searchedTimes.length >=
+        registeredTimes.length + searchedTimes.length >
         registeredSet.size
       ) {
         //강의시간 중복 filtering
@@ -232,8 +232,7 @@ export default function RegisterByCourseCode({
         //여기에 게임 넣으면 됨!
         const result = register();
         const timePassed = Math.ceil((result * 3) / 1000);
-        const time =
-          timePassed >= 4 ? Math.ceil(4 + (result % 3)) : timePassed;
+        const time = timePassed >= 4 ? Math.ceil(4 + (result % 3)) : timePassed;
         if (result < 0) {
           setResultPopupOpen(true);
           return;
@@ -249,10 +248,7 @@ export default function RegisterByCourseCode({
                 const data = [...registeredCourses, searchedData];
                 setRegisteredCourses(data);
                 setRegisteredCredit((prep) => prep + searchedData.credit);
-                localStorage.setItem(
-                  "registeredCourses",
-                  JSON.stringify(data)
-                );
+                localStorage.setItem("registeredCourses", JSON.stringify(data));
               }, time * 1000);
             } else {
               setWaitingOpen(true);
@@ -269,10 +265,7 @@ export default function RegisterByCourseCode({
                 const data = [...registeredCourses, searchedData];
                 setRegisteredCourses(data);
                 setRegisteredCredit((prep) => prep + searchedData.credit);
-                localStorage.setItem(
-                  "registeredCourses",
-                  JSON.stringify(data)
-                );
+                localStorage.setItem("registeredCourses", JSON.stringify(data));
               }, time * 1000);
             } else {
               setWaitingOpen(true);
@@ -308,8 +301,7 @@ export default function RegisterByCourseCode({
         //학점 초과 filtering
         openCustomPopup();
         setTextAlert("신청가능한 학점을 초과했습니다");
-      }
-      else {
+      } else {
         const data = [...preferredCourses, searchedData];
         setPreferredCourses(data);
         setPreferredCredit((prep) => prep + searchedData.credit);
