@@ -779,8 +779,8 @@ export default function Home() {
                         ></TimePeriod>
                       )}
                       <button
-                          type="button"
-                          onClick={onClickToggleModal}
+                        type="button"
+                        onClick={onClickToggleModal}
                         style={{
                           width: 71,
                           height: 25,
@@ -1986,7 +1986,7 @@ export default function Home() {
                         >
                           <Image
                             src={
-                              "	https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
+                              "https://sugang.korea.ac.kr/resources/img/contents/icon-view.png"
                             }
                             alt="note"
                             width={16}
