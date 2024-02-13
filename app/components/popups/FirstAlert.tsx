@@ -13,7 +13,7 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
     content: {
       backgroundColor: "white",
       width: "500px",
-      height: "230px",
+      height: "250px",
       margin: "auto",
       borderRadius: "8px",
       borderColor: "rgba(0,0,0,0.1)",
@@ -58,7 +58,7 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
               }}
             >
               <span style={{ color: "#a20131", fontWeight: "700" }}>
-                모의 수강 신청
+                모의 수강신청
               </span>{" "}
               시스템
             </div>
@@ -75,23 +75,36 @@ const FirstAlert: React.FC<ModalProps> = ({ isOpen, closeModal }) => {
           <div
             style={{
               margin: "10px 10px",
-              paddingTop: "10px",
+              paddingTop: "5px",
+              paddingBottom: "100px",
               textAlign: "left",
               fontSize: "16px",
               fontWeight: "500",
-              height: "100px",
+              height: "120px",
               paddingLeft: "40px",
+              lineHeight: "1.5"
             }}
           >
             본 페이지는{" "}
             <span
-              style={{ color: "#a20131", fontWeight: "800", lineHeight: "2" }}
+              style={{ color: "#a20131", fontWeight: "800", 
+              // lineHeight: "2" 
+            }}
             >
               모의
             </span>{" "}
             수강신청 시스템입니다.
             <br />
-            수강 신청 결과에 대한 어떠한 책임도 지지 않습니다.
+            수강신청 결과에 대한 어떠한 책임도 지지 않습니다.
+            <br />
+            <strong>닉네임</strong>을 입력하고 <strong>로그인</strong>을 누르세요. 
+            <div
+            style = {{ fontSize: 12, paddingBottom: "20px"}}
+            >
+            <br />
+            ※ 본 사이트는 개인정보를 수집하지 않습니다. 
+            </div>
+
           </div>
           <hr
             style={{
