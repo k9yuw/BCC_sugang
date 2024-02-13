@@ -235,7 +235,6 @@ export default function RegisterByCourseCode({
         const time = timePassed >= 4 ? Math.ceil(4 + (result % 3)) : timePassed;
         if (result < 0) {
           setResultPopupOpen(true);
-          return;
         } else {
           if (registeredNum === 0) {
             // 게임 시작 후 첫 수강 신청
