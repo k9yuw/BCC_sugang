@@ -93,7 +93,7 @@ export default function Home() {
       }
     } else if (courseName !== "") {
       //교과목명
-      data = all.filter((prop) => prop.cour_nm === courseName);
+      data = all.filter((prop) => prop.cour_nm.includes(courseName));
     } else {
       //이수구분
       if (selectedIdxOne === 0) {
@@ -119,7 +119,7 @@ export default function Home() {
       }
       if (professor !== "") {
         //교수
-        data = data.filter((prop) => prop.prof_nm === professor);
+        data = data.filter((prop) => prop.prof_nm.includes(professor));
       }
       if (startTime !== "전체--") {
         //시작교시
@@ -127,14 +127,10 @@ export default function Home() {
           let testArray: boolean[] = [];
           e.time_room.forEach((e) => {
             if (e !== "미정") {
-              // const dayIdx = e.search(/[월화수목금토]/);
               const startIdx = e.indexOf("(") + 1;
-              // const endIdx = e.indexOf(")") - 1;
-              // const day = e.substring(dayIdx, dayIdx + 1);
               const propStartTime = parseInt(
                 e.substring(startIdx, startIdx + 1)
               );
-              // const endTime = parseInt(e.substring(endIdx, endIdx + 1));
               testArray.push(start <= propStartTime);
             }
           });
@@ -160,18 +156,17 @@ export default function Home() {
         };
         data = data.filter((prop) => isBeforeEndTime(prop, parseInt(endTime)));
       }
-
-      setSearchedData(data);
     }
+    setSearchedData(data);
   };
 
   return (
     <div style={{ display: "flex", fontFamily: "Segeo UI" }}>
       <CustomPopup
-          customPopupOpen={customPopupOpen}
-          closeCustomPopup={closeCustomPopup}
-          textValue={textAlert}
-        />
+        customPopupOpen={customPopupOpen}
+        closeCustomPopup={closeCustomPopup}
+        textValue={textAlert}
+      />
       <NavBar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Header />
