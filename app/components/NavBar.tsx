@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
+import CustomPopup from "./popups/CustomPopup";
 
 export default function NavBar() {
   const router = useRouter();
@@ -9,6 +10,7 @@ export default function NavBar() {
   const [navMouseEnterOne, setNavMouseEnterOne] = useState(false);
   const [navMouseEnterTwo, setNavMouseEnterTwo] = useState(false);
   const [navMouseEnterThree, setNavMouseEnterThree] = useState(false);
+  const [customPopupOpen, setCustomPopupOpen] = useState(false);
 
   const onClickRegisteration = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
@@ -21,6 +23,13 @@ export default function NavBar() {
   const onClickSearchCourses = (e: MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     router.push("/searchCourses");
+  };
+  const closeCustomPopup = () => {
+    setCustomPopupOpen(false);
+  };
+  const onClickEnglish =() =>{
+    setCustomPopupOpen(true);
+    // setLanguage("Eng");
   };
 
   return (
@@ -80,11 +89,16 @@ export default function NavBar() {
               textAlign: "center",
               cursor: language === "eng" ? "default" : "pointer",
             }}
-            onClick={() => setLanguage("eng")}
+            onClick={onClickEnglish}
           >
             ENGLISH
           </span>
         </div>
+        <CustomPopup
+          customPopupOpen={customPopupOpen}
+          closeCustomPopup={closeCustomPopup}
+          textValue={"영어버전은 지원하지 않습니다"}
+        />
         <div
           style={{
             flexGrow: 1,
