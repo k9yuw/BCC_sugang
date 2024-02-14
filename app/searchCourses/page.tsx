@@ -1622,6 +1622,8 @@ export default function Home() {
                 borderBottom: 1,
                 borderBottomStyle: "solid",
                 borderBottomColor: "#ccc",
+                overflowX: "hidden",
+                overflowY: "hidden",
               }}
             >
               <table
