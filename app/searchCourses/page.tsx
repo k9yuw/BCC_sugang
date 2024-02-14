@@ -1630,6 +1630,8 @@ export default function Home() {
                   width: "100%",
                   boxSizing: "content-box",
                   tableLayout: "fixed",
+                  overflowX: "hidden",
+                  overflowY: "hidden",
                 }}
               >
                 <thead>

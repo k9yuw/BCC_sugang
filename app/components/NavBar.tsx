@@ -97,7 +97,7 @@ export default function NavBar() {
         <CustomPopup
           customPopupOpen={customPopupOpen}
           closeCustomPopup={closeCustomPopup}
-          textValue={"영어버전은 지원하지 않습니다"}
+          textValue={"영어버전은 지원하지 않습니다."}
         />
         <div
           style={{
@@ -275,7 +275,6 @@ export default function NavBar() {
               >
                 <p
                   style={{
-                    cursor: "pointer",
                     marginTop: 0,
                     marginBottom: 0,
                     width: "fit-content",
@@ -293,7 +292,7 @@ export default function NavBar() {
                     }}
                   >
                     <span
-                      style={{ fontSize: 13, cursor: "pointer", color: "#666" }}
+                      style={{ fontSize: 13, color: "#666" }}
                     >
                       수강신청 안내
                     </span>
@@ -307,7 +306,7 @@ export default function NavBar() {
                     }}
                   >
                     <span
-                      style={{ fontSize: 13, cursor: "pointer", color: "#666" }}
+                      style={{ fontSize: 13,color: "#666" }}
                     >
                       강의실 안내
                     </span>
@@ -321,7 +320,7 @@ export default function NavBar() {
                     }}
                   >
                     <span
-                      style={{ fontSize: 13, cursor: "pointer", color: "#666" }}
+                      style={{ fontSize: 13, color: "#666" }}
                     >
                       계절수업료납부 안내
                     </span>
@@ -335,7 +334,7 @@ export default function NavBar() {
                     }}
                   >
                     <span
-                      style={{ fontSize: 13, cursor: "pointer", color: "#666" }}
+                      style={{ fontSize: 13, color: "#666" }}
                     >
                       신입생 학번 안내
                     </span>
@@ -358,7 +357,6 @@ export default function NavBar() {
                 style={{
                   fontFamily: "Malgun Gothic",
                   fontSize: 15,
-                  cursor: "pointer",
                 }}
               >
                 포털미사용자 비밀번호 변경
