@@ -1651,6 +1651,111 @@ export default function RegisterBySearch({
                       }}
                     >
                       {prop.cour_nm}
+                      {prop.mooc_yn === "Y" ? (
+                        <div
+                          style={{
+                            display: "inline-block",
+                            height: 20,
+                            width: 20,
+                            marginRight: 2,
+                            borderRadius: 2,
+                            backgroundColor: "#5270cc",
+                            fontSize: 11,
+                            fontWeight: "bold",
+                            color: "#fff",
+                            marginLeft: 5,
+                            textAlign: "center",
+                            verticalAlign: "top",
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          M
+                        </div>
+                      ) : null}
+                      {prop.flipped_class_yn === "Y" ? (
+                        <div
+                          style={{
+                            display: "inline-block",
+                            height: 20,
+                            width: 20,
+                            marginRight: 2,
+                            borderRadius: 2,
+                            backgroundColor: "#5270cc",
+                            fontSize: 11,
+                            fontWeight: "bold",
+                            color: "#fff",
+                            marginLeft: 5,
+                            textAlign: "center",
+                            verticalAlign: "top",
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          FC
+                        </div>
+                      ) : null}
+                      {prop.tutorial_yn === "Y" ? (
+                        <div
+                          style={{
+                            display: "inline-block",
+                            height: 20,
+                            width: 20,
+                            marginRight: 2,
+                            borderRadius: 2,
+                            backgroundColor: "#5270cc",
+                            fontSize: 11,
+                            fontWeight: "bold",
+                            color: "#fff",
+                            marginLeft: 5,
+                            textAlign: "center",
+                            verticalAlign: "top",
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          T
+                        </div>
+                      ) : null}
+                      {prop.nemo_yn === "Y" ? (
+                        <div
+                          style={{
+                            display: "inline-block",
+                            height: 20,
+                            width: 20,
+                            marginRight: 2,
+                            borderRadius: 2,
+                            backgroundColor: "#5270cc",
+                            fontSize: 11,
+                            fontWeight: "bold",
+                            color: "#fff",
+                            marginLeft: 5,
+                            textAlign: "center",
+                            verticalAlign: "top",
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          NM
+                        </div>
+                      ) : null}
+                      {prop.drop_lmt_yn === "Y" ? (
+                        <div
+                          style={{
+                            display: "inline-block",
+                            height: 20,
+                            width: 20,
+                            marginRight: 2,
+                            borderRadius: 2,
+                            backgroundColor: "#5270cc",
+                            fontSize: 11,
+                            fontWeight: "bold",
+                            color: "#fff",
+                            marginLeft: 5,
+                            textAlign: "center",
+                            verticalAlign: "top",
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          DL
+                        </div>
+                      ) : null}
                       <br />
                       {prop.apply_dept}
                     </th>

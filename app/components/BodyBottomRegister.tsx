@@ -464,15 +464,15 @@ export default function BodyBottomRegister({
                     >
                       <div
                         style={{
-                          width: 65,
-                          height: 25,
+                          width: 60,
+                          height: 20,
                           backgroundColor: timeTableColor[index],
                           borderRadius: 3,
                           color: "#fff",
                           marginLeft: "auto",
                           marginRight: "auto",
-                          lineHeight: 2.2,
-                          fontWeight: 800,
+                          lineHeight: 1.8,
+                          fontSize: 11.2,
                         }}
                       >
                         {prop.cour_cd}
@@ -635,7 +635,7 @@ export default function BodyBottomRegister({
                         }}
                         style={{
                           width: 40,
-                          height: 22,
+                          height: 21,
                           paddingTop: 0,
                           paddingRight: 5,
                           paddingBottom: 2,
