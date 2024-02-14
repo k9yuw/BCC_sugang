@@ -400,6 +400,8 @@ export default function RegisterByPreferredCourses({
             borderBottom: 1,
             borderBottomStyle: "solid",
             borderBottomColor: "#ccc",
+            overflowX: "hidden",
+            overflowY: "hidden",
           }}
         >
           <table
@@ -446,8 +448,8 @@ export default function RegisterByPreferredCourses({
                         onRegisterClick(e, prop);
                       }}
                       style={{
-                        height: 23,
-                        width: 45,
+                        height: 21,
+                        width: 40,
                         fontSize: 12,
                         backgroundColor: "#a20131",
                         border: 0,

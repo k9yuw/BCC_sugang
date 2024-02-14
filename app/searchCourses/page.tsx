@@ -1622,6 +1622,8 @@ export default function Home() {
                 borderBottom: 1,
                 borderBottomStyle: "solid",
                 borderBottomColor: "#ccc",
+                overflowX: "hidden",
+                overflowY: "hidden",
               }}
             >
               <table
@@ -1630,8 +1632,6 @@ export default function Home() {
                   width: "100%",
                   boxSizing: "content-box",
                   tableLayout: "fixed",
-                  overflowX: "hidden",
-                  overflowY: "hidden",
                 }}
               >
                 <thead>

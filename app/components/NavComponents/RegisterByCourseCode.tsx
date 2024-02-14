@@ -469,7 +469,7 @@ export default function RegisterByCourseCode({
               borderColor: "#ccc",
               marginTop: "14.5px",
               marginLeft: 1,
-              color: "#666",
+              color: "#333",
               cursor: "pointer",
               paddingTop: "0px",
             }}
