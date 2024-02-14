@@ -396,12 +396,10 @@ export default function RegisterByPreferredCourses({
         <div
           style={{
             maxHeight: 489,
-            overflow: "auto",
             borderBottom: 1,
             borderBottomStyle: "solid",
             borderBottomColor: "#ccc",
-            overflowX: "hidden",
-            overflowY: "hidden",
+            overflowY: "scroll",
           }}
         >
           <table

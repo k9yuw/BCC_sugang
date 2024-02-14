@@ -1515,12 +1515,10 @@ export default function RegisterBySearch({
           <div
             style={{
               maxHeight: 489,
-              overflow: "auto",
+              overflowY: "scroll",
               borderBottom: 1,
               borderBottomStyle: "solid",
               borderBottomColor: "#ccc",
-              overflowX: "hidden",
-              overflowY: "hidden",
             }}
           >
             <table

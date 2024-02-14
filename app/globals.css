@@ -51,15 +51,11 @@ input:focus {
   box-shadow: 3px 3px red, -1em 0 0.4em olive;
 }
 
-/* 
-.header {
-  width: 100%;
-  height: 94px;
-  background-color: #760023;
-} */
+.scroll::-webkit-scrollbar {
+  display: none;
+}
 
-/* .wrap-contents {
-  width: 100%;
-  padding: 65px 0 80px;
-  box-sizing: border-box;
-} */
+.scroll {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
