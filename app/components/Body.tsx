@@ -21,9 +21,9 @@ export default function Body({
   setRegisteredCourses: Dispatch<SetStateAction<courseData[]>>;
   preferredCourses: courseData[];
   setPreferredCourses: Dispatch<SetStateAction<courseData[]>>;
-  resultType: string; 
+  resultType: string;
   setResultType: Dispatch<SetStateAction<string>>;
-  registeredNum : number;
+  registeredNum: number;
   plusRegistered: () => void;
 }) {
   const pathname = usePathname();
@@ -137,26 +137,56 @@ export default function Body({
             </div>
           ) : null}
         </div>
-        {navBar[0] ? <Notices registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses} preferredCourses={preferredCourses}
-              setPreferredCourses={setPreferredCourses}/> : null}
-        {navBar[1] ? <RegisterByCourseCode registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses} preferredCourses={preferredCourses}
-              setPreferredCourses={setPreferredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
-              resultType={resultType} setResultType={setResultType}
-              /> : null}
-        {navBar[2] ? <RegisterByPreferredCourses registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses} preferredCourses={preferredCourses}
-              setPreferredCourses={setPreferredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
-              resultType={resultType} setResultType={setResultType}
-              /> : null}
-        {navBar[3] ? <RegisterBySearch registeredCourses={registeredCourses}
-              setRegisteredCourses={setRegisteredCourses} preferredCourses={preferredCourses}
-              setPreferredCourses={setPreferredCourses} registeredNum = {registeredNum} plusRegistered = {plusRegistered}
-              resultType={resultType} setResultType={setResultType}
-              /> : null}
-        {navBar[4] ? <PreferredTimeTable preferredCourses={preferredCourses}
-            setPreferredCourses={setPreferredCourses}/> : null}
+        {navBar[0] ? (
+          <Notices
+            registeredCourses={registeredCourses}
+            setRegisteredCourses={setRegisteredCourses}
+            preferredCourses={preferredCourses}
+            setPreferredCourses={setPreferredCourses}
+          />
+        ) : null}
+        {navBar[1] ? (
+          <RegisterByCourseCode
+            registeredCourses={registeredCourses}
+            setRegisteredCourses={setRegisteredCourses}
+            preferredCourses={preferredCourses}
+            setPreferredCourses={setPreferredCourses}
+            registeredNum={registeredNum}
+            plusRegistered={plusRegistered}
+            resultType={resultType}
+            setResultType={setResultType}
+          />
+        ) : null}
+        {navBar[2] ? (
+          <RegisterByPreferredCourses
+            registeredCourses={registeredCourses}
+            setRegisteredCourses={setRegisteredCourses}
+            preferredCourses={preferredCourses}
+            setPreferredCourses={setPreferredCourses}
+            registeredNum={registeredNum}
+            plusRegistered={plusRegistered}
+            resultType={resultType}
+            setResultType={setResultType}
+          />
+        ) : null}
+        {navBar[3] ? (
+          <RegisterBySearch
+            registeredCourses={registeredCourses}
+            setRegisteredCourses={setRegisteredCourses}
+            preferredCourses={preferredCourses}
+            setPreferredCourses={setPreferredCourses}
+            registeredNum={registeredNum}
+            plusRegistered={plusRegistered}
+            resultType={resultType}
+            setResultType={setResultType}
+          />
+        ) : null}
+        {navBar[4] ? (
+          <PreferredTimeTable
+            preferredCourses={preferredCourses}
+            setPreferredCourses={setPreferredCourses}
+          />
+        ) : null}
       </div>
     </div>
   );

@@ -464,7 +464,7 @@ export default function BodyBottomPreferred({
                         }}
                         style={{
                           width: 40,
-                          height: 22,
+                          height: 21,
                           paddingTop: 0,
                           paddingRight: 5,
                           paddingBottom: 2,
